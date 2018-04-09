@@ -58,7 +58,6 @@
        
         /admin/user/toLogin = anon
         /admin/user/login = anon
-        /admin/user/main = anon
         /front/** = anon
         /logout = logout
         /**=authc
