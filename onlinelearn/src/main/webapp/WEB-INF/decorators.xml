@@ -18,12 +18,13 @@
 		<pattern>/base1.jsp</pattern>
 		<pattern>/admin/main/header</pattern>
 		<pattern>/admin/main/left*</pattern>
+		<pattern>/admin/**</pattern>
 	</excludes>
 	<!-- 后台管理布局 -->
-	<decorator name="admindefault" page="admin/default.jsp">
-		<pattern>/admin/*</pattern>
-		<pattern>/admin/**/*</pattern>
-	</decorator>
+<!-- 	<decorator name="admindefault" page="admin/default.jsp"> -->
+<!-- 		<pattern>/admin/*</pattern> -->
+<!-- 		<pattern>/admin/**/*</pattern> -->
+<!-- 	</decorator> -->
 	<!-- edu前端布局 -->
 	<decorator name="edudefault" page="web/default.jsp">
 		<pattern>/front/*/*</pattern>

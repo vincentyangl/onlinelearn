@@ -8,6 +8,65 @@
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
+	</bean>
+	<bean id="jdbcRealm" class="com.realm.MyRealm">
+		<property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<!-- 指定采用什么方式进行加密 -->
+				<property name="hashAlgorithmName" value="MD5"></property>
+				<!-- 指定加密的次数 -->
+				<property name="hashIterations" value="1024"></property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="cacheManager" ref="cacheManager"></property>
+		<property name="realm" ref="jdbcRealm"></property>
+	</bean>
+	<!-- 可以自动调用配置在spring ioc容器中的shiro bean的生命周期方法    shiro生命周期处理器-->
+   <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+   <!-- 启用ioc容器中shiro的注解 但必须配置了lifecycleBeanPostProcessor后才能使用 -->
+   <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>
+   <!-- id必须和web.xml文件中配置的filter标签中的name一致 -->
+   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <!-- 配置安全管理器 -->
+    <property name="securityManager" ref="securityManager"></property>
+    <property name="loginUrl" value="/admin/user/toLogin"></property>
+    <property name="successUrl" value="/admin/user/main"></property>
+    <!-- 配置那些页面需要受保护，以及访问这些页面需要的权限 -->
+    <!-- 
+    1.anon 可以被匿名访问
+    2.authc必须认证之后才可以被访问，即登陆
+     -->
+    <property name="filterChainDefinitions">
+      <value>
+       /js/** = anon
+       /css/** = anon
+       /images/** = anon
+       /common/** = anon
+       /json/** = anon
+       /jsplug/** = anon
+       /ztree/** = anon
+       /inc/** = anon
+       /kindeditor/** = anon
+       /skins/** = anon
+       /static/** = anon
+       
+        /admin/user/toLogin = anon
+        /admin/user/login = anon
+        /admin/user/main = anon
+        /front/** = anon
+        /logout = logout
+        /**=authc
+      </value>
+    </property>
+   </bean>
+   <bean id="shiroService" class="com.service.ShiroService"></bean>
+		
 	<context:annotation-config />
 	<context:component-scan base-package="com" />
 	<context:property-placeholder location="classpath:conf.properties"/>
