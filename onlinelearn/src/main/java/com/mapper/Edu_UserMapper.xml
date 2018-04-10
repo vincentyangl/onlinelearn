@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.Edu_UserDao">
+  <select id="listAll" resultType="Edu_User">
+  select * from edu_user
+  </select>
+  
+  <delete id="delete" parameterType="int">
+  delete from edu_user where USER_ID=#{userId}
+  </delete>
+  
+  <insert id="save" parameterType="Edu_User">
+  insert into edu_user (MOBILE,EMAIL,CLASS_ID,PASSWORD,USER_NAME,SHOW_NAME,SEX,AGE,CREATE_TIME,IS_AVALIBLE,PIC_IMG,BANNER_URL,MSG_NUM,SYS_MSG_NUM,LAST_SYSTEM_TIME)
+   values (#{mobile},#{email},#{classId},#{password},#{userName},#{showName},#{sex},#{age},#{createTime},#{isAvalible},#{picImg},#{bannerUrl},#{msgNum},#{sysMsgNum},#{lastSystemTime})
+  </insert>
+  
+  <update id="update" parameterType="Edu_User">
+  update edu_user set MOBILE=#{mobile},EMAIL=#{email},CLASS_ID=#{classId},PASSWORD=#{password},USER_NAME=#{userName},SHOW_NAME=#{showName},SEX=#{sex},AGE=#{age},
+  CREATE_TIME=#{createTime},IS_AVALIBLE=#{isAvalible},PIC_IMG=#{picImg},BANNER_URL=#{bannerUrl},MSG_NUM=#{msgNum},SYS_MSG_NUM=#{sysMsgNum},LAST_SYSTEM_TIME=#{lastSystemTime} where USER_ID=#{userId}
+  </update>
+  
+  <select id="getById" parameterType="int" resultType="Edu_User">
+  select * from edu_user where USER_ID=#{value}
+  </select>
+  </mapper>
