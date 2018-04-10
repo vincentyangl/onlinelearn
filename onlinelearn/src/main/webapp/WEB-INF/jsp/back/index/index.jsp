@@ -124,14 +124,14 @@
 			<li class="layui-nav-item">
 					<a href="javascript:;">
 					   <i class="iconfont icon-jiaoseguanli2" ></i>
-					   <span>表格表单</span>
+					   <span>教师管理</span>
 					   <em class="layui-nav-more"></em>
 					</a>
 					    <dl class="layui-nav-child">
 					    	<dd>
-					    		<a href="javascript:;" data-url="/table.jsp">
+					    		<a href="javascript:;" data-url="/admin/teacher/teacherList">
 					    		   <i class="iconfont icon-yonghu1" data-icon='icon-yonghu1'></i>
-					    		   <span>有线条表格</span>
+					    		   <span>教师列表</span>
 					    		</a>
 					    	</dd>
 					    	<dd>
