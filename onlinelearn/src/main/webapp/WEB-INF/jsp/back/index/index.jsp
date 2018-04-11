@@ -98,20 +98,20 @@
 				</a>
 			</li>
 			
-			<c:forEach items="${permissions }" var="per">
+			<c:forEach items="${sysFunctions }" var="sfs">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
 					<i class="iconfont icon-jiaoseguanli" ></i>
-					<span>${per.name }</span>
+					<span>${sfs.name }</span>
 					<em class="layui-nav-more"></em>
 				</a>
 				<dl class="layui-nav-child">
-                   <c:forEach items="${per.pers }" var="p">
-                    <c:if test="${p.per_menu ==1 }">
+                   <c:forEach items="${sfs.sysFunctions }" var="s">
+                    <c:if test="${s.functionType ==1 }">
                     <dd>
-                        <a href="javascript:;" data-url="${p.per_url }">
+                        <a href="javascript:;" data-url="${s.functionUrl }">
                             <i class="iconfont icon-geren1" data-icon='icon-geren1'></i>
-                            <span>${p.name }</span>
+                            <span>${s.name }</span>
                         </a>
                     </dd>
                     </c:if>
