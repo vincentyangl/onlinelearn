@@ -206,20 +206,26 @@
 				<li class="layui-nav-item">
 					<a href="javascript:;">
 					   <i class="iconfont icon-m-members" ></i>
-					   <span>单页面</span>
+					   <span>问答</span>
 					   <em class="layui-nav-more"></em>
 					</a>
 					<dl class="layui-nav-child">
                            <dd>
-                           	   <a href="javascript:;" data-url="404.jsp">
+                           	   <a href="javascript:;" data-url="/admin/equestions/edlist">
 					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>404提示页面</span>
+					              <span>问答标签</span>
 					           </a>
                            </dd>
                            <dd>
                            	   <a href="javascript:;" data-url="tab.jsp">
 					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>选项卡页面</span>
+					              <span>问答列表</span>
+					           </a>
+                           </dd>
+                           <dd>
+                           	   <a href="javascript:;" data-url="tab.jsp">
+					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
+					              <span>问答回复列表</span>
 					           </a>
                            </dd>
                     </dl>

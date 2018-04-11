@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.Edu_QuestionsDao">
+  <resultMap type="Edu_Questions" id="Edu_QuestionsMap">
+  <result column="TITLE" property="titie"/>
+  <result column="CONTENT" property="content"/>
+  <result column="TYPE" property="type"/>
+  <result column="STATUS" property="status"/>
+  <result column="REPLY_COUNT" property="replyCount"/>
+  <result column="BROWSE_COUNT" property="browseCount"/>
+  <result column="PRAISE_COUNT" property="praiseCount"/>
+  <result column="ADD_TIME" property="addTime"/>
+  <association property="edu_User" column="CUS_ID" select="com.mapper.Edu_UserDao.getById"></association>
+  </resultMap>
+  <select id="listAll" resultMap="Edu_QuestionsMap">
+  select * from edu_questions
+  </select>
+  
+  <delete id="delete" parameterType="int">
+  delete from edu_questions where ID=#{id}
+  </delete>
+  </mapper>
