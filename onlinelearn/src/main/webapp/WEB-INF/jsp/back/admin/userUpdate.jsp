@@ -16,6 +16,9 @@
 	<link rel="stylesheet" type="text/css" href="/common/global.css" media="all">
 	<link rel="stylesheet" type="text/css" href="/css/personal.css" media="all">
 	<script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+	   
+	</style>
 	<script type="text/javascript">
 	function renderForm(){
 		 layui.use('form', function(){
@@ -24,11 +27,11 @@
 		 });
 		 }
 	   $(document).ready(function(){
-		   $.post("/role/list",function(msg){
+		   $.post("/admin/role/roleList",function(msg){
 			   for(i=0;i<msg.length;i++){
-				 $("#role_id").append("<option value='"+msg[i].role_id+"'>"+msg[i].role_name+"</option>");
+				 $("#roleId").append("<option value='"+msg[i].roleId+"'>"+msg[i].roleName+"</option>");
 			   }
-			   $("#role_id").val("${user.role.role_id}");
+			   $("#roleId").val("${sysUser.sysRole.roleId}");
 			   renderForm();
 		   });
 	   });
@@ -41,30 +44,36 @@
 			<span id="sp1">修改用户</span>
 		</header><!-- /header -->
 		<div class="larry-personal-body clearfix">
-			<form class="layui-form col-lg-6" action="/user/update" method="post">
+			<form class="layui-form col-lg-6" action="/admin/user/userUpdate" method="post">
 				<div class="layui-form-item">
-					<label class="layui-form-label ">用户名:</label>
+					<label class="layui-form-label ">登录名:</label>
 					<div class="layui-input-block">  
-					    <input type="hidden" name="user_id"  value="${user.user_id }" >
-						<input type="text" id="user_name" name="user_name"  value="${user.user_name }" autocomplete="off"  class="layui-input "  readonly="readonly">
+						<input type="text" id="loginName" name="loginName"  value="${sysUser.loginName }" autocomplete="off"  class="layui-input "  readonly="readonly">
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">密码:</label>
+					<label class="layui-form-label ">姓名:</label>
 					<div class="layui-input-block">  
-						<input type="password" name="user_password"  autocomplete="off"  class="layui-input "  >
+					    <input type="hidden" name="userId"  value="${sysUser.userId }" >
+						<input type="text" id="userName" name="userName"  value="${sysUser.userName }" autocomplete="off"  class="layui-input " >
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">确认密码:</label>
+					<label class="layui-form-label">邮箱:</label>
 					<div class="layui-input-block">  
-						<input type="password"   autocomplete="off"  class="layui-input "  >
+						<input type="email" name="email" value="${sysUser.email }"  autocomplete="off"  class="layui-input "  >
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">电话:</label>
+					<div class="layui-input-block">  
+						<input type="text" name="tel" value="${sysUser.tel }"   autocomplete="off"  class="layui-input "  >
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">角色:</label>
 					<div class="layui-input-block">  
-						<select class="layui-input"  width="150" name="role_id"  id="role_id">
+						<select class="layui-input"  width="150" name="roleId"  id="roleId">
 		    	   <option value="-1" selected="selected">请选择</option>
 		    	</select>
 					</div>

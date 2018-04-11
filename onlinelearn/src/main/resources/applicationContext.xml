@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-	
+
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<property name="cacheManagerConfigFile" value="classpath:ehcache.xml"></property>
 	</bean>
@@ -27,48 +27,47 @@
 		<property name="cacheManager" ref="cacheManager"></property>
 		<property name="realm" ref="jdbcRealm"></property>
 	</bean>
-	<!-- 可以自动调用配置在spring ioc容器中的shiro bean的生命周期方法    shiro生命周期处理器-->
-   <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
-   <!-- 启用ioc容器中shiro的注解 但必须配置了lifecycleBeanPostProcessor后才能使用 -->
-   <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"></bean>
-   <!-- id必须和web.xml文件中配置的filter标签中的name一致 -->
-   <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-    <!-- 配置安全管理器 -->
-    <property name="securityManager" ref="securityManager"></property>
-    <property name="loginUrl" value="/admin/user/toLogin"></property>
-    <property name="successUrl" value="/admin/user/main"></property>
-    <!-- 配置那些页面需要受保护，以及访问这些页面需要的权限 -->
-    <!-- 
-    1.anon 可以被匿名访问
-    2.authc必须认证之后才可以被访问，即登陆
-     -->
-    <property name="filterChainDefinitions">
-      <value>
-       /js/** = anon
-       /css/** = anon
-       /images/** = anon
-       /common/** = anon
-       /json/** = anon
-       /jsplug/** = anon
-       /ztree/** = anon
-       /inc/** = anon
-       /kindeditor/** = anon
-       /skins/** = anon
-       /static/** = anon
-       
-        /admin/user/toLogin = anon
-        /admin/user/login = anon
-        /front/** = anon
-        /logout = logout
-        /**=authc
-      </value>
-    </property>
-   </bean>
-   <bean id="shiroService" class="com.service.ShiroService"></bean>
-		
+	<!-- 可以自动调用配置在spring ioc容器中的shiro bean的生命周期方法 shiro生命周期处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+	<!-- 启用ioc容器中shiro的注解 但必须配置了lifecycleBeanPostProcessor后才能使用 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor"></bean>
+	<!-- id必须和web.xml文件中配置的filter标签中的name一致 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 配置安全管理器 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<property name="loginUrl" value="/admin/user/toLogin"></property>
+		<property name="successUrl" value="/admin/user/main"></property>
+		<!-- 配置那些页面需要受保护，以及访问这些页面需要的权限 -->
+		<!-- 1.anon 可以被匿名访问 2.authc必须认证之后才可以被访问，即登陆 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/js/** = anon
+				/css/** = anon
+				/images/** = anon
+				/common/** = anon
+				/json/** = anon
+				/jsplug/** = anon
+				/ztree/** = anon
+				/inc/** = anon
+				/kindeditor/** = anon
+				/skins/** = anon
+				/static/** = anon
+
+				/admin/user/toLogin = anon
+				/admin/user/login = anon
+				/front/** = anon
+				/logout = logout
+				/**=authc
+			</value>
+		</property>
+	</bean>
+	<bean id="shiroService" class="com.service.ShiroService"></bean>
+
 	<context:annotation-config />
 	<context:component-scan base-package="com" />
-	<context:property-placeholder location="classpath:conf.properties"/>
+	<context:property-placeholder location="classpath:conf.properties" />
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
@@ -80,27 +79,21 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="typeAliasesPackage" value="com.bean"></property>
 		<property name="mapperLocations" value="classpath:com/mapper/*.xml"></property>
-		<property name="plugins">  
-        <array>  
-            <bean class="com.github.pagehelper.PageHelper">  
-                <property name="properties">  
-                    <!--使用下面的方式配置参数，一行配置一个 -->  
-                    <value>  
-                       dialect=mysql
-                       reasonable=true
-                    </value>  
-                </property>  
-            </bean>  
-        </array>  
-    </property>  
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<!--使用下面的方式配置参数，一行配置一个 -->
+						<value>
+							dialect=mysql
+							reasonable=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.mapper"></property>
 	</bean>
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">    
-    <!-- 设置默认编码 -->  
-    <property name="defaultEncoding" value="utf-8"></property>  
-    <!-- 上传图片最大大小5M-->   
-    <property name="maxUploadSize" value="5242440"></property>    
-</bean>
 </beans>

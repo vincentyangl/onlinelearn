@@ -19,29 +19,29 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bean.Permissions;
-import com.bean.User;
-import com.service.PermissionsService;
-import com.service.UserService;
+import com.bean.SysFunction;
+import com.bean.SysUser;
+import com.service.SysFunctionService;
+import com.service.SysUserService;
 
 public class MyRealm extends AuthorizingRealm{
 
 	@Autowired
-	private UserService userService;
+	private SysUserService sysUserService;
 	@Autowired
-	private PermissionsService permissionsService;
+	private SysFunctionService sysFunctionService;
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		//获取的登录后的用户名
-		String user_name = (String) principals.getPrimaryPrincipal();
-		User user = getUserByName(user_name).get(0);
+		String loginName = (String) principals.getPrimaryPrincipal();
+		SysUser sysUser = getUserByName(loginName).get(0);
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		Set<String> set = new HashSet<>();
-		set.add(user.getRole().getRole_name());
+		set.add(sysUser.getSysRole().getRoleName());
 		//封装角色集合
 		authorizationInfo.setRoles(set);
 		//封装角色对应的权限集合
-		authorizationInfo.setStringPermissions(getPermissionsName(user.getRole().getRole_id()));
+		authorizationInfo.setStringPermissions(getFunctionName(sysUser.getSysRole().getRoleId()));
 		return authorizationInfo;
 	}
 
@@ -50,12 +50,12 @@ public class MyRealm extends AuthorizingRealm{
 		//  AuthenticationToken 是从handler中传过来的 UsernamePasswordToken 他们的哈希码一致
 		// 1.把 AuthenticationToken 转换为 UsernamePasswordToken
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
-		// 2. 从UsernamePasswordToken中获取 username
-		String username = upToken.getUsername();
+		// 2. 从UsernamePasswordToken中获取 loginName
+		String loginName = upToken.getUsername();
 		// 3.调用数据库的方法，从数据库中查询username对应的用户记录
-		List<User> users = getUserByName(username);
+		List<SysUser> sysUsers = getUserByName(loginName);
 		//4.若用户不存在，则可以抛出 UnknownAccountException 异常
-		if (users.size()==0) {
+		if (sysUsers.size()==0) {
 			return null;
 		}
 		/*//5.根据用户情况，决定是否需要抛出其他 AuthenticationException 异常
@@ -66,32 +66,32 @@ public class MyRealm extends AuthorizingRealm{
 		//以下信息是从数据库中获取的
 
 		//1）principal认证的实体信息，可以使username,也可以是数据表对应的用户的实体对象
-		Object principal = username;
+		Object principal = loginName;
 		//2)从数据库中获取的密码
-		Object credentials = users.get(0).getUser_password();
+		Object credentials = sysUsers.get(0).getLoginPwd();
 		
 		//3)realmName：当前realm对象的name,调用父类的getName() 方法即可
 		String realmName = getName();
 		//盐值
-		ByteSource salt = ByteSource.Util.bytes(username);
+		ByteSource salt = ByteSource.Util.bytes(loginName);
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials,salt, realmName);
 		return info;
 	}
 	
-	public Set<String> getPermissionsName(int role_id) {
+	public Set<String> getFunctionName(int roleId) {
 		Set<String> set = new HashSet<>();
-		List<Permissions> permissions = permissionsService.getPermissionsByRoleId(role_id);
-		for (Permissions permissions2 : permissions) {
+		List<SysFunction> sysFunctions = sysFunctionService.getSysFunctionByRoleId(roleId);
+		for (SysFunction permissions2 : sysFunctions) {
 			set.add(permissions2.getName());
 		}
 		return set;
 	}
 
-	public List<User> getUserByName(String user_name) {
+	public List<SysUser> getUserByName(String loginName) {
 		Map map = new HashMap<>();
-		map.put("user_name", user_name);
-		List<User> users = userService.listAll(map);
-		return users;
+		map.put("loginName", loginName);
+		List<SysUser> sysUsers = sysUserService.listAll(map);
+		return sysUsers;
 	}
 	
 

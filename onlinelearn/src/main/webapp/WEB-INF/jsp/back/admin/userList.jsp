@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>      
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <%-- <%     String path=request.getContextPath();  
 String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.getServerPort()+path+"/"; %>
 <base href="<%=basePath%>"> --%>
@@ -22,9 +23,9 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 	   $(document).ready(function(){
-		   $.post("/roleList",function(msg){
+		   $.post("/admin/role/roleList",function(msg){
 			   for(i=0;i<msg.length;i++){
-				   $("#role_id").append("<option value='"+msg[i].role_id+"'>"+msg[i].role_name+"</option>");
+				   $("#roleId").append("<option value='"+msg[i].roleId+"'>"+msg[i].roleName+"</option>");
 			   }
 		   });
 	   });
@@ -41,14 +42,14 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 		    	<input value="" placeholder="请输入关键字" class="layui-input search_input" type="text">
 		    </div>
 		    <div class="layui-input-inline">
-		    	<select class="layui-input"  width="150" name="role_id"  id="role_id">
+		    	<select class="layui-input"  width="150" name="roleId"  id="roleId">
 		    	   <option value="-1" selected="selected">请选择</option>
 		    	</select>
 		    </div>
 		    <a class="layui-btn search_btn">查询</a>
 		    
 		</div><div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn"  href="/admin/toUserAdd">添加用户</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn"  href="/admin/user/toUserAdd">添加用户</a>
 		</div>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -66,8 +67,15 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                               <tr>
                                   <th><input type="checkbox" id="selected-all"></th>
                                   <th>ID</th>
-                                  <th>用户名称</th>
+                                  <th>登陆名</th>
                                   <th>角色</th>
+                                  <th>姓名</th>
+                                  <th>EMAIL</th>
+                                  <th>电话号</th>
+                                  <th>创建时间</th>
+                                  <th>最后登录时间</th>
+                                  <th>最后登录IP</th>
+                                  <th>状态</th>
                                   <th>操作</th>
                               </tr>
                           </thead>
@@ -75,12 +83,19 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                           <c:forEach items="${users }" var="u" varStatus="statu">
                               <tr>
                                 <td>
-                                   <input type="checkbox"  value="${u.user_id }">
+                                   <input type="checkbox"  value="${u.userId }">
                                 </td>
                                 <td>${statu.index+1 }</td>
-                                <td>${u.user_name }</td>
-                                <td>${u.role.role_name }</td>
-                                <td><a href="/admin/userDelete/${u.user_id }" class="btn btn-default ">删除</a><a href="/admin/toUserUpdate/${u.user_id }" class="btn btn-default">修改</a></td>
+                                <td>${u.loginName }</td>
+                                <td>${u.sysRole.roleName }</td>
+                                <td>${u.userName }</td>
+                                <td>${u.email }</td>
+                                <td>${u.tel }</td>
+                                <td><fmt:formatDate value="${u.createTime }" pattern="yyyy-MM-dd"/></td>
+                                <td><fmt:formatDate value="${u.lastLoginTime }" pattern="yyyy-MM-dd"/></td>
+                                <td>${u.lastLoginIp }</td>
+                                <td>${u.status }</td>
+                                <td><a href="/admin/user/userDelete/${u.userId }" class="btn btn-default ">删除</a><a href="/admin/user/toUserUpdate/${u.userId }" class="btn btn-default">修改</a></td>
                               </tr>
                               </c:forEach>
                           </tbody>
