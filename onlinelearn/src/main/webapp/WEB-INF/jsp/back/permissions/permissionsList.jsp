@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" type="text/css" href="/ztree/css/demo.css" />
+<!-- <link rel="stylesheet" type="text/css" href="/ztree/css/demo.css" /> -->
 <link rel="stylesheet" type="text/css"
 	href="/ztree/css/zTreeStyle/zTreeStyle.css" />
 <link rel="stylesheet" type="text/css"
@@ -39,7 +39,7 @@
 }
 </style>
 <script type="text/javascript">
-	var id = 0;
+	var id = -1;
 	var name;
 	var setting = {
 		check : {
@@ -55,7 +55,7 @@
 		}
 	};
 
-	var zNodes = ${permissions};
+	var zNodes = ${sysFunctions};
 
 	var code;
 
@@ -79,7 +79,7 @@
 	}
 
 	$(document).ready(function() {
-		var rootNode = {id:-1,name:"系统管理",pId:null,open:true};
+		var rootNode = {id:0,name:"所有管理",pId:null,open:true};
 		zNodes.push(rootNode);
 		$.fn.zTree.init($("#myTree"), setting, zNodes);
 		setCheck();
@@ -95,10 +95,10 @@
 	};
 
 	function toAdd() {
-		if (id == 0) {
+		if (id == -1) {
 			alert("请选择添加板块");
 		}
-		if (id != 0) {
+		if (id != -1) {
 			 $("#myModal").modal("show");
 		}
 	}
@@ -109,16 +109,16 @@
 			alert("不能为空!");
 		}else{
 			$("#pId").val(id);
-			document.forms[0].action="/addPermissions";
+			document.forms[0].action="/admin/permissions/addPermissions";
 			document.forms[0].submit();
 		}
 	}
 	
 	function toUpdate(){
-		if (id == 0) {
+		if (id == -1) {
 			alert("请选择修改板块");
 		}
-		if (id != 0) {
+		if (id != -1) {
 			 $("#updateModal").modal("show");
 			 $("#uname").val(name);
 		}
@@ -130,19 +130,19 @@
 			alert("不能为空!");
 		}else{
 			$("#uid").val(id);
-			document.forms[1].action="/updatePermissions";
+			document.forms[1].action="/admin/permissions/updatePermissions";
 			document.forms[1].submit();
 		}
 	}
 	
 	function del(){
-		if (id == 0) {
+		if (id == -1) {
 			alert("请选择删除板块");
 		}
-		if (id != 0) {
-			 $.post("/isDelete",{id:id},function(msg){
+		if (id != -1) {
+			 $.post("/admin/permissions/isDelete",{id:id},function(msg){
 				 if(msg.length==0){
-					 window.location.href="/deletePermissions/"+id;
+					 window.location.href="/admin/permissions/deletePermissions/"+id;
 				 }
 				 if(msg.length>0){
 					 alert("有子元素，不能删除");
@@ -186,19 +186,19 @@
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-3 control-label">权限别名:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="per_newName"  name="per_newName">
+								<input type="text" class="form-control" id="alias"  name="alias">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-3 control-label">权限路径:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="per_url"  name="per_url">
+								<input type="text" class="form-control" id="functionUrl"  name="functionUrl">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-3 control-label">是否菜单:</label>
 							<div class="col-sm-9">
-								<select class="form-control"  name="per_menu">
+								<select class="form-control"  name="functionType">
 									<option value="1">是</option>
 									<option value="2">否</option>
 								</select>

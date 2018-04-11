@@ -98,20 +98,20 @@
 				</a>
 			</li>
 			
-			<c:forEach items="${permissions }" var="per">
+			<c:forEach items="${sysFunctions }" var="sfs">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
 					<i class="iconfont icon-jiaoseguanli" ></i>
-					<span>${per.name }</span>
+					<span>${sfs.name }</span>
 					<em class="layui-nav-more"></em>
 				</a>
 				<dl class="layui-nav-child">
-                   <c:forEach items="${per.pers }" var="p">
-                    <c:if test="${p.per_menu ==1 }">
+                   <c:forEach items="${sfs.sysFunctions }" var="s">
+                    <c:if test="${s.functionType ==1 }">
                     <dd>
-                        <a href="javascript:;" data-url="${p.per_url }">
+                        <a href="javascript:;" data-url="${s.functionUrl }">
                             <i class="iconfont icon-geren1" data-icon='icon-geren1'></i>
-                            <span>${p.name }</span>
+                            <span>${s.name }</span>
                         </a>
                     </dd>
                     </c:if>
@@ -124,14 +124,14 @@
 			<li class="layui-nav-item">
 					<a href="javascript:;">
 					   <i class="iconfont icon-jiaoseguanli2" ></i>
-					   <span>表格表单</span>
+					   <span>教师管理</span>
 					   <em class="layui-nav-more"></em>
 					</a>
 					    <dl class="layui-nav-child">
 					    	<dd>
-					    		<a href="javascript:;" data-url="/table.jsp">
+					    		<a href="javascript:;" data-url="/admin/teacher/teacherList">
 					    		   <i class="iconfont icon-yonghu1" data-icon='icon-yonghu1'></i>
-					    		   <span>有线条表格</span>
+					    		   <span>教师列表</span>
 					    		</a>
 					    	</dd>
 					    	<dd>
@@ -206,20 +206,26 @@
 				<li class="layui-nav-item">
 					<a href="javascript:;">
 					   <i class="iconfont icon-m-members" ></i>
-					   <span>单页面</span>
+					   <span>问答</span>
 					   <em class="layui-nav-more"></em>
 					</a>
 					<dl class="layui-nav-child">
                            <dd>
-                           	   <a href="javascript:;" data-url="404.jsp">
+                           	   <a href="javascript:;" data-url="/admin/equestions/edlist">
 					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>404提示页面</span>
+					              <span>问答标签</span>
 					           </a>
                            </dd>
                            <dd>
                            	   <a href="javascript:;" data-url="tab.jsp">
 					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>选项卡页面</span>
+					              <span>问答列表</span>
+					           </a>
+                           </dd>
+                           <dd>
+                           	   <a href="javascript:;" data-url="tab.jsp">
+					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
+					              <span>问答回复列表</span>
 					           </a>
                            </dd>
                     </dl>

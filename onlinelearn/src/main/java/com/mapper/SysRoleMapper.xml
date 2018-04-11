@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.SysRoleDao">
+    <insert id="save" parameterType="SysRole">
+       insert into sys_role (roleName,createTime) values (#{roleName},CURDATE())
+    </insert>
+    <delete id="delete" parameterType="int">
+       delete from sys_role where roleId=#{value}
+    </delete>
+    <update id="update" parameterType="SysRole">
+       update sys_role set roleName=#{roleName} where roleId=#{roleId}
+    </update>
+    <select id="listAll" resultType="SysRole" >
+       select * from sys_role
+    </select>
+    <select id="getById" parameterType="int" resultType="SysRole">
+       select * from sys_role where roleId=#{value}
+    </select>
+  </mapper>

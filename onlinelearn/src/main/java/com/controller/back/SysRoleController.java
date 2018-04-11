@@ -10,37 +10,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bean.Permissions;
-import com.bean.Role;
-import com.bean.User;
-import com.service.PermissionsService;
-import com.service.RoleService;
-import com.service.UserService;
+import com.bean.SysFunction;
+import com.bean.SysRole;
+import com.bean.SysUser;
+import com.service.SysFunctionService;
+import com.service.SysRoleService;
+import com.service.SysUserService;
 
 @Controller
 @RequestMapping("/admin/role")
-public class RoleController {
+public class SysRoleController {
 
 	@Autowired
-	private RoleService roleService;
+	private SysRoleService sysRoleService;
 	@Autowired
-	private UserService userService;
+	private SysUserService sysUserService;
 	@Autowired
-	private PermissionsService permissionsService;
+	private SysFunctionService sysFunctionService;
 	
 	@RequestMapping("/roleList")
 	@ResponseBody
-	public List<Role> roleList() {
-		List<Role> roles = roleService.listAll();
-		return roles;
+	public List<SysRole> roleList() {
+		List<SysRole> sysRole = sysRoleService.listAll();
+		return sysRole;
 	}
 	
 	@RequestMapping("/getList")
 	public ModelAndView getList() {
 		ModelAndView mv = new ModelAndView();
-		List<Role> roles = roleService.listAll();
+		List<SysRole> sysRoles = sysRoleService.listAll();
 		mv.setViewName("/back/role/roleList");
-		mv.addObject("roles", roles);
+		mv.addObject("sysRoles", sysRoles);
 		return mv;
 	}
 	
@@ -50,25 +50,25 @@ public class RoleController {
 	}
 	
 	@RequestMapping("/roleAdd")
-	public String roleAdd(Role role) {
-		roleService.save(role);
-		return "redirect:/getList";
+	public String roleAdd(SysRole sysRole) {
+		sysRoleService.save(sysRole);
+		return "redirect:/admin/role/getList";
 	}
 	
 	@RequestMapping("/toRoleDelete")
 	@ResponseBody
-	public boolean toRoleDelete(int role_id) {
+	public boolean toRoleDelete(int roleId) {
 		boolean b = false;
 		Map map = new HashMap<>();
-		map.put("role_id", role_id);
-		List<User> users = userService.listAll(map);
+		map.put("roleId", roleId);
+		List<SysUser> users = sysUserService.listAll(map);
 		if (users.size()==0) {
 			b = true;
 		}else {
 			b = false;
 			return b;
 		}
-		List<Permissions> permissions = permissionsService.getPermissionsByRoleId(role_id);
+		List<SysFunction> permissions = sysFunctionService.getSysFunctionByRoleId(roleId);
 		if (permissions.size()==0) {
 			b = true;
 		}else {

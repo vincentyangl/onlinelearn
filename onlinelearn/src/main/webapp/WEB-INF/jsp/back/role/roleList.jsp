@@ -22,8 +22,8 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 	
-	    function toDelete(role_id){
-	    	$.post("/toRoleDelete",{role_id:role_id},function(msg){
+	    function toDelete(roleId){
+	    	$.post("/admin/role/toRoleDelete",{roleId:roleId},function(msg){
 	    		if(msg){
 	    			alert("可以");
 	    		}else{
@@ -46,7 +46,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 		    </div>
 		    <a class="layui-btn search_btn">查询</a>
 		</div><div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn" href="/toroleAdd">添加角色</a>
+			<a class="layui-btn layui-btn-normal newsAdd_btn" href="/admin/role/toroleAdd">添加角色</a>
 		</div>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
@@ -66,13 +66,13 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                               </tr>
                           </thead>
                           <tbody>
-                          <c:forEach items="${roles }" var="r" varStatus="statu">
+                          <c:forEach items="${sysRoles }" var="r" varStatus="statu">
                               <tr>
-                                <td><input type="checkbox" value="${r.role_id }"></td>
+                                <td><input type="checkbox" value="${r.roleId }"></td>
                                 <td>${statu.index+1 }</td>
-                                <td>${r.role_name }</td>
-                                <td><a href="#"  onclick="toDelete(${r.role_id })" class="btn btn-default ">删除</a>
-                                <a href="/role/update/${r.role_id }" class="btn btn-default">修改</a></td>
+                                <td>${r.roleName }</td>
+                                <td><a href="#"  onclick="toDelete(${r.roleId })" class="btn btn-default ">删除</a>
+                                <a href="/admin/role/toRoleUpdate/${r.roleId }" class="btn btn-default">修改</a></td>
                               </tr>
                               </c:forEach>
                           </tbody>

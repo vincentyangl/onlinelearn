@@ -19,30 +19,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bean.Permissions;
-import com.bean.Role;
-import com.bean.User;
-import com.service.PermissionsService;
-import com.service.UserService;
+import com.bean.SysFunction;
+import com.bean.SysRole;
+import com.bean.SysUser;
+import com.service.SysFunctionService;
+import com.service.SysUserService;
 
 @Controller
 @RequestMapping("/admin/user")
-public class UserController {
+public class SysUserController {
 
 	@Autowired
-	private PermissionsService permissionsService;
+	private SysFunctionService sysFunctionService;
 	@Autowired
-	private UserService userService;
+	private SysUserService sysUserService;
 	
 	@RequestMapping("/toLogin")
 	public String toLogn() {
-		System.out.println("000");
 		return "/back/login/login";
 	}
 	
 	@RequestMapping("/main")
 	public String main() {
-		System.out.println("121");
 		return "/back/main/main";
 	}
 	
@@ -57,60 +55,60 @@ public class UserController {
 	}
 	
 	@RequestMapping("/login")
-	public ModelAndView login(@RequestParam("user_name") String user_name,
-			@RequestParam("user_password") String user_password) {
+	public ModelAndView login(@RequestParam("loginName") String loginName,
+			@RequestParam("loginPwd") String loginPwd) {
 		ModelAndView mv = new ModelAndView();
 		Subject currentUser = SecurityUtils.getSubject();
 		 if (!currentUser.isAuthenticated()) {
-//			     System.out.println(13213);
-	        	//ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°Îª UsernamePasswordToken ï¿½ï¿½ï¿½ï¿½
-	            UsernamePasswordToken token = new UsernamePasswordToken(user_name, user_password);
+			     System.out.println(13213);
+	        	//°ÑÓÃ»§ÃûºÍÃÜÂë·â×°Îª UsernamePasswordToken ¶ÔÏó
+	            UsernamePasswordToken token = new UsernamePasswordToken(loginName, loginPwd);
 	            System.out.println("uuuu");
 	            //RememberMe
 	            token.setRememberMe(true);
 	            try {
-	            	//ï¿½ï¿½ï¿½ï¿½subjectï¿½ï¿½login ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½
+	            	//µ÷ÓÃsubjectµÄlogin ·½·¨µÇÂ½
 	                currentUser.login(token);
 	            } 
-	            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Ê±ï¿½ì³£ï¿½Ä¸ï¿½ï¿½ï¿½
+	            //ËùÓÐÈÏÖ¤Ê±Òì³£µÄ¸¸Àà
 	            catch (AuthenticationException ae) {
-	            	System.out.println("login failedï¿½ï¿½"+ae.getMessage());
+	            	System.out.println("login failed£¡"+ae.getMessage());
 	            	mv.setViewName("/back/login/login");
 	            	return mv;
 	            }
 	        }
-		 mv.addObject("permissions", getPermissionsMenu());
+		 mv.addObject("sysFunctions", getSysFunctionMenu());
 		 mv.setViewName("/back/index/index");
 		return mv;
 	}
 	
-	public List<Permissions> getPermissionsMenu() {
+	public List<SysFunction> getSysFunctionMenu() {
 		Map map = new HashMap<>();
-		map.put("per_menu", 1);
-		map.put("pId", -1);
-		List<Permissions> permissions = permissionsService.listAll(map);
-        for (Permissions permissions2 : permissions) {
-			System.out.println(permissions2.getName()+"=====");
-			for (Permissions permissions3 : permissions2.getPers()) {
-				System.out.println(permissions3.getName()+"--------");
+		map.put("functionType", 1);
+		map.put("pId", 0);
+		List<SysFunction> sysFunctions = sysFunctionService.listAll(map);
+        for (SysFunction sysFunctions2 : sysFunctions) {
+			System.out.println(sysFunctions2.getName()+"=====");
+			for (SysFunction sysFunctions3 : sysFunctions2.getSysFunctions()) {
+				System.out.println(sysFunctions3.getName()+"--------");
 			}
 		}
-		return permissions;
+		return sysFunctions;
 	}
 	
 	@RequestMapping("/userList")
 	public ModelAndView userList() {
 		ModelAndView mv = new ModelAndView();
-		List<User> users = userService.listAll(new HashMap<>());
+		List<SysUser> users = sysUserService.listAll(new HashMap<>());
 		mv.addObject("users", users);
 		mv.setViewName("/back/admin/userList");
 		return mv;
 	}
 	
-	@RequestMapping("/userDelete/{user_id}")
-	public String userDelete(@PathVariable("user_id") Integer user_id) {
-		userService.delete(user_id);
-		return "redirect:/userList";
+	@RequestMapping("/userDelete/{userId}")
+	public String userDelete(@PathVariable("userId") Integer userId) {
+		sysUserService.delete(userId);
+		return "redirect:/admin/user/userList";
 	}
 	
 	@RequestMapping("/toUserAdd")
@@ -119,40 +117,40 @@ public class UserController {
 	}
 	
 	@RequestMapping("/userAdd")
-	public String userAdd(User user,Role role) {
-		user.setRole(role);
-		String result = getEncryptionPwd(user);
-		user.setUser_password(result);
-		userService.save(user);
-		return "redirect:/userList";
+	public String userAdd(SysUser sysUser,SysRole sysRole) {
+		sysUser.setSysRole(sysRole);
+		String result = getEncryptionPwd(sysUser);
+		sysUser.setLoginPwd(result);;
+		sysUserService.save(sysUser);
+		return "redirect:/admin/user/userList";
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	public String getEncryptionPwd(User user) {
+	//¸øÃÜÂë¼ÓÃÜ
+	public String getEncryptionPwd(SysUser sysUser) {
 		String hashAlgorithName="MD5";
-		String pass=user.getUser_password();
-		Object salt=ByteSource.Util.bytes(user.getUser_name());
+		String pass=sysUser.getLoginPwd();
+		Object salt=ByteSource.Util.bytes(sysUser.getLoginName());
 		int count=1024;
 		Object result=new SimpleHash(hashAlgorithName, pass,salt,count);
 		return result.toString();
 	}
 	
-	@RequestMapping("/toUserUpdate/{user_id}")
-	public String toUserUpdate(@PathVariable("user_id") Integer user_id,Model model) {
+	@RequestMapping("/toUserUpdate/{userId}")
+	public String toUserUpdate(@PathVariable("userId") Integer userId,Model model) {
 		Map map = new HashMap<>();
-		map.put("user_id", user_id);
-		User user = userService.listAll(map).get(0);
-		model.addAttribute("user", user);
+		map.put("userId", userId);
+		SysUser sysUser = sysUserService.listAll(map).get(0);
+		model.addAttribute("sysUser", sysUser);
 		return "/back/admin/userUpdate";
 	}
 	
 	@RequestMapping("/userUpdate")
-	public String userUpdate(User user,Role role) {
-		user.setRole(role);
-		String result = getEncryptionPwd(user);
-		user.setUser_password(result);
-		userService.update(user);
-		return "redirect:/userList";
+	public String userUpdate(SysUser sysUser,SysRole sysRole) {
+		sysUser.setSysRole(sysRole);
+/*		String result = getEncryptionPwd(sysUser);
+		sysUser.setLoginPwd(result);*/
+		sysUserService.update(sysUser);
+		return "redirect:/admin/user/userList";
 	}
 	
 }

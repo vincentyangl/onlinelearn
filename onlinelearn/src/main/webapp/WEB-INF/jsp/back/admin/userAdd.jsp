@@ -24,9 +24,9 @@
 		 });
 		 }
 	   $(document).ready(function(){
-		   $.post("/roleList",function(msg){
+		   $.post("/admin/role/roleList",function(msg){
 			   for(i=0;i<msg.length;i++){
-				 $("#role_id").append("<option value='"+msg[i].role_id+"'>"+msg[i].role_name+"</option>");
+				 $("#roleId").append("<option value='"+msg[i].roleId+"'>"+msg[i].roleName+"</option>");
 			   }
 			   renderForm();
 		   });
@@ -40,17 +40,17 @@
 			<span id="sp1">添加用户</span>
 		</header><!-- /header -->
 		<div class="larry-personal-body clearfix">
-			<form class="layui-form col-lg-6" action="/userAdd" method="post">
+			<form class="layui-form col-lg-6" action="/admin/user/userAdd" method="post">
 				<div class="layui-form-item">
-					<label class="layui-form-label ">用户名:</label>
+					<label class="layui-form-label ">登陆名:</label>
 					<div class="layui-input-block">  
-						<input type="text" name="user_name"  autocomplete="off"  class="layui-input "  >
+						<input type="text" name="loginName"  autocomplete="off"  class="layui-input "  >
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">密码:</label>
 					<div class="layui-input-block">  
-						<input type="password" name="user_password"  autocomplete="off"  class="layui-input "  >
+						<input type="password" name="loginPwd"  autocomplete="off"  class="layui-input "  >
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -62,9 +62,27 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">角色:</label>
 					<div class="layui-input-block">  
-						<select class="layui-input"  width="150" name="role_id"  id="role_id">
+						<select class="layui-input"  width="150" name="roleId"  id="roleId">
 		    	   <option value="-1" selected="selected">请选择</option>
 		    	</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label ">姓名:</label>
+					<div class="layui-input-block">  
+						<input type="text" name="userName"  autocomplete="off"  class="layui-input "  >
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label ">邮箱:</label>
+					<div class="layui-input-block">  
+						<input type="text" name="email"  autocomplete="off"  class="layui-input "  >
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label ">电话号:</label>
+					<div class="layui-input-block">  
+						<input type="text" name="tel"  autocomplete="off"  class="layui-input "  >
 					</div>
 				</div>
 				<div class="layui-form-item">

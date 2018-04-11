@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.SysFunctionDao">
+   <insert id="save" parameterType="SysFunction">
+      insert into sys_function (pId,name,alias,functionUrl,functionType,createTime,sort) 
+      values (#{pId},#{name},#{alias},#{functionUrl},#{functionType},CURDATE(),0)
+   </insert>
+   <delete id="delete" parameterType="int">
+      delete from sys_function where id=#{value}
+   </delete>
+   <update id="update" parameterType="SysFunction">
+      update sys_function set name=#{name},alias=#{alias},functionUrl=#{functionUrl},
+      functionType=#{functionType},pId=#{pId} where id=#{id}
+   </update>
+   <update id="updateName" parameterType="SysFunction">
+      update sys_function set name=#{name} where id=#{id}
+   </update>
+   <resultMap type="SysFunction" id="SysFunctionMap">
+      <result column="id" property="id"/>
+      <result column="pId" property="pId"/>
+      <result column="name" property="name"/>
+      <result column="alias" property="alias"/>
+      <result column="functionUrl" property="functionUrl"/>
+      <result column="functionType" property="functionType"/>
+      <result column="createTime" property="createTime"/>
+      <result column="sort" property="sort"/>
+      <association property="sysFunctions" column="id" select="com.mapper.SysFunctionDao.getChildNode"></association>
+   </resultMap>
+   <select id="listAll"  parameterType="java.util.Map" resultMap="SysFunctionMap">
+      select * from sys_function 
+      <where>
+         <if test="functionType!=null">
+            and functionType=#{functionType}
+         </if>
+         <if test="pId!=null">
+            and pId=#{pId}
+         </if>
+      </where>
+       order by sort desc
+   </select>
+   <select id="getChildNode" parameterType="int" resultMap="SysFunctionMap">
+      select * from sys_function where pId=#{value} order by sort desc
+   </select>
+   <select id="getPermissionsByRoleId" parameterType="int" resultMap="SysFunctionMap">
+      select * from sys_function where id in (select functionId from sys_role_function where roleId = #{value}) order by sort desc
+   </select>
+  </mapper>
