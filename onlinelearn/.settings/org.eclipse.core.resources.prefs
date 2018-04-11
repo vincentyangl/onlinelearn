@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/bean/Permissions.java=GBK
+encoding//src/main/java/com/controller/back/UserController.java=GBK
+encoding//src/main/java/com/realm/MyRealm.java=GBK
 encoding//src/main/java/com/util/CommonConstants.java=UTF-8
 encoding//src/main/resources/project.properties=UTF-8
 encoding//src/test/java=UTF-8
