@@ -3,8 +3,35 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.mapper.Edu_UserDao">
-  <select id="listAll" resultType="Edu_User">
+  <resultMap type="Edu_User" id="user_UserMap">
+    <result property="userId" column="userId"/>
+    <result property="mobile" column="mobile"/>
+    <result property="email" column="email"/>
+    <result property="password" column="password"/>
+    <result property="userName" column="userName"/>
+    <result property="showName" column="showName"/>
+    <result property="sex" column="sex"/>
+    <result property="age" column="age"/>
+    <result property="createTime" column="createTime"/>
+    <result property="isAvalible" column="isAvalible"/>
+    <result property="picImg" column="picImg"/>
+    <result property="bannerUrl" column="bannerUrl"/>
+    <result property="msgNum" column="msgNum"/>
+    <result property="sysMsgNum" column="sysMsgNum"/>
+    <result property="lastSystemTime" column="lastSystemTime"/>
+   <association property="id" column="id" select="com.mapper.Edu_classDao.getById"></association>
+  </resultMap>
+  
+  <select id="listAll" resultMap="user_UserMap" parameterType="java.util.Map">
   select * from edu_user
+  <where>
+    <if test="qname!=null">
+    and mobile  like '%${qname}%'
+    </if>
+    <if test="id>0">
+    and id=#{id}
+    </if>
+  </where>
   </select>
   
   <delete id="delete" parameterType="int">
