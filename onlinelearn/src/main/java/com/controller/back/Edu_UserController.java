@@ -1,6 +1,8 @@
 package com.controller.back;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,20 +12,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.Edu_User;
+import com.bean.Edu_class;
 import com.service.Edu_UserService;
+import com.service.Edu_classService;
 
 @Controller
-@RequestMapping("/euser")
+@RequestMapping("/admin/student")
 public class Edu_UserController {
+	
 	@Autowired
 	private Edu_UserService edu_UserService;
-	@RequestMapping("/eulist")
-	public ModelAndView listAll(){
+	@Autowired
+	private Edu_classService edu_classService;
+	
+	@RequestMapping("/Edu_userAll")
+	public ModelAndView listAll(HttpServletRequest request){
 		ModelAndView mv=new ModelAndView();
-		List<Edu_User> list=edu_UserService.listAll();
-		mv.setViewName("/back/QuestionAnswer/QuestionAnswerList");
+		Map map=new HashMap<>();
+		map=initMAP(request, map);
+		List<Edu_User> list=edu_UserService.listAll(map);
+		List<Edu_class>type=edu_classService.listAll();
+		mv.addObject("type", type);
 		mv.addObject("list", list);
+		mv.setViewName("/back/student/student");
 		return mv;
+	}
+	
+	public Map initMAP(HttpServletRequest request,Map map) {
+		String qname=request.getParameter("qname");
+		String id=request.getParameter("id");
+		map.put("id", id);
+		map.put("qname", qname);
+		return map;
 	}
 	
 	@RequestMapping("/eudelete")
