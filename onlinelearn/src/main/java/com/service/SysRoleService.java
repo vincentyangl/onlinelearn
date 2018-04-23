@@ -11,5 +11,7 @@ public interface SysRoleService {
 	public void update(SysRole sysRole);
 	public List<SysRole> listAll();
 	public SysRole getById(int roleId);
+	public void deleteAllFunctionIdByRoleId(int roleId);
+	public void addFunctionIdByRoleId(int roleId,int functionId);
 	
 }

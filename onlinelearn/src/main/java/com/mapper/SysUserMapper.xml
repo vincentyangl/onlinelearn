@@ -39,8 +39,12 @@
           <if test="loginPwd!=null">
              and loginPwd=#{loginPwd}
           </if>
-          <if test="roleId!=null">
-             and roleId=#{roleId}
+          <if test="rid!=null">
+             and roleId=#{rid}
+          </if>
+          <if test="qname!=null">
+          <!-- 必须加括号，不然下拉框查询不出来 -->
+             and (loginName like '%${qname}%' or userName like '%${qname}%')
           </if>
        </where>
     </select>

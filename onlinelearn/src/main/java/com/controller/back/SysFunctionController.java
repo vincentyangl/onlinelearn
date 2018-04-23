@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.SysFunction;
 import com.service.SysFunctionService;
@@ -22,13 +23,19 @@ public class SysFunctionController {
 	@Autowired
 	private SysFunctionService sysFunctionService;
 	
-	@RequestMapping("/ztreeList")
-	public String ztreeList(HttpServletRequest request) {
+	@RequestMapping("/ztreeList/{state}")
+	public ModelAndView ztreeList(@PathVariable("state") Integer state, HttpServletRequest request) {
 		List<SysFunction> sysFunctions = sysFunctionService.listAll(new HashMap<>());
 		String json = JsonUtils.objectToJson(sysFunctions);
 		request.setAttribute("sysFunctions", json);
-		System.out.println(json);
-		return "/back/permissions/permissionsList";
+		ModelAndView mv = new ModelAndView();
+		if (state==1) {
+			mv.setViewName("/back/permissions/permissionsList");
+		}
+		if (state==2) {
+			mv.setViewName("/back/role/roleList");
+		}
+		return mv;
 	}
 	
 	@RequestMapping("/addPermissions")
@@ -51,6 +58,7 @@ public class SysFunctionController {
 		return sysFunctions;
 	}
 	
+	@ResponseBody
 	@RequestMapping("/deletePermissions/{id}")
 	public String deletePermissions(@PathVariable("id") int id) {
 		sysFunctionService.delete(id);

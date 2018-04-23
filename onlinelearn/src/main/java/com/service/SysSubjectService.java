@@ -1,11 +1,11 @@
-package com.mapper;
+package com.service;
 
 import java.util.List;
 import java.util.Map;
 
 import com.bean.SysSubject;
 
-public interface SysSubjectDao {
+public interface SysSubjectService {
 
 	public SysSubject getById(int subjectId);
 	public void save(SysSubject subject);
