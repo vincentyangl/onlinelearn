@@ -3,8 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.SysSubjectDao">
-	<select id="getById" parameterType="int" resultType="SysSubject">
+	<resultMap type="SysSubject" id="SysSubjectMap">
+		<id property="subjectId" column="SUBJECT_ID"/>
+		<result property="subjectName" column="SUBJECT_NAME"/>
+		<result property="status" column="STATUS"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="parentId" column="PARENT_ID"/>
+		<result property="sort" column="sort"/>
+	</resultMap>
+
+	<select id="getById" parameterType="int" resultMap="SysSubjectMap">
 		select *
 		from sys_subject where SUBJECT_ID=#{value}
+	</select>
+	<select id="listAll" resultMap="SysSubjectMap">
+		select * from sys_subject
+	</select>
+	<select id="listDad" resultMap="SysSubjectMap">
+	select * from sys_subject where parent_id=0
 	</select>
 </mapper>
