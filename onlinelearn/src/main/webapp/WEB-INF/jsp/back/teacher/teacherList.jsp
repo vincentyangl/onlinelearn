@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,33 +16,45 @@
 <link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
 </head>
+<style type="text/css">  
+#ca {  
+    width:150px;  
+    overflow:hidden;  
+    white-space:nowrap;  
+    text-overflow:ellipsis;  
+    -o-text-overflow:ellipsis;  
+    -icab-text-overflow: ellipsis;  
+    -khtml-text-overflow: ellipsis;  
+    -moz-text-overflow: ellipsis;  
+    -webkit-text-overflow: ellipsis;  
+}  
+</style>
+
 <body>
 	<section class="layui-larry-box">
 	<div class="larry-personal">
 		<div class="layui-tab">
-			<blockquote class="layui-elem-quote news_search">
-				<div class="layui-inline">
-					<div class="layui-input-inline">
-						<input value="" placeholder="请输入关键字"
-							class="layui-input search_input" type="text">
+			<form action="/admin/teacher/teacherList">
+				<blockquote class="layui-elem-quote news_search">
+					<div class="layui-inline">
+						<div class="layui-input-inline">
+							<input value="" placeholder="请输入关键字"
+								class="layui-input search_input" type="text" name="qname">
+						</div>
+						<div class="layui-input-inline">
+							开始时间: <input value="" class="layui-input search_input"
+								type="date" name="startTime">
+						</div>
+						<div class="layui-input-inline">
+							结束时间: <input value="" class="layui-input search_input"
+								type="date" name="endTime">
+						</div>
+						<input type="submit" class="btn btn-info" value="查询" />
 					</div>
-					<a class="layui-btn search_btn">查询</a>
-				</div>
-				<div class="layui-inline">
-					<a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
-				</div>
-				<div class="layui-inline">
-					<a class="layui-btn recommend" style="background-color: #5FB878">推荐文章</a>
-				</div>
-				<div class="layui-inline">
-					<a class="layui-btn audit_btn">审核文章</a>
-				</div>
-				<div class="layui-inline">
-					<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-				</div>
-				<div class="layui-inline">
-					<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
-				</div>
+					<div class="layui-inline">
+						<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
+					</div>
+			</form>
 			</blockquote>
 
 			<!-- 操作日志 -->
@@ -80,16 +93,16 @@
 								<c:if test="${l.isStar==2 }">
 									<td>首席讲师</td>
 								</c:if>
-								<td>${l.education }</td>
-								<td>${l.career }</td>
-								<td>${l.createTime }</td>
+								<td><div id="ca" title="${l.education }">${l.education }</div></td>
+								<td><div id="ca" title="${l.career }">${l.career }</div></td>
+								<td><fmt:formatDate value="${l.createTime }" type="date" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 								<td>${l.sort }</td>
-								<td><a class="layui-btn layui-btn-mini news_edit"><i
+								<td><a href="/admin/teacher/getById/${l.id}"
+									class="layui-btn layui-btn-mini"><i
 										class="iconfont icon-edit"></i> 编辑</a> <a
-									class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-										class="layui-icon"></i> 收藏</a> <a
-									class="layui-btn layui-btn-danger layui-btn-mini news_del"
-									data-id="13"><i class="layui-icon"></i> 删除</a></td>
+									href="/admin/teacher/delete/${l.id }"
+									class="layui-btn layui-btn-danger" data-id="13"><i
+										class="layui-icon"></i> 删除</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -6,7 +6,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>教师修改</title>
+<title>添加教师</title>
 <link rel="stylesheet" type="text/css"
 	href="/common/layui/css/layui.css" media="all">
 <link rel="stylesheet" type="text/css"
@@ -24,23 +24,22 @@
 
 	<div class="container">
 		<div class="form-horizontal">
-			<form action="/admin/teacher/update" method="post"
+			<form action="/admin/teacher/save" method="post"
 				enctype="multipart/form-data">
-				<input type="hidden" class="form-control" name="id" id="id"
-					value="${e.id }">
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">讲师名称</label>
 					<div class="col-sm-3">
 						<input type="text" class="form-control" name="name" id="name"
-							placeholder="讲师名" value="${e.name }">
+							placeholder="讲师名" value="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="is_star" class="col-sm-2 control-label">讲师专业</label>
 					<div class="col-sm-3">
 						<select class="form-control" name="subjectId" class="subject">
+							<option value="0">请选择</option>
 							<c:forEach items="${list }" var="s">
-								<option value="${s.subjectId==e.sysSubject.subjectId?'checked':'' }">${s.subjectName }</option>
+								<option value="${s.subjectId }">${s.subjectName }</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -49,12 +48,6 @@
 					<label for="is_star" class="col-sm-2 control-label">讲师头衔</label>
 					<div class="col-sm-3">
 						<select class="form-control" name="isStar" class="star">
-							<c:if test="${e.isStar==1 }">
-								<option value="1">高级讲师</option>
-							</c:if>
-							<c:if test="${e.isStar==2 }">
-								<option value="2">首席讲师</option>
-							</c:if>
 							<option value="1">高级讲师</option>
 							<option value="2">首席讲师</option>
 						</select>
@@ -64,30 +57,29 @@
 					<label for="name" class="col-sm-2 control-label">讲师排序</label>
 					<div class="col-sm-3">
 						<input type="text" id="sort" name="sort" class="form-control"
-							placeholder="排序" value="${e.sort }" />
+							placeholder="排序" value="" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="education" class="col-sm-2 control-label">讲师资历</label>
 					<div class="col-sm-5">
 						<input type="text" class="form-control" name="education"
-							id="education" placeholder="资历" value="${e.education }">
+							id="education" placeholder="资历" value="">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">讲师简介</label>
 					<div class="col-sm-5">
 						<textarea name="career" class="form-control" rows="3" id="career"
-							value="">${e.career }</textarea>
+							value=""></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="pic_path" class="col-sm-2 control-label">讲师头像</label>
 					<div class="col-sm-4">
-						<img name="img" id="img" src="${e.picPath }"
-							style="width: 260px; height: 300px;">
-							<input
-							type="file" name="file" value="">
+						<span><img name="img" id="img" src=""
+							style="width: 260px; height: 300px;"></span> <input type="file"
+							name="file" value="">
 					</div>
 				</div>
 				<div class="form-group">
@@ -102,15 +94,15 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	document.getElementById('file').onchange = function() {
-		var imgFile = this.files[0];
-		var fr = new FileReader();
-		fr.onload = function() {
-			document.getElementById("img").style.display = "block";
-			document.getElementsByTagName('img')[0].src = fr.result;
-		};
-		fr.readAsDataURL(imgFile);
-	}
+		document.getElementById('file').onchange = function() {
+			var imgFile = this.files[0];
+			var fr = new FileReader();
+			fr.onload = function() {
+				document.getElementById("img").style.display = "block";
+				document.getElementsByTagName('img')[0].src = fr.result;
+			};
+			fr.readAsDataURL(imgFile);
+		}
 	</script>
 </body>
 </html>
