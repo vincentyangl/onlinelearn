@@ -3,7 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.mapper.EduCourseDao">
+    <insert id="saveCourseTeacher" parameterType="java.util.Map">
+       insert into edu_course_teacher values (#{course_id},#{teacher_id})
+    </insert>
     <insert id="save" parameterType="EduCourse">
+       <selectKey keyProperty="course_id" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+       </selectKey>
        insert into edu_course (course_name,is_avaliable,subject_id,subject_link,add_time,
        source_price,current_price,title,context,lession_num,logo,update_time,page_buyCount,
        page_viewCount,end_time,loseType,lose_time,sequence,course_gross_income) values 
@@ -67,5 +73,8 @@
     </select>
     <select id="getById" parameterType="int" resultMap="EduCourseMap">
        select * from edu_course where course_id=#{value}
+    </select>
+    <select id="getCourseBySubjectId" parameterType="int" resultType="EduCourse">
+       select * from edu_course where subject_id=#{value}
     </select>
   </mapper>

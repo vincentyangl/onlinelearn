@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduTeacher;
@@ -109,5 +110,12 @@ public class EduTeacherController {
 		mv.addObject("e", eduTeacher);
 		mv.setViewName("/back/teacher/teacherEdit");
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("getTeacherBySubjectId/{subjectId}")
+	public List<EduTeacher> getTeacherBySubjectId(@PathVariable("subjectId") Integer subjectId) {
+		List<EduTeacher> ets = eduTeacherService.getTeacherBySubjectId(subjectId);
+		return ets;
 	}
 }

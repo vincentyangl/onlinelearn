@@ -13,4 +13,5 @@ public interface EduTeacherService {
 	public void delete(int id);
 	public void update(EduTeacher eduTeacher);
 	public List<EduTeacher> listBySid(int subjectId);
+	public List<EduTeacher> getTeacherBySubjectId(int subjectId);
 }

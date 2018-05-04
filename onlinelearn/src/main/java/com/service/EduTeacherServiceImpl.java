@@ -45,4 +45,7 @@ public class EduTeacherServiceImpl implements EduTeacherService{
 	public List<EduTeacher> listBySid(int subjectId) {
 		return eduTeacherDao.listBySid(subjectId);
 	}
+	public List<EduTeacher> getTeacherBySubjectId(int subjectId) {
+		return eduTeacherDao.getTeacherBySubjectId(subjectId);
+	}
 }

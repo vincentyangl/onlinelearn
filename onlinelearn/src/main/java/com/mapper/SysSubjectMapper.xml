@@ -5,7 +5,7 @@
 <mapper namespace="com.mapper.SysSubjectDao">
     <insert id="save" parameterType="SysSubject">
        insert into sys_subject (subjectName,status,createTime,parent_id,sort) values (#{subjectName},
-       #{status},NOW(),#{parent_id},#{sort})
+       0,NOW(),#{parent_id},0)
     </insert>
     <delete id="delete" parameterType="int">
        delete from sys_subject where subjectId=#{value}
@@ -21,21 +21,21 @@
        <result column="parent_id" property="parent_id"/>
        <result column="sort" property="sort"/>
        <association property="sysSubjects" column="subjectId" select="com.mapper.SysSubjectDao.getChildNode"></association>
+       <association property="eduCourses" column="subjectId" select="com.mapper.EduCourseDao.getCourseBySubjectId"></association>
+       <association property="eduTeachers" column="subjectId" select="com.mapper.EduTeacherDao.getTeacherBySubjectId"></association>
     </resultMap>
 	<select id="getById" parameterType="int" resultMap="SysSubjectMap">
 		select * from sys_subject where subjectId=#{value}
 	</select>
 	<select id="listAll" parameterType="java.util.Map" resultMap="SysSubjectMap">
-	   select * from sys_subject 
-	   <where>
+	   select * from sys_subject  where status=0 
 	      <if test="parent_id != null">
 	         and parent_id=#{parent_id}
 	      </if>
-	   </where>
 	   order by sort desc
 	</select>
 	<select id="getChildNode" parameterType="int" resultMap="SysSubjectMap">
-	   select * from sys_subject where parent_id = #{value}
+	   select * from sys_subject where parent_id = #{value} and status=0
 	</select>
 	<select id="listDad" resultMap="SysSubjectMap">
 	select * from sys_subject where parent_id=0

@@ -7,7 +7,7 @@ import com.bean.EduCourse;
 
 public interface EduCourseService {
 
-	public void save(EduCourse eduCourse);
+	public void save(EduCourse eduCourse,String str[] );
 	public void delete(int course_id);
 	public void update(EduCourse eduCourse);
 	public List<EduCourse> listAll(Map map);

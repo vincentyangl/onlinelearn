@@ -1,5 +1,6 @@
 package com.controller.back;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.SysSubject;
+import com.bean.Ztree;
 import com.service.SysSubjectService;
+import com.util.JsonUtils;
 
 @Controller
 @RequestMapping("/admin/subject")
@@ -31,5 +35,36 @@ public class SysSubjectController {
 		List<SysSubject> sysSubjects = sysSubjectService.listAll(map);
 		System.out.println(sysSubjects.size());
 		return sysSubjects;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getChildList/{subjectId}")
+	public List<SysSubject> getChildList(@PathVariable("subjectId") Integer subjectId) {
+		List<SysSubject> child = sysSubjectService.getChildNode(subjectId);
+		return child;
+	}
+	
+	@RequestMapping("/subjectList")
+	public ModelAndView subjectList() {
+		ModelAndView mv = new ModelAndView();
+		List<SysSubject> sysSubjects = sysSubjectService.listAll(new HashMap<>());
+		List<Ztree> ztrees = new ArrayList<>();
+		for (SysSubject sb : sysSubjects) {
+			Ztree ztree = new Ztree();
+			ztree.setId(sb.getSubjectId());
+			ztree.setpId(sb.getParent_id());
+			ztree.setName(sb.getSubjectName());
+			ztrees.add(ztree);
+		}
+		String json = JsonUtils.objectToJson(ztrees);
+		mv.addObject("sysSubjects", json);
+		mv.setViewName("/back/subject/subjectList");
+		return mv;
+	}
+	
+	@RequestMapping("/subjectAdd")
+	public String subjectAdd(SysSubject subject) {
+		sysSubjectService.save(subject);
+		return "redirect:/admin/subject/subjectList";
 	}
 }

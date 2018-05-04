@@ -52,4 +52,7 @@
 		where
 		id=#{id}
 	</update>
+	<select id="getTeacherBySubjectId" parameterType="int" resultType="EduTeacher">
+	   select * from edu_teacher where subject_id=#{value}
+	</select>
 </mapper>
