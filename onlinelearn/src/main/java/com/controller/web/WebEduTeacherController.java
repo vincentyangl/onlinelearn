@@ -52,7 +52,7 @@ public class WebEduTeacherController {
 	public ModelAndView getById(@PathVariable int id) {
 		ModelAndView mv = new ModelAndView();
 		EduTeacher eduTeacher = eduTeacherService.getById(id);
-		List<SysSubject> lsit = sysSubjectService.listAll();
+		List<SysSubject> lsit = sysSubjectService.listAll(new HashMap());
 		mv.addObject("list", lsit);
 		mv.addObject("teacher", eduTeacher);
 		mv.setViewName("/web/teacher/teacherInfo");

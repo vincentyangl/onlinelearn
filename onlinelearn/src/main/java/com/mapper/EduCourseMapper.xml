@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.EduCourseDao">
+    <insert id="save" parameterType="EduCourse">
+       insert into edu_course (course_name,is_avaliable,subject_id,subject_link,add_time,
+       source_price,current_price,title,context,lession_num,logo,update_time,page_buyCount,
+       page_viewCount,end_time,loseType,lose_time,sequence,course_gross_income) values 
+       (#{course_name},#{is_avaliable},#{sysSubject.subjectId},#{subject_link},CURDATE(),
+       #{source_price},#{current_price},#{title},#{context},#{lession_num},#{logo},NOW(),
+       0,0,#{end_time},#{loseType},#{lose_time},#{sequence},#{course_gross_income})
+    </insert>
+    <delete id="delete" parameterType="int">
+       delete from edu_course where course_id=#{value}
+    </delete>
+    <update id="update" parameterType="EduCourse">
+       update edu_course set course_name=#{course_name}, 
+       is_avaliable=#{is_avaliable},subject_id=#{sysSubject.subjectId},subject_link=#{subject_link},
+       add_time=#{add_time},source_price=#{source_price},current_price=#{current_price},
+       title=#{title},context=#{context},lession_num=#{lession_num},logo=#{logo},update_time=NOW(),
+       page_buyCount=#{page_buyCount},page_viewCount=#{page_viewCount},end_time=#{end_time},
+       loseType=#{loseType},lose_time=#{lose_time},sequence=#{sequence}
+       where course_id=#{course_id}
+    </update>
+    <resultMap type="EduCourse" id="EduCourseMap">
+       <result column="course_id" property="course_id"/>
+       <result column="course_name" property="course_name"/>
+       <result column="is_avaliable" property="is_avaliable"/>
+       <result column="subject_link" property="subject_link"/>
+       <result column="add_time" property="add_time"/>
+       <result column="source_price" property="source_price"/>
+       <result column="current_price" property="current_price"/>
+       <result column="title" property="title"/>
+       <result column="context" property="context"/>
+       <result column="lession_num" property="lession_num"/>
+       <result column="logo" property="logo"/>
+       <result column="update_time" property="update_time"/>
+       <result column="page_buyCount" property="page_buyCount"/>
+       <result column="page_viewCount" property="page_viewCount"/>
+       <result column="end_time" property="end_time"/>
+       <result column="loseType" property="loseType"/>
+       <result column="lose_time" property="lose_time"/>
+       <result column="sequence" property="sequence"/>
+       <result column="course_gross_income" property="course_gross_income"/>
+       <association property="sysSubject" column="subject_id" select="com.mapper.SysSubjectDao.getById"></association>
+    </resultMap>
+    <select id="listAll"  parameterType="java.util.Map" resultMap="EduCourseMap">
+       select * from edu_course 
+       <where>
+	      <if test="is_avaliable!=null">
+	         and is_avaliable=#{is_avaliable}
+	      </if>
+	      <if test="subjectId!=null">
+	         and subject_id=#{subjectId}
+	      </if>
+	      <if test="beginTime!=null">
+	         and add_time &gt; #{beginTime}
+	      </if>
+	      <if test="endTime!=null">
+	         and add_time &lt; #{endTime}
+	      </if>
+	      <if test="qname!=null">
+	         and (course_name like '%${qname}%')
+	      </if>
+       </where>
+    </select>
+    <select id="getById" parameterType="int" resultMap="EduCourseMap">
+       select * from edu_course where course_id=#{value}
+    </select>
+  </mapper>

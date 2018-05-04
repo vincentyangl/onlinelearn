@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduTeacher;
 import com.bean.SysSubject;
-import com.bean.v;
 import com.service.EduTeacherService;
 import com.service.SysSubjectService;
 
@@ -104,7 +103,7 @@ public class EduTeacherController {
 	public ModelAndView getById(@PathVariable int id) {
 		ModelAndView mv = new ModelAndView();
 		EduTeacher eduTeacher = eduTeacherService.getById(id);
-		List<SysSubject> lsit = sysSubjectService.listAll();
+		List<SysSubject> lsit = sysSubjectService.listAll(new HashMap());
 		mv.addObject("list", lsit);
 		System.out.println(lsit);
 		mv.addObject("e", eduTeacher);

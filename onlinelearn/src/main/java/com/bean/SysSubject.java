@@ -8,7 +8,7 @@ public class SysSubject {
 	private String subjectName;//专业名称
 	private int status;//状态 0:默认 1:删除
 	private String createTime;//创建时间
-	private int parentId;//父ID
+	private int parent_id;//父ID
 	private int sort;//排序字段
 	private List<SysSubject> sysSubjects;
 	
@@ -42,11 +42,11 @@ public class SysSubject {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public int getParentId() {
-		return parentId;
+	public int getParent_id() {
+		return parent_id;
 	}
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
 	}
 	public int getSort() {
 		return sort;
@@ -54,10 +54,4 @@ public class SysSubject {
 	public void setSort(int sort) {
 		this.sort = sort;
 	}
-	@Override
-	public String toString() {
-		return "SysSubject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", status=" + status
-				+ ", createTime=" + createTime + ", parent_id=" + parentId + ", sort=" + sort + "]";
-	}
-	
 }

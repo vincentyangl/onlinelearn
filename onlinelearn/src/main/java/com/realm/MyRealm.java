@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bean.SysFunction;
 import com.bean.SysUser;
 import com.service.SysFunctionService;
+import com.service.SysRoleService;
 import com.service.SysUserService;
 
 public class MyRealm extends AuthorizingRealm{
@@ -30,6 +31,8 @@ public class MyRealm extends AuthorizingRealm{
 	private SysUserService sysUserService;
 	@Autowired
 	private SysFunctionService sysFunctionService;
+	@Autowired
+	private SysRoleService sysRoleService;
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		//获取的登录后的用户名
@@ -41,7 +44,7 @@ public class MyRealm extends AuthorizingRealm{
 		//封装角色集合
 		authorizationInfo.setRoles(set);
 		//封装角色对应的权限集合
-		authorizationInfo.setStringPermissions(getFunctionName(sysUser.getSysRole().getRoleId()));
+		authorizationInfo.setStringPermissions(getFunctionName(sysUser));
 		return authorizationInfo;
 	}
 
@@ -75,12 +78,13 @@ public class MyRealm extends AuthorizingRealm{
 		//盐值
 		ByteSource salt = ByteSource.Util.bytes(loginName);
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials,salt, realmName);
+		System.out.println(info);
 		return info;
 	}
 	
-	public Set<String> getFunctionName(int roleId) {
+	public Set<String> getFunctionName(SysUser sysUser) {
 		Set<String> set = new HashSet<>();
-		List<SysFunction> sysFunctions = sysFunctionService.getSysFunctionByRoleId(roleId);
+		List<SysFunction> sysFunctions = sysUser.getSysRole().getSysFunctions();
 		for (SysFunction permissions2 : sysFunctions) {
 			set.add(permissions2.getName());
 		}

@@ -15,11 +15,57 @@
 	media="all">
 <link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
+<link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<script type="text/javascript" src="/ztree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="/ztree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="/ztree/js/jquery.ztree.excheck.js"></script>
+<SCRIPT type="text/javascript">
+	var setting = {
+		check : {
+			enable : true
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		}
+	};
+
+	var zNodes=${json};
+	
+	var code;
+
+	function setCheck() {
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo"), py = $("#py").attr(
+				"checked") ? "p" : "", sy = $("#sy").attr("checked") ? "s" : "", pn = $(
+				"#pn").attr("checked") ? "p" : "", sn = $("#sn")
+				.attr("checked") ? "s" : "", type = {
+			"Y" : py + sy,
+			"N" : pn + sn
+		};
+		zTree.setting.check.chkboxType = type;
+		showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "'
+				+ type.N + '" };');
+	}
+	function showCode(str) {
+		if (!code)
+			code = $("#code");
+		code.empty();
+		code.append("<li>" + str + "</li>");
+	}
+
+	$(document).ready(function() {
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+		setCheck();
+		$("#py").bind("change", setCheck);
+		$("#sy").bind("change", setCheck);
+		$("#pn").bind("change", setCheck);
+		$("#sn").bind("change", setCheck);
+	});
+</SCRIPT>
 
 </head>
-
-
-
 <body>
 
 	<div class="container">
@@ -36,12 +82,7 @@
 				<div class="form-group">
 					<label for="is_star" class="col-sm-2 control-label">讲师专业</label>
 					<div class="col-sm-3">
-						<select class="form-control" name="subjectId" class="subject">
-							<option value="0">请选择</option>
-							<c:forEach items="${list }" var="s">
-								<option value="${s.subjectId }">${s.subjectName }</option>
-							</c:forEach>
-						</select>
+						<ul id="treeDemo" class="ztree"></ul>
 					</div>
 				</div>
 				<div class="form-group">

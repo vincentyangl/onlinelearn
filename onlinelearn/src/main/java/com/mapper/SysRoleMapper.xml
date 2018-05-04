@@ -12,10 +12,22 @@
     <update id="update" parameterType="SysRole">
        update sys_role set roleName=#{roleName} where roleId=#{roleId}
     </update>
-    <select id="listAll" resultType="SysRole" >
+    <resultMap type="SysRole" id="SysRoleMap">
+       <result column="roleId" property="roleId"/>
+       <result column="roleName" property="roleName"/>
+       <result column="createTime" property="createTime"/>
+       <association property="sysFunctions" column="roleId" select="com.mapper.SysFunctionDao.getSysFunctionByRoleId"></association>
+    </resultMap>
+    <select id="listAll" resultMap="SysRoleMap">
        select * from sys_role
     </select>
-    <select id="getById" parameterType="int" resultType="SysRole">
+    <select id="getById" parameterType="int" resultMap="SysRoleMap">
        select * from sys_role where roleId=#{value}
     </select>
+    <delete id="deleteAllFunctionIdByRoleId" parameterType="int">
+       delete from sys_role_function where roleId=#{value}
+    </delete>
+    <insert id="addFunctionIdByRoleId">
+       insert into sys_role_function values (#{roleId},#{functionId})
+    </insert>
   </mapper>

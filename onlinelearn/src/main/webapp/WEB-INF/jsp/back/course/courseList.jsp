@@ -9,7 +9,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>个人信息</title>
+	<title>课程信息</title>
 	<meta name="renderer" content="webkit">	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
@@ -21,14 +21,27 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<link rel="stylesheet" type="text/css" href="/common/global.css"  media="all">
 	<link rel="stylesheet" type="text/css" href="/css/personal.css"  media="all">
 	<script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<!--  <script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script> -->
+	<style type="text/css">
+	   .tt{
+	      margin: auto
+	   }
+	</style>
 	<script type="text/javascript">
 	   $(document).ready(function(){
-		   $.post("/admin/role/roleList",function(msg){
+		   $.post("/admin/subject/getSubjectList/1",function(msg){
 			   for(i=0;i<msg.length;i++){
-				   $("#roleId").append("<option value='"+msg[i].roleId+"'>"+msg[i].roleName+"</option>");
+				   $("#subjectId").append("<option value='"+msg[i].subjectId+"'>"+msg[i].subjectName+"</option>");
 			   }
 		   });
 	   });
+	   function cleanText(){
+		   $("#qname").val("");
+		   $("#is_avaliable").val("-1");
+		   $("#subjectId").val("-1");
+		   $("#beginTime").val("");
+		   $("#endTime").val("");
+	   }
 	</script>
 </head>
 <body>
@@ -36,26 +49,42 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<div class="larry-personal">
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
-		<form action="/admin/user/getSysUserByNameAndRoleId" method="POST">
+		<form action="/admin/course/queryCourseList" method="POST">
 		<div class="layui-inline">
+		    <label class="layui-inline  tt">课程名称:</label>
 		    <div class="layui-input-inline">
-		    	<input name="qname" placeholder="请输入关键字" class="layui-input search_input" type="text">
+		    	<input value="" placeholder="请输入关键字" id="qname" name="qname" class="layui-input search_input" type="text">
 		    </div>
+		    <label class="layui-inline tt">状态:</label>
 		    <div class="layui-input-inline">
-		    	<select class="layui-input"  width="150" name="roleId"  id="roleId">
+		    	<select class="layui-input"  width="150" name="is_avaliable"  id="is_avaliable">
+		    	   <option value="-1" selected="selected">请选择</option>
+		    	   <option value="1" >上架</option>
+		    	   <option value="2" >下架</option>
+		    	   <option value="3" >删除</option>
+		    	</select>
+		    </div>
+		    <label class="layui-inline tt">专业:</label>
+		     <div class="layui-input-inline">
+		    	<select class="layui-input"  width="150" name="subjectId"  id="subjectId">
 		    	   <option value="-1" selected="selected">请选择</option>
 		    	</select>
 		    </div>
-		    <button type="submit" class="layui-btn search_btn">查询</button>
-		    
-		</div><div class="layui-inline">
-			<a class="layui-btn layui-btn-normal newsAdd_btn"  href="/admin/user/toUserAdd">添加用户</a>
+		    <label class="layui-inline tt" >创建时间:</label>
+		    <div class="layui-input-inline">
+		    	<input  id="beginTime" name="beginTime" class="layui-input search_input"   type="date">
+		    </div>
+		    <label class="layui-inline tt">-</label>
+		    <div class="layui-input-inline">
+		    	<input id="endTime"  name="endTime" class="layui-input search_input"  type="date">
+		    </div>
+		    <button class="layui-btn search_btn" type="submit">课程查询</button>
 		</div>
 		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+			<a class="layui-btn layui-btn-default" onclick="cleanText()">清空</a>
 		</div>
 		<div class="layui-inline">
-			<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
+			<a class="layui-btn layui-btn-normal newsAdd_btn"  href="/admin/course/toCourseAdd">创建课程</a>
 		</div>
 		</form>
 	</blockquote>
@@ -68,35 +97,45 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                               <tr>
                                   <th><input type="checkbox" id="selected-all"></th>
                                   <th>ID</th>
-                                  <th>登陆名</th>
-                                  <th>角色</th>
-                                  <th>姓名</th>
-                                  <th>EMAIL</th>
-                                  <th>电话号</th>
-                                  <th>创建时间</th>
-                                  <th>最后登录时间</th>
-                                  <th>最后登录IP</th>
+                                  <th>课程名</th>
                                   <th>状态</th>
+                                  <th>专业</th>
+                                  <th>原价</th>
+                                  <th>优惠价</th>
+                                  <th>课时</th>
+                                  <th>销售量</th>
+                                  <th>浏览量</th>
+                                  <th>创建时间</th>
+                                  <th>有效结束时间</th>
                                   <th>操作</th>
                               </tr>
                           </thead>
                           <tbody>
-                          <c:forEach items="${users }" var="u" varStatus="statu">
+                          <c:forEach items="${eduCourses }" var="ec" varStatus="statu">
                               <tr>
                                 <td>
-                                   <input type="checkbox"  value="${u.userId }">
+                                   <input type="checkbox"  value="${ec.course_id }">
                                 </td>
                                 <td>${statu.index+1 }</td>
-                                <td>${u.loginName }</td>
-                                <td>${u.sysRole.roleName }</td>
-                                <td>${u.userName }</td>
-                                <td>${u.email }</td>
-                                <td>${u.tel }</td>
-                                <td><fmt:formatDate value="${u.createTime }" pattern="yyyy-MM-dd"/></td>
-                                <td><fmt:formatDate value="${u.lastLoginTime }" pattern="yyyy-MM-dd"/></td>
-                                <td>${u.lastLoginIp }</td>
-                                <td>${u.status }</td>
-                                <td><a href="/admin/user/userDelete/${u.userId }" class="btn btn-default ">删除</a><a href="/admin/user/toUserUpdate/${u.userId }" class="btn btn-default">修改</a></td>
+                                <td>${ec.course_name }</td>
+                                <c:if test="${ec.is_avaliable==1 }">
+                                   <td>上架</td>
+                                </c:if>
+                                <c:if test="${ec.is_avaliable==2 }">
+                                   <td>下架</td>
+                                </c:if>
+                                <c:if test="${ec.is_avaliable==3 }">
+                                   <td>删除</td>
+                                </c:if>
+                                <td>${ec.sysSubject.subjectName }</td>
+                                <td>${ec.source_price }</td>
+                                <td>${ec.current_price }</td>
+                                <td>${ec.lession_num }</td>
+                                <td>${ec.page_buyCount }</td>
+                                <td>${ec.page_viewCount }</td>
+                                <td><fmt:formatDate value="${ec.add_time }" pattern="yyyy-MM-dd HH:mm"/></td>
+                                <td><fmt:formatDate value="${ec.end_time }" pattern="yyyy-MM-dd HH:mm"/></td>
+                                <td><a href="/admin/course/courseDelete/${ec.course_id }" class="btn btn-default ">删除</a><a href="/admin/course/toCourseUpdate/${ec.course_id }" class="btn btn-default">修改</a></td>
                               </tr>
                               </c:forEach>
                           </tbody>

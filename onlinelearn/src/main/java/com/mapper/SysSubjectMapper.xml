@@ -3,21 +3,39 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.SysSubjectDao">
-	<resultMap type="SysSubject" id="SysSubjectMap">
-		<id property="subjectId" column="SUBJECT_ID"/>
-		<result property="subjectName" column="SUBJECT_NAME"/>
-		<result property="status" column="STATUS"/>
-		<result property="createTime" column="CREATE_TIME"/>
-		<result property="parentId" column="PARENT_ID"/>
-		<result property="sort" column="sort"/>
-	</resultMap>
-
+    <insert id="save" parameterType="SysSubject">
+       insert into sys_subject (subjectName,status,createTime,parent_id,sort) values (#{subjectName},
+       #{status},NOW(),#{parent_id},#{sort})
+    </insert>
+    <delete id="delete" parameterType="int">
+       delete from sys_subject where subjectId=#{value}
+    </delete>
+    <update id="update" parameterType="SysSubject">
+       update sys_subject set subjectName=#{subjectName}
+    </update>
+    <resultMap type="SysSubject" id="SysSubjectMap">
+       <result column="subjectId" property="subjectId"/>
+       <result column="subjectName" property="subjectName"/>
+       <result column="status" property="status"/>
+       <result column="createTime" property="createTime"/>
+       <result column="parent_id" property="parent_id"/>
+       <result column="sort" property="sort"/>
+       <association property="sysSubjects" column="subjectId" select="com.mapper.SysSubjectDao.getChildNode"></association>
+    </resultMap>
 	<select id="getById" parameterType="int" resultMap="SysSubjectMap">
-		select *
-		from sys_subject where SUBJECT_ID=#{value}
+		select * from sys_subject where subjectId=#{value}
 	</select>
-	<select id="listAll" resultMap="SysSubjectMap">
-		select * from sys_subject
+	<select id="listAll" parameterType="java.util.Map" resultMap="SysSubjectMap">
+	   select * from sys_subject 
+	   <where>
+	      <if test="parent_id != null">
+	         and parent_id=#{parent_id}
+	      </if>
+	   </where>
+	   order by sort desc
+	</select>
+	<select id="getChildNode" parameterType="int" resultMap="SysSubjectMap">
+	   select * from sys_subject where parent_id = #{value}
 	</select>
 	<select id="listDad" resultMap="SysSubjectMap">
 	select * from sys_subject where parent_id=0
