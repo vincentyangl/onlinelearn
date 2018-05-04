@@ -38,4 +38,9 @@ public class EduTeacherServiceImpl implements EduTeacherService{
 		eduTeacherDao.update(eduTeacher);
 	}
 
+	@Override
+	public List<EduTeacher> getTeacherBySubjectId(int subjectId) {
+		return eduTeacherDao.getTeacherBySubjectId(subjectId);
+	}
+
 }

@@ -29,7 +29,7 @@
 	</select>
 	<insert id="save" parameterType="EduTeacher">
 		insert into
-		edu_teacher(name,th_name,th_pw,education,career,is_star,pic_path,status,create_time,update_time,sort,SUBJECT_ID)values(#{name},#{th_name},#{th_pw},#{education},#{career},#{is_star},#{pic_path},#{status},#{create_time},#{update_time},#{sort},#{sysSubject。subject_id})
+		edu_teacher(name,th_name,th_pw,education,career,is_star,pic_path,status,create_time,update_time,sort,SUBJECT_ID)values(#{name},#{th_name},#{th_pw},#{education},#{career},#{is_star},#{pic_path},#{status},#{create_time},#{update_time},#{sort},#{sysSubject.subject_id})
 	</insert>
 	<delete id="delete" parameterType="int">
 		delete from edu_teacher where
@@ -37,7 +37,10 @@
 	</delete>
 	<update id="update" parameterType="EduTeacher">
 		update edu_teacher
-		set(name=#{name},th_name=#{th_name},th_pw=#{th_pw},education=#{education},career=#{career},is_star=#{is_star},pic_path=#{pic_path},status=#{status},create_time=#{create_time},update_time=#{update_time},sort,SUBJECT_ID)values(#{name},#{th_name},#{th_pw},#{education},#{career},#{is_star},#{pic_path},#{status},#{create_time},#{update_time},#{sort},#{sysSubject。subject_id})where
+		set(name=#{name},th_name=#{th_name},th_pw=#{th_pw},education=#{education},career=#{career},is_star=#{is_star},pic_path=#{pic_path},status=#{status},create_time=#{create_time},update_time=#{update_time},sort,SUBJECT_ID)values(#{name},#{th_name},#{th_pw},#{education},#{career},#{is_star},#{pic_path},#{status},#{create_time},#{update_time},#{sort},#{sysSubject.subject_id})where
 		id=#{id}
 	</update>
+	<select id="getTeacherBySubjectId" parameterType="int" resultType="EduTeacher">
+	   select * from edu_teacher where subject_id=#{value}
+	</select>
 </mapper>

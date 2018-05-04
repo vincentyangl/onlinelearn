@@ -134,8 +134,13 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                 <td>${ec.page_buyCount }</td>
                                 <td>${ec.page_viewCount }</td>
                                 <td><fmt:formatDate value="${ec.add_time }" pattern="yyyy-MM-dd HH:mm"/></td>
-                                <td><fmt:formatDate value="${ec.end_time }" pattern="yyyy-MM-dd HH:mm"/></td>
-                                <td><a href="/admin/course/courseDelete/${ec.course_id }" class="btn btn-default ">删除</a><a href="/admin/course/toCourseUpdate/${ec.course_id }" class="btn btn-default">修改</a></td>
+                                <c:if test="${ec.end_time==null||ec.end_time=='' }">
+                                    <td>购买后${ec.lose_time }天</td>
+                                </c:if>
+                                <c:if test="${ec.end_time!=null&&ec.end_time!='' }">
+                                    <td><fmt:formatDate value="${ec.end_time }" pattern="yyyy-MM-dd HH:mm"/></td>
+                                </c:if>
+                                <td><a href="/admin/course/courseDelete/${ec.course_id }" class="btn btn-default ">删除</a><a href="/admin/course/toCourseEdit/${ec.course_id }" class="btn btn-default">修改</a></td>
                               </tr>
                               </c:forEach>
                           </tbody>
