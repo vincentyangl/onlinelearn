@@ -44,8 +44,8 @@ public class SysSubjectController {
 		return child;
 	}
 	
-	@RequestMapping("/subjectList")
-	public ModelAndView subjectList() {
+	@RequestMapping("/subjectList/{state}")
+	public ModelAndView subjectList(@PathVariable("state") Integer state) {
 		ModelAndView mv = new ModelAndView();
 		List<SysSubject> sysSubjects = sysSubjectService.listAll(new HashMap<>());
 		List<Ztree> ztrees = new ArrayList<>();
@@ -58,7 +58,12 @@ public class SysSubjectController {
 		}
 		String json = JsonUtils.objectToJson(ztrees);
 		mv.addObject("sysSubjects", json);
-		mv.setViewName("/back/subject/subjectList");
+		if(state==0){
+			mv.setViewName("/back/subject/subjectList");
+		}
+		if(state==1){
+			mv.setViewName("/admin/teacher/teacherAdd");
+		}
 		return mv;
 	}
 	
