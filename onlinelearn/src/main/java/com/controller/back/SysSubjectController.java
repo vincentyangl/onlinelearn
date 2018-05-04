@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.SysSubject;
-import com.bean.Ztree;
 import com.service.SysSubjectService;
 import com.util.JsonUtils;
+import com.util.Ztree;
 
 @Controller
 @RequestMapping("/admin/subject")

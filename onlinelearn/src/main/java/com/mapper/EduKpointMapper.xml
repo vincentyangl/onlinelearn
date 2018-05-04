@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.EduKpointDao">
+    <resultMap type="EduKpoint" id="EduKpointMap">
+        <result column="kpoint_id" property="id"/>
+        <result column="course_id" property="courseId"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="pId"/>
+        <result column="add_time" property="addTime"/>
+        <result column="sort" property="sort"/>
+        <result column="play_count" property="playCount"/>
+        <result column="is_free" property="isFree"/>
+        <result column="video_url" property="videoUrl"/>
+        <result column="play_time" property="playTime"/>
+        <result column="kpoint_type" property="kpointType"/>
+        <result column="video_type" property="videoType"/>
+        <result column="file_type" property="fileType"/>
+        <result column="content" property="content"/>
+        <association property="eduTeacher" column="teacher_id" select="com.mapper.EduTeacherDao.getKpointById"></association>
+    </resultMap>
+    <insert id="save" parameterMap="EduKpointMap">
+        insert into edu_course_kpoint (course_id,name,parent_id,add_time,sort,play_count,is_free,
+        video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content) values (#{courseId},
+        #{name},#{pId},NOW(),#{sort},#{playCount},#{isFree},#{videoUrl},#{eduTeacher.id},#{playTime}
+        ,#{kpointType},#{videoType},#{fileType},#{content})
+    </insert>
+  </mapper>

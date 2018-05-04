@@ -9,8 +9,8 @@ public interface EduCourseService {
 
 	public void save(EduCourse eduCourse,String str[] );
 	public void delete(int course_id);
-	public void update(EduCourse eduCourse);
+	public void update(EduCourse eduCourse,String str[]);
 	public List<EduCourse> listAll(Map map);
 	public EduCourse getById(int course_id);
-	
+	public List<EduCourse> getByTeacherId(int id);
 }

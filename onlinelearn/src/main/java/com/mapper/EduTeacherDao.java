@@ -14,4 +14,6 @@ public interface EduTeacherDao {
 	public void update(EduTeacher eduTeacher);
 	public List<EduTeacher> listBySid(int subjectId);
 	public List<EduTeacher> getTeacherBySubjectId(int subjectId);
+	public List<EduTeacher> getTeacherByCourseId(int course_id);
+	public EduTeacher getKpointById(int id);
 }

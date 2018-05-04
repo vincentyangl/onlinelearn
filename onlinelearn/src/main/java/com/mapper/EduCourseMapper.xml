@@ -6,6 +6,9 @@
     <insert id="saveCourseTeacher" parameterType="java.util.Map">
        insert into edu_course_teacher values (#{course_id},#{teacher_id})
     </insert>
+    <delete id="deleteCourseTeacher" parameterType="int">
+       delete from edu_course_teacher where course_id=#{value}
+    </delete>
     <insert id="save" parameterType="EduCourse">
        <selectKey keyProperty="course_id" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
@@ -15,7 +18,7 @@
        page_viewCount,end_time,loseType,lose_time,sequence,course_gross_income) values 
        (#{course_name},#{is_avaliable},#{sysSubject.subjectId},#{subject_link},CURDATE(),
        #{source_price},#{current_price},#{title},#{context},#{lession_num},#{logo},NOW(),
-       0,0,#{end_time},#{loseType},#{lose_time},#{sequence},#{course_gross_income})
+       0,0,#{end_time},#{loseType},#{lose_time},0,0)
     </insert>
     <delete id="delete" parameterType="int">
        delete from edu_course where course_id=#{value}
@@ -25,8 +28,7 @@
        is_avaliable=#{is_avaliable},subject_id=#{sysSubject.subjectId},subject_link=#{subject_link},
        add_time=#{add_time},source_price=#{source_price},current_price=#{current_price},
        title=#{title},context=#{context},lession_num=#{lession_num},logo=#{logo},update_time=NOW(),
-       page_buyCount=#{page_buyCount},page_viewCount=#{page_viewCount},end_time=#{end_time},
-       loseType=#{loseType},lose_time=#{lose_time},sequence=#{sequence}
+       end_time=#{end_time},loseType=#{loseType},lose_time=#{lose_time}
        where course_id=#{course_id}
     </update>
     <resultMap type="EduCourse" id="EduCourseMap">
@@ -50,6 +52,7 @@
        <result column="sequence" property="sequence"/>
        <result column="course_gross_income" property="course_gross_income"/>
        <association property="sysSubject" column="subject_id" select="com.mapper.SysSubjectDao.getById"></association>
+       <association property="eduTeachers" column="course_id" select="com.mapper.EduTeacherDao.getTeacherByCourseId"></association>
     </resultMap>
     <select id="listAll"  parameterType="java.util.Map" resultMap="EduCourseMap">
        select * from edu_course 
@@ -76,5 +79,8 @@
     </select>
     <select id="getCourseBySubjectId" parameterType="int" resultType="EduCourse">
        select * from edu_course where subject_id=#{value}
+    </select>
+    <select id="getByTeacherId" parameterType="int" resultType="EduCourse">
+       select * from edu_course where course_id in (select course_id from edu_course_teacher where teacher_id=#{value})
     </select>
   </mapper>
