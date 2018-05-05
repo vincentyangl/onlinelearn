@@ -18,9 +18,9 @@ public class EduCourse {
 	//添加时间
 	private Date add_time;
 	//课程原价格（只显示）
-	private int source_price;
+	private double source_price;
 	//课程销售价格（实际支付价格）设置为0则可免费观看
-	private int current_price;
+	private double current_price;
 	//课程简介
 	private String title;
 	//课程详情
@@ -86,13 +86,13 @@ public class EduCourse {
 	public double getSource_price() {
 		return source_price;
 	}
-	public void setSource_price(int source_price) {
+	public void setSource_price(double source_price) {
 		this.source_price = source_price;
 	}
 	public double getCurrent_price() {
 		return current_price;
 	}
-	public void setCurrent_price(int current_price) {
+	public void setCurrent_price(double current_price) {
 		this.current_price = current_price;
 	}
 	public String getTitle() {

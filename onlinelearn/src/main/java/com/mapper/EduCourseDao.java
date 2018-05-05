@@ -14,4 +14,6 @@ public interface EduCourseDao {
 	public EduCourse getById(int course_id);
 	public List<EduCourse> getCourseBySubjectId(int subjectId);
 	public void saveCourseTeacher(Map map);
+	public void deleteCourseTeacher(int course_id);
+	public List<EduCourse> getByTeacherId(int id);
 }

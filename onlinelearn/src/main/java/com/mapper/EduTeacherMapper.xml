@@ -52,4 +52,10 @@
 	<select id="getTeacherBySubjectId" parameterType="int" resultType="EduTeacher">
 	   select * from edu_teacher where subject_id=#{value}
 	</select>
+	<select id="getTeacherByCourseId" parameterType="int" resultType="EduTeacher">
+	   select * from edu_teacher where id in (select teacher_id from edu_course_teacher where course_id=#{value})
+	</select>
+	<select id="getKpointById" parameterType="int" resultType="EduTeacher">
+	   select * from edu_teacher where id=#{value}
+	</select>
 </mapper>

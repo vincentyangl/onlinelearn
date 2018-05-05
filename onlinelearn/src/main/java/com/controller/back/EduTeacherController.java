@@ -135,7 +135,7 @@ public class EduTeacherController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("getTeacherBySubjectId/{subjectId}")
+	@RequestMapping("/admin/teacher/getTeacherBySubjectId/{subjectId}")
 	public List<EduTeacher> getTeacherBySubjectId(@PathVariable("subjectId") Integer subjectId) {
 		List<EduTeacher> ets = eduTeacherService.getTeacherBySubjectId(subjectId);
 		return ets;
