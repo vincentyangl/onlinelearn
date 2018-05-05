@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,19 +15,21 @@
 	media="all">
 <link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 </head>
-<style type="text/css">  
-#ca {  
-    width:150px;  
-    overflow:hidden;  
-    white-space:nowrap;  
-    text-overflow:ellipsis;  
-    -o-text-overflow:ellipsis;  
-    -icab-text-overflow: ellipsis;  
-    -khtml-text-overflow: ellipsis;  
-    -moz-text-overflow: ellipsis;  
-    -webkit-text-overflow: ellipsis;  
-}  
+<style type="text/css">
+#ca {
+	width: 150px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-icab-text-overflow: ellipsis;
+	-khtml-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+}
 </style>
 
 <body>
@@ -41,13 +43,15 @@
 							<input value="" placeholder="请输入关键字"
 								class="layui-input search_input" type="text" name="qname">
 						</div>
+						开始时间:
 						<div class="layui-input-inline">
-							开始时间: <input value="" class="layui-input search_input"
-								type="date" name="startTime">
+							<input value="" class="layui-input search_input" type="text"
+								name="startTime" onclick="WdatePicker()">
 						</div>
+						结束时间:
 						<div class="layui-input-inline">
-							结束时间: <input value="" class="layui-input search_input"
-								type="date" name="endTime">
+							<input value="" class="layui-input search_input" type="text"
+								name="endTime" onclick="WdatePicker()">
 						</div>
 						<input type="submit" class="btn btn-info" value="查询" />
 					</div>
@@ -95,7 +99,8 @@
 								</c:if>
 								<td><div id="ca" title="${l.education }">${l.education }</div></td>
 								<td><div id="ca" title="${l.career }">${l.career }</div></td>
-								<td><fmt:formatDate value="${l.createTime }" type="date" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+								<td><fmt:formatDate value="${l.createTime }" type="date"
+										pattern="yyyy-MM-dd hh:mm:ss" /></td>
 								<td>${l.sort }</td>
 								<td><a href="/admin/teacher/getById/${l.id}"
 									class="layui-btn layui-btn-mini"><i

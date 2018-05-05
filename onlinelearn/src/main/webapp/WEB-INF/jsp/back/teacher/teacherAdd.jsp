@@ -13,6 +13,7 @@
 	href="/common/bootstrap/css/bootstrap.css" media="all">
 <link rel="stylesheet" type="text/css" href="/common/global.css"
 	media="all">
+<link rel="stylesheet" href="/ztree/css/demo.css" type="text/css">
 <link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
 <link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css"
@@ -20,48 +21,77 @@
 <script type="text/javascript" src="/ztree/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="/ztree/js/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="/ztree/js/jquery.ztree.excheck.js"></script>
+
 <SCRIPT type="text/javascript">
 	var setting = {
 		check : {
-			enable : true
+			enable : true,
+			chkStyle : "radio",
+			radioType : "all"
+		},
+		view : {
+			dblClickExpand : false
 		},
 		data : {
 			simpleData : {
 				enable : true
 			}
+		},
+		callback : {
+			onClick : onClick,
+			onCheck : onCheck
 		}
 	};
 
-	var zNodes=${json};
-	
-	var code;
+	var zNodes = ${sysSubjects};
 
-	function setCheck() {
-		var zTree = $.fn.zTree.getZTreeObj("treeDemo"), py = $("#py").attr(
-				"checked") ? "p" : "", sy = $("#sy").attr("checked") ? "s" : "", pn = $(
-				"#pn").attr("checked") ? "p" : "", sn = $("#sn")
-				.attr("checked") ? "s" : "", type = {
-			"Y" : py + sy,
-			"N" : pn + sn
-		};
-		zTree.setting.check.chkboxType = type;
-		showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "'
-				+ type.N + '" };');
+	function onClick(e, treeId, treeNode) {
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		zTree.checkNode(treeNode, !treeNode.checked, null, true);
+		return false;
 	}
-	function showCode(str) {
-		if (!code)
-			code = $("#code");
-		code.empty();
-		code.append("<li>" + str + "</li>");
+  var v="";
+  var a=0;
+	function onCheck(e, treeId, treeNode) {
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
+				.getCheckedNodes(true), v = "";
+		for (var i = 0, l = nodes.length; i < l; i++) {
+			v += nodes[i].name + ",";
+		}
+		for (var i = 0, l = nodes.length; i < l; i++) {
+			a= nodes[i].id;
+		}
+		if (v.length > 0)
+			v = v.substring(0, v.length - 1);
+		var cityObj = $("#citySel");
+		cityObj.attr("value", v);
+		$("#id").val(a);
+	}
+
+	function showMenu() {
+		var cityObj = $("#citySel");
+		var cityOffset = $("#citySel").offset();
+		$("#menuContent").css({
+			left : cityOffset.left + "px",
+			top : cityOffset.top + cityObj.outerHeight() + "px"
+		}).slideDown("fast");
+
+		$("body").bind("mousedown", onBodyDown);
+	}
+	function hideMenu() {
+		$("#menuContent").fadeOut("fast");
+		$("body").unbind("mousedown", onBodyDown);
+	}
+	function onBodyDown(event) {
+		if (!(event.target.id == "menuBtn" || event.target.id == "citySel"
+				|| event.target.id == "menuContent" || $(event.target).parents(
+				"#menuContent").length > 0)) {
+			hideMenu();
+		}
 	}
 
 	$(document).ready(function() {
 		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-		setCheck();
-		$("#py").bind("change", setCheck);
-		$("#sy").bind("change", setCheck);
-		$("#pn").bind("change", setCheck);
-		$("#sn").bind("change", setCheck);
 	});
 </SCRIPT>
 
@@ -72,6 +102,7 @@
 		<div class="form-horizontal">
 			<form action="/admin/teacher/save" method="post"
 				enctype="multipart/form-data">
+				<input type="hidden" id="id" name="subjectId" value="" />
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">讲师名称</label>
 					<div class="col-sm-3">
@@ -81,8 +112,18 @@
 				</div>
 				<div class="form-group">
 					<label for="is_star" class="col-sm-2 control-label">讲师专业</label>
-					<div class="col-sm-3">
-						<ul id="treeDemo" class="ztree"></ul>
+					<div class="content_wrap">
+						<div class="zTreeDemoBackground left">
+							<ul class="list">
+								<li class="title"><input id="citySel" type="text" readonly
+									value="" style="width: 120px;" onclick="showMenu();" /></li>
+							</ul>
+						</div>
+					</div>
+					<div id="menuContent" class="menuContent"
+						style="display: none; position: absolute;">
+						<ul id="treeDemo" class="ztree"
+							style="margin-top: 0; width: 180px; height: 300px;"></ul>
 					</div>
 				</div>
 				<div class="form-group">
