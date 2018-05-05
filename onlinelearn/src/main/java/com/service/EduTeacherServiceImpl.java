@@ -41,10 +41,6 @@ public class EduTeacherServiceImpl implements EduTeacherService{
 		eduTeacherDao.update(eduTeacher);
 	}
 
-	@Override
-	public List<EduTeacher> listBySid(int subjectId) {
-		return eduTeacherDao.listBySid(subjectId);
-	}
 	public List<EduTeacher> getTeacherBySubjectId(int subjectId) {
 		return eduTeacherDao.getTeacherBySubjectId(subjectId);
 	}
