@@ -20,10 +20,26 @@
         <result column="content" property="content"/>
         <association property="eduTeacher" column="teacher_id" select="com.mapper.EduTeacherDao.getKpointById"></association>
     </resultMap>
-    <insert id="save" parameterType="EduKpoint" >
+    <insert id="save" parameterType="EduKpoint">
         insert into edu_course_kpoint (course_id,name,parent_id,add_time,sort,play_count,is_free,
         video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content) values (#{courseId},
         #{name},#{pId},NOW(),#{sort},#{playCount},#{isFree},#{videoUrl},#{eduTeacher.id},#{playTime}
         ,#{kpointType},#{videoType},#{fileType},#{content})
     </insert>
+    <delete id="delete" parameterType="int">
+        delete from edu_course_kpoint where kpoint_id=#{value}
+    </delete>
+    <update id="update" parameterType="EduKpoint">
+       update edu_course_kpoint set name=#{name},video_url=#{videoUrl},sort=#{sort},play_time=#{playTime}
+       ,is_free=#{isFree},teacher_id=#{eduTeacher.id},content=#{content} where kpoint_id=#{id}
+    </update>
+    <select id="listAll" resultMap="EduKpointMap">
+        select * from edu_course_kpoint
+    </select>
+    <select id="getByCourseId" parameterType="int" resultMap="EduKpointMap">
+        select * from edu_course_kpoint where course_id=#{value}
+    </select>
+    <select id="getById" parameterType="int" resultMap="EduKpointMap">
+        select * from edu_course_kpoint where kpoint_id=#{value}
+    </select>
   </mapper>

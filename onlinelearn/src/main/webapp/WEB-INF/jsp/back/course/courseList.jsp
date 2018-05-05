@@ -140,7 +140,11 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                 <c:if test="${ec.end_time!=null&&ec.end_time!='' }">
                                     <td><fmt:formatDate value="${ec.end_time }" pattern="yyyy-MM-dd HH:mm"/></td>
                                 </c:if>
-                                <td><a href="/admin/course/courseDelete/${ec.course_id }" class="btn btn-default ">删除</a><a href="/admin/course/toCourseEdit/${ec.course_id }" class="btn btn-default">修改</a></td>
+                                <td>
+                                    <a href="/admin/kpoint/kpointList/${ec.course_id }" class="btn btn-default ">章节管理</a>
+                                    <a href="/admin/course/courseDelete/${ec.course_id }" class="btn btn-default ">删除</a>
+                                    <a href="/admin/course/toCourseEdit/${ec.course_id }" class="btn btn-default">修改</a>
+                                </td>
                               </tr>
                               </c:forEach>
                           </tbody>

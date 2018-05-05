@@ -33,7 +33,9 @@
    }
 </style>
 <script type="text/javascript">
+    //用来存储选择的老师信息传到后台
     var tids = new Array();
+    //数组的下标
     var count =0;
 	function renderForm(){
 		 layui.use('form', function(){
@@ -42,6 +44,7 @@
 		 });
 		 }
 	   $(document).ready(function(){
+		  
 		   var qpid = "${course.sysSubject.parent_id}";  
 		   $("#context").css("display","none");
 		   $.post("/admin/subject/getSubjectList/2",
@@ -73,8 +76,9 @@
 		        	for(i=0;i<msg.length;i++){
 		        		$("#id").append("<option class='op1' value='"+msg[i].id+"'>"+msg[i].name+"</option>");
 		        	}
-	        		 form.render();
+		        	renderForm();
 		        });
+			   
 		   }
 		 //给专业id赋值
 		   if(qpid>0){
@@ -84,7 +88,7 @@
 			        		$("#subject_id").append("<option class='op' value='"+msg[i].subjectId+"'>"+msg[i].subjectName+"</option>");
 			        	}
 			         $("#subject_id").val("${course.sysSubject.subjectId}");
-		       		 form.render();
+			         renderForm();
 			        });
 			   //给教师id赋值
 			   $.post("/admin/teacher/getTeacherBySubjectId/"+qpid,function(msg){
@@ -92,12 +96,11 @@
 		        	for(i=0;i<msg.length;i++){
 		        		$("#id").append("<option class='op1' value='"+msg[i].id+"'>"+msg[i].name+"</option>");
 		        	}
-	        		 form.render();
+		        	renderForm();
 		        });
 		   }
 		 
-		
-		 
+		   setTeacherIdToArray();
 		   
 		 //给到期类型赋值
 		    var ltype = "${course.loseType}";
@@ -173,6 +176,8 @@
 			    });
 			    
 			})
+			
+			 
 	   });
 	   
 	   function removeTname(a,b){
@@ -184,6 +189,7 @@
 				}
 			}
 	   }
+	   
 	   
 		$(function(){
 			  layui.use('form', function () {
@@ -225,7 +231,7 @@
 			$("#context").val("");
 		}
 		
-		function toAddCourse(){
+		function toEditCourse(){
 			var teaids = "";
 			for(var i=0;i<tids.length;i++){
 				teaids+=tids[i]+"-";
@@ -237,6 +243,12 @@
 			document.forms[0].submit();
 		}
 		
+		function setTeacherIdToArray(){
+			$("input[name='tid']").each(function(){
+				tids[count] = $(this).val();
+				count++;
+			});
+		}
 		
 	</script>
 </head>
@@ -290,14 +302,14 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">课程原价格:</label>
 						<div class="layui-input-block">
-							<input type="text" id="source_price"  value="${course.source_price }"  name="source_price" autocomplete="off"
+							<input type="text" id="source_price"  value="${course.source_price }"  name="source_price1" autocomplete="off"
 								class="layui-input ">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">课程销售价格:</label>
 						<div class="layui-input-block">
-							<input type="text" id="current_price"  value="${course.current_price }"  name="current_price" autocomplete="off"
+							<input type="text" id="current_price"  value="${course.current_price }"  name="current_price1" autocomplete="off"
 								class="layui-input ">
 						</div>
 					</div>
@@ -325,7 +337,12 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label " >添加教师:</label>
 						<div id="ddiv" class="layui-input-block">
-							<ul id="tea1"></ul>
+							<ul id="tea1">
+							    <c:forEach items="${course.eduTeachers }" var="et">
+							        <input type="hidden" name="tid" value="${et.id }" />
+							        <li class="tli">${et.name }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="" onclick="removeTname(this,${et.id})" >删除</a></li>
+							    </c:forEach>
+							</ul>
 						</div>
 						<div class="layui-input-block">
 						<input type="hidden" id="teaids"  name="teaids" autocomplete="off" class="layui-input ">
@@ -343,6 +360,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label ">课程图片:</label>
 						<div class="layui-input-block">
+						    <input type="hidden"  value="${course.logo }" name="logo"/>
 						    <img alt=""   src="/upload/${course.logo }"  width="300" height="200">
 							<input type="file" id="logo1" name="logo1"  autocomplete="off" class="layui-input " >(请上传640*357(长*宽)像素的图片)
 						</div>
@@ -358,7 +376,7 @@
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn" onclick="toAddCourse()" type="button">立即提交</button>
+							<button class="layui-btn" onclick="toEditCourse()" type="button">立即提交</button>
 							<button type="reset"  onclick="cleanText()" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
