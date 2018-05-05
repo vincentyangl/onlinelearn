@@ -23,7 +23,7 @@ import com.service.SysSubjectService;
 @Controller
 public class WebEduTeacherController {
 
-	
+
 	@Autowired
 	private EduTeacherService eduTeacherService;
 	@Autowired
@@ -53,11 +53,13 @@ public class WebEduTeacherController {
 		return mv;
 	}
 	@RequestMapping("/front/teacher/getById/{id}")
-	public ModelAndView getById(@PathVariable int id) {
+	public ModelAndView getById(@PathVariable("id")int id) {
 		ModelAndView mv = new ModelAndView();
 		EduTeacher eduTeacher = eduTeacherService.getById(id);
+		List<EduCourse> list = eduCourseService.getByTeacherId(id);
+		mv.addObject("list", list);
 		mv.addObject("teacher", eduTeacher);
-		mv.setViewName("/web/teacher/teacher_Info");
+		mv.setViewName("/web/teacher/teacherInfo");
 		return mv;
 	}
 }

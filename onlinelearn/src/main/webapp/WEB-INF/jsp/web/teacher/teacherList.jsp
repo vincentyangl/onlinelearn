@@ -44,7 +44,7 @@
 															<img src="${teacher.picPath}"  alt="">
 														</c:when>
 														<c:otherwise>
-															<img xSrc="${ctx }/static/inxweb/img/default-tea-img.gif" src="/static/inxweb/img/default-tea-img.gif" alt="">
+															<img src="/static/inxweb/img/default-tea-img.gif" alt="">
 														</c:otherwise>
 													</c:choose>
 												</a>

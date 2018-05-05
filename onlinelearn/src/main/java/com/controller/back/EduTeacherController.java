@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduTeacher;
 import com.bean.SysSubject;
-import com.bean.Ztree;
+import com.util.Ztree;
 import com.service.EduTeacherService;
 import com.service.SysSubjectService;
 import com.util.JsonUtils;

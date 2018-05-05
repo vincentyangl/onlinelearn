@@ -20,7 +20,7 @@
         <result column="content" property="content"/>
         <association property="eduTeacher" column="teacher_id" select="com.mapper.EduTeacherDao.getKpointById"></association>
     </resultMap>
-    <insert id="save" parameterMap="EduKpointMap">
+    <insert id="save" parameterType="EduKpoint" >
         insert into edu_course_kpoint (course_id,name,parent_id,add_time,sort,play_count,is_free,
         video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content) values (#{courseId},
         #{name},#{pId},NOW(),#{sort},#{playCount},#{isFree},#{videoUrl},#{eduTeacher.id},#{playTime}
