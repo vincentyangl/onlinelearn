@@ -118,4 +118,14 @@ public class EduTeacherController {
 		List<EduTeacher> ets = eduTeacherService.getTeacherBySubjectId(subjectId);
 		return ets;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/admin/teacher/listTeacher")
+	public List<EduTeacher> listTeacher(){
+		ModelAndView mv = new ModelAndView();
+		List<EduTeacher> list = eduTeacherService.listAll(new HashMap<>());
+		mv.addObject("list", list);
+		return list;
+	}
+	
 }
