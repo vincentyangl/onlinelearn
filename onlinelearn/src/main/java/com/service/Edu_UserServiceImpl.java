@@ -27,11 +27,7 @@ public class Edu_UserServiceImpl implements Edu_UserService{
 		
 	}
 
-	@Override
-	public Edu_User getById(int id) {
-		Edu_User edu_User=edu_UserDao.getById(id);
-		return edu_User;
-	}
+	
 
 	@Override
 	public void update(Edu_User edu_User) {
@@ -43,5 +39,17 @@ public class Edu_UserServiceImpl implements Edu_UserService{
 	public List<Edu_User> listAll(Map map) {
 		return edu_UserDao.listAll(map);
 	}
+
+	@Override
+	public Edu_User getById(int userId) {
+		return edu_UserDao.getById(userId);
+	}
+
+	@Override
+	public void toupdate(Edu_User edu_User) {
+		edu_UserDao.toupdate(edu_User);
+		
+	}
+
 
 }

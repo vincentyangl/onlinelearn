@@ -3,6 +3,7 @@ package com.bean;
 import java.util.Date;
 
 public class Edu_User {
+
 private int userId;    //学员ID
 private String mobile;   //手机号
 private String email;    //邮箱号
@@ -75,14 +76,15 @@ public int getAge() {
 public void setAge(int age) {
 	this.age = age;
 }
+
+public int getIsAvalible() {
+	return isAvalible;
+}
 public Date getCreateTime() {
 	return createTime;
 }
 public void setCreateTime(Date createTime) {
 	this.createTime = createTime;
-}
-public int getIsAvalible() {
-	return isAvalible;
 }
 public void setIsAvalible(int isAvalible) {
 	this.isAvalible = isAvalible;

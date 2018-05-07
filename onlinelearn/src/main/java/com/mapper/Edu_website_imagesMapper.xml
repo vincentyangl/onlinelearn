@@ -4,7 +4,45 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.mapper.Edu_website_imagesDao">
   
- <!--  <resultMap type="" id=""></resultMap> -->
-  
-  
+  <resultMap type="Edu_website_images" id="imgMap">
+  <result property="imge_id" column="imge_id"/>
+  <result property="image_url" column="image_url"/>
+  <result property="link_address" column="link_address"/>
+  <result property="title" column="title"/>
+  <result property="series_number" column="series_number"/>
+  <result property="preview_url" column="preview_url"/>
+  <result property="color" column="color"/>
+  <result property="describes" column="describes"/>
+  <association property="type_id" column="type_id" select="com.mapper.Edu_website_images_typeDao.getById"></association>
+  </resultMap>
+    
+    <select id="listAll" resultMap="imgMap" parameterType="java.util.Map">
+    select * from edu_website_images 
+    <where>
+       <if test="qname!=null">
+       and title like '%${qname}%'
+       </if>
+       <if test="type_id>0">
+       and type_id=#{type_id}
+       </if>
+    </where>
+    </select>
+    
+    <select id="getById" resultType="Edu_website_images" parameterType="int">
+    select * from edu_website_images where imge_id=#{imge_id}
+    </select>
+    
+     <insert id="save" parameterType="Edu_website_images">
+       insert into edu_website_images (image_url,link_address,title,type_id,series_number,preview_url,color,describes)
+       values(#{image_url},#{link_address},#{title},#{type_id.type_id},#{series_number},#{preview_url},#{color},#{describes})
+     </insert>
+    
+    <update id="update" parameterType="Edu_website_images">
+      update edu_website_images set image_url=#{image_url},link_address=#{link_address},title=#{title},type_id=#{type_id.type_id},
+series_number=#{series_number},preview_url=#{preview_url},color=#{color},describes=#{describes} where imge_id=#{imge_id}
+     
+    </update>
+    <delete id="delete" parameterType="int">
+      delete from edu_website_images where imge_id=#{imge_id}
+    </delete>
   </mapper>

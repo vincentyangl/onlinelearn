@@ -14,13 +14,11 @@ public class Edu_classServiceImpl implements Edu_classService {
 
 @Override
 public Edu_class getById(int id) {
-	//Edu_class edu_class=edu_classService.getById(id);
 	return edu_classDao.getById(id);
 }
 
 @Override
 public List<Edu_class> listAll() {
-//	List<Edu_class>list=edu_classService.listAll();
 	return edu_classDao.listAll();
 }
 
