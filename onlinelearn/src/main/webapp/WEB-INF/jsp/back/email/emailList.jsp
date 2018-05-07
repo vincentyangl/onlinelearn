@@ -9,7 +9,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>学员管理</title>
+	<title>邮件管理</title>
 	
 	<meta name="renderer" content="webkit">	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
@@ -23,7 +23,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<link rel="stylesheet" type="text/css" href="/common/global.css"  media="all">
 	<link rel="stylesheet" type="text/css" href="/css/personal.css"  media="all">
 	<script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
-	<script  language="javascript" src="/js/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+	
 	
 	 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 		<script src="/js/jquery-3.0.0.js" type="text/javascript" charset="utf-8"></script>
@@ -40,16 +40,18 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 
 	  
 	  function list() {//查询
-			document.forms[0].action="/admin/student/Edu_userAll";
+			document.forms[0].action="/admin/email/sendEmailList";
 			document.forms[0].submit();
 		}
 	  
 	  function u(id){ //修改密码按钮
 		  $("#myModal2").modal("hide");
 	      $("#userId").val(id);
-	       }
+		  
+	  }
 	  
 	  function cz() {
+		  
 		  $("#password").val("");
 		  $("#password2").val("");
 		
@@ -130,7 +132,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 								</div>
 							</div>
 							</div>
-							 
+							
 							<div class="modal-footer">
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-3 control-label" style=" font-family:Arial,Verdana,Sans-serif; font-weight: normal;font-size:16px;">再次确认密码 </label>
@@ -166,39 +168,37 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 						<div class="layui-inline">
 						
 							<div class="layui-input-inline">
-								<input placeholder="电话/邮箱/姓名/昵称" name="qname" id="qname" value="${qname}"
+								<input placeholder="收件人邮箱" name="qname" id="qname" value="${qname}"
 									class="layui-input search_input" type="text">
 									
 							</div>
 							<div class="layui-input-inline">
-								<input class="layui-input search_input" placeholder="请选择时间" type="date" name="start" ">
+								<input class="layui-input search_input" type="date" name="start">
 							</div>
 							<div class="layui-input-inline">
-<!-- 						  my97时间格式	onclick="WdatePicker()" -->
-								<input class="layui-input search_input" placeholder="请选择时间" type="date" name="end" >
+								<input class="layui-input search_input" type="date" name="end">
 							</div>
-<!-- 							<div class="layui-input-inline"> -->
-<!-- 								<label class="sr-only" for="exampleInputEmail3">学员班级</label>  -->
-<!-- 								<select id="id" name="id" class="form-control"> -->
-<!-- 									<option value="-1">--请选择--</option> -->
+							<div class="layui-input-inline">
+								<label class="sr-only" for="exampleInputEmail3">类型</label> 
+								<select id="type" name="type" class="form-control">
+									<option value="-1">--请选择类型--</option>
+									<option value="1">普通</option>
+									<option value="2">定时</option>
 <%-- 									<c:forEach items="${type}" var="t"> --%>
-<%-- <%-- 										<c:if test="${t.ptid>3}"> --%> 
+<%-- 										<c:if test="${t.ptid>3}"> --%>
 <%-- 											<option value="${t.id }">${t.cname }</option> --%>
-<%-- <%-- 										</c:if> --%> 
+<%-- 										</c:if> --%>
 <%-- 									</c:forEach> --%>
-<!-- 								</select> -->
-<!-- 							</div> -->
-							
-							<div class="layui-input-inline">
-								<label class="sr-only" for="exampleInputEmail3">状态</label> 
-								<select id="isAvalible" name="isAvalible" class="form-control">
-									<option value="-1">--请选择--</option>
-								    <option value="1">正常</option>
-								    <option value="0">冻结</option>
-<!-- 								isAvalible;   //是否可用 1正常  2冻结 -->
 								</select>
 							</div>
-							
+							<div class="layui-input-inline">
+								<label class="sr-only" for="exampleInputEmail3">是否发送</label> 
+								<select id="status" name="status" class="form-control">
+									<option value="-1">--请选择状态--</option>
+									<option value="1">已发送</option>
+									<option value="2">未发送</option>
+								</select>
+							</div>
 							<button class="layui-btn search_btn" type="submit"  onclick="list()" >查询</button>
 <!-- 							<a  class="layui-btn search_btn" onclick="listP()">查询</a> -->
 						</div>
@@ -209,46 +209,42 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 		         <!-- 操作日志 -->
                 <div class="layui-tab-item layui-field-box layui-show">
                      <table class="layui-table table-hover" lay-even="" lay-skin="nob">
-                          <thead>
+                        
+                            <thead>
                               <tr>
                                  
-                                  <th></th>
-                                  <th>邮箱</th>
-                                  <th>手机号</th>
-                                   <th>用户名</th>
-                                  <th>昵称</th>
-<!--                                   <th>班级</th> -->
-                                  <th>性别</th>
-                                  <th>年龄</th>
-                                  <th>注册时间</th>
-                                   <th>状态</th>
-                                  <th>操作</th>
+                                 
+                                   <th>ID</th>
+                                  <th>邮箱类型</th>
+                                  <th>是否发送</th>
+                                  <th>邮件标题</th>
+                                  <th>收件人</th>
+                                  <th>普通发送时间</th>
+                                  <th>定时发送时间</th>
+                                  <th>操作人</th>
+                                  <th>查看</th>
                               </tr>
                           </thead>
                           <tbody>
-                          <c:forEach items="${list}" var="l" varStatus="statu">
+                          <c:forEach items="${list}" var="p" varStatus="statu">
                               <tr>
-                                <td><input type="hidden" value="${l.userId}"></td>
-                                <td>${l.email}</td>
-                                <td>${l.mobile}</td>
-                                <td>${l.userName}</td>
-                                <td>${l.showName}</td>
-<%--                                 <td>${l.id.cname}</td> --%>
-                                <c:if test="${l.sex==1}"><td>男</td></c:if>
-                                <c:if test="${l.sex==0}"><td>女</td></c:if>
-                                <td>${l.age}</td>
+                                <td>${p.id }</td>
+                                <c:if test="${p.type==1}"><td>普通</td></c:if>
+                                <c:if test="${p.type==2}"><td>定时</td></c:if>
+                                <c:if test="${p.status==1}"><td>已发送 </td></c:if>
+                                <c:if test="${p.status==2}"><td>未发送</td></c:if>
+                                <td>${p.title}</td>
+                                <td>${p.email}</td>
                                 <td><fmt:formatDate
-										value="${l.createTime}" type="date"
+										value="${p.create_time}" type="date"
 										pattern="yyyy-MM-dd hh:mm:ss" /></td>
-                                <c:if test="${l.isAvalible==1}"> <td> 正常  </td></c:if>
-                                <c:if test="${l.isAvalible==0}"> <td> 冻结  </td></c:if>
+                               <td><fmt:formatDate
+										value="${p.send_time }" type="date"
+										pattern="yyyy-MM-dd hh:mm:ss" /></td>
+                                <td>${p.userId.userName}</td>
                                 <td>
-                                
-<!--                             class="btn btn-primary btn-lg"   onclick='xiugai("+rowdata.eid+")'                    -->
-                      <button type="button"  class="btn btn-default" data-toggle="modal" data-target="#myModal2" onclick="u(${l.userId})">修改密码</button>
-<%--                            <a href="/admin/student/getById${l.userId}" class="btn btn-default" data-toggle="modal" data-target="#myModal2">修改密码</a> --%>
-                      <a href="/admin/student/toupdate/${l.userId}/${l.isAvalible}" class="btn btn-default">冻结</a></td>
-<!--                           /admin/student/update?userId="+userId+"&password="+password;  -->
+                                <a href="/admin/email/content/${p.id}" class="btn btn-default">查看</a>
+                                  </td>
                               </tr>
                           </c:forEach>
                           </tbody>
@@ -260,16 +256,16 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                      
                      
                      
-                       <table class="layui-table table-hover" lay-even="" lay-skin="nob">
+                      <table class="layui-table table-hover" lay-even="" lay-skin="nob">
                       <tr>
                       
                       <td ><c:if test="${page.isFirstPage==true }">
 						<a>首页</a>
 					</c:if> <c:if test="${page.isFirstPage==false }">
-						<a href="/admin/student/Edu_userAll?page=${page.firstPage }">首页</a>
+						<a href="/admin/email/sendEmailList?page=${page.firstPage }">首页</a>
 					</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 						test="${page.hasPreviousPage==true }">
-						<a href="/admin/student/Edu_userAll?page=${page.prePage }">上一页</a>
+						<a href="/admin/email/sendEmailList?page=${page.prePage }">上一页</a>
 					</c:if> <c:if test="${page.hasPreviousPage==false }">
 						<a>上一页</a>
 					</c:if> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -277,12 +273,12 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${page.pageNum }/${page.pages }
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 						test="${page.hasNextPage==true }">
-						<a href="/admin/student/Edu_userAll?page=${page.nextPage }">下一页</a>
+						<a href="/admin/email/sendEmailList?page=${page.nextPage }">下一页</a>
 					</c:if> <c:if test="${page.hasNextPage==false }">
 						<a>下一页</a>
 					</c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 						test="${page.isLastPage==false }">
-						<a href="/admin/student/Edu_userAll?page=${page.lastPage }">末页</a>
+						<a href="/admin/email/sendEmailList?page=${page.lastPage }">末页</a>
 					</c:if> <c:if test="${page.isLastPage==true }">
 						<a>末页</a>
 					</c:if></td>
