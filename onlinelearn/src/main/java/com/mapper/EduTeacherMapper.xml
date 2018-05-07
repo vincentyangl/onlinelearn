@@ -16,7 +16,7 @@
 		<association property="sysSubject" column="SUBJECT_ID"
 			select="com.mapper.SysSubjectDao.getById"></association>
 	</resultMap>
-	<select id="listAll" resultMap="EduTeacherMap">
+	<select id="listAll"  parameterType="java.util.Map" resultMap="EduTeacherMap">
 		select *
 		from edu_teacher
 		<where>
