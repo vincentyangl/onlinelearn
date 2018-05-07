@@ -72,6 +72,15 @@
 	      <if test="qname!=null">
 	         and (course_name like '%${qname}%')
 	      </if>
+	      <if test="page_viewCount!=null">
+	         order by page_viewCount desc
+	      </if>
+	      <if test="add_time!=null">
+	         order by add_time desc
+	      </if>
+	      <if test="current_price!=null">
+	         order by current_price desc
+	      </if>
        </where>
     </select>
     <select id="getById" parameterType="int" resultMap="EduCourseMap">

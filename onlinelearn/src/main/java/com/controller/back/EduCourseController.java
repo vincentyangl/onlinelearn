@@ -163,7 +163,6 @@ public class EduCourseController {
 		}
 		eduCourse.setSysSubject(subject);
 		String logoName = logo1.getOriginalFilename();
-		System.out.println(logoName+"/////////////");
 		if (logoName!=null&&logoName.trim().length()!=0) {
 			//upload文件夹的路径
 			String path = request.getRealPath("/upload/");

@@ -6,12 +6,12 @@ public class EduKpoint {
 
 	private int id;//课程节点id
 	private int courseId;//对应的课程id
-	private int name;//课程节点名称
+	private String name;//课程节点名称
 	private int pId;//课程节点父ID
 	private Date addTime;//添加时间
 	private int sort;//排序
 	private int playCount;//播放次数
-	private int isFree;//是否免费
+	private int isFree;//是否免费1是2否
 	private String videoUrl;//视频路径
 	private EduTeacher eduTeacher;//录视频的老师
 	private String playTime;//播放的时间
@@ -31,10 +31,11 @@ public class EduKpoint {
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
-	public int getName() {
+	
+	public String getName() {
 		return name;
 	}
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public int getpId() {
