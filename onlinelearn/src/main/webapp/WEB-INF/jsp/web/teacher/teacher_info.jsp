@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/base.jsp"%>
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
 <title>讲师详情</title>
@@ -18,7 +18,8 @@
 				<div class="fl t-infor-menu">
 					<section id="t-infor-menu" class="c-tab-title">
 						<p>
-							<a class="current" name="c-desc" title="讲师详情" href="javascript: void(0)">讲师详情</a>
+							<a class="current" name="c-desc" title="讲师详情"
+								href="javascript: void(0)">讲师详情</a>
 						</p>
 						<p>
 							<a title="主讲课程" name="c-course" href="javascript: void(0)">主讲课程</a>
@@ -30,15 +31,17 @@
 						<section class="t-infor-pic">
 							<c:choose>
 								<c:when test="${not empty teacher.picPath }">
-									<img src="${ctx }/static/inxweb/img/default-tea-img.gif" xsrc="<%=staticImage %>${teacher.picPath}" alt="">
+									<img src="${teacher.picPath}" alt="">
 								</c:when>
 								<c:otherwise>
-									<img xSrc="${ctx }/static/inxweb/img/default-tea-img.gif" src="${ctx }/static/inxweb/img/default-tea-img.gif" class="img-responsive" alt="">
+									<img src="/static/inxweb/img/default-tea-img.gif" alt="">
 								</c:otherwise>
 							</c:choose>
 						</section>
 						<h3 class="hLh30">
-							<span class="fsize24 c-333">${teacher.name } <c:if test="${teacher.isStar ==1}">&nbsp;高级讲师</c:if> <c:if test="${teacher.isStar ==2}">&nbsp;首席讲师</c:if></span>
+							<span class="fsize24 c-333">${teacher.name } <c:if
+									test="${teacher.isStar ==1}">&nbsp;高级讲师</c:if> <c:if
+									test="${teacher.isStar ==2}">&nbsp;首席讲师</c:if></span>
 						</h3>
 						<section class="mt10">
 							<span class="t-tag-bg">${teacher.education }</span>
@@ -64,7 +67,8 @@
 					<!-- /无数据提示 开始-->
 					<c:if test="${empty courseList }">
 						<section class="no-data-wrap">
-							<em class="icon30 no-data-ico">&nbsp;</em> <span class="c-666 fsize14 ml10 vam">没有相关数据，小编正在努力整理中...</span>
+							<em class="icon30 no-data-ico">&nbsp;</em> <span
+								class="c-666 fsize14 ml10 vam">没有相关数据，小编正在努力整理中...</span>
 						</section>
 					</c:if>
 					<!-- /无数据提示 结束-->
@@ -77,18 +81,25 @@
 											<section class="course-img">
 												<c:choose>
 													<c:when test="${not empty course.logo }">
-														<img xSrc="<%=staticImage%>${course.logo}" src="${ctx }/static/inxweb/img/default-img.gif" class="img-responsive" alt="">
+														<img 
+															src="${course.logo }"
+															class="img-responsive" alt="">
 													</c:when>
 													<c:otherwise>
-														<img xSrc="/static/inxweb/img/default-img.gif" src="${ctx }/static/inxweb/img/default-img.gif" class="img-responsive" alt="">
+														<img
+															src="/static/inxweb/img/default-img.gif"
+															class="img-responsive" alt="">
 													</c:otherwise>
 												</c:choose>
 												<div class="cc-mask">
-													<a href="${ctx }/front/couinfo/${course.courseId}" title="开始学习" class="comm-btn c-btn-1">开始学习</a>
+													<a href="${ctx }/front/couinfo/${course.courseId}"
+														title="开始学习" class="comm-btn c-btn-1">开始学习</a>
 												</div>
 											</section>
 											<h3 class="hLh30 txtOf mt10">
-												<a href="${ctx }/front/couinfo/${course.courseId}" title="${course.courseName }" class="course-title fsize18 c-333">${course.courseName }</a>
+												<a href="${ctx }/front/couinfo/${course.courseId}"
+													title="${course.courseName }"
+													class="course-title fsize18 c-333">${course.courseName }</a>
 											</h3>
 										</div>
 									</li>
@@ -100,8 +111,10 @@
 				</div>
 				<!-- 公共分页 开始 -->
 				<div>
-					<form action="${ctx }/front/teacher/${teacher.id}" method="post" id="searchForm">
-						<input type="hidden" name="page.currentPage" id="pageCurrentPage" value="1">
+					<form action="${ctx }/front/teacher/${teacher.id}" method="post"
+						id="searchForm">
+						<input type="hidden" name="page.currentPage" id="pageCurrentPage"
+							value="1">
 					</form>
 					<jsp:include page="/WEB-INF/jsp/common/front_page.jsp"></jsp:include>
 				</div>

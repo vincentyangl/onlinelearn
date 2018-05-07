@@ -36,17 +36,17 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<div class="larry-personal">
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
-		
+		<form action="/admin/user/getSysUserByNameAndRoleId" method="POST">
 		<div class="layui-inline">
 		    <div class="layui-input-inline">
-		    	<input value="" placeholder="请输入关键字" class="layui-input search_input" type="text">
+		    	<input name="qname" placeholder="请输入关键字" class="layui-input search_input" type="text">
 		    </div>
 		    <div class="layui-input-inline">
 		    	<select class="layui-input"  width="150" name="roleId"  id="roleId">
 		    	   <option value="-1" selected="selected">请选择</option>
 		    	</select>
 		    </div>
-		    <a class="layui-btn search_btn">查询</a>
+		    <button type="submit" class="layui-btn search_btn">查询</button>
 		    
 		</div><div class="layui-inline">
 			<a class="layui-btn layui-btn-normal newsAdd_btn"  href="/admin/user/toUserAdd">添加用户</a>
@@ -57,6 +57,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 		<div class="layui-inline">
 			<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
 		</div>
+		</form>
 	</blockquote>
             
 		    <div class="layui-tab-content larry-personal-body clearfix mylog-info-box">

@@ -3,8 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.SysSubjectDao">
-	<select id="getById" parameterType="int" resultType="SysSubject">
-		select *
-		from sys_subject where SUBJECT_ID=#{value}
+    <insert id="save" parameterType="SysSubject">
+       insert into sys_subject (subjectName,status,createTime,parent_id,sort) values (#{subjectName},
+       0,NOW(),#{parent_id},0)
+    </insert>
+    <delete id="delete" parameterType="int">
+       delete from sys_subject where subjectId=#{value}
+    </delete>
+    <update id="update" parameterType="SysSubject">
+       update sys_subject set subjectName=#{subjectName}
+    </update>
+    <resultMap type="SysSubject" id="SysSubjectMap">
+       <result column="subjectId" property="subjectId"/>
+       <result column="subjectName" property="subjectName"/>
+       <result column="status" property="status"/>
+       <result column="createTime" property="createTime"/>
+       <result column="parent_id" property="parent_id"/>
+       <result column="sort" property="sort"/>
+       <association property="sysSubjects" column="subjectId" select="com.mapper.SysSubjectDao.getChildNode"></association>
+       <association property="eduCourses" column="subjectId" select="com.mapper.EduCourseDao.getCourseBySubjectId"></association>
+       <association property="eduTeachers" column="subjectId" select="com.mapper.EduTeacherDao.getTeacherBySubjectId"></association>
+    </resultMap>
+	<select id="getById" parameterType="int" resultMap="SysSubjectMap">
+		select * from sys_subject where subjectId=#{value}
+	</select>
+	<select id="listAll" parameterType="java.util.Map" resultMap="SysSubjectMap">
+	   select * from sys_subject  where status=0 
+	      <if test="parent_id != null">
+	         and parent_id=#{parent_id}
+	      </if>
+	   order by sort desc
+	</select>
+	<select id="getChildNode" parameterType="int" resultMap="SysSubjectMap">
+	   select * from sys_subject where parent_id = #{value} and status=0
+	</select>
+	<select id="listDad" resultMap="SysSubjectMap">
+	select * from sys_subject where parent_id=0
 	</select>
 </mapper>

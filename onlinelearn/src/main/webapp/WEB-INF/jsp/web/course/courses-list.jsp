@@ -105,20 +105,20 @@
 													</c:otherwise>
 												</c:choose>
 												<div class="cc-mask">
-													<a href="${ctx}/front/couinfo/${course.courseId}" title="" class="comm-btn c-btn-1">开始学习</a>
+													<a href="${ctx}/front/couinfo/${course.course_id}" title="" class="comm-btn c-btn-1">开始学习</a>
 												</div>
 											</section>
 											<h3 class="hLh30 txtOf mt10">
-												<a href="${ctx}/front/couinfo/${course.courseId}" title="${course.courseName}" class="course-title fsize18 c-333">${course.courseName}</a>
+												<a href="${ctx}/front/couinfo/${course.course_id}" title="${course.course_name}" class="course-title fsize18 c-333">${course.course_name}</a>
 											</h3>
 											<section class="mt10 hLh20 of">
-												<c:if test="${course.currentPrice=='0.00' }">
+												<c:if test="${course.current_price=='0.00' }">
 													<span class="fr jgTag bg-green"><tt class="c-fff fsize12 f-fA">免费</tt></span>
 												</c:if>
-												<c:if test="${course.currentPrice!='0.00' }">
-													<span class="fr jgTag bg-orange"><tt class="c-fff fsize14 f-fG">￥${course.currentPrice }</tt></span>
+												<c:if test="${course.current_price!='0.00' }">
+													<span class="fr jgTag bg-orange"><tt class="c-fff fsize14 f-fG">￥${course.current_price }</tt></span>
 												</c:if>
-												<span class="fl jgAttr c-ccc f-fA"> <tt class="c-999 f-fA">${course.pageBuycount }人学习</tt> | <tt class="c-999 f-fA">${course.pageViewcount }浏览</tt>
+												<span class="fl jgAttr c-ccc f-fA"> <tt class="c-999 f-fA">${course.page_buyCount }人学习</tt> | <tt class="c-999 f-fA">${course.page_viewCount }浏览</tt>
 												</span>
 											</section>
 										</div>

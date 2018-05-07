@@ -1,5 +1,7 @@
 package com.bean;
 
+import java.util.List;
+
 public class SysSubject {
 
 	private int subjectId;//主键
@@ -8,7 +10,16 @@ public class SysSubject {
 	private String createTime;//创建时间
 	private int parent_id;//父ID
 	private int sort;//排序字段
+	private List<SysSubject> sysSubjects;//子类专业
+	private List<EduCourse> eduCourses;//对应的课程
+	private List<EduTeacher> eduTeachers;//对应的老师
 	
+	public List<SysSubject> getSysSubjects() {
+		return sysSubjects;
+	}
+	public void setSysSubjects(List<SysSubject> sysSubjects) {
+		this.sysSubjects = sysSubjects;
+	}
 	public int getSubjectId() {
 		return subjectId;
 	}
@@ -45,5 +56,16 @@ public class SysSubject {
 	public void setSort(int sort) {
 		this.sort = sort;
 	}
-	
+	public List<EduCourse> getEduCourses() {
+		return eduCourses;
+	}
+	public void setEduCourses(List<EduCourse> eduCourses) {
+		this.eduCourses = eduCourses;
+	}
+	public List<EduTeacher> getEduTeachers() {
+		return eduTeachers;
+	}
+	public void setEduTeachers(List<EduTeacher> eduTeachers) {
+		this.eduTeachers = eduTeachers;
+	}
 }

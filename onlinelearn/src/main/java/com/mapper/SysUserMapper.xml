@@ -5,7 +5,7 @@
   <mapper namespace="com.mapper.SysUserDao">
     <insert id="save" parameterType="SysUser">
        insert into sys_user (loginName,loginPwd,userName,status,lastLoginTime,lastLoginIp,createTime,email,tel,roleId) 
-       values (#{loginName},#{loginPwd},#{userName},0,null,null,CURDATE(),#{email},#{tel},#{sysRole.roleId})
+       values (#{loginName},#{loginPwd},#{userName},0,null,null,NOW(),#{email},#{tel},#{sysRole.roleId})
     </insert>
     <delete id="delete" parameterType="int">
        delete from sys_user where userId=#{value}
@@ -39,8 +39,12 @@
           <if test="loginPwd!=null">
              and loginPwd=#{loginPwd}
           </if>
-          <if test="roleId!=null">
-             and roleId=#{roleId}
+          <if test="rid!=null">
+             and roleId=#{rid}
+          </if>
+          <if test="qname!=null">
+          <!-- 必须加括号，不然下拉框查询不出来 -->
+             and (loginName like '%${qname}%' or userName like '%${qname}%')
           </if>
        </where>
     </select>

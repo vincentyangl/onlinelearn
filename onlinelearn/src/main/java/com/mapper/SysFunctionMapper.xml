@@ -43,7 +43,7 @@
    <select id="getChildNode" parameterType="int" resultMap="SysFunctionMap">
       select * from sys_function where pId=#{value} order by sort desc
    </select>
-   <select id="getPermissionsByRoleId" parameterType="int" resultMap="SysFunctionMap">
+   <select id="getSysFunctionByRoleId" parameterType="int" resultMap="SysFunctionMap">
       select * from sys_function where id in (select functionId from sys_role_function where roleId = #{value}) order by sort desc
    </select>
   </mapper>

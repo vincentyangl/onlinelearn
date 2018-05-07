@@ -50,14 +50,12 @@
        /css/** = anon
        /images/** = anon
        /common/** = anon
-       /json/** = anon
        /jsplug/** = anon
        /ztree/** = anon
        /inc/** = anon
        /kindeditor/** = anon
        /skins/** = anon
        /static/** = anon
-       
         /admin/user/toLogin = anon
         /admin/user/login = anon
         /admin/user/main = anon

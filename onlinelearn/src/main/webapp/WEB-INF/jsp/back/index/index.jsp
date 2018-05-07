@@ -120,7 +120,7 @@
 			</li>
 			</c:forEach>
 			
-			<!-- 用户管理 -->
+			<!-- 教师管理 -->
 			<li class="layui-nav-item">
 					<a href="javascript:;">
 					   <i class="iconfont icon-jiaoseguanli2" ></i>
@@ -135,15 +135,9 @@
 					    		</a>
 					    	</dd>
 					    	<dd>
-					    		<a href="javascript:;"  data-url="table_1.jsp">
+					    		<a href="javascript:;"  data-url="/admin/SysSubject/SysSubjectList/1">
 					    		   <i class="iconfont icon-jiaoseguanli4" data-icon='icon-jiaoseguanli4'></i>
-					    		   <span>无线条输入增加内容框</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;" data-url="myloginfo.jsp">
-					    		   <i class="iconfont icon-quanxian2" data-icon='icon-quanxian2'></i>
-					    		   <span>无线条表格</span>
+					    		   <span>添加讲师</span>
 					    		</a>
 					    	</dd>
 					    </dl>

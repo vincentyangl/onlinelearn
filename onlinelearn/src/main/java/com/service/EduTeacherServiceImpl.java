@@ -1,12 +1,15 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bean.EduTeacher;
 import com.mapper.EduTeacherDao;
+
+
 
 @Service("eduTeacherService")
 public class EduTeacherServiceImpl implements EduTeacherService{
@@ -19,8 +22,8 @@ public class EduTeacherServiceImpl implements EduTeacherService{
 	}
 
 	@Override
-	public List<EduTeacher> listAll() {
-		return eduTeacherDao.listAll();
+	public List<EduTeacher> listAll(Map map) {
+		return eduTeacherDao.listAll(map);
 	}
 
 	@Override
@@ -38,4 +41,7 @@ public class EduTeacherServiceImpl implements EduTeacherService{
 		eduTeacherDao.update(eduTeacher);
 	}
 
+	public List<EduTeacher> getTeacherBySubjectId(int subjectId) {
+		return eduTeacherDao.getTeacherBySubjectId(subjectId);
+	}
 }

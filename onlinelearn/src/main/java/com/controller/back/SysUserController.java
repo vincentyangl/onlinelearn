@@ -72,7 +72,7 @@ public class SysUserController {
 	            } 
 	            //所有认证时异常的父类
 	            catch (AuthenticationException ae) {
-	            	System.out.println("login failed！"+ae.getMessage());
+	            	System.out.println("login failed！");
 	            	mv.setViewName("/back/login/login");
 	            	return mv;
 	            }
@@ -151,6 +151,23 @@ public class SysUserController {
 		sysUser.setLoginPwd(result);*/
 		sysUserService.update(sysUser);
 		return "redirect:/admin/user/userList";
+	}
+	
+	@RequestMapping("/getSysUserByNameAndRoleId")
+	public ModelAndView getSysUserByNameAndRoleId(
+			 String qname, Integer roleId) {
+		ModelAndView mv = new ModelAndView();
+		Map map = new HashMap<>();
+		if (qname!=null||qname.trim().length()!=0) {
+			map.put("qname", qname);
+		}
+		if (roleId!=-1) {
+			map.put("rid", roleId);
+		}
+		List<SysUser> users = sysUserService.listAll(map);
+		mv.addObject("users", users);
+		mv.setViewName("/back/admin/userList");
+		return mv;
 	}
 	
 }

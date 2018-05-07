@@ -6,22 +6,30 @@
 	<resultMap type="EduTeacher" id="EduTeacherMap">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
-		<result property="thName" column="th_name" />
-		<result property="thPw" column="th_pw" />
 		<result property="education" column="education" />
 		<result property="career" column="career" />
 		<result property="isStar" column="is_star" />
 		<result property="picPath" column="pic_path" />
-		<result property="status" column="status" />
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
 		<result property="sort" column="sort" />
 		<association property="sysSubject" column="SUBJECT_ID"
 			select="com.mapper.SysSubjectDao.getById"></association>
 	</resultMap>
-	<select id="listAll" resultMap="EduTeacherMap">
+	<select id="listAll"  parameterType="java.util.Map" resultMap="EduTeacherMap">
 		select *
 		from edu_teacher
+		<where>
+		<if test="qname!=null">
+	 	and name like '%${qname}%'
+		</if>
+		<if test="startTime!=null">
+		and create_time &gt; #{startTime}
+		</if>
+		<if test="endTime!=null">
+		and create_time &lt; #{endTime}
+		</if>
+		</where>
 	</select>
 	<select id="getById" parameterType="int" resultMap="EduTeacherMap">
 		select * from
@@ -29,15 +37,25 @@
 	</select>
 	<insert id="save" parameterType="EduTeacher">
 		insert into
-		edu_teacher(name,th_name,th_pw,education,career,is_star,pic_path,status,create_time,update_time,sort,SUBJECT_ID)values(#{name},#{th_name},#{th_pw},#{education},#{career},#{is_star},#{pic_path},#{status},#{create_time},#{update_time},#{sort},#{sysSubject。subject_id})
+		edu_teacher(name,education,career,is_star,pic_path,create_time,sort,SUBJECT_ID)values(#{name},#{education},#{career},#{isStar},#{picPath},#{createTime},#{sort},#{sysSubject.subjectId})
 	</insert>
 	<delete id="delete" parameterType="int">
 		delete from edu_teacher where
 		id=#{value}
 	</delete>
 	<update id="update" parameterType="EduTeacher">
-		update edu_teacher
-		set(name=#{name},th_name=#{th_name},th_pw=#{th_pw},education=#{education},career=#{career},is_star=#{is_star},pic_path=#{pic_path},status=#{status},create_time=#{create_time},update_time=#{update_time},sort,SUBJECT_ID)values(#{name},#{th_name},#{th_pw},#{education},#{career},#{is_star},#{pic_path},#{status},#{create_time},#{update_time},#{sort},#{sysSubject。subject_id})where
+		update edu_teacher set
+		name=#{name},education=#{education},career=#{career},is_star=#{isStar},pic_path=#{picPath},sort=#{sort},update_time=#{updateTime},SUBJECT_ID=#{sysSubject.subjectId}
+		where
 		id=#{id}
 	</update>
+	<select id="getTeacherBySubjectId" parameterType="int" resultType="EduTeacher">
+	   select * from edu_teacher where subject_id=#{value}
+	</select>
+	<select id="getTeacherByCourseId" parameterType="int" resultType="EduTeacher">
+	   select * from edu_teacher where id in (select teacher_id from edu_course_teacher where course_id=#{value})
+	</select>
+	<select id="getKpointById" parameterType="int" resultType="EduTeacher">
+	   select * from edu_teacher where id=#{value}
+	</select>
 </mapper>

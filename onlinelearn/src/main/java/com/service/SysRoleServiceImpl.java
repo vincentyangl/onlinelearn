@@ -40,5 +40,15 @@ public class SysRoleServiceImpl implements SysRoleService{
 		SysRole sysRole = sysRoleDao.getById(roleId);
 		return sysRole;
 	}
+
+	@Override
+	public void deleteAllFunctionIdByRoleId(int roleId) {
+		sysRoleDao.deleteAllFunctionIdByRoleId(roleId);
+	}
+
+	@Override
+	public void addFunctionIdByRoleId(int roleId, int functionId) {
+		sysRoleDao.addFunctionIdByRoleId(roleId, functionId);
+	}
 	
 }

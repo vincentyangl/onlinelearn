@@ -191,7 +191,7 @@
 						<div class="clear"></div>
 					</article>
 					<section class="tac pt20">
-						<a href="${ctx}/front/teacherlist" title="全部讲师" class="comm-btn c-btn-2">全部讲师</a>
+						<a href="${ctx}/front/teacher/teacher" title="全部讲师" class="comm-btn c-btn-2">全部讲师</a>
 					</section>
 				</div>
 			</section>
