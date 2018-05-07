@@ -1,6 +1,7 @@
 package com.controller.back;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduTeacher;
 import com.bean.SysSubject;
+import com.util.Ztree;
 import com.service.EduTeacherService;
 import com.service.SysSubjectService;
+import com.util.JsonUtils;
 
 @Controller
 public class EduTeacherController {
@@ -34,8 +37,10 @@ public class EduTeacherController {
 	@RequestMapping("/admin/teacher/teacherList")
 	public ModelAndView listAll(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		Map map = new HashMap<>();
+		Map map = new HashMap();
 		map = getMap(request,map);
+		System.out.println(map.size());
+		System.out.println(map);
 		List<EduTeacher> list = eduTeacherService.listAll(map);
 		mv.addObject("list", list);
 		mv.setViewName("/back/teacher/teacherList");
@@ -46,17 +51,19 @@ public class EduTeacherController {
 		String startTime=request.getParameter("startTime");
 		String endTime=request.getParameter("endTime");
 		System.out.println(qname);
-		map.put("qname", qname);
-		map.put("startTime", startTime);
-		map.put("endTime", endTime);
-		if (qname!=null) {
+		System.out.println(startTime);
+		System.out.println(endTime);
+		if (qname!=null&&qname.trim().length()>0) {
 			request.setAttribute("qname", qname);
+			map.put("qname", qname);
 		}
-		if (startTime!=null) {
+		if (startTime!=null&&startTime.trim().length()>0) {
 			request.setAttribute("startTime", startTime);
+			map.put("startTime", startTime);
 		}
-		if (endTime!=null) {
+		if (endTime!=null&&endTime.trim().length()>0) {
 			request.setAttribute("endTime", endTime);
+			map.put("endTime", endTime);
 		}
 		return map;
 	}
@@ -68,6 +75,9 @@ public class EduTeacherController {
 	@RequestMapping("/admin/teacher/update")
 	public String update(@RequestParam("file")MultipartFile file, EduTeacher eduTeacher, HttpServletRequest request){
 		String path = request.getRealPath("/images/upload/teacher/20150915");
+		int id = Integer.parseInt(request.getParameter("subjectId"));
+		SysSubject subject = new SysSubject();
+		subject.setSubjectId(id);
 		String fileName = file.getOriginalFilename();
 		String newPath = path+fileName;
 		File newfile = new File(path,fileName);
@@ -76,6 +86,7 @@ public class EduTeacherController {
 			file.transferTo(newfile);
 			eduTeacher.setPicPath(newPath);
 			eduTeacher.setUpdateTime(date);
+			eduTeacher.setSysSubject(subject);
 			eduTeacherService.update(eduTeacher);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,15 +96,18 @@ public class EduTeacherController {
 	@RequestMapping(value="/admin/teacher/save",method=RequestMethod.POST)
 	public String addTeacher(@RequestParam("file")MultipartFile file, EduTeacher eduTeacher, HttpServletRequest request) {
 		String path = request.getRealPath("/images/upload/teacher/20150915");
+		int id = Integer.parseInt(request.getParameter("subjectId"));
 		String fileName = file.getOriginalFilename();
 		String newPath = path+fileName;
+		SysSubject subject = new SysSubject();
+		subject.setSubjectId(id);
 		File newfile = new File(path,fileName);
 		Date date = new Date();
 		try {
 			file.transferTo(newfile);
 			eduTeacher.setPicPath(newPath);
 			eduTeacher.setCreateTime(date);
-			System.out.println(eduTeacher.getName());
+			eduTeacher.setSysSubject(subject);
 			eduTeacherService.save(eduTeacher);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,10 +117,18 @@ public class EduTeacherController {
 	@RequestMapping("/admin/teacher/getById/{id}")
 	public ModelAndView getById(@PathVariable int id) {
 		ModelAndView mv = new ModelAndView();
+		List<SysSubject> sysSubjects = sysSubjectService.listAll(new HashMap<>());
+		List<Ztree> ztrees = new ArrayList<>();
+		for (SysSubject sb : sysSubjects) {
+			Ztree ztree = new Ztree();
+			ztree.setId(sb.getSubjectId());
+			ztree.setpId(sb.getParent_id());
+			ztree.setName(sb.getSubjectName());
+			ztrees.add(ztree);
+		}
+		String json = JsonUtils.objectToJson(ztrees);
+		mv.addObject("sysSubjects", json);
 		EduTeacher eduTeacher = eduTeacherService.getById(id);
-		List<SysSubject> lsit = sysSubjectService.listAll(new HashMap());
-		mv.addObject("list", lsit);
-		System.out.println(lsit);
 		mv.addObject("e", eduTeacher);
 		mv.setViewName("/back/teacher/teacherEdit");
 		return mv;

@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.EduCourse;
 import com.bean.EduTeacher;
 import com.bean.SysSubject;
+import com.service.EduCourseService;
 import com.service.EduTeacherService;
 import com.service.SysSubjectService;
 
@@ -21,9 +23,11 @@ import com.service.SysSubjectService;
 @Controller
 public class WebEduTeacherController {
 
-	
+
 	@Autowired
 	private EduTeacherService eduTeacherService;
+	@Autowired
+	private EduCourseService eduCourseService;
 	@Autowired
 	private SysSubjectService sysSubjectService;
 	@RequestMapping("/front/teacher")
@@ -41,7 +45,7 @@ public class WebEduTeacherController {
 	public ModelAndView getBySid(@PathVariable int subjectId){
 		ModelAndView mv = new ModelAndView();
 		System.out.println(subjectId);
-		List<EduTeacher> list =  eduTeacherService.listBySid(subjectId);
+		List<EduTeacher> list =  eduTeacherService.getTeacherBySubjectId(subjectId);
 		List<SysSubject> lists = sysSubjectService.listDad();
 		mv.addObject("list", list);
 		mv.addObject("lists", lists);
@@ -49,11 +53,11 @@ public class WebEduTeacherController {
 		return mv;
 	}
 	@RequestMapping("/front/teacher/getById/{id}")
-	public ModelAndView getById(@PathVariable int id) {
+	public ModelAndView getById(@PathVariable("id")int id) {
 		ModelAndView mv = new ModelAndView();
 		EduTeacher eduTeacher = eduTeacherService.getById(id);
-		List<SysSubject> lsit = sysSubjectService.listAll(new HashMap());
-		mv.addObject("list", lsit);
+		List<EduCourse> list = eduCourseService.getByTeacherId(id);
+		mv.addObject("list", list);
 		mv.addObject("teacher", eduTeacher);
 		mv.setViewName("/web/teacher/teacherInfo");
 		return mv;

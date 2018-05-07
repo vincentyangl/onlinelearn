@@ -135,7 +135,7 @@
 					    		</a>
 					    	</dd>
 					    	<dd>
-					    		<a href="javascript:;"  data-url="/admin/SysSubject/SysSubjectList">
+					    		<a href="javascript:;"  data-url="/admin/SysSubject/SysSubjectList/1">
 					    		   <i class="iconfont icon-jiaoseguanli4" data-icon='icon-jiaoseguanli4'></i>
 					    		   <span>添加讲师</span>
 					    		</a>

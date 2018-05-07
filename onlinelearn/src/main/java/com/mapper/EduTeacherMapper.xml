@@ -35,9 +35,6 @@
 		select * from
 		edu_teacher where id=#{value}
 	</select>
-	<select id="listBySid" resultMap="EduTeacherMap" parameterType="int">
-	select * from edu_teacher where subject_id = #{value}
-	</select>
 	<insert id="save" parameterType="EduTeacher">
 		insert into
 		edu_teacher(name,education,career,is_star,pic_path,create_time,sort,SUBJECT_ID)values(#{name},#{education},#{career},#{isStar},#{picPath},#{createTime},#{sort},#{sysSubject.subjectId})

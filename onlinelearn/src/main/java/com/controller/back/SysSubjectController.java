@@ -23,7 +23,7 @@ public class SysSubjectController {
 
 	@Autowired
 	private SysSubjectService sysSubjectService;
-	
+
 	@ResponseBody
 	@RequestMapping("/getSubjectList/{state}")
 	public List<SysSubject> getSubjectList(@PathVariable("state") Integer state) {
@@ -36,14 +36,14 @@ public class SysSubjectController {
 		System.out.println(sysSubjects.size());
 		return sysSubjects;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/getChildList/{subjectId}")
 	public List<SysSubject> getChildList(@PathVariable("subjectId") Integer subjectId) {
 		List<SysSubject> child = sysSubjectService.getChildNode(subjectId);
 		return child;
 	}
-	
+
 	@RequestMapping("/subjectList/{state}")
 	public ModelAndView subjectList(@PathVariable("state") Integer state) {
 		ModelAndView mv = new ModelAndView();
@@ -58,15 +58,16 @@ public class SysSubjectController {
 		}
 		String json = JsonUtils.objectToJson(ztrees);
 		mv.addObject("sysSubjects", json);
+		
 		if(state==0){
 			mv.setViewName("/back/subject/subjectList");
 		}
 		if(state==1){
-			mv.setViewName("/admin/teacher/teacherAdd");
+			mv.setViewName("/back/teacher/teacherAdd");
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping("/subjectAdd")
 	public String subjectAdd(SysSubject subject) {
 		sysSubjectService.save(subject);
