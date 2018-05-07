@@ -340,7 +340,7 @@
 							<ul id="tea1">
 							    <c:forEach items="${course.eduTeachers }" var="et">
 							        <input type="hidden" name="tid" value="${et.id }" />
-							        <li class="tli">${et.name }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="" onclick="removeTname(this,${et.id})" >删除</a></li>
+							        <li class="tli">${et.name }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="removeTname(this,${et.id})" >删除</a></li>
 							    </c:forEach>
 							</ul>
 						</div>
