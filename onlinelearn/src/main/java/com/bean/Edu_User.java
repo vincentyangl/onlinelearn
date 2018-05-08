@@ -1,22 +1,27 @@
 package com.bean;
 
+import java.util.Date;
+
 public class Edu_User {
+
 private int userId;    //学员ID
 private String mobile;   //手机号
 private String email;    //邮箱号
-private int classId;     //班级编号
+private Edu_class id;     //班级编号
 private String password;    //密码
 private String userName;   //用户名
 private String showName;   //显示名 （昵称）
 private int sex;         //性别  1男  2女
 private int age;        //年龄
-private String createTime;   //注册时间
+private Date createTime;   //注册时间
 private int isAvalible;   //是否可用 1正常  2冻结
 private String picImg;      //用户头像
 private String bannerUrl;    //个人中心用户背景图片
 private int msgNum;       //站内信未读消息数
 private int sysMsgNum;   //
-private String lastSystemTime;   //上传统计系统消息时间
+private Date lastSystemTime;   //上传统计系统消息时间
+
+
 public int getUserId() {
 	return userId;
 }
@@ -35,11 +40,11 @@ public String getEmail() {
 public void setEmail(String email) {
 	this.email = email;
 }
-public int getClassId() {
-	return classId;
+public Edu_class getId() {
+	return id;
 }
-public void setClassId(int classId) {
-	this.classId = classId;
+public void setId(Edu_class id) {
+	this.id = id;
 }
 public String getPassword() {
 	return password;
@@ -71,14 +76,15 @@ public int getAge() {
 public void setAge(int age) {
 	this.age = age;
 }
-public String getCreateTime() {
-	return createTime;
-}
-public void setCreateTime(String createTime) {
-	this.createTime = createTime;
-}
+
 public int getIsAvalible() {
 	return isAvalible;
+}
+public Date getCreateTime() {
+	return createTime;
+}
+public void setCreateTime(Date createTime) {
+	this.createTime = createTime;
 }
 public void setIsAvalible(int isAvalible) {
 	this.isAvalible = isAvalible;
@@ -107,20 +113,14 @@ public int getSysMsgNum() {
 public void setSysMsgNum(int sysMsgNum) {
 	this.sysMsgNum = sysMsgNum;
 }
-public String getLastSystemTime() {
+public Date getLastSystemTime() {
 	return lastSystemTime;
 }
-public void setLastSystemTime(String lastSystemTime) {
+public void setLastSystemTime(Date lastSystemTime) {
 	this.lastSystemTime = lastSystemTime;
 }
-@Override
-public String toString() {
-	return "Edu_User [userId=" + userId + ", mobile=" + mobile + ", email=" + email + ", classId=" + classId
-			+ ", password=" + password + ", userName=" + userName + ", showName=" + showName + ", sex=" + sex + ", age="
-			+ age + ", createTime=" + createTime + ", isAvalible=" + isAvalible + ", picImg=" + picImg + ", bannerUrl="
-			+ bannerUrl + ", msgNum=" + msgNum + ", sysMsgNum=" + sysMsgNum + ", lastSystemTime=" + lastSystemTime
-			+ "]";
-}
+
+
 
 
 }
