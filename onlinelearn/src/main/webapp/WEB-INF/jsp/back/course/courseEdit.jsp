@@ -47,6 +47,7 @@
 		  
 		   var qpid = "${course.sysSubject.parent_id}";  
 		   $("#context").css("display","none");
+		   //初始化父id选项
 		   $.post("/admin/subject/getSubjectList/2",
 				   function(msg){
 			           for(i=0;i<msg.length;i++){

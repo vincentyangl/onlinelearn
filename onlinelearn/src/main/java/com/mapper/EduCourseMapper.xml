@@ -72,16 +72,22 @@
 	      <if test="qname!=null">
 	         and (course_name like '%${qname}%')
 	      </if>
-	      <if test="page_viewCount!=null">
-	         order by page_viewCount desc
-	      </if>
-	      <if test="add_time!=null">
-	         order by add_time desc
-	      </if>
-	      <if test="current_price!=null">
-	         order by current_price desc
+	      <if test="teacherId!=null">
+	         and course_id in (select course_id from edu_course_teacher where teacher_id=#{teacherId})
 	      </if>
        </where>
+        <if test="pageViewCount == 'FOLLOW'">
+	         order by page_viewCount desc
+	      </if>
+	      <if test="addTime == 'NEW'">
+	         order by add_time desc
+	      </if>
+	      <if test="currentPrice == 'DESCENDING'">
+	         order by current_price desc
+	      </if>
+	      <if test="currentPrice == 'ASCENDING'">
+	         order by current_price
+	      </if>
     </select>
     <select id="getById" parameterType="int" resultMap="EduCourseMap">
        select * from edu_course where course_id=#{value}
