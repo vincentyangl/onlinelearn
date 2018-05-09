@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduCourse;
 import com.bean.EduTeacher;
+import com.bean.PageCourseBean;
 import com.bean.QueryCourse;
 import com.bean.SysSubject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.EduCourseService;
 import com.service.EduTeacherService;
 import com.service.SysSubjectService;
@@ -31,7 +35,8 @@ public class WebEduCourseController {
 	private EduCourseService eduCourseService;
 	
 	@RequestMapping("/course")
-	public ModelAndView courseList(@ModelAttribute("queryCourse") QueryCourse queryCourse) {
+	public ModelAndView courseList(@ModelAttribute("queryCourse") QueryCourse queryCourse,@RequestParam(required=true,defaultValue="1")Integer currentPage) {
+		
 		ModelAndView mv = new ModelAndView();
 		Map map = new HashMap<>();
 		map.put("parent_id", 0);
@@ -64,9 +69,24 @@ public class WebEduCourseController {
 		if (ObjectUtils.isNotNull(queryCourse.getCurrentPrice())) {
 			map.put("currentPrice", queryCourse.getCurrentPrice());
 		}
+		if (queryCourse.getCourseName()!=null&&queryCourse.getCourseName().trim().length()!=0) {
+			map.put("qname", queryCourse.getCourseName());
+		}
+		//只查询上架的
+		map.put("is_avaliable", 1);
+		//分页
+		PageHelper.startPage(currentPage, 12);
 		//查询课程
 		List<EduCourse> eduCourses = eduCourseService.listAll(map);
+		//分页转换
+		PageInfo<EduCourse> info = new PageInfo<>(eduCourses);
+		PageCourseBean page = new PageCourseBean();
+		page.setCurrentPage(info.getPageNum());
+		page.setPageSize(info.getPageSize());
+		page.setTotalPageSize(info.getPages());
+		page.setTotalResultSize(info.getTotal());
 		mv.addObject("subjectList", subjectList);
+		mv.addObject("page", page);
 		mv.addObject("teacherList", teacherList);
 		mv.addObject("queryCourse", queryCourse);
 		mv.addObject("courseList", eduCourses);

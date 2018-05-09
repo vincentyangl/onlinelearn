@@ -169,7 +169,7 @@ function submitForm(type,keyWord){
 				<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
 				<!-- 公共分页 结束 -->
 				<form action="${ctx}/front/course" id="searchForm" method="post">
-					<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
+					<input type="hidden" id="pageCurrentPage" name="currentPage" value="1" />
 					<input type="hidden" name="teacherId" value="${queryCourse.teacherId}" />
 					<input type="hidden" name="subjectId" value="${queryCourse.subjectId}" />
 					<input type="hidden" name="pageViewCount" value="${queryCourse.pageViewCount}" />

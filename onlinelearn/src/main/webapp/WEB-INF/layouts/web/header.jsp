@@ -42,8 +42,8 @@
 				<!-- /未登录显示第1 li；登录后显示第2，3 li -->
 			</ul>
 			<aside class="h-r-search">
-				<form action="${ctx}/front/showcoulist" method="post">
-					<label class="h-r-s-box"><input type="text" placeholder="输入你想学的课程" name="queryCourse.courseName" value="${queryCourse.courseName}">
+				<form action="${ctx}/front/course" method="post">
+					<label class="h-r-s-box"><input type="text" placeholder="输入你想学的课程" name="courseName" value="${queryCourse.courseName}">
 						<button type="submit" class="s-btn">
 							<em class="icon18">&nbsp;</em>
 						</button></label>

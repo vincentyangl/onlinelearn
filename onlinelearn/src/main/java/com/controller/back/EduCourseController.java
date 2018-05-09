@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,9 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduCourse;
+import com.bean.PageCourseBean;
 import com.bean.SysSubject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.EduCourseService;
 import com.service.SysSubjectService;
+import com.util.ObjectUtils;
 
 @Controller
 @RequestMapping("/admin/course")
@@ -33,20 +38,43 @@ public class EduCourseController {
 	private EduCourseService eduCourseService;
 	@Autowired
 	private SysSubjectService sysSubjectService;
+
 	@RequestMapping("/courseList")
-	public ModelAndView courseList() {
+	public ModelAndView courseList(@RequestParam(required=true,defaultValue="1")Integer currentPage,String qname,String is_avaliable,String subjectId,String beginTime,String endTime) {
 		ModelAndView mv = new ModelAndView();
-		List<EduCourse> eduCourses = eduCourseService.listAll(new HashMap<>());
+		PageHelper.startPage(currentPage, 8);
+		Map map = new HashMap<>();
+		if (qname!=null&&qname.trim().length()!=0) {
+			map.put("qname", qname);
+		}
+		
+		if (is_avaliable!=null&&is_avaliable.trim().length()!=0&&!is_avaliable.equals("-1")) {
+			map.put("is_avaliable", Integer.valueOf(is_avaliable));
+		}	
+		
+		if (subjectId!=null&&subjectId.trim().length()!=0&&!subjectId.equals("-1")) {
+			map.put("subjectId", Integer.valueOf(subjectId));
+		}
+		if (beginTime!=null&&beginTime.trim().length()!=0) {
+			map.put("beginTime", beginTime);
+		}
+		if (endTime!=null&&endTime.trim().length()!=0) {
+			map.put("endTime", endTime);
+		}
+		List<EduCourse> eduCourses = eduCourseService.listAll(map);
+		PageInfo<EduCourse> info = new PageInfo<>(eduCourses);
+		System.out.println(info);
 		mv.addObject("eduCourses", eduCourses);
+		mv.addObject("info", info);
 		mv.setViewName("/back/course/courseList");
 		return mv;
 	}
-	
+
 	@RequestMapping("/toCourseAdd")
 	public String toCourseAdd() {
 		return "/back/course/courseAdd";
 	}
-	
+
 	@RequestMapping("/queryCourseList")
 	public ModelAndView queryCourseList(String qname,int is_avaliable,int subjectId,String beginTime,String endTime) {
 		ModelAndView mv = new ModelAndView();
@@ -71,13 +99,13 @@ public class EduCourseController {
 		mv.setViewName("/back/course/courseList");
 		return mv;
 	}
-	
+
 	@RequestMapping("/courseDelete/{course_id}")
 	public String courseDelete(@PathVariable("course_id") int course_id) {
 		eduCourseService.delete(course_id);
 		return "redirect:/admin/course/courseList";
 	}
-	
+
 	@RequestMapping("/courseAdd")
 	public String courseAdd(EduCourse eduCourse,HttpServletRequest request,@RequestParam("logo1")MultipartFile logo1) {
 		String teaids = request.getParameter("teaids");
@@ -121,7 +149,7 @@ public class EduCourseController {
 		eduCourseService.save(eduCourse, teacherIds);
 		return "redirect:/admin/course/courseList";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/toCourseEdit/{course_id}")
 	public ModelAndView toCourseEdit(@PathVariable("course_id") int course_id) {
@@ -131,7 +159,7 @@ public class EduCourseController {
 		mv.addObject("course", course);
 		return mv;
 	}
-	
+
 	@RequestMapping("/courseEdit")
 	public String courseEdit(EduCourse eduCourse,HttpServletRequest request,@RequestParam("logo1")MultipartFile logo1) {
 		String teaids = request.getParameter("teaids");
@@ -178,5 +206,5 @@ public class EduCourseController {
 		eduCourseService.update(eduCourse, teacherIds);
 		return "redirect:/admin/course/courseList";
 	}
-	
+
 }

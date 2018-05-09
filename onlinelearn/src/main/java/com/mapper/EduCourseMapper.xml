@@ -98,4 +98,5 @@
     <select id="getByTeacherId" parameterType="int" resultType="EduCourse">
        select * from edu_course where course_id in (select course_id from edu_course_teacher where teacher_id=#{value})
     </select>
+    
   </mapper>

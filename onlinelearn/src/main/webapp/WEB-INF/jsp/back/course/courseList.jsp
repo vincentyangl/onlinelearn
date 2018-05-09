@@ -49,7 +49,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<div class="larry-personal">
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
-		<form action="/admin/course/queryCourseList" method="POST">
+		<form action="/admin/course/courseList" method="POST">
 		<div class="layui-inline">
 		    <label class="layui-inline  tt">课程名称:</label>
 		    <div class="layui-input-inline">
@@ -202,15 +202,16 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
             
           laypage({
 					cont: 'page',
-					pages: 10 //总页数
-						,
-					groups: 5 //连续显示分页数
-						,
+					pages: '${info.pages}' , //总页数
+					curr: '${info.pageNum}',
+					groups: 5 ,    //连续显示分页数
 					jump: function(obj, first) {
 						//得到了当前页，用于向服务端请求对应数据
 						var curr = obj.curr;
 						if(!first) {
 							//layer.msg('第 '+ obj.curr +' 页');
+							document.forms[0].action="/admin/course/courseList?currentPage="+curr;
+							document.forms[0].submit();
 						}
 					}
 				});
