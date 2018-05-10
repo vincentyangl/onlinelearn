@@ -40,27 +40,26 @@
 				<blockquote class="layui-elem-quote news_search">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
-							<input value="" placeholder="请输入关键字"
+							<input value="${map.qname }" placeholder="请输入关键字"
 								class="layui-input search_input" type="text" name="qname">
 						</div>
 						开始时间:
 						<div class="layui-input-inline">
-							<input value="" class="layui-input search_input" type="text"
+							<input value="${map.startTime }" class="layui-input search_input" type="text"
 								name="startTime" onclick="WdatePicker()">
 						</div>
 						结束时间:
 						<div class="layui-input-inline">
-							<input value="" class="layui-input search_input" type="text"
+							<input value="${map.endTime }" class="layui-input search_input" type="text"
 								name="endTime" onclick="WdatePicker()">
 						</div>
-						<input type="submit" class="btn btn-info" value="查询" />
+						<input type="submit" class="btn btn-primary" value="查询" />
 					</div>
 					<div class="layui-inline">
 						<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
 					</div>
+					</blockquote>
 			</form>
-			</blockquote>
-
 			<!-- 操作日志 -->
 			<div class="layui-form news_list">
 				<table class="layui-table">
@@ -100,7 +99,7 @@
 								<td><div id="ca" title="${l.education }">${l.education }</div></td>
 								<td><div id="ca" title="${l.career }">${l.career }</div></td>
 								<td><fmt:formatDate value="${l.createTime }" type="date"
-										pattern="yyyy-MM-dd hh:mm:ss" /></td>
+										pattern="yyyy-MM-dd" /></td>
 								<td>${l.sort }</td>
 								<td><a href="/admin/teacher/getById/${l.id}"
 									class="layui-btn layui-btn-mini"><i
@@ -110,92 +109,17 @@
 										class="layui-icon"></i> 删除</a></td>
 							</tr>
 						</c:forEach>
+						<tr><td align="center" colspan="8">一共${page.pages }页
+						<a href="/admin/teacher/teacherList/${l.id }?page=${page.firstPage}">首页</a>
+						<a href="/admin/teacher/teacherList/${l.id }?page=${page.prePage}">上一页</a>
+						<a href="/admin/teacher/teacherList/${l.id }?page=${page.nextPage}">下一页</a>
+						<a href="/admin/teacher/teacherList/${l.id }?page=${page.lastPage}">尾页</a>
+						</td></tr>
 					</tbody>
 				</table>
-				<div class="larry-table-page clearfix">
-					<a href="javascript:;" class="layui-btn layui-btn-small"><i
-						class="iconfont icon-shanchu1"></i>删除</a>
-					<div id="page" class="page"></div>
-				</div>
 			</div>
-			<!-- 登录日志 -->
-			<div class="layui-tab-item layui-field-box">
-				<table class="layui-table table-hover" lay-even="" lay-skin="nob">
-					<thead>
-						<tr>
-							<th><input type="checkbox" id="selected-all"></th>
-							<th>ID</th>
-							<th>管理员账号</th>
-							<th>状态</th>
-							<th>最后登录时间</th>
-							<th>上次登录IP</th>
-							<th>登录IP</th>
-							<th>IP所在位置</th>
-						</tr>
-					</thead>
-					<tbody>
-
-						<tr>
-							<td><</td>
-							<td>110</td>
-							<td>admin</td>
-							<td>后台登录成功</td>
-							<td>2016-12-19 14:26:03</td>
-							<td>127.0.0.1</td>
-							<td>127.0.0.1</td>
-							<td>Unknown</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="larry-table-page clearfix">
-					<a href="javascript:;" class="layui-btn layui-btn-small"><i
-						class="iconfont icon-shanchu1"></i>删除</a>
-					<div id="page2" class="page"></div>
-				</div>
 			</div>
-		</div>
 	</div>
-
 	</section>
-	<script type="text/javascript" src="common/layui/layui.js"></script>
-	<script type="text/javascript" src="js/newslist.js"></script>
-	<script type="text/javascript">
-		layui.use([ 'jquery', 'layer', 'element', 'laypage' ], function() {
-			window.jQuery = window.$ = layui.jquery;
-			window.layer = layui.layer;
-			var element = layui.element(), laypage = layui.laypage;
-
-			laypage({
-				cont : 'page',
-				pages : 10 //总页数
-				,
-				groups : 5 //连续显示分页数
-				,
-				jump : function(obj, first) {
-					//得到了当前页，用于向服务端请求对应数据
-					var curr = obj.curr;
-					if (!first) {
-						//layer.msg('第 '+ obj.curr +' 页');
-					}
-				}
-			});
-
-			laypage({
-				cont : 'page2',
-				pages : 10 //总页数
-				,
-				groups : 5 //连续显示分页数
-				,
-				jump : function(obj, first) {
-					//得到了当前页，用于向服务端请求对应数据
-					var curr = obj.curr;
-					if (!first) {
-						//layer.msg('第 '+ obj.curr +' 页');
-					}
-				}
-			});
-		});
-	</script>
-
 </body>
 </html>
