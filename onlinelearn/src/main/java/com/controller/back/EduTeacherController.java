@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduTeacher;
 import com.bean.SysSubject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.util.Ztree;
 import com.service.EduTeacherService;
 import com.service.SysSubjectService;
@@ -35,24 +38,23 @@ public class EduTeacherController {
 	@Autowired
 	private SysSubjectService sysSubjectService;
 	@RequestMapping("/admin/teacher/teacherList")
-	public ModelAndView listAll(HttpServletRequest request){
+	public ModelAndView listAll(HttpServletRequest request,@RequestParam(required=true,defaultValue="1")Integer page,Model md){
+		PageHelper.startPage(page, 5);
 		ModelAndView mv = new ModelAndView();
 		Map map = new HashMap();
 		map = getMap(request,map);
-		System.out.println(map.size());
-		System.out.println(map);
 		List<EduTeacher> list = eduTeacherService.listAll(map);
+		PageInfo<EduTeacher> pageInfo = new PageInfo<EduTeacher>(list);
 		mv.addObject("list", list);
+		mv.addObject("map", map);
 		mv.setViewName("/back/teacher/teacherList");
+		mv.addObject("page", pageInfo);
 		return mv;
 	}
 	public Map getMap(HttpServletRequest request,Map map){
 		String qname=request.getParameter("qname");
 		String startTime=request.getParameter("startTime");
 		String endTime=request.getParameter("endTime");
-		System.out.println(qname);
-		System.out.println(startTime);
-		System.out.println(endTime);
 		if (qname!=null&&qname.trim().length()>0) {
 			request.setAttribute("qname", qname);
 			map.put("qname", qname);
@@ -101,7 +103,7 @@ public class EduTeacherController {
 		String newPath = path+fileName;
 		SysSubject subject = new SysSubject();
 		subject.setSubjectId(id);
-		File newfile = new File(path,fileName);
+		File newfile = new File(path,newPath);
 		Date date = new Date();
 		try {
 			file.transferTo(newfile);

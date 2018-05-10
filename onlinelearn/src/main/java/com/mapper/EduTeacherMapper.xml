@@ -30,6 +30,7 @@
 		and create_time &lt; #{endTime}
 		</if>
 		</where>
+		order by sort 
 	</select>
 	<select id="getById" parameterType="int" resultMap="EduTeacherMap">
 		select * from
