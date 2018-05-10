@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>问答标签</title>
+<title>问答列表</title>
 <link rel="stylesheet" type="text/css"
 	href="/common/layui/css/layui.css" media="all">
 <link rel="stylesheet" type="text/css"
@@ -24,24 +24,34 @@
 	charset="utf-8"></script>
 </head>
 <body>
-	<form action="/equestions/edlist" method="post">
+	<form action="/admin/equestions/edlist" method="post">
+			
+		<div class="col-md-4 col-md-offset-4">
+			<div class="layui-inline">
+			<label class="layui-inline">标题:</label>
+				<div class="layui-input-inline">
+					<input type="text" name="title" value="" placeholder="标题" class="layui-input search_input"> 
+				</div>
+				
+				<label class="layui-inline">问答标签:</label>
+			<div class="layui-input-inline">
+				<select class="layui-input" name="type" id="type">
+					<option value="0">--全部--</option>
+					<option value="1">课程问答</option>
+					<option value="2">学习分享</option>
+				</select>
+			</div>
+				
+				<input type="submit" value="查询" class="layui-btn search_btn" /><br />
+			</div>
 
-		<!-- 	<div class="col-md-4 col-md-offset-4"> -->
-		<!-- 		<div class="layui-inline"> -->
-		<!-- 			<div class="layui-input-inline"> -->
-		<%-- 				<input type="text" name="order_code" value="${name}" placeholder="请输入订单编号" --%>
-		<!-- 					class="layui-input search_input"> -->
-		<!-- 			</div> -->
-		<!-- 			<input type="submit" value="查询" class="layui-btn search_btn" /><br /> -->
-		<!-- 		</div> -->
-
-		<!-- 	</div> -->
+		</div>
 
 		<!-- 操作日志 -->
 		<div class="layui-form news_list">
 			<table class="layui-table">
 				<colgroup>
-					<col width="5">
+					<col width="5%">
 					<col width="15%">
 					<col width="35%">
 					<col width="5%">
@@ -69,23 +79,40 @@
 						<tr>
 							<th>${t.id }</th>
 							<th>${t.edu_User.email }</th>
-							<th>${t.titie }</th>
-							<c:if test="${t.type==1}"><th>课程问答</th></c:if>
-							<c:if test="${t.type==2}"><th>学习分享</th></c:if>
-							<c:if test="${t.status==0}"><th>是</th></c:if>
-							<c:if test="${t.status==1}"><th>否</th></c:if>
+							<th>${t.title}</th>
+							<c:if test="${t.type==1}">
+								<th>课程问答</th>
+							</c:if>
+							<c:if test="${t.type==2}">
+								<th>学习分享</th>
+							</c:if>
+							<c:if test="${t.status==0}">
+								<th>是</th>
+							</c:if>
+							<c:if test="${t.status==1}">
+								<th>否</th>
+							</c:if>
 							<th>${t.replyCount }</th>
 							<th>${t.browseCount }</th>
 							<th>${t.praiseCount }</th>
 							<th>${t.addTime }</th>
 							<th>
-							<a href="/admin/equestions/eddelete?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del" >删除</a> 
-							<a href="" class="layui-btn layui-btn-mini news_edit">修改</a>
-							<a href="" class="layui-btn layui-btn-danger layui-btn-mini news_del" >回复</a>
+							<a href="/admin/equestions/eddelete?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del">删除</a>
+							<a href="/admin/equestions/edgetById?id=${t.id }" class="layui-btn layui-btn-mini news_edit">修改</a> 
+							<a href="" class="layui-btn layui-btn-danger layui-btn-mini news_del">回复</a>
 							</th>
 						</tr>
 					</c:forEach>
-
+						
+						<tr>
+			<td align="center" colspan="9">一共${page.pages }页
+			<a href="/admin/equestions/edlist/${t.id }?page=${page.firstPage}">首页</a>
+			<a href="/admin/equestions/edlist/${t.id }?page=${page.prePage}">上一页</a>
+			<a href="/admin/equestions/edlist/${t.id }?page=${page.nextPage}">下一页</a>
+			<a href="/admin/equestions/edlist/${t.id }?page=${page.lastPage}">尾页</a>
+			</td>
+			</tr>
+						
 				</thead>
 			</table>
 		</div>
