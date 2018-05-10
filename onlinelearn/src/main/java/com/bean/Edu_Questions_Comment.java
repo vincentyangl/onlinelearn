@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Edu_Questions_Comment {
 private int id;        //主键id
-private int cusId;        //评论人id
-private int questionId;     //问答id
+private Edu_User edu_User;        //评论人id
+private Edu_Questions edu_Questions;     //问答id
 private String content;      //评论内容
 private int isBest;        //是否最佳答案 0否1是
 private int replyCount;     //回复数量
@@ -18,17 +18,17 @@ public int getId() {
 public void setId(int id) {
 	this.id = id;
 }
-public int getCusId() {
-	return cusId;
+public Edu_User getEdu_User() {
+	return edu_User;
 }
-public void setCusId(int cusId) {
-	this.cusId = cusId;
+public void setEdu_User(Edu_User edu_User) {
+	this.edu_User = edu_User;
 }
-public int getQuestionId() {
-	return questionId;
+public Edu_Questions getEdu_Questions() {
+	return edu_Questions;
 }
-public void setQuestionId(int questionId) {
-	this.questionId = questionId;
+public void setEdu_Questions(Edu_Questions edu_Questions) {
+	this.edu_Questions = edu_Questions;
 }
 public String getContent() {
 	return content;
@@ -68,10 +68,9 @@ public void setCommentId(int commentId) {
 }
 @Override
 public String toString() {
-	return "Edu_Questions_Comment [id=" + id + ", cusId=" + cusId + ", questionId=" + questionId + ", content="
-			+ content + ", isBest=" + isBest + ", replyCount=" + replyCount + ", praiseCount=" + praiseCount
-			+ ", addTime=" + addTime + ", commentId=" + commentId + "]";
+	return "Edu_Questions_Comment [id=" + id + ", edu_User=" + edu_User + ", edu_Questions=" + edu_Questions
+			+ ", content=" + content + ", isBest=" + isBest + ", replyCount=" + replyCount + ", praiseCount="
+			+ praiseCount + ", addTime=" + addTime + ", commentId=" + commentId + "]";
 }
-
 
 }

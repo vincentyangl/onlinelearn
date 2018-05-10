@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.Edu_Questions_TagDao">
+  <resultMap type="Edu_Questions_Tag" id="Edu_Questions_Tags">
+  <result column="QUESTIONS_TAG_ID" property="questionsTagId"/>
+  <result column="QUESTIONS_TAG_NAME" property="questionsTagName"/>
+  <result column="STATUS" property="status"/>
+  <result column="CREATE_TIME" property="createTime"/>
+  <result column="PARENT_ID" property="parentId"/>
+  </resultMap>
+  <select id="listAll" resultMap="Edu_Questions_Tags">
+  select * from Edu_Questions_Tag
+  </select>
+  
+  <delete id="delete" parameterType="int">
+  delete from Edu_Questions_Tag where QUESTIONS_TAG_ID=#{questionsTagId}
+  </delete>
+  
+  <insert id="save" parameterType="Edu_Questions_Tag">
+  insert into Edu_Questions_Tag (QUESTIONS_TAG_NAME,CREATE_TIME) values (#{questionsTagName},#{createTime})
+  </insert>
+  
+  <select id="getById" parameterType="int" resultMap="Edu_Questions_Tags">
+  select * from Edu_Questions_Tag where QUESTIONS_TAG_ID=#{questionsTagId}
+  </select>
+  
+  <update id="update" parameterType="Edu_Questions_Tag">
+  update Edu_Questions_Tag set QUESTIONS_TAG_NAME=#{questionsTagName} where QUESTIONS_TAG_ID=#{questionsTagId}
+  </update>
+  </mapper>
