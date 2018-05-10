@@ -3,25 +3,78 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.mapper.Edu_UserDao">
-  <select id="listAll" resultType="Edu_User">
-  select * from edu_user
-  </select>
+  <resultMap type="Edu_User" id="user_UserMap">
+    <result property="userId" column="userId"/>
+    <result property="mobile" column="mobile"/>
+    <result property="email" column="email"/>
+    <result property="password" column="password"/>
+    <result property="userName" column="userName"/>
+    <result property="showName" column="showName"/>
+    <result property="sex" column="sex"/>
+    <result property="age" column="age"/>
+    <result property="createTime" column="createTime"/>
+    <result property="isAvalible" column="isAvalible"/>
+    <result property="picImg" column="picImg"/>
+    <result property="bannerUrl" column="bannerUrl"/>
+    <result property="msgNum" column="msgNum"/>
+    <result property="sysMsgNum" column="sysMsgNum"/>
+    <result property="lastSystemTime" column="lastSystemTime"/>
+   <association property="id" column="id" select="com.mapper.Edu_classDao.getById"></association>
+  </resultMap>
   
-  <delete id="delete" parameterType="int">
-  delete from edu_user where USER_ID=#{userId}
-  </delete>
-  
-  <insert id="save" parameterType="Edu_User">
-  insert into edu_user (MOBILE,EMAIL,CLASS_ID,PASSWORD,USER_NAME,SHOW_NAME,SEX,AGE,CREATE_TIME,IS_AVALIBLE,PIC_IMG,BANNER_URL,MSG_NUM,SYS_MSG_NUM,LAST_SYSTEM_TIME)
-   values (#{mobile},#{email},#{classId},#{password},#{userName},#{showName},#{sex},#{age},#{createTime},#{isAvalible},#{picImg},#{bannerUrl},#{msgNum},#{sysMsgNum},#{lastSystemTime})
+   <insert id="save" parameterType="Edu_User">
+  insert into edu_user (mobile,email,password,userName,showName,sex,age,createTime,isAvalible,picImg,bannerUrl,lastSystemTime)
+   values(#{mobile},#{email},#{password},#{userName},#{showName},#{sex},#{age},#{createTime},#{isAvalible},#{picImg},#{bannerUrl},#{lastSystemTime})
   </insert>
   
+  <select id="listAll" resultMap="user_UserMap" parameterType="java.util.Map">
+  select * from edu_user
+  <where>
+     <if test="id>0">
+       and id=#{id}
+     </if>
+     <if test="isAvalible>-1">
+     and isAvalible=#{isAvalible}
+     </if>
+    <if test="qname!=null">
+    and (mobile  like '%${qname}%' or email like '%${qname}%' or userName like '%${qname}%' or showName like '%${qname}%')
+    </if>
+     <if test="start!=null and start!=''">
+    and createTime &gt;#{start}
+    </if>
+   <if test="end!=null and end!=''">
+    and createTime &lt;#{end}
+   </if>
+  </where>
+  </select>
+  
+  <!--     <if test="qdate1!=null &amp; qdate2!=null"> -->
+<!--      and createTime between ${qdate1} and ${qdate2} -->
+<!--      time between '2006-4-1 0:00:00' and '2006-4-1 24:59:59' --> 
+<!--     </if> -->
+  
   <update id="update" parameterType="Edu_User">
-  update edu_user set MOBILE=#{mobile},EMAIL=#{email},CLASS_ID=#{classId},PASSWORD=#{password},USER_NAME=#{userName},SHOW_NAME=#{showName},SEX=#{sex},AGE=#{age},
-  CREATE_TIME=#{createTime},IS_AVALIBLE=#{isAvalible},PIC_IMG=#{picImg},BANNER_URL=#{bannerUrl},MSG_NUM=#{msgNum},SYS_MSG_NUM=#{sysMsgNum},LAST_SYSTEM_TIME=#{lastSystemTime} where USER_ID=#{userId}
+   update edu_user set password=#{password} where userId=#{userId}
   </update>
   
-  <select id="getById" parameterType="int" resultType="Edu_User">
-  select * from edu_user where USER_ID=#{value}
+  <update id="toupdate" parameterType="Edu_User">
+   update edu_user set isAvalible=#{isAvalible} where userId=#{userId}
+  </update>
+  
+    <select id="getById" parameterType="int" resultType="Edu_User">
+  select * from edu_user where userId=#{userId}
   </select>
+  
+<!--   <delete id="delete" parameterType="int"> -->
+<!--   delete from edu_user where USER_ID=#{userId} -->
+<!--   </delete> -->
+  
+ 
+  
+<!--   <update id="update" parameterType="Edu_User"> -->
+<!--   update edu_user set MOBILE=#{mobile},EMAIL=#{email},CLASS_ID=#{classId},PASSWORD=#{password},USER_NAME=#{userName},SHOW_NAME=#{showName},SEX=#{sex},AGE=#{age}, -->
+<!--   CREATE_TIME=#{createTime},IS_AVALIBLE=#{isAvalible},PIC_IMG=#{picImg},BANNER_URL=#{bannerUrl},MSG_NUM=#{msgNum},SYS_MSG_NUM=#{sysMsgNum},LAST_SYSTEM_TIME=#{lastSystemTime} where USER_ID=#{userId} -->
+<!--   </update> -->
+  
+
   </mapper>

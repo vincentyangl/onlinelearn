@@ -47,6 +47,7 @@
 		  
 		   var qpid = "${course.sysSubject.parent_id}";  
 		   $("#context").css("display","none");
+		   //初始化父id选项
 		   $.post("/admin/subject/getSubjectList/2",
 				   function(msg){
 			           for(i=0;i<msg.length;i++){
@@ -340,7 +341,7 @@
 							<ul id="tea1">
 							    <c:forEach items="${course.eduTeachers }" var="et">
 							        <input type="hidden" name="tid" value="${et.id }" />
-							        <li class="tli">${et.name }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="" onclick="removeTname(this,${et.id})" >删除</a></li>
+							        <li class="tli">${et.name }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="removeTname(this,${et.id})" >删除</a></li>
 							    </c:forEach>
 							</ul>
 						</div>

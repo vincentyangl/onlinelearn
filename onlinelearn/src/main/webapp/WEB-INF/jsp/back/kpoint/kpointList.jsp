@@ -44,18 +44,29 @@
 	var setting = {
 		check : {
 			enable : true
-		},
+		}, 
+        edit: {  
+            enable: true,  
+            editNameSelectAll:true,  
+        },
 		data : {
 			simpleData : {
 				enable : true
-			}
+			},
+			keep:{  
+                parent:true,  
+                leaf:true  
+            }
 		},
 		callback : {
+			beforeRemove:beforeRemove,//点击删除时触发，用来提示用户是否确定删除  
+			onRemove:onRemove,//删除节点后触发，用户后台操作
+			onClick: returnPage,  //跳转界面
 			beforeClick : zTreeBeforeClick
 		}
 	};
 
-	var zNodes = ${sysFunctions};
+	var zNodes = ${eduKpoints};
 
 	var code;
 
@@ -79,8 +90,8 @@
 	}
 
 	$(document).ready(function() {
-		var rootNode = {id:0,name:"所有管理",pId:null,open:true};
-		zNodes.push(rootNode);
+		 /* var rootNode = {id:0,name:"根节点",pId:null,open:true}; 
+		zNodes.push(rootNode);*/
 		$.fn.zTree.init($("#myTree"), setting, zNodes);
 		setCheck();
 		$("#py").bind("change", setCheck);
@@ -89,30 +100,42 @@
 		$("#sn").bind("change", setCheck);
 	});
 
-	function zTreeBeforeClick(treeId, treeNode, clickFlag) {
-		id = treeNode.id;
-		name = treeNode.name;
-	};
+	function beforeRemove(e,treeId,treeNode){  
+        return confirm("你确定要删除吗？");  
+    }  
+	
+    function onRemove(e,treeId,treeNode){  
+        if(treeNode.isParent){  
+            var childNodes = zTree.removeChildNodes(treeNode);  
+            var paramsArray = new Array();  
+            for(var i = 0; i < childNodes.length; i++){  
+                paramsArray.push(childNodes[i].id);  
+            }  
+            alert("删除父节点的id为："+treeNode.id+"\r\n他的孩子节点有："+paramsArray.join(","));  
+            return;  
+        }  
+        alert("你点击要删除的节点的名称为："+treeNode.name+"\r\n"+"节点id为："+treeNode.id);  
+    }  
+	
+	 function returnPage(event, treeId, treeNode) {
+         $("#otherpage").attr("src","/admin/kpoint/toKpointEdit/"+treeNode.id);
+     }
+	 
+	 function zTreeBeforeClick(treeId, treeNode, clickFlag) {
+			id = treeNode.id;
+			name = treeNode.name;
+		};
 
 	function toAdd() {
 		if (id == -1) {
-			alert("请选择添加板块");
+			alert("请选择哪个节点下添加");
 		}
 		if (id != -1) {
-			 $("#myModal").modal("show");
+			$("#otherpage").attr("src","/admin/kpoint/toKpointAdd/"+id);
 		}
 	}
 	
-	function add(){
-		var qname= $("#name").val();
-		if(qname==null||qname.trim().length==0){
-			alert("不能为空!");
-		}else{
-			$("#pId").val(id);
-			document.forms[0].action="/admin/permissions/addPermissions";
-			document.forms[0].submit();
-		}
-	}
+	
 	
 	
 	
@@ -122,21 +145,16 @@
 
 	
 
-	<div class="zTreeDemoBackground ">
-		<ul id="myTree" class="ztree"></ul>
-	</div>
-    <div>
-		<a href="#" class="btn btn-default " onclick="toAdd()">添加</a>
-	</div>
 
-<table>
+<table width="100%">
    <tr>
-       <td width="10%" bgcolor="#CCCC66" valign="top"><br>
-           <div align="center" style="font-weight:bold">菜单栏</div><br>
-           <ul id="tree" class="tree" style="width:180px; overflow:auto;"></ul>
+       <td width="20%" bgcolor="white" valign="top"><br>
+           <div align="left" style="font-weight:bold">菜单栏</div><br>
+           <ul id="myTree" class="ztree"  height="500"></ul>
+           <a href="#" class="btn btn-default " onclick="toAdd()">添加</a>
         </td>
-        <td width="90%" bgcolor="#D3D3D3" valign="top">
-            <iframe src="/admin/kpoint/kpointEdit"  id="otherpage" width="100%" height="900" scrolling="auto" frameborder="0"></iframe>
+        <td width="80%" bgcolor="white" valign="top">
+            <iframe src="/admin/kpoint/toBlank"  id="otherpage" width="100%" height="900" scrolling="auto" frameborder="0"></iframe>
          </td>
     </tr>
 </table>

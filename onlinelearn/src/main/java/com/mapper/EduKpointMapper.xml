@@ -34,12 +34,12 @@
        ,is_free=#{isFree},teacher_id=#{eduTeacher.id},content=#{content} where kpoint_id=#{id}
     </update>
     <select id="listAll" resultMap="EduKpointMap">
-        select * from edu_course_kpoint
+        select * from edu_course_kpoint order by sort desc
     </select>
     <select id="getByCourseId" parameterType="int" resultMap="EduKpointMap">
-        select * from edu_course_kpoint where course_id=#{value}
+        select * from edu_course_kpoint where course_id=#{value} order by sort desc
     </select>
     <select id="getById" parameterType="int" resultMap="EduKpointMap">
-        select * from edu_course_kpoint where kpoint_id=#{value}
+        select * from edu_course_kpoint where kpoint_id=#{value} order by sort desc
     </select>
   </mapper>

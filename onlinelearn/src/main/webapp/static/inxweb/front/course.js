@@ -5,19 +5,21 @@
  */
 function submitForm(type,keyWord){
 	if(type==1){
-		$("input[name='queryCourse.subjectId']").val(keyWord);
+		$("input[name='subjectId']").val(keyWord);
 	}else if(type==2){
-		$("input[name='queryCourse.teacherId']").val(keyWord);
+		$("input[name='teacherId']").val(keyWord);
 	}else if(type==3){
-		$("input[name='queryCourse.order']").val(keyWord);
+		$("input[name='pageViewCount']").val(keyWord);
 	}else if(type==4){
 		if(keyWord=='ONE'||keyWord=='NEW'||keyWord=='FOLLOW'){
-			$("input[name='queryCourse.order']").val('DESCENDING');
+			$("input[name='currentPrice']").val('DESCENDING');
 		}else if(keyWord=='DESCENDING'){
-			$("input[name='queryCourse.order']").val('ASCENDING');
+			$("input[name='currentPrice']").val('ASCENDING');
 		}else if(keyWord=='ASCENDING'){
-			$("input[name='queryCourse.order']").val('DESCENDING');
+			$("input[name='currentPrice']").val('DESCENDING');
 		}
+	}else if(type==5){
+		$("input[name='addTime']").val(keyWord);
 	}
 	$("input[name='queryCourse.courseName']").val('');
 	$("#searchForm").submit();

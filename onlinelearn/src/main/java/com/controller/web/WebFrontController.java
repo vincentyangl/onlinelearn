@@ -16,10 +16,10 @@ public class WebFrontController {
 		return "web/article/article-list";
 	}
 
-	@RequestMapping("/front/course")
+/*	@RequestMapping("/front/course")
 	public String course(){
 		return "web/course/courses-list";
-	}
+	}*/
 	
 //	@RequestMapping("/front/teacher")
 //	public String teacher(){
