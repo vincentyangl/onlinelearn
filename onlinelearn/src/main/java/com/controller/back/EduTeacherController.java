@@ -81,12 +81,11 @@ public class EduTeacherController {
 		SysSubject subject = new SysSubject();
 		subject.setSubjectId(id);
 		String fileName = file.getOriginalFilename();
-		String newPath = path+fileName;
 		File newfile = new File(path,fileName);
 		Date date = new Date();
 		try {
 			file.transferTo(newfile);
-			eduTeacher.setPicPath(newPath);
+			eduTeacher.setPicPath(fileName);
 			eduTeacher.setUpdateTime(date);
 			eduTeacher.setSysSubject(subject);
 			eduTeacherService.update(eduTeacher);
@@ -100,14 +99,13 @@ public class EduTeacherController {
 		String path = request.getRealPath("/images/upload/teacher/20150915");
 		int id = Integer.parseInt(request.getParameter("subjectId"));
 		String fileName = file.getOriginalFilename();
-		String newPath = path+fileName;
 		SysSubject subject = new SysSubject();
 		subject.setSubjectId(id);
-		File newfile = new File(path,newPath);
+		File newfile = new File(path,fileName);
 		Date date = new Date();
 		try {
 			file.transferTo(newfile);
-			eduTeacher.setPicPath(newPath);
+			eduTeacher.setPicPath(fileName);
 			eduTeacher.setCreateTime(date);
 			eduTeacher.setSysSubject(subject);
 			eduTeacherService.save(eduTeacher);
@@ -151,5 +149,4 @@ public class EduTeacherController {
 		mv.addObject("list", list);
 		return list;
 	}
-	
 }

@@ -44,10 +44,10 @@ public class WebEduTeacherController {
 	@RequestMapping("/front/teacher/getBySid/{subjectId}")
 	public ModelAndView getBySid(@PathVariable int subjectId){
 		ModelAndView mv = new ModelAndView();
-		System.out.println(subjectId);
 		List<EduTeacher> list =  eduTeacherService.getTeacherBySubjectId(subjectId);
 		List<SysSubject> lists = sysSubjectService.listDad();
 		mv.addObject("list", list);
+		System.out.println(list);
 		mv.addObject("lists", lists);
 		mv.setViewName("/web/teacher/teacherList");
 		return mv;

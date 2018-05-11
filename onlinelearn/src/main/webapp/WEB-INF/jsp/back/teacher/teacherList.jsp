@@ -40,7 +40,7 @@
 				<blockquote class="layui-elem-quote news_search">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
-							<input value="${map.qname }" placeholder="请输入关键字"
+							<input value="${map.qname }" placeholder="请输入姓名关键字"
 								class="layui-input search_input" type="text" name="qname">
 						</div>
 						开始时间:
@@ -54,9 +54,6 @@
 								name="endTime" onclick="WdatePicker()">
 						</div>
 						<input type="submit" class="btn btn-primary" value="查询" />
-					</div>
-					<div class="layui-inline">
-						<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
 					</div>
 					</blockquote>
 			</form>

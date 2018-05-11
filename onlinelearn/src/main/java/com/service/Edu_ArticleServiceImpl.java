@@ -33,7 +33,6 @@ public class Edu_ArticleServiceImpl implements Edu_ArticleService{
 	@Override
 	public void save(Edu_Article edu_Article) {
 		edu_ArticleDao.save(edu_Article);
-		
 	}
 
 	@Override
@@ -59,5 +58,8 @@ public class Edu_ArticleServiceImpl implements Edu_ArticleService{
 		edu_ArticleDao.saveContent(map);
 		
 	}
+
+
+	
 
 }

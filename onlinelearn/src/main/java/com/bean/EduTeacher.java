@@ -95,6 +95,12 @@ public class EduTeacher {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
+	@Override
+	public String toString() {
+		return "EduTeacher [id=" + id + ", name=" + name + ", education=" + education + ", career=" + career
+				+ ", isStar=" + isStar + ", picPath=" + picPath + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + ", sysSubject=" + sysSubject + ", sort=" + sort + "]";
+	}
 	
 	
 }

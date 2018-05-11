@@ -66,15 +66,15 @@
 						<div class="clear"></div>
 					</article>
 				</div>
-				公共分页 开始
-				<div>
-					<form action="${ctx }/front/teacherlist" method="post" id="searchForm">
-						<input type="hidden" name="page.currentPage" id="pageCurrentPage" value="1">
-						<input type="hidden" name="queryTeacher.subjectId" id="" value="${subjectId }">
-					</form>
-					<jsp:include page="/WEB-INF/jsp/common/front_page.jsp"></jsp:include>
-				</div>
-				公共分页 结束
+<!-- 				公共分页 开始 -->
+<!-- 				<div> -->
+<%-- 					<form action="${ctx }/front/teacherlist" method="post" id="searchForm"> --%>
+<!-- 						<input type="hidden" name="page.currentPage" id="pageCurrentPage" value="1"> -->
+<%-- 						<input type="hidden" name="queryTeacher.subjectId" id="" value="${subjectId }"> --%>
+<!-- 					</form> -->
+<%-- 					<jsp:include page="/WEB-INF/jsp/common/front_page.jsp"></jsp:include> --%>
+<!-- 				</div> -->
+<!-- 				公共分页 结束 -->
 			</section>
 		</section>
 		<!-- /课程列表 结束 -->

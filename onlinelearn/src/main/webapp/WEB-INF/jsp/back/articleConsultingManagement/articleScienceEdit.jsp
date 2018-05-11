@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>文章添加</title>
+<title>文章修改</title>
 
 <link rel="stylesheet" type="text/css"
 	href="/common/layui/css/layui.css" media="all">
@@ -16,37 +16,45 @@
 <link rel="stylesheet" type="text/css" haref="/css/personal.css"
 	media="all">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-<link href="/webapp/js/utf8-jsp/themes/default/css/umeditor.css"
-	type="text/css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8"
-	src="/webapp/js/utf8-jsp/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8"
-	src="/webapp/js/utf8-jsp/umeditor.min.js"></script>
-<script type="text/javascript" src="/webapp/js/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
 <script src="/js/jquery-3.0.0.js" type="text/javascript" charset="utf-8"></script>
 <script src="/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+
+<link href="/js/utf8-jsp/themes/default/css/umeditor.css"
+	type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8"
+	src="/js/utf8-jsp/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="/js/utf8-jsp/umeditor.min.js"></script>
+<script type="text/javascript" src="/js/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
 
 </head>
 <body>
 
 
 
-	<form class="layui-form" action="/admin/earticle/easave"
+	<form class="layui-form" action=""
 		method="post" enctype="multipart/form-data">
-		
+
+		<div class="layui-form-item">
+			<label class="layui-form-label"></label>
+			<div class="layui-input-block">
+				<input class="layui-input newsName" lay-verify="required"
+					type="hidden" name="articleId" value="${edu_Article.articleId }">
+			</div>
+		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">标题:</label>
 			<div class="layui-input-block">
 				<input class="layui-input newsName" lay-verify="required"
-					type="text" name="title" >
+					type="text" name="title" value="${edu_Article.title }">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">摘要:</label>
 			<div class="layui-input-block">
-				<textarea class="layui-textarea" name="summary"></textarea>
+				<textarea class="layui-textarea" name="summary">${edu_Article.summary }</textarea>
 			</div>
 		</div>
 
@@ -54,7 +62,7 @@
 			<label class="layui-form-label">作者:</label>
 			<div class="layui-input-inline">
 				<input class="layui-input newsAuthor" lay-verify="required"
-					name="author" type="text">
+					name="author" value="${edu_Article.author }" type="text">
 			</div>
 		</div>
 
@@ -62,50 +70,59 @@
 			<label class="layui-form-label">来源:</label>
 			<div class="layui-input-inline">
 				<input class="layui-input newsAuthor" lay-verify="required"
-					name="source" type="text">
+					name="source" value="${edu_Article.source }" type="text">
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">头像</label>
+			<div class="layui-input-block">
+				<img alt="头像图片" src="${edu_Article.imageUrl }" name="imageUrl"
+					id="blah" style="height: 200px; width: 200px" /><input type="file"
+					name="file" id="file">
 			</div>
 		</div>
 
 
 		<div class="layui-form-item">
-					<label class="layui-form-label">头像</label>
-					<div class="layui-input-block">
-						<img alt="头像图片" src="" name="imageUrl" id="blah"
-							style="height: 200px; width: 200px" /><input type="file"
-							name="file" id="file">
-					</div>
-				</div>
-
-
-		<div class="layui-form-item">
 			<label class="layui-form-label">内容:</label>
 			<div class="layui-input-block">
-			<textarea  rows="50" cols="200" name="content"></textarea>	
+				<script type="text/plain" id="myEditor"
+					style="width:1000px;height:240px;">${edu_Article_Content.content}</script>
+				<div class="clear"></div>
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">排序值:</label>
 			<div class="layui-input-inline">
-				<input class="layui-input newsAuthor" lay-verify="required" name="sort"  type="text">
+				<input class="layui-input newsAuthor" lay-verify="required"
+					name="sort" value="${edu_Article.sort }" type="text">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<input type="submit" class="layui-btn" lay-filter="addNews"
-					value="添加" />
+				<input type="button" onclick="getContent()" class="layui-btn" lay-filter="addNews"
+					value="修改" />
 			</div>
 		</div>
+		<input type="hidden" name="content" id="content" value="${edu_Article_Content.content }">
 	</form>
 
-<script type="text/javascript">
+	<script type="text/javascript">
+	function getContent() {
+		var arr = UM.getEditor('myEditor').getContent();
+		$("#content").val(arr);
+		document.forms[0].action = "/admin/earticle/update";
+		document.forms[0].submit();
+	}
+	
 		layui.use([ 'form', 'upload' ], function() {
 			var form = layui.form();
 		});
-		
-		
-	//  图片显示
+
+		//  图片显示
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
@@ -119,6 +136,9 @@
 		$("#file").change(function() {
 			readURL(this);
 		});
+	</script>
+	<script type="text/javascript">
+		var ue = UM.getEditor('myEditor');
 	</script>
 </body>
 </html>
