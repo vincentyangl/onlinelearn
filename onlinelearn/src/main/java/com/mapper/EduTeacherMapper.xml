@@ -49,7 +49,7 @@
 		where
 		id=#{id}
 	</update>
-	<select id="getTeacherBySubjectId" parameterType="int" resultType="EduTeacher">
+	<select id="getTeacherBySubjectId" parameterType="int" resultMap="EduTeacherMap">
 	   select * from edu_teacher where subject_id=#{value}
 	</select>
 	<select id="getTeacherByCourseId" parameterType="int" resultType="EduTeacher">
