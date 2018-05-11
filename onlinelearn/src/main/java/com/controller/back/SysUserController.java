@@ -72,6 +72,8 @@ public class SysUserController {
 	            } 
 	            //所有认证时异常的父类
 	            catch (AuthenticationException ae) {
+	            	//打印错误信息
+	            	ae.printStackTrace();
 	            	System.out.println("login failed！");
 	            	mv.setViewName("/back/login/login");
 	            	return mv;
