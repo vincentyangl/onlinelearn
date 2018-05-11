@@ -20,9 +20,9 @@
        #{source_price},#{current_price},#{title},#{context},#{lession_num},#{logo},NOW(),
        0,0,#{end_time},#{loseType},#{lose_time},0,0)
     </insert>
-    <delete id="delete" parameterType="int">
-       delete from edu_course where course_id=#{value}
-    </delete>
+    <update id="delete" parameterType="int">
+       update edu_course set is_avaliable = 3 where course_id=#{value}
+    </update>
     <update id="update" parameterType="EduCourse">
        update edu_course set course_name=#{course_name}, 
        is_avaliable=#{is_avaliable},subject_id=#{sysSubject.subjectId},subject_link=#{subject_link},

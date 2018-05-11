@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class EduKpoint {
 
@@ -19,6 +20,8 @@ public class EduKpoint {
 	private String videoType;//视频类型
 	private String fileType;//VIDEO视频 AUDIO音频 FILE文档 TXT文本 ATLAS图片集
 	private String content;//文本
+	//子节点集合
+	private List<EduKpoint> kpointList;
 	public int getId() {
 		return id;
 	}
@@ -109,6 +112,12 @@ public class EduKpoint {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public List<EduKpoint> getKpointList() {
+		return kpointList;
+	}
+	public void setKpointList(List<EduKpoint> kpointList) {
+		this.kpointList = kpointList;
 	}
 	
 }

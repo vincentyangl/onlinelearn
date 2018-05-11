@@ -12,4 +12,5 @@ public interface EduKpointDao {
 	EduKpoint getById(int id);
 	List<EduKpoint> getByCourseId(int course_id);
 	void delete(int id);
+	List<EduKpoint> getchildKpoint(int pId);
 }

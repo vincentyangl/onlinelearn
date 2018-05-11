@@ -56,6 +56,7 @@
        /kindeditor/** = anon
        /skins/** = anon
        /static/** = anon
+       /upload/**=anon
         /admin/user/toLogin = anon
         /admin/user/login = anon
         /admin/user/main = anon
