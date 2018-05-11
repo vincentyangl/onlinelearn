@@ -20,7 +20,7 @@
 							</section>
 						</header>
 						<!-- /无数据提示 开始-->
-						<c:if test="${empty articleList }">
+						<c:if test="${empty list }">
 							<section class="no-data-wrap">
 								<em class="icon30 no-data-ico">&nbsp;</em> <span class="c-666 fsize14 ml10 vam">没有相关数据，小编正在努力整理中...</span>
 							</section>
@@ -29,14 +29,14 @@
 						<article class="i-article-list">
 							<!-- /文章列表 开始-->
 							<ul>
-								<c:if test="${not empty articleList }">
-									<c:forEach var="article" items="${articleList }">
+								<c:if test="${not empty list }">
+									<c:forEach var="article" items="${list }">
 										<li>
 											<aside class="i-article-pic">
-												<img xSrc="<%=staticImage%>${article.imageUrl }" src="${ctx }/static/inxweb/img/default-img.gif" alt="${article.title }">
+												<img src="${ctx }/static/inxweb/img/default-img.gif" alt="${article.title }">
 											</aside> <!-- ${ctx }/web/article/showInfor/${article.articleId } -->
 											<h3 class="hLh30 txtOf">
-												<a href="${ctx }/front/articleinfo/${article.articleId}.html" title="${article.title }" class="i-art-title">${article.title }</a>
+												<a href="/front/earticle/wabGetById/${article.articleId }" title="${article.title }" class="i-art-title">${article.title }</a>
 											</h3>
 											<section class="i-q-txt mt5 i-q-txt2">
 												<p>
@@ -49,7 +49,7 @@
 														<fmt:formatDate value="${article.publishTime }" pattern="yyyy-MM-dd HH:mm" />
 													</tt></span>
 												<div class="fl">
-													<span> <a class="noter-dy vam" title="回答" href="${ctx }/front/articleinfo/${article.articleId}.html">
+													<span> <a class="noter-dy vam" title="回答" href="/front/articleinfo/${article.articleId}">
 															<em class="icon18">&nbsp;</em>(<span>${article.commentNum }</span>)
 														</a> <tt title="赞一下" class="noter-zan vam ml10 f-fM" onclick="addPraise('${article.articleId}',3)">
 															<em class="icon18">&nbsp;</em>(<span class="addPraise${article.articleId}_3 praiseCount">${article.praiseCount }</span>)
@@ -64,13 +64,13 @@
 							<!-- /文章列表 结束-->
 						</article>
 						<!-- 公共分页 开始 -->
-						<form action="${ctx }/front/articlelist" method="post" id="searchForm">
-							<input type="hidden" name="page.currentPage" id="pageCurrentPage" value="1">
-						</form>
-						<div>
-							<jsp:include page="/WEB-INF/jsp/common/front_page.jsp"></jsp:include>
-							<div class="clear"></div>
-						</div>
+<!-- 						<form action="/front/articlelist" method="post" id="searchForm"> -->
+<!-- 							<input type="hidden" name="page.currentPage" id="pageCurrentPage" value="1"> -->
+<!-- 						</form> -->
+<!-- 						<div> -->
+<%-- 							<jsp:include page="/WEB-INF/jsp/common/front_page.jsp"></jsp:include> --%>
+<!-- 							<div class="clear"></div> -->
+<!-- 						</div> -->
 						<!-- 公共分页 结束 -->
 					</section>
 				</div>

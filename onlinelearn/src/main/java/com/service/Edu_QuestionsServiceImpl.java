@@ -1,20 +1,24 @@
 package com.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bean.Edu_Questions;
 import com.mapper.Edu_QuestionsDao;
+import com.mapper.Edu_UserDao;
 @Service
 public class Edu_QuestionsServiceImpl implements Edu_QuestionsService{
 	@Autowired
 	private Edu_QuestionsDao edu_QuestionsDao;
+	@Autowired
+	private Edu_UserDao edu_UserDao;
 	
 	@Override
-	public List<Edu_Questions> listAll() {
-		List<Edu_Questions> list=edu_QuestionsDao.listAll();
+	public List<Edu_Questions> listAll(Map map) {
+		List<Edu_Questions> list=edu_QuestionsDao.listAll(map);
 		return list;
 	}
 
@@ -38,8 +42,9 @@ public class Edu_QuestionsServiceImpl implements Edu_QuestionsService{
 
 	@Override
 	public void update(Edu_Questions edu_Questions) {
-		edu_QuestionsDao.update(edu_Questions);
 		
+		edu_QuestionsDao.update(edu_Questions);
+//		edu_UserDao.update(edu_User);
 	}
 
 }

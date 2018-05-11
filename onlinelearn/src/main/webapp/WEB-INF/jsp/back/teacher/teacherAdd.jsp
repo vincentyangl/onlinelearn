@@ -50,8 +50,8 @@
 		zTree.checkNode(treeNode, !treeNode.checked, null, true);
 		return false;
 	}
-  var v="";
-  var a=0;
+	var v = "";
+	var a = 0;
 	function onCheck(e, treeId, treeNode) {
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo"), nodes = zTree
 				.getCheckedNodes(true), v = "";
@@ -59,7 +59,7 @@
 			v += nodes[i].name + ",";
 		}
 		for (var i = 0, l = nodes.length; i < l; i++) {
-			a= nodes[i].id;
+			a = nodes[i].id;
 		}
 		if (v.length > 0)
 			v = v.substring(0, v.length - 1);
@@ -161,21 +161,43 @@
 					<div class="col-sm-4">
 						<span><img name="img" id="img" src=""
 							style="width: 260px; height: 300px;"></span> <input type="file"
-							name="file" value="">
+							name="file" value="" onchange="checkImgType(this)">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-1 control-label"></label>
 					<div class="col-sm-4">
 						<input type="submit" class="btn btn-info" value="添加" />&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="button" onclick="nullTeacher()"
-							class="btn btn-default" value="重置" />
+						<input type="reset" class="btn btn-default" value="重置" />
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript">
+	/* function toAdd(){
+		var fileName =document.getElementsByName("file");
+		if (fileName == "NodeList") {
+			alert("请上传图片");
+		}else{
+			document.forms[0].action="/admin/teacher/save";
+			document.forms[0].submit();
+		}
+	} */
+		function checkImgType(ths) {
+			if (ths.value == "") {
+				alert("请上传图片");
+				return false;
+			} else {
+				if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(ths.value)) {
+					alert("图片类型必须是.gif,jpeg,jpg,png中的一种");
+					ths.value = "";
+					return false;
+				}
+			}
+			return true;
+		}
+
 		document.getElementById('file').onchange = function() {
 			var imgFile = this.files[0];
 			var fr = new FileReader();
