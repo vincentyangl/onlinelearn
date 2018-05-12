@@ -124,6 +124,7 @@
 	 function zTreeBeforeClick(treeId, treeNode, clickFlag) {
 			id = treeNode.id;
 			name = treeNode.name;
+			
 		};
 
 	function toAdd() {

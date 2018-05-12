@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +26,9 @@
 <link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
 	<link href="/js/utf8-jsp/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/common/uploadify/uploadify.css" >
 <script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/common/uploadify/jquery.uploadify.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8" src="/js/utf8-jsp/umeditor.config.js"></script>
   <script type="text/javascript" charset="utf-8" src="/js/utf8-jsp/umeditor.min.js"></script>
   <script type="text/javascript" src="/js/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
@@ -115,7 +121,7 @@ function renderForm(){
 	<section class="layui-larry-box">
 		<div class="larry-personal">
 			<header class="larry-personal-tit">
-				<span id="sp1">添加课程节点</span>
+				<span id="sp1">修改课程节点</span>
 			</header>
 			<!-- /header -->
 			<div class="larry-personal-body clearfix">
@@ -140,14 +146,15 @@ function renderForm(){
 						</div>
 					</c:if>
 					<c:if test="${p.kpointType==1 }">
-						<div class="layui-form-item">
-							<label class="layui-form-label ">文件上传:</label>
-							<div class="layui-input-block">
-							     <input type="hidden"  value="${p.videoUrl }" name="videoUrl"/>
-								<input type="file" id="videoUrl1" name="videoUrl1" autocomplete="off" class="layui-input ">
-							</div>
-						</div>
 						<c:if test="${p.fileType.equals('TXT') }">
+							<div class="layui-form-item">
+								<label class="layui-form-label ">文件上传:</label>
+								<div class="layui-input-block">
+								    <input type="hidden" value="${p.videoUrl }" name="videoUrl" />
+									<input type="file" id="videoUrl1" name="videoUrl1"
+										autocomplete="off" class="layui-input ">
+								</div>
+							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label ">文本内容:</label>
 								<div class="layui-input-block">
@@ -159,7 +166,14 @@ function renderForm(){
 							</div>
 						</c:if>
 						<c:if test="${p.fileType.equals('VIDEO') }">
-						
+						    <div class="layui-form-item">
+								<label class="layui-form-label ">视频上传:</label>
+								<div class="layui-input-block">
+									<input type="file" id="fileupload" class="vam" id="filename" name="mp4" style="display: block !important;" />
+									<div id="fileQueue" class="mt10"></div>
+									<input type="hidden" name="videoUrl2" id="videourl2" value="" style="width: 360px;" />
+								</div>
+							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label">排序:</label>
 								<div class="layui-input-block">
@@ -204,19 +218,54 @@ function renderForm(){
 	</section>
 	<script type="text/javascript" src="/common/layui/layui.js"></script>
 	<script type="text/javascript">
-	layui.use(['form','upload'],function(){
-         var form = layui.form();
-         layui.upload({ 
-             url: '' ,//上传接口 
-             success: function(res){
-              //上传成功后的回调 
-              console.log(res) 
-            } 
-         });
-
-	});
 	//实例化编辑器
     var um = UM.getEditor('myEditor');
+	//视屏上传
+    //上传控件加载
+function uploadPicLoad(fileupload,showId,fileQueue){
+	$("#fileuploadUploader").remove();
+	$("#"+fileupload).uploadify({
+		'uploader' : '/common/uploadify/uploadify.swf?ver='+Math.random(), //上传控件的主体文件，flash控件  默认值='uploadify.swf'
+		'script'  :'/admin/kpoint/storeVideo',
+		'scriptData':{"fileType":"mp4","param":"upload/video"},
+		'queueID' : fileQueue, //文件队列ID
+		'fileDataName' : 'uploadfile', //您的文件在上传服务器脚本阵列的名称
+		'auto' : true, //选定文件后是否自动上传
+		'multi' :false, //是否允许同时上传多文件
+		'hideButton' : false,//上传按钮的隐藏
+		'buttonText' : '选择文件',//默认按钮的名字
+		'buttonImg' : '/common/uploadify/liulan.png',//使用图片按钮，设定图片的路径即可
+		'width' : 105,
+		'simUploadLimit' : 3,//多文件上传时，同时上传文件数目限制
+		'sizeLimit' : 5120000000,//控制上传文件的大小
+		'queueSizeLimit' : 3,//限制在一次队列中的次数（可选定几个文件）
+		'fileDesc' : '支持格式:mp4.',//出现在上传对话框中的文件类型描述
+		'fileExt' : '*.MP4;*.mp4;*.flv;',//支持的格式，启用本项时需同时声明fileDesc
+		'cancelImg' : '/common/uploadify/uploadify-cancel.png',
+		onSelect : function(event, queueID,fileObj) {
+			fileuploadIndex = 1;
+			$("#"+fileQueue).html("");
+			if (fileObj.size > 5120000000) {
+				alert('文件太大最大限制5120000kb');
+				return false;
+			}
+		},
+		onComplete : function(event,queueID, fileObj, response,data) {
+			$("#"+showId).val(response);
+		},
+		onError : function(event, queueID, fileObj,errorObj) {
+			$("#"+fileQueue).html("<br/><font color='red'>"+ fileObj.name + "上传失败</font>");
+		}
+	});
+	}
+
+function initUpdateKpoint(){
+	uploadPicLoad('fileupload','videoUrl2','fileQueue');
+}
+$(function(){
+	alert("1")
+	initUpdateKpoint();
+	});
 </script>
 </body>
 </html>

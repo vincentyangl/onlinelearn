@@ -213,7 +213,9 @@
 									</section>
 								</div>
 								<!-- /课程大纲 -->
-								<div class="mt50 commentHtml"></div>
+								<div class="mt50 commentHtml">
+								   
+								</div>
 								<!-- /课程评论 -->
 							</article>
 						</div>
@@ -320,8 +322,8 @@
 		<!-- /课程详情 结束 -->
 	</div>
 	<%-- <script type="text/javascript" src="${ctx}/static/common/jquery-1.11.1.min.js"></script> --%>
-	<script type="text/javascript" src="${ctx}/static/inxweb/front/courseInfo.js"></script>
-	<script type="text/javascript" src="${ctx}/static/inxweb/comment/comment.js"></script>
+	<script type="text/javascript" src="/static/inxweb/front/courseInfo.js"></script>
+	<script type="text/javascript" src="/static/inxweb/comment/comment.js"></script>
 	<script>
 		//评论课程id
 		var otherId = '${course.course_id}';
