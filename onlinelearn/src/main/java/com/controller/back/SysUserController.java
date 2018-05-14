@@ -60,7 +60,7 @@ public class SysUserController {
 		ModelAndView mv = new ModelAndView();
 		Subject currentUser = SecurityUtils.getSubject();
 		 if (!currentUser.isAuthenticated()) {
-			     System.out.println(13213);
+			     System.out.println("登陆成功！");
 	        	//把用户名和密码封装为 UsernamePasswordToken 对象
 	            UsernamePasswordToken token = new UsernamePasswordToken(loginName, loginPwd);
 	            System.out.println("uuuu");

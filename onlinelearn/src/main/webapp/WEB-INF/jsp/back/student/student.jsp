@@ -73,6 +73,25 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 			  
 		  }
 	  }
+	  
+	  
+	  function freezeUser(obj)
+	  {
+	      if(obj =='冻结')
+	      {
+	       document.getElementById('freeze').value = '解冻';
+	       window.location.href="/admin/student/toupdate/${l.userId}/${l.isAvalible}";
+	      }
+	      else{
+	       document.getElementById('freeze').value = '冻结';
+	       window.location.href="/admin/student/toupdate/${l.userId}/${l.isAvalible}";
+	      }
+	  }
+	  
+	  function excel() {
+		  document.forms[0].action="/admin/student/excel";
+		  document.forms[0].submit();
+	}
 // 	  $(document).ready(function(){
 // 			$("#list").click(function(){
 	//window.location.href="/shop/index/listProduct";
@@ -200,6 +219,8 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 							</div>
 							
 							<button class="layui-btn search_btn" type="submit"  onclick="list()" >查询</button>
+<!-- 							recommend ，audit_btn ，layui-btn-danger -->
+							<a class="layui-btn recommend" onclick="excel()">导出这些信息</a>
 <!-- 							<a  class="layui-btn search_btn" onclick="listP()">查询</a> -->
 						</div>
 		</form>
@@ -247,7 +268,15 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 <!--                             class="btn btn-primary btn-lg"   onclick='xiugai("+rowdata.eid+")'                    -->
                       <button type="button"  class="btn btn-default" data-toggle="modal" data-target="#myModal2" onclick="u(${l.userId})">修改密码</button>
 <%--                            <a href="/admin/student/getById${l.userId}" class="btn btn-default" data-toggle="modal" data-target="#myModal2">修改密码</a> --%>
-                      <a href="/admin/student/toupdate/${l.userId}/${l.isAvalible}" class="btn btn-default">冻结</a></td>
+                               <c:if test="${l.isAvalible==1}">
+                      <a href="/admin/student/toupdate/${l.userId}/${l.isAvalible}" class="btn btn-default">冻结</a>
+                               </c:if>
+                                <c:if test="${l.isAvalible==0}">
+                      <a href="/admin/student/toupdate/${l.userId}/${l.isAvalible}" class="btn btn-default">解冻</a>
+                               </c:if>
+                               
+<!--                       <input type="button" class="btn btn-default"  value="冻结" id="freeze"  onClick="freezeUser(this.value);" /> -->
+                      </td>
 <!--                           /admin/student/update?userId="+userId+"&password="+password;  -->
                               </tr>
                           </c:forEach>

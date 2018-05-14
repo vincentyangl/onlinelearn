@@ -483,7 +483,7 @@ function dialogLogin(type){
         return false;
     }
 	$.ajax({
-		url:baselocation+'/uc/login',
+		url:baselocation+'/front/login',
 		type:'post',
 		dataType:'json',
 		data:{
@@ -496,7 +496,7 @@ function dialogLogin(type){
 				$(".e-l-jy").html('<font class="fsize12 c-orange">'+result.message+'</font>');
 			}else{
 				if(type==1){
-					window.location.href="/uc/index";
+					window.location.href="/front";
 				}else{
 					window.location.reload();
 				}
@@ -558,7 +558,7 @@ function dialogRegister() {
 	}
 
 	$.ajax({
-		url : baselocation + "/uc/createuser",
+		url : baselocation + "/front/uc/createuser",
 		data : {"user.email":$("#u-email-reg").val(),"user.password":$("#u-password-reg").val(),
 			"confirmPwd":$("#u-passwordre-reg").val(),"registerCode":$("#u-randomcode-reg").val(),
 			"user.mobile":$("#u-mobile-reg").val()},
