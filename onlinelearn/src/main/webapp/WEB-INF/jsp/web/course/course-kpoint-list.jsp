@@ -16,7 +16,7 @@
 						>
 							<c:forEach items="${parentKpoint.kpointList}" var="sonKpoint">
 								<li class="lh-menu-second ml30">
-									<a href="javascript:void(0)" onclick="getPlayerHtml(${sonKpoint.kpointId },'${sonKpoint.name }',this)" class="" title="">
+									<a href="javascript:void(0)" onclick="getPlayerHtml(${sonKpoint.id },'${sonKpoint.name }',this)" class="" title="">
 																				<span class="fr">
 																					<%-- <c:if test="${sonKpoint.free==1 }">
 																						<tt class="free-icon vam mr10">免费试听</tt>
@@ -36,7 +36,7 @@
 				<c:if test="${parentKpoint.kpointType==1 }"><!-- 视频 -->
 					<li class="lh-menu-stair">
 						<ul class="lh-menu-ol no-parent-node">
-							<li class="lh-menu-second"><a title="" onclick="getPlayerHtml(${parentKpoint.kpointId },'${parentKpoint.name }',this)" href="javascript:void(0)">
+							<li class="lh-menu-second"><a title="" onclick="getPlayerHtml(${parentKpoint.id },'${parentKpoint.name }',this)" href="javascript:void(0)">
 								<span class="fr">
 									<%-- <c:if test="${parentKpoint.free==1 }">
 										<tt class="free-icon vam mr10">免费试听</tt>

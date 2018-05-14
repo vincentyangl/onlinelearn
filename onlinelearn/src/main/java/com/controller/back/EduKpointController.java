@@ -3,6 +3,7 @@ package com.controller.back;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -108,6 +110,30 @@ public class EduKpointController {
 		mv.addObject("ts", ts);
 		mv.setViewName("/back/kpoint/kpointAdd");
 		return mv;
+	}
+	
+	@RequestMapping("/storeVideo")
+	@ResponseBody
+	public String storeVideo(@RequestParam("uploadfile")MultipartFile file,HttpServletRequest request) {
+		System.out.println("00===================");
+		String pathRoot = request.getSession().getServletContext().getRealPath("upload/video"); 
+		 String filename=file.getOriginalFilename();  
+		 if(!file.isEmpty()){  
+			 //生成uuid作为文件名称  
+			 String uuid = UUID.randomUUID().toString().replaceAll("-",""); 
+			 filename=uuid+filename.substring(filename.lastIndexOf("."));
+			 System.out.println("filename:"+filename);
+			 File newfile=new File(pathRoot,filename);
+			 try {
+				 if(!newfile.exists()){
+					 newfile.createNewFile();
+				 }
+				 file.transferTo(newfile);
+			 } catch (Exception e) {
+				 e.printStackTrace();
+			 }  
+		 }  
+		return filename;
 	}
 	
 }

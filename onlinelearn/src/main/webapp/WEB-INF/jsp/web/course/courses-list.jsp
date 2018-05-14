@@ -4,7 +4,43 @@
 <html>
 <head>
 <title>课程列表</title>
-<script type="text/javascript" src="${ctx}/static/inxweb/front/course.js"></script>
+<!-- <script type="text/javascript" src="${ctx}/static/inxweb/front/course.js"></script>  --> 
+<script type="text/javascript">
+
+/**
+ * 不同条件查询课程 
+ * @param type 1班类型（专业） 2讲师 3排序条件
+ * @param keyWord type==1(专业ID) type==2(老师ID) type=3(排序条件)
+ */
+function submitForm(type,keyWord){
+	if(type==1){
+		$("input[name='subjectId']").val(keyWord);
+	}else if(type==2){
+		$("input[name='teacherId']").val(keyWord);
+	}else if(type==3){
+		$("input[name='pageViewCount']").val(keyWord);
+		$("input[name='currentPrice']").val('');
+		$("input[name='addTime']").val('');
+	}else if(type==4){
+		if(keyWord=='ONE'||keyWord=='NEW'||keyWord=='FOLLOW'){
+			$("input[name='currentPrice']").val('DESCENDING');
+		}else if(keyWord=='DESCENDING'){
+			$("input[name='currentPrice']").val('ASCENDING');
+		}else if(keyWord=='ASCENDING'){
+			$("input[name='currentPrice']").val('DESCENDING');
+		}
+		$("input[name='pageViewCount']").val('');
+		$("input[name='addTime']").val('');
+	}else if(type==5){
+		$("input[name='addTime']").val(keyWord);
+		$("input[name='pageViewCount']").val('');
+		$("input[name='currentPrice']").val('');
+	}
+	$("input[name='queryCourse.courseName']").val('');
+	$("#searchForm").submit();
+}
+
+</script>
 </head> 
 <body> 
 	<div id="aCoursesList" class="bg-fa of">
@@ -75,9 +111,9 @@
 					</section>
 					<section class="fl">
 						<ol class="js-tap clearfix">
-							<li <c:if test="${queryCourse.order=='FOLLOW'}">class="current bg-orange"</c:if>><a title="关注度" onclick="submitForm(3,'FOLLOW')" href="javascript:void(0)">关注度</a></li>
-							<li <c:if test="${queryCourse.order=='NEW'}">class="current bg-orange"</c:if>><a title="最新" onclick="submitForm(3,'NEW')" href="javascript:void(0)">最新</a></li>
-							<li <c:if test="${queryCourse.order=='ASCENDING'||queryCourse.order=='DESCENDING'}">class="current bg-orange"</c:if>><a title="价格" onclick="submitForm(4,'<c:if test="${not empty queryCourse.order}">${queryCourse.order }</c:if><c:if test="${empty queryCourse.order}">ONE</c:if>')" href="javascript:void(0)">价格<span><c:if test="${queryCourse.order=='ASCENDING' }">↑</c:if><c:if test="${queryCourse.order=='DESCENDING' }">↓</c:if></span></a></li>
+							<li <c:if test="${queryCourse.pageViewCount=='FOLLOW'}">class="current bg-orange"</c:if>><a title="关注度" onclick="submitForm(3,'FOLLOW')" href="javascript:void(0)">关注度</a></li>
+							<li <c:if test="${queryCourse.addTime=='NEW'}">class="current bg-orange"</c:if>><a title="最新" onclick="submitForm(5,'NEW')" href="javascript:void(0)">最新</a></li>
+							<li <c:if test="${queryCourse.currentPrice=='ASCENDING'||queryCourse.currentPrice=='DESCENDING'}">class="current bg-orange"</c:if>><a title="价格" onclick="submitForm(4,'<c:if test="${not empty queryCourse.currentPrice}">${queryCourse.currentPrice }</c:if><c:if test="${empty queryCourse.currentPrice}">ONE</c:if>')" href="javascript:void(0)">价格<span><c:if test="${queryCourse.currentPrice=='ASCENDING' }">↑</c:if><c:if test="${queryCourse.currentPrice=='DESCENDING' }">↓</c:if></span></a></li>
 						</ol>
 					</section>
 				</div>
@@ -132,11 +168,13 @@
 				<!-- 公共分页 开始 -->
 				<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
 				<!-- 公共分页 结束 -->
-				<form action="${ctx}/front/showcoulist" id="searchForm" method="post">
-					<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
-					<input type="hidden" name="queryCourse.teacherId" value="${queryCourse.teacherId}" />
-					<input type="hidden" name="queryCourse.subjectId" value="${queryCourse.subjectId}" />
-					<input type="hidden" name="queryCourse.order" value="${queryCourse.order}" />
+				<form action="${ctx}/front/course" id="searchForm" method="post">
+					<input type="hidden" id="pageCurrentPage" name="currentPage" value="1" />
+					<input type="hidden" name="teacherId" value="${queryCourse.teacherId}" />
+					<input type="hidden" name="subjectId" value="${queryCourse.subjectId}" />
+					<input type="hidden" name="pageViewCount" value="${queryCourse.pageViewCount}" />
+					<input type="hidden" name="addTime" value="${queryCourse.addTime}" />
+					<input type="hidden" name="currentPrice" value="${queryCourse.currentPrice}" />
 				</form>
 			</section>
 		</section>

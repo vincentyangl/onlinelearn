@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.Edu_Article_ContentDao">
+  <select id="listAll" resultType="Edu_Article_Content">
+  select * from Edu_Article_Content
+  </select>
+  
+  <delete id="delete" parameterType="int">
+  delete from Edu_Article_Content where ARTICLE_ID=#{edu_Article.articleId}
+  </delete>
+  
+  <insert id="save" parameterType="Edu_Article_Content">
+  insert into Edu_Article_Content (ARTICLE_ID,CONTENT) values(#{articleId},#{content})
+  </insert>
+  
+  <update id="update" parameterType="Edu_Article_Content">
+  update Edu_Article_Content set CONTENT=#{content} where ARTICLE_ID=#{articleId}
+  </update>
+  
+  <select id="getById" resultType="Edu_Article_Content" parameterType="int">
+  select * from Edu_Article_Content where ARTICLE_ID=#{articleId}
+  </select>
+  </mapper>

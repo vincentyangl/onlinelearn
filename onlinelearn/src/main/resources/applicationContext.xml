@@ -56,10 +56,12 @@
        /kindeditor/** = anon
        /skins/** = anon
        /static/** = anon
+       /upload/**=anon
         /admin/user/toLogin = anon
         /admin/user/login = anon
         /admin/user/main = anon
         /front/** = anon
+        /web/** = anon
         /logout = logout
         /**=authc
       </value>

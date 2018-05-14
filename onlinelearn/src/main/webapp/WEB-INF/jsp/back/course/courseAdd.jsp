@@ -43,6 +43,7 @@
 		   $("#context").css("display","none");
 		   $.post("/admin/subject/getSubjectList/2",
 				   function(msg){
+			           
 			           for(i=0;i<msg.length;i++){
 				            $("#parent_id").append("<option value='"+msg[i].subjectId+"'>"+msg[i].subjectName+"</option>");
 			   }

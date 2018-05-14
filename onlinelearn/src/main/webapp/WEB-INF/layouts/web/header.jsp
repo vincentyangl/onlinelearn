@@ -14,8 +14,8 @@
 			<li><a href="/front" title="首页" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>首页</a></li>
 			<li><a href="/front/course" title="课程" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>课程</a></li>
 			<li><a href="/front/teacher" title="名师" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>名师</a></li>
-			<li><a href="/front/article" title="文章" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>文章</a></li>
-			<li><a href="/front/question" title="问答" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>问答</a></li>
+			<li><a href="/front/earticle/ealist" title="文章" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>文章</a></li>
+			<li><a href="/front/equestions/edlist/0" title="问答" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>问答</a></li>
 <%-- 				<c:forEach items="${navigatemap.INDEX}" var="indexNavigate"> --%>
 <%-- 					<li><a href="${ctx}${indexNavigate.url}" title="${indexNavigate.name}" <c:if test="${indexNavigate.newPage==0}">target="_blank"</c:if>>${indexNavigate.name}</a></li> --%>
 <%-- 				</c:forEach> --%>
@@ -43,8 +43,8 @@
 				<!-- /未登录显示第1 li；登录后显示第2，3 li -->
 			</ul>
 			<aside class="h-r-search">
-				<form action="${ctx}/front/showcoulist" method="post">
-					<label class="h-r-s-box"><input type="text" placeholder="输入你想学的课程" name="queryCourse.courseName" value="${queryCourse.courseName}">
+				<form action="${ctx}/front/course" method="post">
+					<label class="h-r-s-box"><input type="text" placeholder="输入你想学的课程" name="courseName" value="${queryCourse.courseName}">
 						<button type="submit" class="s-btn">
 							<em class="icon18">&nbsp;</em>
 						</button></label>

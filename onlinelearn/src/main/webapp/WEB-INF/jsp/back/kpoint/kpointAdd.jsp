@@ -123,14 +123,15 @@ function renderForm(){
 						</div>
 					</c:if>
 					<c:if test="${p.kpointType==1 }">
-						<div class="layui-form-item">
-							<label class="layui-form-label ">文件上传:</label>
-							<div class="layui-input-block">
-							     <input type="hidden"  value="${p.videoUrl }" name="videoUrl"/>
-								<input type="file" id="videoUrl1" name="videoUrl1" autocomplete="off" class="layui-input ">
-							</div>
-						</div>
 						<c:if test="${p.fileType.equals('TXT') }">
+							<div class="layui-form-item">
+								<label class="layui-form-label ">文件上传:</label>
+								<div class="layui-input-block">
+									<input type="hidden" value="${p.videoUrl }" name="videoUrl" />
+									<input type="file" id="videoUrl1" name="videoUrl1"
+										autocomplete="off" class="layui-input ">
+								</div>
+							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label ">文本内容:</label>
 								<div class="layui-input-block">
@@ -142,7 +143,14 @@ function renderForm(){
 							</div>
 						</c:if>
 						<c:if test="${p.fileType.equals('VIDEO') }">
-						
+							<div class="layui-form-item">
+								<label class="layui-form-label ">视频上传:</label>
+								<div class="layui-input-block">
+									<input type="file" id="fileupload" class="vam" id="filename" name="mp4" style="display: block !important;" />
+									<div id="fileQueue" class="mt10"></div>
+									<input type="hidden" name="videoUrl" id="videourl2" value="" style="width: 360px;" />
+								</div>
+							</div>
 							<div class="layui-form-item">
 								<label class="layui-form-label">排序:</label>
 								<div class="layui-input-block">
@@ -187,19 +195,8 @@ function renderForm(){
 	</section>
 	<script type="text/javascript" src="/common/layui/layui.js"></script>
 	<script type="text/javascript">
-	layui.use(['form','upload'],function(){
-         var form = layui.form();
-         layui.upload({ 
-             url: '' ,//上传接口 
-             success: function(res){
-              //上传成功后的回调 
-              console.log(res) 
-            } 
-         });
-
-	});
 	//实例化编辑器
     var um = UM.getEditor('myEditor');
-</script>
+	</script>
 </body>
 </html>
