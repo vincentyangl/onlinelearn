@@ -75,6 +75,12 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 			  
 		  }
 	  }
+	  
+	  $(function() {
+		    var user = '<%=session.getAttribute("login_success.")%>';
+		    alert(user);
+
+		});
 // 	  $(document).ready(function(){
 // 			$("#list").click(function(){
 	//window.location.href="/shop/index/listProduct";

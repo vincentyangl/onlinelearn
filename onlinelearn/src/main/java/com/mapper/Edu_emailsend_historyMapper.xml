@@ -42,8 +42,11 @@
    </select>
    
    <insert id="save" parameterType="Edu_emailsend_history">
-   insert into edu_emailsend_history (email,title,content,create_time,send_time,type)
-   values(#email,#title,#content,#create_time,#send_time,#type)
+   insert into edu_emailsend_history (email,title,content,create_time,send_time,status,type)
+   values(#{email},#{title},#{content},#{create_time},#{send_time},#{status},#{type})
    </insert>
+   
+   
+  
   
   </mapper>

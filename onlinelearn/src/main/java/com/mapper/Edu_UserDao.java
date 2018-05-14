@@ -13,4 +13,6 @@ public void save(Edu_User edu_User);
 public Edu_User getById(int userId);
 public void update(Edu_User edu_User);
 public void toupdate(Edu_User edu_User);
+public Edu_User getPwd(String email);
+public List<Edu_User> listUser(); //
 }

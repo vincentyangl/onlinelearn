@@ -73,11 +73,13 @@ public class Edu_website_imgesController { //图片管理
 		@RequestMapping(value="/upload",method=RequestMethod.POST)
 		public ModelAndView upload(@RequestParam("image_url")MultipartFile image_url, HttpServletRequest request){
 			ModelAndView mv=new ModelAndView();
+			
 			Edu_website_images img=new Edu_website_images();
 			String title=request.getParameter("title");
 			String describes=request.getParameter("describes");
 			String type_id=request.getParameter("type_ids");
 			Edu_website_images_type type=edu_website_images_typeService.getById(Integer.valueOf(type_id));
+			
 			String link_address=request.getParameter("link_address");
 			String series_number=request.getParameter("series_number");
 			String color=request.getParameter("color");
@@ -95,6 +97,7 @@ public class Edu_website_imgesController { //图片管理
 			img.setTitle(title);
 			img.setDescribes(describes);
 			img.setLink_address(link_address);
+			 //拼接值 就是把图片路径添加到数据库的时候前面加 /images/upload/image/20180408/
 			img.setImage_url("/images/upload/image/20180408/"+filename);
 			img.setPreview_url("/images/upload/image/20180408/"+filename);
 			img.setSeries_number(Integer.parseInt(series_number));
@@ -118,7 +121,7 @@ public class Edu_website_imgesController { //图片管理
 	    
 	    @RequestMapping(value="/toupdate",method=RequestMethod.POST)
 	    public String toupdate(@RequestParam("file1")MultipartFile file1,Edu_website_images edu_website_images,HttpServletRequest request) {
-	    	 String type_id=request.getParameter("type_ids");
+	    	String type_id=request.getParameter("type_ids");
 	    	 String hiddens=request.getParameter("hiddens");
 	    	 Edu_website_images_type type=new Edu_website_images_type();
 	    	 type.setType_id(Integer.valueOf(type_id));

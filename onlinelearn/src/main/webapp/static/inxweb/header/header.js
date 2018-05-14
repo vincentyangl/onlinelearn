@@ -9,7 +9,7 @@ $(function() {
  */
 function showUserInfo() {
 	var user = getLoginUser();
-	if(user!=null && user.userId>0){
+	if(user!=null &&  user.userId>0){
 		var showName = user.showName;
 		if (showName == null || $.trim(showName) == '') {
 			showName = user.email;

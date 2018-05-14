@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.Edu_website_images_type;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.Edu_website_images_typeService;
 
 @Controller
@@ -22,9 +24,12 @@ public class Edu_website_imgesTypeController { //图片类型管理
 	private Edu_website_images_typeService edu_website_images_typeService;
 
 	@RequestMapping("/getList")
-	public ModelAndView getList() {
+	public ModelAndView getList(@RequestParam(required=true,defaultValue="1") Integer page) {
+		PageHelper.startPage(page,10);
 		ModelAndView mv=new ModelAndView();
 		List<Edu_website_images_type> list=edu_website_images_typeService.listAll();
+		PageInfo<Edu_website_images_type>pageInfo=new PageInfo<>(list);
+		mv.addObject("page", pageInfo);
 		mv.addObject("list", list);
 		mv.setViewName("/back/imgesType/imgesTypeindex");
 		return mv;

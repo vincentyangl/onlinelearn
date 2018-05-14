@@ -111,7 +111,7 @@
 <!-- 								<label class="sr-only" for="exampleInputEmail3">图片类型</label>  -->
                                    <label class="layui-form-label layui-col-md9">图片类型</label>
                         <div class="layui-input-block" style="width: 300px;">
-								<select id="type_id" name="type_id" class="form-control ">
+								<select id="type_id" name="type_ids" class="form-control ">
 <!-- 									<option value="-1">--请选择类型--</option> -->
 									<c:forEach items="${type}" var="t">
 											<option value="${t.type_id }">${t.type_name }</option>
@@ -175,6 +175,7 @@
 </section>
 <script type="text/javascript">
 function up() {
+	
 	   document.forms[0].action="/admin/imge/toupdate";
 	   document.forms[0].submit();
 }
