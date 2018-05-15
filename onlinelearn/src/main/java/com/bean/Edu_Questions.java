@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Edu_Questions {
 private int id;   //主键
@@ -13,6 +14,13 @@ private int replyCount;     //问答回复数量
 private int browseCount;     //问答浏览次数
 private int praiseCount;      //问答点赞数量
 private Timestamp addTime;        //添加时间
+//private List<Edu_Questions_Tag> edu_Questions_Tag;
+//public List<Edu_Questions_Tag> getEdu_Questions_Tag() {
+//	return edu_Questions_Tag;
+//}
+//public void setEdu_Questions_Tag(List<Edu_Questions_Tag> edu_Questions_Tag) {
+//	this.edu_Questions_Tag = edu_Questions_Tag;
+//}
 public int getId() {
 	return id;
 }

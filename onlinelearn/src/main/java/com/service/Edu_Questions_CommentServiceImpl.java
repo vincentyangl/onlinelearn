@@ -45,4 +45,22 @@ public class Edu_Questions_CommentServiceImpl implements Edu_Questions_CommentSe
 		return edu_Questions_Comment;
 	}
 
+	@Override
+	public List<Edu_Questions_Comment> listPL(int id) {
+		List<Edu_Questions_Comment> listpl=edu_Questions_CommentDao.listPL(id);
+		return listpl;
+	}
+
+	@Override
+	public List<Edu_Questions_Comment> getByIdPD(int id) {
+		List<Edu_Questions_Comment> listpd=edu_Questions_CommentDao.getByIdPD(id);
+		return listpd;
+	}
+
+	@Override
+	public List<Edu_Questions_Comment> getByIdsx(int id) {
+		List<Edu_Questions_Comment> listsx=edu_Questions_CommentDao.getByIdsx(id);
+		return listsx;
+	}
+
 }

@@ -16,11 +16,11 @@ public class Edu_Questions_TagServiceImpl implements Edu_Questions_TagService{
 
 	@Autowired
 	private Edu_Questions_TagDao edu_Questions_TagDao;
-//	@Override
-//	public List<Edu_Questions_Tag> listAll() {
-//		List<Edu_Questions_Tag> list=edu_Questions_TagDao.listAll();
-//		return list;
-//	}
+	@Override
+	public List<Edu_Questions_Tag> listAlls() {
+		List<Edu_Questions_Tag> listl=edu_Questions_TagDao.listAll();
+		return listl;
+	}
 
 	@Override
 	public void save(Edu_Questions_Tag edu_Questions_Tag) {
@@ -59,5 +59,13 @@ public class Edu_Questions_TagServiceImpl implements Edu_Questions_TagService{
 		}
 		return notes;
 	}
+
+//	@Override
+//	public List<Edu_Questions_Tag> getByIdbq(int id) {
+//		List<Edu_Questions_Tag> edu_Questions_Tags=edu_Questions_TagDao.getByIdbq(id);
+//		return edu_Questions_Tags;
+//	}
+
+	
 
 }

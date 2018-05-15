@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Edu_Questions_Tag {
 private int questionsTagId;      //Ö÷¼üid

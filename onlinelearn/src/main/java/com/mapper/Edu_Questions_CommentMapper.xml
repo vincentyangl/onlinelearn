@@ -31,4 +31,20 @@
   <delete id="delete" parameterType="int">
   delete from Edu_Questions_Comment where ID=#{id}
   </delete>
+  
+  <update id="update" parameterType="Edu_Questions_Comment">
+  update Edu_Questions_Comment set IS_BEST=#{isBest} where ID=#{id}
+  </update>
+  
+  <select id="listPL" resultMap="Edu_Questions_CommentMap" parameterType="int">
+  select * from Edu_Questions_Comment where QUESTION_ID=#{edu_questions.QUESTION_ID}
+  </select>
+  
+  <select id="getByIdPD" resultMap="Edu_Questions_CommentMap" parameterType="int">
+  select IS_BEST from Edu_Questions_Comment where QUESTION_ID=#{edu_questions.QUESTION_ID}
+  </select>
+  
+  <select id="getByIdsx" resultMap="Edu_Questions_CommentMap" parameterType="int">
+  select * from Edu_Questions_Comment where QUESTION_ID=#{edu_questions.QUESTION_ID}
+  </select>
   </mapper>
