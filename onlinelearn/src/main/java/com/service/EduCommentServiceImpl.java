@@ -39,6 +39,17 @@ public class EduCommentServiceImpl implements EduCommentService{
 	public List<EduComment> getChildComment(int commentId) {
 		return eduCommentDao.getChildComment(commentId);
 	}
+
+	@Override
+	public void updatePraiseCount(int commentId) {
+		eduCommentDao.updatePraiseCount(commentId);
+	}
+
+	@Override
+	public void updateReplyCount(int commentId) {
+		eduCommentDao.updateReplyCount(commentId);
+	}
+
 	
 	
 	

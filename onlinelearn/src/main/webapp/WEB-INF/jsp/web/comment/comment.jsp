@@ -43,21 +43,21 @@
 					<c:forEach items="${commentList }" var="ac">
 						<li>
 							<aside class="noter-pic">
-								<c:if test="${empty ac.picImg }">
+								<c:if test="${empty ac.user.picImg }">
 									<img width="50" height="50" class="picImg" src="${ctx }/static/inxweb/img/avatar-boy.gif">
 								</c:if>
-								<c:if test="${!empty ac.picImg }">
-									<img width="50" height="50" class="picImg" src="<%=staticImage%>${ac.picImg }">
+								<c:if test="${!empty ac.user.picImg }">
+									<img width="50" height="50" class="picImg" src="<%=staticImage%>${ac.user.picImg }">
 								</c:if>
 							</aside>
 							<div class="of">
 								<span class="fl"> 
 								<font class="fsize12 c-blue"> 
-									<c:if test="${empty ac.userName }">
-										${ac.email}
+									<c:if test="${empty ac.user.userName }">
+										${ac.user.email}
 									</c:if>
-									<c:if test="${!empty ac.userName }">
-										${ac.userName}
+									<c:if test="${!empty ac.user.userName }">
+										${ac.user.userName}
 									</c:if>
 								</font>
 								<font class="fsize12 c-999 ml5">评论：</font></span>
@@ -95,11 +95,19 @@
 	<jsp:include page="/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include>
 	<!-- 公共分页 结束 -->
 </div>
+
+<script type="text/javascript">
+     function addPraise(commentId){
+    	 
+     }
+</script>
+
 <script>
 	$(function() {
 		replyFun(); //回复展开
 	});
-	var totalResultSize = ${page.totalResultSize};
+	var title = "评论";
+ 	/* var totalResultSize = ${page.totalResultSize};
 	$(".totalResultComment").html(totalResultSize);
 	var order = "${comment.order}";
 	var title = "评论";
@@ -112,8 +120,8 @@
 			title = "精彩评论"
 			$(".replyhtml").hide();
 		}
-		
-	}
+		 
+	} */
 	
 	$(".commentTitle").html(title);
 </script>

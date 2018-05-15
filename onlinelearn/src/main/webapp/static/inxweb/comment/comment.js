@@ -100,6 +100,7 @@ function addComment() {
 		dataType : 'text',
 		success : function(result) {
 			var content = $("#commentContent").val("");
+			alert(otherId+"---")
 			queryComment();
 			dialog('提示信息', "成功", 0);
 		}

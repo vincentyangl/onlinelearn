@@ -10,7 +10,7 @@ public class EduComment {
 	private int pCommentId;//'父级评论id(为0则是一级评论,不为0则是回复)
 	private String content;//评论内容
 	private Date addTime;//评论时间
-	private int ontherId;//评论相关ID（课程）
+	private int otherId;//评论相关ID（课程）
 	private int praiseCount;//点赞数量
 	private int replyCount;//回复数量
 	private int type;//1文章 2课程
@@ -45,11 +45,11 @@ public class EduComment {
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
 	}
-	public int getOntherId() {
-		return ontherId;
+	public int getOtherId() {
+		return otherId;
 	}
-	public void setOntherId(int ontherId) {
-		this.ontherId = ontherId;
+	public void setOtherId(int otherId) {
+		this.otherId = otherId;
 	}
 	public int getPraiseCount() {
 		return praiseCount;

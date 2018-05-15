@@ -7,7 +7,8 @@
 <script src="http://vod.baofengcloud.com/html/script/bfcloud.js?v=2"></script>
 <script type="text/javascript" src="/static/common/ckplayer/ckplayer.js" charset="utf-8"></script>
 <script type="text/javascript">
-	var isok = ${isok};
+	//var isok = ${isok};
+	var isok='';
 	var currentprice=${course.current_price};
 	function getData(){
 		var status=CKobject.getObjectById('ckplayer_a1').getStatus();
@@ -214,7 +215,6 @@
 								</div>
 								<!-- /课程大纲 -->
 								<div class="mt50 commentHtml">
-								   
 								</div>
 								<!-- /课程评论 -->
 							</article>
@@ -321,7 +321,7 @@
 		</section>
 		<!-- /课程详情 结束 -->
 	</div>
-	<%-- <script type="text/javascript" src="${ctx}/static/common/jquery-1.11.1.min.js"></script> --%>
+	<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="/static/inxweb/front/courseInfo.js"></script>
 	<script type="text/javascript" src="/static/inxweb/comment/comment.js"></script>
 	<script>
@@ -337,7 +337,7 @@
 			shareShow(); //课程分享
 			treeMenu(); //课程树
 			replyFun(); //回复展开
-			cTabFun($("#c-i-tabTitle>a")); //滚动定位
+		cTabFun($("#c-i-tabTitle>a")); //滚动定位
 			queryComment();//评论
 			 //学过此课程的用户
 		    getCourseLearnedUser("${course.course_id}");
