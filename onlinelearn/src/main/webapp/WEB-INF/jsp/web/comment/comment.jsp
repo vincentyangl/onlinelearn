@@ -99,21 +99,21 @@
 	$(function() {
 		replyFun(); //回复展开
 	});
-	var totalResultSize = ${page.totalResultSize};
-	$(".totalResultComment").html(totalResultSize);
-	var order = "${comment.order}";
-	var title = "评论";
-	if (type == 1) {
-		title = "文章评论（${page.totalPageSize}条）"
-	}
-	if (type == 2) {
-		title = "课程评论"
-		if(order=='praiseCount'){
-			title = "精彩评论"
-			$(".replyhtml").hide();
-		}
+// 	var totalResultSize = ${page.totalResultSize};
+// 	$(".totalResultComment").html(totalResultSize);
+// 	var order = "${comment.order}";
+// 	var title = "评论";
+// 	if (type == 1) {
+// 		title = "文章评论（${page.totalPageSize}条）"
+// 	}
+// 	if (type == 2) {
+// 		title = "课程评论"
+// 		if(order=='praiseCount'){
+// 			title = "精彩评论"
+// 			$(".replyhtml").hide();
+// 		}
 		
-	}
+// 	}
 	
 	$(".commentTitle").html(title);
 </script>

@@ -15,10 +15,10 @@
 							<a href="javascript: void(0)" title="全部问答"
 								onclick="submitForm(0,'type')"
 								<c:if test="${questions.type==0 }">class="current"</c:if>>全部问答</a>
-							<a href="javascript: void(0)" title="课程问答"
+							<a href="/front/equestions/edlist/4" title="课程问答"
 								onclick="submitForm(1,'type')"
 								<c:if test="${questions.type==1 }">class="current"</c:if>>课程问答</a>
-							<a href="javascript: void(0)" title="学习分享"
+							<a href="/front/equestions/edlist/5" title="学习分享"
 								onclick="submitForm(2,'type')"
 								<c:if test="${questions.type==2 }">class="current"</c:if>>学习分享</a>
 						</section>
@@ -165,10 +165,10 @@
 						</section>
 						<section class="pt20">
 							<div class="taglist clearfix">
-								<a onclick="submitForm('0','questionsTagId')"
+								 <a onclick="submitForm('0','questionsTagId')"
 									href="javascript:;"
 									class="list-tag <c:if test='${questions.questionsTagId==0 }' >onactive</c:if>"
-									data-id="0" title="JAVA">全部</a>
+									data-id="0" title="JAVA">全部</a> 
 								<c:forEach items="${questionsTagList }" var="questionsTag">
 									<a title="${questionsTag.questionsTagName }"
 										data-id="${questionsTag.questionsTagId }"
