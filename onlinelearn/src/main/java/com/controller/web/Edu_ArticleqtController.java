@@ -28,8 +28,6 @@ public class Edu_ArticleqtController {
 
 	@Autowired
 	private Edu_ArticleService edu_ArticleService;
-	@Autowired
-	private Edu_Article_ContentService edu_Article_ContentService;
 	
 	@RequestMapping("/ealist")
 	public ModelAndView list(HttpServletRequest request){
@@ -46,7 +44,6 @@ public class Edu_ArticleqtController {
 	public ModelAndView getById(@PathVariable("articleId") int articleId){
 		ModelAndView mv =new ModelAndView();
 		Edu_Article edu_Article=edu_ArticleService.getById(articleId);
-		System.out.println(edu_Article);
 		mv.addObject("edu_Article", edu_Article);
 		mv.setViewName("/web/article/article-info");
 		return mv;
