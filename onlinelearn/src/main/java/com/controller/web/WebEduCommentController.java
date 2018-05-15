@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.CommentPraise;
 import com.bean.EduComment;
 import com.bean.Edu_User;
+import com.service.CommentPraiseService;
 import com.service.EduCommentService;
 import com.util.ObjectUtils;
 
@@ -23,6 +25,8 @@ public class WebEduCommentController {
 
 	@Autowired
 	private EduCommentService eduCommentService;
+	@Autowired
+	private CommentPraiseService commentPraiseService;
 	
 	@RequestMapping("/query")
 	public ModelAndView query(HttpSession session,int otherId,int type,String order) {
@@ -73,8 +77,18 @@ public class WebEduCommentController {
 		return mv;
 	}
 	
-	public String addPrise() {
-		return "";
+	@ResponseBody
+	@RequestMapping("/addPraise")
+	public int addPraise(CommentPraise praise) {
+		System.out.println(praise.getCommentId()+"ot"+praise.getOtherId()+"us"+praise.getUserId()+"ty"+praise.getType());
+		List<CommentPraise> praises = commentPraiseService.listAll(praise);
+		int count = 0;
+		if (praises.size()==0) {
+			eduCommentService.updatePraiseCount(praise.getCommentId());
+			commentPraiseService.save(praise);
+			count = 1;
+		}
+		return count;
 	}
 	
 }
