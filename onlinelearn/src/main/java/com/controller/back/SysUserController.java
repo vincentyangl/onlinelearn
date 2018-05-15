@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -56,7 +58,7 @@ public class SysUserController {
 	
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam("loginName") String loginName,
-			@RequestParam("loginPwd") String loginPwd) {
+			@RequestParam("loginPwd") String loginPwd,HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		Subject currentUser = SecurityUtils.getSubject();
 		 if (!currentUser.isAuthenticated()) {
@@ -79,6 +81,10 @@ public class SysUserController {
 	            	return mv;
 	            }
 	        }
+		 Map map = new HashMap<>();
+		 map.put("loginName", loginName);
+		 SysUser sysUser = sysUserService.listAll(map).get(0);
+		 session.setAttribute("sysUser", sysUser);
 		 mv.addObject("sysFunctions", getSysFunctionMenu());
 		 mv.setViewName("/back/index/index");
 		return mv;
@@ -122,7 +128,7 @@ public class SysUserController {
 	public String userAdd(SysUser sysUser,SysRole sysRole) {
 		sysUser.setSysRole(sysRole);
 		String result = getEncryptionPwd(sysUser);
-		sysUser.setLoginPwd(result);;
+		sysUser.setLoginPwd(result);
 		sysUserService.save(sysUser);
 		return "redirect:/admin/user/userList";
 	}
