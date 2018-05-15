@@ -3,12 +3,13 @@
 <!DOCTYPE>
 <html>
 <head>
-<title>${course.courseName}详情</title>
+<title>${course.course_name}详情</title>
 <script src="http://vod.baofengcloud.com/html/script/bfcloud.js?v=2"></script>
 <script type="text/javascript" src="/static/common/ckplayer/ckplayer.js" charset="utf-8"></script>
 <script type="text/javascript">
-	var isok = ${isok};
-	var currentprice=${course.currentPrice};
+	//var isok = ${isok};
+	var isok='';
+	var currentprice=${course.current_price};
 	function getData(){
 		var status=CKobject.getObjectById('ckplayer_a1').getStatus();
 		//获取插件播放视频的时间何视频的总时间
@@ -24,22 +25,22 @@
 			<section class="path-wrap txtOf hLh30">
 				<a href="${ctx }" title="" class="c-999 fsize14">首页</a>
 				\
-				<a href="${ctx }/front/showcoulist" title="" class="c-999 fsize14">课程列表</a>
-				\ <span class="c-333 fsize14">${course.courseName}</span>
+				<a href="${ctx }/front/course" title="" class="c-999 fsize14">课程列表</a>
+				\ <span class="c-333 fsize14">${course.course_name}</span>
 			</section>
 			<div>
 				<article class="c-v-pic-wrap">
 					<section class="p-h-video-box" id="videoPlay">
 						<c:choose>
 							<c:when test="${course.logo!=null &&course.logo!=''}">
-								<img src="<%=staticImage%>${course.logo}" alt="${course.courseName}" class="dis c-v-pic" />
+								<img src="<%=staticImage%>${course.logo}" alt="${course.course_name}" class="dis c-v-pic" />
 							</c:when>
 							<c:otherwise>
-								<img src="${ctx}/static/inxweb/img/default-img.gif" alt="${course.courseName}" class="dis c-v-pic" />
+								<img src="${ctx}/static/inxweb/img/default-img.gif" alt="${course.course_name}" class="dis c-v-pic" />
 							</c:otherwise>
 						</c:choose>
 	
-						<a href="javascript:void(0)" onclick="vedioClick(${freeVideoId})" title="${course.courseName}" class="v-play-btn">
+						<a href="javascript:void(0)" onclick="vedioClick(${freeVideoId})" title="${course.course_name}" class="v-play-btn">
 							<em class="icon30">&nbsp;</em>
 						</a>
 					</section>
@@ -51,10 +52,10 @@
 				<aside class="c-attr-wrap">
 					<section class="ml20 mr15">
 						<h2 class="hLh30 txtOf mt15">
-							<span class="c-fff fsize24">${course.courseName}</span>
+							<span class="c-fff fsize24">${course.course_name}</span>
 						</h2>
 						<section class="c-attr-jg">
-							<span class="c-fff">价格：</span><big class="c-yellow">￥${course.currentPrice }</big> <span class="c-ccc ml10">原价：<s>￥${course.sourcePrice }</s></span>
+							<span class="c-fff">价格：</span><big class="c-yellow">￥${course.current_price }</big> <span class="c-ccc ml10">原价：<s>￥${course.source_price }</s></span>
 						</section>
 						<section class="c-attr-mt c-attr-undis">
 							<span class="c-fff fsize14">主讲： <c:forEach items="${teacherList }" var="tea">
@@ -66,16 +67,17 @@
 						<section class="c-attr-mt c-attr-time">
 							<span class="c-fff fsize14">课程有效期：
 											<c:if test="${course.loseType==0 }">
-												<fmt:formatDate pattern="yyyy/MM/dd HH:mm"  value="${course.endTime}" />
+												<fmt:formatDate pattern="yyyy/MM/dd HH:mm"  value="${course.end_time}" />
 											</c:if>
 											<c:if test="${course.loseType==1 }">
-													从购买之日起${course.loseTime }天
+													从购买之日起${course.lose_time }天
 												</span>
 											</c:if>
 							</span>
 						</section>
 						<section class="c-attr-mt">
-									<a href="javascript:void(0)" title="立即观看" onclick="if(isLogin()){ window.location.href='/uc/play/${course.courseId }'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a>
+						     <%--        <a href="javascript:void(0)" title="立即观看" onclick="if(isLogin()){ window.location.href='/uc/play/${course.course_id }'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a> --%>
+									<a href="javascript:void(0)" title="立即观看" onclick="if(1==1){ window.location.href='/front/play/${course.course_id }'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a>
 							<span class="ml10"><tt class="c-yellow f-fM">*咨询 ${websitemap.web.phone}</tt></span>
 						</section>
 						<section class="c-attr-mt of ml10">
@@ -90,7 +92,7 @@
 										<span class="ml10 vam sc-end"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="" href="javascript:void(0)">已收藏</a></span>
 									</c:if>
 									<c:if test="${isFavorites!=true }">
-										<span class="ml10 vam"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="favorites(${course.courseId},this)" href="javascript:void(0)">收藏</a></span>
+										<span class="ml10 vam"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="favorites(${course.course_id},this)" href="javascript:void(0)">收藏</a></span>
 									</c:if>
 						</section>
 					</section>
@@ -100,17 +102,17 @@
 						<li><p>&nbsp;</p>
 							<aside>
 								<span class="c-fff f-fM">购买数</span><br>
-								<h6 class="c-fff f-fM mt10">${course.pageBuycount }</h6>
+								<h6 class="c-fff f-fM mt10">${course.page_buyCount }</h6>
 							</aside></li>
 						<li><p>&nbsp;</p>
 							<aside>
 								<span class="c-fff f-fM">课时数</span><br>
-								<h6 class="c-fff f-fM mt10">${course.lessionNum }</h6>
+								<h6 class="c-fff f-fM mt10">${course.lession_num }</h6>
 							</aside></li>
 						<li><p>&nbsp;</p>
 							<aside>
 								<span class="c-fff f-fM">浏览数</span><br>
-								<h6 class="c-fff f-fM mt10">${course.pageViewcount}</h6>
+								<h6 class="c-fff f-fM mt10">${course.page_viewCount}</h6>
 							</aside></li>
 					</ol>
 				</aside>
@@ -171,7 +173,7 @@
 																	<c:if test="${index.first==false}">style="display: none;"</c:if>
 																>
 																	<c:forEach items="${parentKpoint.kpointList}" var="sonKpoint">
-																		<li class="lh-menu-second ml30"><a href="javascript:void(0)" <%-- onclick="playVideo('${sonKpoint.videoUrl }',this)" --%> onclick="getPlayerHtml(${sonKpoint.kpointId },${sonKpoint.free },this)" title="">
+																		<li class="lh-menu-second ml30"><a href="javascript:void(0)" <%-- onclick="playVideo('${sonKpoint.videoUrl }',this)" --%> onclick="getPlayerHtml(${sonKpoint.id },${sonKpoint.isFree },this)" title="">
 																				<span class="fr"> 
 																					<c:if test="${sonKpoint.free==1 }">
 																						<tt class="free-icon vam mr10">免费试听</tt>
@@ -191,9 +193,9 @@
 														<c:if test="${parentKpoint.kpointType==1 }"><!-- 视频 -->
 															<li class="lh-menu-stair">
 																<ul class="lh-menu-ol no-parent-node">
-																	<li class="lh-menu-second"><a title="" <%-- onclick="playVideo('${parentKpoint.videoUrl }',this)" --%> onclick="getPlayerHtml(${parentKpoint.kpointId },${parentKpoint.free },this)" href="javascript:void(0)">
+																	<li class="lh-menu-second"><a title="" <%-- onclick="playVideo('${parentKpoint.videoUrl }',this)" --%> onclick="getPlayerHtml(${parentKpoint.id },${parentKpoint.isFree },this)" href="javascript:void(0)">
 																			<span class="fr"> 
-																				<c:if test="${parentKpoint.free==1 }">
+																				<c:if test="${parentKpoint.isFree==1 }">
 																					<tt class="free-icon vam mr10">免费试听</tt>
 																				</c:if>
 																				<c:if test="${!empty parentKpoint.playTime}">
@@ -212,7 +214,8 @@
 									</section>
 								</div>
 								<!-- /课程大纲 -->
-								<div class="mt50 commentHtml"></div>
+								<div class="mt50 commentHtml">
+								</div>
 								<!-- /课程评论 -->
 							</article>
 						</div>
@@ -318,14 +321,14 @@
 		</section>
 		<!-- /课程详情 结束 -->
 	</div>
-	<%-- <script type="text/javascript" src="${ctx}/static/common/jquery-1.11.1.min.js"></script> --%>
-	<script type="text/javascript" src="${ctx}/static/inxweb/front/courseInfo.js"></script>
-	<script type="text/javascript" src="${ctx}/static/inxweb/comment/comment.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/static/inxweb/front/courseInfo.js"></script>
+	<script type="text/javascript" src="/static/inxweb/comment/comment.js"></script>
 	<script>
 		//评论课程id
-		var otherId = '${course.courseId}';
+		var otherId = '${course.course_id}';
 		//课程有效期到期时间
-		var loseTimeTime = '${course.endTime}';
+		var loseTimeTime = '${course.end_time}';
 		//有效期类型，0：到期时间，1：按天数
 		var loseType="${course.loseType}";
 		//评论类型,类型2为课程
@@ -334,10 +337,10 @@
 			shareShow(); //课程分享
 			treeMenu(); //课程树
 			replyFun(); //回复展开
-			cTabFun($("#c-i-tabTitle>a")); //滚动定位
+		cTabFun($("#c-i-tabTitle>a")); //滚动定位
 			queryComment();//评论
 			 //学过此课程的用户
-		    getCourseLearnedUser("${course.courseId}");
+		    getCourseLearnedUser("${course.course_id}");
 		  	//课程详情收起展开
 		    ctbodyFun();
 		  	//课程封面图适配尺寸

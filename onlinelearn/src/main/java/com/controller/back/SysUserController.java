@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -56,11 +58,11 @@ public class SysUserController {
 	
 	@RequestMapping("/login")
 	public ModelAndView login(@RequestParam("loginName") String loginName,
-			@RequestParam("loginPwd") String loginPwd) {
+			@RequestParam("loginPwd") String loginPwd,HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		Subject currentUser = SecurityUtils.getSubject();
 		 if (!currentUser.isAuthenticated()) {
-			     System.out.println(13213);
+			     System.out.println("登陆成功！");
 	        	//把用户名和密码封装为 UsernamePasswordToken 对象
 	            UsernamePasswordToken token = new UsernamePasswordToken(loginName, loginPwd);
 	            System.out.println("uuuu");
@@ -72,11 +74,17 @@ public class SysUserController {
 	            } 
 	            //所有认证时异常的父类
 	            catch (AuthenticationException ae) {
+	            	//打印错误信息
+	            	ae.printStackTrace();
 	            	System.out.println("login failed！");
 	            	mv.setViewName("/back/login/login");
 	            	return mv;
 	            }
 	        }
+		 Map map = new HashMap<>();
+		 map.put("loginName", loginName);
+		 SysUser sysUser = sysUserService.listAll(map).get(0);
+		 session.setAttribute("sysUser", sysUser);
 		 mv.addObject("sysFunctions", getSysFunctionMenu());
 		 mv.setViewName("/back/index/index");
 		return mv;
@@ -120,7 +128,7 @@ public class SysUserController {
 	public String userAdd(SysUser sysUser,SysRole sysRole) {
 		sysUser.setSysRole(sysRole);
 		String result = getEncryptionPwd(sysUser);
-		sysUser.setLoginPwd(result);;
+		sysUser.setLoginPwd(result);
 		sysUserService.save(sysUser);
 		return "redirect:/admin/user/userList";
 	}

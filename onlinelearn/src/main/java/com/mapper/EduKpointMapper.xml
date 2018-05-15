@@ -19,6 +19,7 @@
         <result column="file_type" property="fileType"/>
         <result column="content" property="content"/>
         <association property="eduTeacher" column="teacher_id" select="com.mapper.EduTeacherDao.getKpointById"></association>
+        <association property="kpointList" column="pId" select="com.mapper.EduKpointDao.getchildKpoint"></association>
     </resultMap>
     <insert id="save" parameterType="EduKpoint">
         insert into edu_course_kpoint (course_id,name,parent_id,add_time,sort,play_count,is_free,
@@ -41,5 +42,8 @@
     </select>
     <select id="getById" parameterType="int" resultMap="EduKpointMap">
         select * from edu_course_kpoint where kpoint_id=#{value} order by sort desc
+    </select>
+    <select id="getchildKpoint" parameterType="int" resultMap="EduKpointMap">
+        select * from edu_course_kpoint where kpoint_id = #{value} order by sort desc
     </select>
   </mapper>

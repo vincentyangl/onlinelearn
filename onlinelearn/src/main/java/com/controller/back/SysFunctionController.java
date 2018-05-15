@@ -41,13 +41,13 @@ public class SysFunctionController {
 	@RequestMapping("/addPermissions")
 	public String addPermissions(SysFunction sysFunction) {
 		sysFunctionService.save(sysFunction);
-		return "redirect:/admin/permissions/ztreeList";
+		return "redirect:/admin/permissions/ztreeList/1";
 	}
 	
 	@RequestMapping("/updatePermissions")
 	public String updatePermissions(SysFunction sysFunction) {
 		sysFunctionService.updateName(sysFunction);
-		return "redirect:/admin/permissions/ztreeList";
+		return "redirect:/admin/permissions/ztreeList/1";
 	}
 	
 	@RequestMapping("/isDelete")
@@ -58,11 +58,10 @@ public class SysFunctionController {
 		return sysFunctions;
 	}
 	
-	@ResponseBody
 	@RequestMapping("/deletePermissions/{id}")
 	public String deletePermissions(@PathVariable("id") int id) {
 		sysFunctionService.delete(id);
-		return "redirect:/admin/permissions/ztreeList";
+		return "redirect:/admin/permissions/ztreeList/1";
 	}
 	
 }

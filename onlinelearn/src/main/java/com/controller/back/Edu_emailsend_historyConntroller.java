@@ -16,10 +16,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
-import org.quartz.impl.QuartzServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +27,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.Edu_User;
 import com.bean.Edu_emailsend_history;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.service.Edu_UserService;
 import com.service.Edu_emailsend_historyService;
 //import com.util.MyJob;
 //import com.util.QuartzManager;
@@ -46,12 +48,17 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 	@Autowired
 	private Edu_emailsend_historyService edu_emailsend_historyService;
 	
+	@Autowired
+	private Edu_UserService edu_UserService;
+	
     @RequestMapping("/sendEmailList")
-	public ModelAndView  list(@RequestParam(required=true,defaultValue="1")Integer page, HttpServletRequest request) {
+	public ModelAndView  list(@RequestParam(required=true,defaultValue="1")Integer page, HttpServletRequest request,HttpSession session) {
 		ModelAndView mv=new ModelAndView();
 		PageHelper.startPage(page,10);
 		Map map=new HashMap<>();
 		map=initMap(request, map);
+		Edu_User user=  (Edu_User) session.getAttribute("user.email");
+		System.out.println("user:"+user);
 		 List<Edu_emailsend_history> list=edu_emailsend_historyService.listAll(map);
 		 PageInfo<Edu_emailsend_history>pageInfo=new PageInfo<>(list);
 		 mv.addObject("list", list);
@@ -96,65 +103,36 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 		 return mv;
 	}
     
-    @RequestMapping("/toEmailMsg")
+    @RequestMapping("/toEmailMsg") //跳转到发送邮件页面
     public ModelAndView toEmailMsg() {
 		ModelAndView mv=new ModelAndView();
+		List<Edu_User> list=edu_UserService.listUser();
+		mv.addObject("list", list);
 		mv.setViewName("/back/email/toEmailMsg");
 		return mv;
 	}
-    
-//	@RequestMapping("/sendemail")
-//	public ModelAndView sofong(@RequestParam String name,@RequestParam String biaoti,@RequestParam String neirong){
-//		ModelAndView mv=new ModelAndView();
-//		System.out.println(name);
-//		System.out.println(biaoti);
-//		System.out.println(neirong);
-//		JavaEmailSender sEmailSender=new JavaEmailSender();
-//		try {
-//			sEmailSender.sendEmail(name, biaoti, neirong);
-//			System.out.println("发送成功！");
-//		} catch (Exception e) {
-//
-//			e.printStackTrace();
-//		}
-//		mv.setViewName("redirect:/admin/email/sendEmailList");
-//		return mv;
-//	}
-//	
-
-//	@Scheduled(cron="0 15 20 * * ?")
-//	public void test2(){
-//		System.out.println("test2 开始执行...");
-//	}
-
-//	@Scheduled(cron = "0/20 * * * * ?")//每隔5秒隔行一次 
-//	public void test3(){
-//		JavaEmailSender sEmailSender=new JavaEmailSender();
-//		try {    
-//			    908138835    1793278977  908138835
-//			sEmailSender.sendEmail("@qq.com", "哈喽", "小可爱！");
-//			System.out.println("发送成功！！");
-//		} catch (Exception e) {
-
-//			e.printStackTrace();
-//		}
+//    @RequestMapping("/sendEmail")
+//	public String sendEmail(){
+//    	System.out.println("sendEmail");
+//		return "toEmailMsg";
 //	}
     
-    @RequestMapping("/sendEmail")
-	public String sendEmail(){
-		return "toEmailMsg";
-	}
-   
 	@RequestMapping("/saveEmail")//发送邮件
-	public String saveEmail(HttpServletRequest request){
-//		Edu_emailsend_history emails=new Edu_emailsend_history();
+	public String saveEmail(HttpServletRequest request) throws Exception{
+		Edu_emailsend_history emails=new Edu_emailsend_history();
 		String content=request.getParameter("content");
 		String type=request.getParameter("type");
+		//定时时间
 		String sendTime=request.getParameter("time");
 		String email=request.getParameter("email");
 		String title=request.getParameter("title");
-		System.out.println("type:"+type);
-		System.out.println("content:"+content+"name"+email+"biaoti"+title);
+//		System.out.println("type:"+type);
+//		System.out.println("content:"+content+"/name:"+email+"/biaoti:"+title);
+		emails.setEmail(email);
+//		emails.setUserId(userId);
+		emails.setTitle(title);
+		emails.setCreate_time(new Date());
+		emails.setContent(content);
 		if(type.equals("1")){
 						try{
 //							sendEmail(content);
@@ -162,6 +140,12 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 						}catch(Exception e){
 							e.printStackTrace();
 						}
+						
+						emails.setSend_time(new Date());
+						emails.setStatus(1);
+						emails.setType(1);
+						
+						
 		}else{
 						JobDetail job = JobBuilder.newJob(MyJob.class)
 							    .withIdentity("myJob", "group1")
@@ -177,24 +161,17 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 						String[] date_time=dates[1].split(":");//0 51 15 26 4 ? 2016
 						String cons="0 "+date_time[1]+" "+date_time[0]+" "+date_year[2]+" "+date_year[1]+" ?"+" "+date_year[0];
 						QuartzManager.addJob(JOB_NAME, JOB_GROUP_NAME, TRIGGER_NAME, TRIGGER_GROUP_NAME, job,cons); 
-	                    
+						
+						SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						emails.setSend_time(sdf.parse(sendTime));
+						emails.setStatus(1);
+						emails.setType(2);
+						
 						
 		}
-		return "redirect:/admin/email/sendEmailList";
-//		emails.setEmail(email);
-////		emails.setUserId(userId);
-//		emails.setTitle(title);
-//		emails.setCreate_time(new Date());
-//		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		try {
-//			emails.setSend_time(sdf.parse(sendTime) );
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//		emails.setContent(content);
-//		emails.setType(Integer.parseInt(type));
-//		edu_emailsend_historyService.save(emails);
 		
+		edu_emailsend_historyService.save(emails);
+		return "redirect:/admin/email/sendEmailList";
 	}
     
 

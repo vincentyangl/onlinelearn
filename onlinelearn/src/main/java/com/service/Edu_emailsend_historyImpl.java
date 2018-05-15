@@ -6,15 +6,23 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bean.Edu_User;
 import com.bean.Edu_emailsend_history;
 import com.mapper.Edu_emailsend_historyDao;
 @Service
 public class Edu_emailsend_historyImpl implements Edu_emailsend_historyService {
  @Autowired
     private Edu_emailsend_historyDao edu_emailsend_historyDao;
+ 
+ 
 	@Override
 	public void save(Edu_emailsend_history edu_emailsend_history) {
 		edu_emailsend_historyDao.save(edu_emailsend_history);
+	}
+	
+	@Override
+	public void timingsave(Edu_emailsend_history edu_emailsend_history) {
+        edu_emailsend_historyDao.timingsave(edu_emailsend_history);		
 	}
 
 	@Override
@@ -31,5 +39,11 @@ public class Edu_emailsend_historyImpl implements Edu_emailsend_historyService {
 	public Edu_emailsend_history getById(int id) {
 		return edu_emailsend_historyDao.getById(id);
 	}
+
+	
+
+	
+
+	
 
 }

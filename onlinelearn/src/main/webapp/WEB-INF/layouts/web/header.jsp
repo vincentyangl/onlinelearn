@@ -26,7 +26,7 @@
 					<a href="javascript:lrFun(1)" title="登录">
 						<em class="icon18 login-icon">&nbsp;</em><span class="vam ml5">登录</span>
 					</a>
-					|
+					
 					<a href="javascript:lrFun(2)" title="注册">
 						</em><span class="vam ml5">注册</span>
 					</a>
@@ -34,7 +34,8 @@
 					<li class="mr10 undis" id="is-login-one"><a href="${ctx}/uc/letter" title="消息" id="headerMsgCountId">
 							<em class="icon18 news-icon">&nbsp;</em>
 						</a><q class="red-point" style="display: none">&nbsp;</q></li>
-					<li class="h-r-user undis" id="is-login-two"><a href="${ctx}/uc/index" title="">
+					<li class="h-r-user undis" id="is-login-two">
+					    <a href="${ctx}/uc/index" title="">
 							<img src="${ctx }/static/inxweb/img/avatar-boy.gif" width="30" height="30" class="vam picImg" alt="">
 							<span class="vam disIb" id="userName"></span>
 						</a>

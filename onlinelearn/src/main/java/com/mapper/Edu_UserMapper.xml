@@ -65,6 +65,14 @@
   select * from edu_user where userId=#{userId}
   </select>
   
+  <select id="listUser" resultType="Edu_User">
+   select * from edu_user
+  </select>
+    
+    <select id="getPwd" parameterType="string" resultMap="user_UserMap">
+    select * from edu_user where email=#{value}
+    </select>
+    
 <!--   <delete id="delete" parameterType="int"> -->
 <!--   delete from edu_user where USER_ID=#{userId} -->
 <!--   </delete> -->

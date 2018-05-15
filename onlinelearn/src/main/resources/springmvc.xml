@@ -22,6 +22,7 @@
 	<mvc:resources location="/images/" mapping="/images/**" />
 	<mvc:resources location="/jsplug/" mapping="/jsplug/**" />
 	<mvc:resources location="/common/" mapping="/common/**" />
+	<mvc:resources location="/kindeditor/" mapping="/kindeditor/**" />
 	<mvc:resources location="/ztree/" mapping="/ztree/**" />
 	<mvc:resources location="/inc/" mapping="/inc/**" />
 	<mvc:resources location="/skins/" mapping="/skins/**" />

@@ -98,7 +98,6 @@ public class MyRealm extends AuthorizingRealm{
 		return sysUsers;
 	}
 	
-
 	public static void main(String[] args) {
 		
 		String hashAlgorithName="MD5";
