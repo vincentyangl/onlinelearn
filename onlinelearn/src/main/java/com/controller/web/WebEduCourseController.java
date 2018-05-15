@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.EduComment;
 import com.bean.EduCourse;
 import com.bean.EduKpoint;
 import com.bean.EduTeacher;
+import com.bean.Edu_User;
 import com.bean.PageCourseBean;
 import com.bean.QueryCourse;
 import com.bean.SysSubject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.service.EduCommentService;
 import com.service.EduCourseService;
 import com.service.EduKpointService;
 import com.service.EduTeacherService;

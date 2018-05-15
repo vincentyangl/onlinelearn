@@ -8,28 +8,57 @@
         <result column="P_COMMENT_ID" property="pCommentId"/>
         <result column="CONTENT" property="content"/>
         <result column="ADDTIME" property="addTime"/>
-        <result column="OTHER_ID" property="ontherId"/>
+        <result column="OTHER_ID" property="otherId"/>
         <result column="PRAISE_COUNT" property="praiseCount"/>
         <result column="REPLY_COUNT" property="replyCount"/>
         <result column="type" property="type"/>
         <association property="user" column="USER_ID" select="com.mapper.Edu_UserDao.getById"></association>
-        <association property="eduComments" column="COMMENT_ID" select="com.mapper.EduCommentDao.getChildComment"></association>
+        <association property="eduComments" column="commentId" select="com.mapper.EduCommentDao.getChildComment"></association>
     </resultMap>
     <insert id="save" parameterType="EduComment">
         insert into edu_comment (USER_ID,P_COMMENT_ID,CONTENT,ADDTIME,OTHER_ID,PRAISE_COUNT,REPLY_COUNT,TYPE) 
-        values (#{user.userId},#{pCommentId},#{content},NOW(),#{ontherId},#{praiseCount},#{replyCount},#{type})
+        values (#{user.userId},#{pCommentId},#{content},NOW(),#{otherId},0,0,#{type})
     </insert>
     <delete id="delete" parameterType="int" >
         delete from edu_comment where COMMENT_ID=#{value}
     </delete>
+    <update id="updatePraiseCount" parameterType="int">
+        update edu_comment set PRAISE_COUNT=PRAISE_COUNT+1 where COMMENT_ID=#{value}
+    </update>
+    <update id="updateReplyCount" parameterType="int">
+        update edu_comment set REPLY_COUNT=REPLY_COUNT+1 where COMMENT_ID=#{value}
+    </update>
     <select id="listAll" parameterType="java.util.Map" resultMap="EduCommentMap">
-       select * from edu_comment 
-       
+       select * from edu_comment where 0=0 
+       <if test="otherId!=null">
+           and OTHER_ID=#{otherId} 
+       </if>
+       <if test="userId!=null">
+           and USER_ID=#{userId} 
+       </if>
+       <if test="commentId!=null">
+           and COMMENT_ID=#{commentId} 
+       </if>
+       <if test="type!=null">
+           and TYPE=#{type} 
+       </if>
+       <if test="pCommentId!=null">
+           and P_COMMENT_ID=#{pCommentId} 
+       </if>
+       <if test="order == 'commentId'">
+           order by COMMENT_ID desc
+       </if>
+       <if test="order == 'praiseCount'">
+           order by PRAISE_COUNT desc
+       </if>
     </select>
     <select id="getById" parameterType="int" resultMap="EduCommentMap">
        select * from edu_comment where COMMENT_ID=#{value}
     </select>
     <select id="getChildComment" parameterType="int" resultMap="EduCommentMap">
        select * from edu_comment where P_COMMENT_ID=#{value} 
+    </select>
+    <select id="getByOtherId" parameterType="int" resultMap="EduCommentMap">
+       select * from edu_comment where OTHER_ID=#{value} 
     </select>
   </mapper>
