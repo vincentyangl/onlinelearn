@@ -101,12 +101,7 @@ $(function(){
 		}
 	});
 	
-	$("#btn").click(function(){
-		
-		var content= UM.getEditor('myEditor').getContentTxt();
-		$("#tx").val(content);
-		$("#form1").submit();
-	});
+
 });
 
 function cz() { 
@@ -124,33 +119,123 @@ Date d = new Date();
 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 String now = df.format(d);  
 %>  
+// 	$("#btn").click(function(){
+	
+//		var content= UM.getEditor('myEditor').getContentTxt();
+//		$("#tx").val(content);
+//		$("#form1").submit();
+//	});
+$(function() {
+	$("#btns").click(function() {
+			var content = UM.getEditor('myEditor').getContentTxt();
+			if(content==""){
+				alert("内容不能为空!");
+				return false;
+			}
+			if($("#email").val()==""){
+				alert("邮箱不能为空!");
+				return false;
+			}
+			if($("#title").val()==""){
+				alert("标题不能为空!");
+				return false;
+			}
+			$("#tx").val(content);
+			$("#form1").submit();
+		});
+})
 
-// function btn() {
-// 	   var time=$("#time").val();
-// 	   alert(time+""+now);
-// 	   if(time<now){
-// 		   alert("选择时间小于当前时间！")
+  function btn () {
+	    var c="是否要发送邮件？";
+	    if (confirm(c)==true) {
+	    	return true;
+	    } else{
+	    	return false;
+	    }
+	}
+	
+	
+
+// var a="";
+//    function email1() {
+// 	   var emailVar=$("#tid1").val();
+// 	   if(emailVar==0){
+// 		   alert("请选择联系人!")
 // 	   }else{
-// 		   var content= UM.getEditor('myEditor').getContentTxt();
-// 			$("#tx").val(content);
-// // 			$("#form1").submit();
-//            document.forms[0].action="/admin/email/saveEmail";
-//            document.forms[0].submit();
+// // 		   a=a+emailVar+";"
+// 		   $("#email").val(emailVar);
 // 	   }
 	
-// }
-var a="";
-   function email1() {
-	  
-	   var emailVar=$("#tid1").val();
-	   if(emailVar==0){
-		   alert("请选择联系人!")
-	   }else{
-// 		   a=a+emailVar+";"
-		   $("#email").val(emailVar);
-	   }
+// }  
+   
+ 
+     
+   function fun() {
+		 if($("#email").val()==""){
+	   alert("邮箱不能为空");
+	   return false;
+	  }
+	  var email=$("#email").val();
+	   var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	  if(!myreg.test(email)){
+	   alert("格式不正确！请重新输入");
+	    myreg.focus();
+	    return false;
+	  }else{
+	  alert("格式正确");
+	  }
+	 }
+   
 	
-}
+   function fun1() {
+		var checklist = document.getElementsByName("subcheck");
+		if (document.getElementById("checkbox").checked) {
+			for (var i=0;i<checklist.length;i++) {
+				checklist[i].checked = 1;
+			}
+		} else{
+			for (var j=0;j<checklist.length;j++) {
+				checklist[j].checked = 0;
+			}
+		}
+	}
+   
+   function fun2() {
+	   var title = $("#title").val();
+	   	if (title=="") {
+	   		alert("标题不能为空");
+	   	}
+	   }
+
+	   function fun3(){
+	   	var content = UM.getEditor('myEditor').getContentTxt();
+	   	if(content==""){
+	   		alert("内容不能为空!");
+	   	}
+	   }
+   
+	var a=[];
+	$(function(){
+		$("#confirm").click(function() {
+			var email = document.getElementsByName("subcheck");
+			for(var i=0;i<email.length;i++) {
+				if (email[i].checked) {
+					a.push(email[i].value);
+				}
+			}
+			var b ="";
+			for(var i =0;i<a.length;i++) {
+				if (b.trim().length==0) {
+					b = a[i]+";";
+				}else{
+				b+=a[i]+";";
+				}
+			}
+			$("#email").text(b);
+			
+		})
+	})
+	
 	
 </script>
 <style type="text/css">
@@ -169,51 +254,51 @@ var a="";
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" align="center" id="myModalLabel">修邮件发送联系人</h3>
+        <h3 class="modal-title" align="center" id="myModalLabel">邮件发送联系人</h3>
       </div>
       <div class="modal-body">
          
-         
-        <form class="form-horizontal" method="post">
-						
-<!-- 							<div class="modal-footer"> -->
-<!-- 							<div class="form-group"> -->
-<!-- 								<label for="inputEmail3" class="col-sm-3 modal-title" style=" font-family:Arial,Verdana,Sans-serif; font-weight: normal;font-size:16px;" >输&nbsp;&nbsp;入&nbsp;&nbsp;名&nbsp;&nbsp;称</label> -->
-<!-- <!--                                  <h6 class="modal-title" align="left" id="myModalLabel">修改密码</h6> --> 
-<!-- 								<div class="col-sm-9"> -->
-<!-- <!-- 								    <input  type="hidden" class="form-control zh" id="type_id" name="type_id" > --> 
-<!-- 									<input  type="text" class="form-control zh" id="type_name" name="type_name" value=""> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							</div> -->
-                          <table class="layui-table table-hover" lay-even="" lay-skin="nob">
-                        
-                              <tr>
-                                   <td></td>
-                                  <td>联系人</td>
-                                
-                              </tr>
-                          <c:forEach items="${list}" var="l" varStatus="statu">
-                              <tr>
-                              <div class="checkbox" align="center">
-                              <label>
-                               <input type="checkbox" value="${l.email}">${l.userName}
-                               </label>
-                               </div>
-                              </tr>
-                          </c:forEach>
-                     </table>
-                                       
+						<table class="layui-table table-hover" lay-even="" lay-skin="nob"
+							id="tb">
+							<tr>
+								<td><input type="checkbox" id="checkbox" name="checkbox"
+									onclick="fun1()"></td>
+								<td>姓名</td>
+								<td>邮箱</td>
+							</tr>
+							<c:forEach items="${list}" var="a">
+								<tr>
+									<td><input type="checkbox" name="subcheck"
+										value="${a.email}"></td>
+									<td>${a.userName}</td>
+									<td>${a.email}</td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<td colspan="2">一共<input type="text" value="${page.pages}"
+									style="width: 25px; text-align: center;" />页 <a
+									href="/admin/email/toEmailMsg?page=${page.firstPage}"
+									class="layui-btn layui-btn-small"><i
+										class="iconfont icon-shanchu1"></i>第一页</a> <a
+									href="/admin/email/toEmailMsg?page=${page.prePage}"
+									class="layui-btn layui-btn-small"><i
+										class="iconfont icon-shanchu1"></i>上一页</a> <a
+									href="/admin/email/toEmailMsg?page=${page.nextPage}"
+									class="layui-btn layui-btn-small"><i
+										class="iconfont icon-shanchu1"></i>下一页</a> <a
+									href="/admin/email/toEmailMsg?page=${page.lastPage}"
+									class="layui-btn layui-btn-small"><i
+										class="iconfont icon-shanchu1"></i>最后页</a></td>
+							</tr>
+						</table>
 
-							 
-		</form>
 						
       </div>
       <div class="modal-footer">
       <div class="col-sm-8">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-default" id="down" data-dismiss="modal">关闭</button>
         <button type="reset"  class="btn btn-default" onclick="cz()">重置</button>
-        <button type="button" class="btn btn-default"onclick="upd()">确定</button>
+        <button type="button" class="btn btn-default" id="confirm" data-dismiss="modal" >确定</button>
         </div>
       </div>
    
@@ -231,35 +316,26 @@ var a="";
 		</header>
 		<div class="larry-personal-body clearfix">
 		<form action="/admin/email/saveEmail" method="post" enctype="multipart/form-data" id="form1">
-			<div class="layui-form-item layui-row">
-					<label class="layui-form-label">收件人邮箱</label>
-					<div class="layui-input-block layui-col-md9">
-					<input type="hidden" id="imge_id" name="imge_id"  class="layui-input "  autocomplete="off" style="width:300px;"> 
-						<input type="text" placeholder="邮箱格式为：*******@qq.com" name="email" id="email"   class="layui-input "  style="width:500px;">
-<!-- 					    <input type="text" style="width: 500px" placeholder="邮箱格式为：*******@qq.com" name="email" id="email"/> -->
-					</div>
-					 
-				</div>
+
+
+                    <table  id="tab1">
+					<tr height="50px">
+						<td id="t1">&nbsp;&nbsp;&nbsp;添加联系人:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td id="t2">
+							<textarea onblur="fun()" name="email" id="email" rows="8" cols="50" style="width:408px;height:30px;" placeholder="请选输入对方邮箱,多个请用(;)分号隔开" title="请选输入对方邮箱,多个请用(;)分号隔开"></textarea>
+						</td>
+							<td>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">导入联系人</button>
+
+						</td>
+					</tr>
 			
-				
-				<div class="layui-input-inline  ">
-				<button type="button"  class="btn btn-default" data-toggle="modal" data-target="#myModal3">选择联系人</button>
-<!--                                 <label class="layui-form-label layui-col-md9">选择用户</label> -->
-<!--                         <div class="layui-input-block" style="width: 500px;">     -->
-                                 
-<!-- 								<select name="type1" id="tid1" onchange="email1()" class="form-control "> -->
-<!-- 								<option value="0" >请选择联系人</option> -->
-<%-- 								<c:forEach items="${list}" var="l"> --%>
-<%--     							<option value="${l.email}" >${l.userName}</option> --%>
-<%--     							</c:forEach> --%>
-<!-- 								</select> -->
-<!-- 						</div> -->
-				</div>
-				
+				</table>
 				<div class="layui-form-item">
 					<label class="layui-form-label" >邮&nbsp;件&nbsp;标&nbsp;题</label>
 					<div class="layui-input-block"> 
-						<input type="text" name="title" id="title"  class="layui-input "  style="width:500px;" >
+					<input type="hidden"    name="userId" id="userId" value="1" class="layui-input "  style="width:500px;" >
+						<input type="text" onblur="fun2()" name="title" id="title"  class="layui-input "  style="width:500px;" >
 					</div>
 				</div>
 
@@ -296,7 +372,7 @@ var a="";
 				
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-							<button class="layui-btn" id="btn" onclick="btn()">
+							<button class="layui-btn" id="btn" onclick="javascript:return btn()" id="btns">
 								<i class="layui-icon" >&#xe608;</i> 发送
 							</button>
 							<button type="reset" class="layui-btn" onclick="cz()">重置</button>
@@ -307,29 +383,6 @@ var a="";
 	
 
 </section>
-
-<!-- <form method="post" action="/admin/email/saveEmail" id="form1">  -->
-
-<!--  收件人邮箱: <input type="text" style="width: 500px" placeholder="邮箱格式为：*******@qq.com" name="email" id="email"/><br/> -->
-<!--  <dir></dir> -->
-<!-- 邮&nbsp;件&nbsp;表&nbsp;题: <input type="text" style="width: 500px" name="title" id="title"/> -->
-<!-- <dir></dir> -->
-<!-- <script type="text/plain" id="myEditor" style="width:600px;height:240px;"> -->
-    <p></p>
- </script> 
-<!-- <textarea id="tx" cols="50" rows="10" name="content" style="width: 600px" id="content"></textarea><br> -->
-<!-- 发送方式:<select name="type" id="tid" style="width: 520px"  > -->
-<!-- <option value="1">普通发送</option> -->
-<!-- <option value="2">定时发送</option> -->
-<!-- </select> -->
-<!-- <div></div> -->
-<!-- <div id="div1"> -->
-<!-- 时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间:<input type="text" name="time" id="time" style="width: 520px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/> -->
-<!-- </div><br> -->
-<!-- <!-- <input type="button" style="margin-left:240px;" class="layui-btn col-sm-6" id="btn" value="发送"/> --> 
-<!--                       <button type="submit" style="margin-left:240px;" class="layui-btn" id="btn">发送</button>  -->
-<!-- 					<button type="reset" style="margin-right:220px;" class="layui-btn col-sm-9" onclick="cz()">重置</button> -->
-<!-- </form> -->
 </body>
     <!-- 实例化编辑器 -->
     <script type="text/javascript">

@@ -124,6 +124,16 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 								</select>
 							</div>
 							
+							<div class="layui-input-inline">
+								<label class="sr-only" for="exampleInputEmail3">状态</label> 
+								<select id="shows" name="shows" class="form-control">
+									<option value="-1">--请选择状态--</option>
+								    <option value="1">显示</option>
+								    <option value="0">不显示</option>
+<!-- 								isAvalible;   //是否可用 1正常  2冻结 -->
+								</select>
+							</div>
+							
 							<button class="layui-btn search_btn" type="submit"  onclick="list()" >查询</button>
 <!-- 							<a  class="layui-btn search_btn" onclick="listP()">查询</a> -->
                             <div class="layui-inline">
@@ -147,6 +157,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                   <th>连接路径</th>
                                   <th>类型</th>
                                   <th>序列号</th>
+                                  <th>图片状态</th>
                                   <th>操作</th>
                               </tr>
                           </thead>
@@ -169,6 +180,16 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 <%-- 										pattern="yyyy-MM-dd hh:mm:ss" /></td> --%>
                                 <td>${p.type_id.type_name}</td>
                                  <td>${p.series_number}</td>
+                                 <td>
+                               <c:if test="${p.shows==0}">
+                      <a href="/admin/imge/toupdate/${p.imge_id}/${p.shows}" class="btn btn-default">隐藏</a>
+                               </c:if>
+                               <c:if test="${p.shows==1}">
+                      <a href="/admin/imge/toupdate/${p.imge_id}/${p.shows}" class="btn btn-default">显示</a>
+                               </c:if>
+                              </td>
+<%--                                  <c:if test="${p.shows==0}"> <td>不显示</td></c:if> --%>
+<%--                                  <c:if test="${p.shows==1}"> <td>显示</td></c:if> --%>
                                 <td>
                                 <a href="/admin/imge/update/${p.imge_id}" class="btn btn-default">修改</a>
                                  <a href="/admin/imge/delete/${p.imge_id}" class="btn btn-default">删除</a>

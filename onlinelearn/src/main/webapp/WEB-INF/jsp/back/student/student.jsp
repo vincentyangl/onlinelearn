@@ -75,18 +75,18 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	  }
 	  
 	  
-	  function freezeUser(obj)
-	  {
-	      if(obj =='冻结')
-	      {
-	       document.getElementById('freeze').value = '解冻';
-	       window.location.href="/admin/student/toupdate/${l.userId}/${l.isAvalible}";
-	      }
-	      else{
-	       document.getElementById('freeze').value = '冻结';
-	       window.location.href="/admin/student/toupdate/${l.userId}/${l.isAvalible}";
-	      }
-	  }
+// 	  function freezeUser(obj)
+// 	  {
+// 	      if(obj =='冻结')
+// 	      {
+// 	       document.getElementById('freeze').value = '解冻';
+// 	       window.location.href="/admin/student/toupdate/${l.userId}/${l.isAvalible}";
+// 	      }
+// 	      else{
+// 	       document.getElementById('freeze').value = '冻结';
+// 	       window.location.href="/admin/student/toupdate/${l.userId}/${l.isAvalible}";
+// 	      }
+// 	  }
 	  
 	  function excel() {
 		  document.forms[0].action="/admin/student/excel";
@@ -238,7 +238,6 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                   <th>手机号</th>
                                    <th>用户名</th>
                                   <th>昵称</th>
-<!--                                   <th>班级</th> -->
                                   <th>性别</th>
                                   <th>年龄</th>
                                   <th>注册时间</th>

@@ -31,7 +31,7 @@
 			<div  class="layui-form-item col-lg-5">
 					<label class="layui-form-label">操作人</label>
 					<div class="layui-input-block">
-						<input type="text" name="userId"  class="layui-input " value="${list.userId.userName}" style="width:585px;" autocomplete="off" disabled="disabled">
+						<input type="text" name="userId"  class="layui-input " value="${list.userId.loginName}" style="width:585px;" autocomplete="off" disabled="disabled">
 					</div>
 				</div>
 				<div  class="layui-form-item col-lg-5">
@@ -46,12 +46,14 @@
 						<fmt:formatDate value="${list.create_time}" type="date" pattern="yyyy-MM-dd hh:mm:ss" />
 					</div>
 				</div>
+				
 				<div  class="layui-form-item col-lg-5">
 					<label class="layui-form-label">收件人</label>
 					<div class="layui-input-block"> 
 						<input type="text" name="userId"  class="layui-input " value="${list.email}" style="width:585px;" autocomplete="off" disabled="disabled">
 					</div>
 				</div>
+				
 				<div  class="layui-form-item col-lg-5">
 					<label class="layui-form-label">类型</label>
 					<div class="layui-input-block"> 
@@ -63,9 +65,10 @@
 						</c:if>
 					</div>
 				</div>
+				
 				<div  class="layui-form-item col-lg-5">
 					<label class="layui-form-label">是否发送</label>
-					<div class="layui-input-block col-lg-5"> 
+					<div class="layui-input-block"> 
 						<c:if test="${list.status==1}">
 							<input type="text" name="status"  class="layui-input " value="已发送" style="width:585px;"  autocomplete="off" disabled="disabled">
 						</c:if>
@@ -78,7 +81,7 @@
 				<div  class="layui-form-item col-lg-5">
 					<label class="layui-form-label">邮箱正文</label>
 					<div class="layui-input-block"> 
-						<textarea cols="100" rows="10">${list.email}</textarea>
+						<textarea cols="100" rows="10">${list.content}</textarea>
 					</div>
 				</div>
 					
