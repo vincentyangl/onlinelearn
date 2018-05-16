@@ -12,8 +12,15 @@ public class Edu_website_images { //轮播图管理
 	  private String preview_url;//略缩图片地址
 	  private String color;//背景色
 	  private String describes;//图片描述
-	   
+	  private int shows;//图片是否展示
 	  
+	  
+	public int getShows() {
+		return shows;
+	}
+	public void setShows(int shows) {
+		this.shows = shows;
+	}
 	public int getImge_id() {
 		return imge_id;
 	}

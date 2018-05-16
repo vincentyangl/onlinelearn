@@ -38,4 +38,15 @@ public class Edu_website_imagesServiceImpl implements Edu_website_imagesService 
 		return edu_website_imagesDao.getById(imge_id);
 	}
 
+	
+	@Override
+	public List<Edu_website_images> weblistAll() {
+		return edu_website_imagesDao.weblistAll();
+	}
+
+	@Override
+	public void showUpdate(Edu_website_images edu_website_images) {
+              edu_website_imagesDao.showUpdate(edu_website_images);		
+	}
+
 }

@@ -103,7 +103,8 @@ public class Edu_UserController {
 	}
 	
 	@RequestMapping("/toupdate/{userId}/{isAvalible}")//修改状态
-	public String toupdate(@PathVariable ("userId") int userId,@PathVariable ("isAvalible") int isAvalible) {
+	public String toupdate(@PathVariable ("userId") int userId,
+			@PathVariable ("isAvalible") int isAvalible) {
 		Edu_User edu_user=new Edu_User();
 		edu_user.setUserId(userId);
 		if (isAvalible==0) {

@@ -29,10 +29,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.Edu_User;
 import com.bean.Edu_emailsend_history;
+import com.bean.SysUser;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.service.Edu_UserService;
 import com.service.Edu_emailsend_historyService;
+import com.service.SysUserService;
+import com.service.SysUserServiceImpl;
 //import com.util.MyJob;
 //import com.util.QuartzManager;
 import com.util.MyJob;
@@ -51,14 +54,17 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 	@Autowired
 	private Edu_UserService edu_UserService;
 	
+	@Autowired
+	private SysUserService sysuservice;
+	
     @RequestMapping("/sendEmailList")
 	public ModelAndView  list(@RequestParam(required=true,defaultValue="1")Integer page, HttpServletRequest request,HttpSession session) {
 		ModelAndView mv=new ModelAndView();
 		PageHelper.startPage(page,10);
 		Map map=new HashMap<>();
 		map=initMap(request, map);
-		Edu_User user=  (Edu_User) session.getAttribute("user.email");
-		System.out.println("user:"+user);
+		SysUser user=(SysUser) session.getAttribute("sysUser");
+		System.out.println("当前登录用户:"+ user.getLoginName());
 		 List<Edu_emailsend_history> list=edu_emailsend_historyService.listAll(map);
 		 PageInfo<Edu_emailsend_history>pageInfo=new PageInfo<>(list);
 		 mv.addObject("list", list);
@@ -90,23 +96,24 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 		
 		 return map;
 	}
+    
     @RequestMapping("/content/{id}") //查看
     public ModelAndView content(@PathVariable ("id") int id) {
 		ModelAndView mv = new ModelAndView(); 
+		//如果有外键的话在mapper.xml引用数据类型应该是resultMap 
 		Edu_emailsend_history list=edu_emailsend_historyService.getById(id);
-		System.out.println(id);
-		System.out.println("userId:"+list.getUserId());
-		System.out.println("getEmail:"+list.getEmail());
-		System.out.println(list.getCreate_time());
 		 mv.addObject("list", list);
 		 mv.setViewName("/back/email/emailContent");
 		 return mv;
 	}
     
     @RequestMapping("/toEmailMsg") //跳转到发送邮件页面
-    public ModelAndView toEmailMsg() {
+    public ModelAndView toEmailMsg(@RequestParam(required=true,defaultValue="1")Integer page) {
 		ModelAndView mv=new ModelAndView();
+		PageHelper.startPage(page,5);
 		List<Edu_User> list=edu_UserService.listUser();
+		PageInfo<Edu_User>pageInfo=new PageInfo<>(list);
+		mv.addObject("page", pageInfo);
 		mv.addObject("list", list);
 		mv.setViewName("/back/email/toEmailMsg");
 		return mv;
@@ -116,12 +123,16 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 //    	System.out.println("sendEmail");
 //		return "toEmailMsg";
 //	}
-    
+          
 	@RequestMapping("/saveEmail")//发送邮件
-	public String saveEmail(HttpServletRequest request) throws Exception{
+	public String saveEmail(HttpServletRequest request,HttpSession session) throws Exception{
 		Edu_emailsend_history emails=new Edu_emailsend_history();
+		SysUser user=(SysUser) session.getAttribute("sysUser");
 		String content=request.getParameter("content");
 		String type=request.getParameter("type");
+		String userId=request.getParameter("userId");
+		System.out.println("userId"+userId);
+		SysUser userIds=sysuservice.getById(Integer.valueOf(1));
 		//定时时间
 		String sendTime=request.getParameter("time");
 		String email=request.getParameter("email");
@@ -166,6 +177,7 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 						emails.setSend_time(sdf.parse(sendTime));
 						emails.setStatus(1);
 						emails.setType(2);
+//						emails.setUserId(userIds);
 						
 						
 		}
@@ -173,7 +185,7 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 		edu_emailsend_historyService.save(emails);
 		return "redirect:/admin/email/sendEmailList";
 	}
-    
+            
 
     //设置邮件属性
 	public void sendEmail(String content,String email,String title)throws Exception{

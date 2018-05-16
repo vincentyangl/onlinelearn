@@ -84,7 +84,7 @@ public class LoginController {
 		return new Result();
 	}
 
-
+     
 	@RequestMapping("/front/uc/createuser")
 	@ResponseBody
 	public Result createUser(HttpServletRequest request) {

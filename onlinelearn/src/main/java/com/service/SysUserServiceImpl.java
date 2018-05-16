@@ -35,5 +35,10 @@ public class SysUserServiceImpl implements SysUserService{
 	public void update(SysUser sysUser) {
 		sysUserDao.update(sysUser);
 	}
+
+	@Override
+	public SysUser getById(int userId) {
+		return sysUserDao.getById(userId);
+	}
 	
 }

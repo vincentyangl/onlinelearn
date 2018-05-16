@@ -24,7 +24,7 @@ public class WebFrontController {
 		ModelAndView mv=new ModelAndView();
 //		 Map map=new HashMap<>();
 //		 map=initMap(request, map);
-		List<Edu_website_images>websiteImagesList=edu_website_imagesService.listAll(new HashMap<>());
+		List<Edu_website_images>websiteImagesList=edu_website_imagesService.weblistAll();
 		 System.out.println("0:"+websiteImagesList.size());
 		mv.addObject("websiteImagesList", websiteImagesList);
 		mv.setViewName("/web/index/index");
