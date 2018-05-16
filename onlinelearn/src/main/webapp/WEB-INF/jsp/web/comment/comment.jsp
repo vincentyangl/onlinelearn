@@ -43,10 +43,10 @@
 					<c:forEach items="${commentList }" var="ac">
 						<li>
 							<aside class="noter-pic">
-								<c:if test="${empty ac.user.picImg }">
+								<c:if test="${empty user.picImg }">
 									<img width="50" height="50" class="picImg" src="${ctx }/static/inxweb/img/avatar-boy.gif">
 								</c:if>
-								<c:if test="${!empty ac.user.picImg }">
+								<c:if test="${!empty user.picImg }">
 									<img width="50" height="50" class="picImg" src="<%=staticImage%>${ac.user.picImg }">
 								</c:if>
 							</aside>
@@ -84,16 +84,17 @@
 									</p>
 								</section>
 								<div class="mt10 pl10 pr10 pb10 commentReply${ac.commentId}"></div>
-							</div> <!-- /回复盒子 -->
+							</div> 
+							<!-- /回复盒子 -->
 						</li>
 					</c:forEach>
 				</ul>
 			</section>
 		</section>
 	</c:if>
-	<!-- 公共分页 开始 -->
-	<jsp:include page="/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include>
-	<!-- 公共分页 结束 -->
+<!-- 	 公共分页 开始  -->
+<%-- 	<jsp:include page="/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include> --%>
+<!-- 	 公共分页 结束  -->
 </div>
 
 <script type="text/javascript">
@@ -106,7 +107,7 @@
 	$(function() {
 		replyFun(); //回复展开
 	});
-	var title = "评论";
+	// var title = "评论";
  	/* var totalResultSize = ${page.totalResultSize};
 	$(".totalResultComment").html(totalResultSize);
 	var order = "${comment.order}";
