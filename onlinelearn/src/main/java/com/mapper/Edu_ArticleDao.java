@@ -14,5 +14,7 @@ public interface Edu_ArticleDao {
 	public Edu_Article getById(int articleId);
 	public void updateContent(Edu_Article map);
 	public void saveContent(Edu_Article map);
+
+	
 	
 }

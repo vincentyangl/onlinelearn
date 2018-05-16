@@ -30,7 +30,7 @@
 			<div class="layui-inline">
 			<label class="layui-inline">标题:</label>
 				<div class="layui-input-inline">
-					<input type="text" name="title" value="" placeholder="标题" class="layui-input search_input"> 
+					<input type="text" name="title" value="${title }" placeholder="标题" class="layui-input search_input"> 
 				</div>
 				
 				<label class="layui-inline">问答标签:</label>
@@ -98,8 +98,8 @@
 							<th>${t.addTime }</th>
 							<th>
 							<a href="/admin/equestions/eddelete?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del">删除</a>
-							<a href="/admin/equestions/edgetById?id=${t.id }" class="layui-btn layui-btn-mini news_edit">修改</a> 
-							<a href="" class="layui-btn layui-btn-danger layui-btn-mini news_del">回复</a>
+							<a href="/admin/equestions/edgetById?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del">修改</a> 
+							<a href="/admin/eqcomment/eqclistpl?id=${t.id }" class="layui-btn layui-btn-mini news_edit">查看回复</a>
 							</th>
 						</tr>
 					</c:forEach>

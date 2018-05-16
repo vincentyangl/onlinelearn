@@ -11,4 +11,7 @@ public interface Edu_Questions_CommentService {
 	public void save(Edu_Questions_Comment edu_Questions_Comment);
 	public void update(Edu_Questions_Comment edu_Questions_Comment);
 	public Edu_Questions_Comment getById(int id);
+	public List<Edu_Questions_Comment> listPL(int id);
+	public List<Edu_Questions_Comment> getByIdPD(int id);
+	public List<Edu_Questions_Comment> getByIdsx(int id);
 }

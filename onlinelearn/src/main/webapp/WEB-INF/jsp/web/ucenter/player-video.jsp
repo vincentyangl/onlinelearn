@@ -13,12 +13,12 @@
 <meta name="author" content="${websitemap.web.author}" />
 <meta name="keywords" content="${websitemap.web.keywords}" />
 <meta name="description" content="${websitemap.web.description}" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="/static/inxweb/css/reset.css">
-<link rel="stylesheet" type="text/css" href="/static/inxweb/css/theme.css">
-<link rel="stylesheet" type="text/css" href="/static/inxweb/css/global.css">
-<link rel="stylesheet" type="text/css" href="/static/inxweb/css/web.css">
-<link href="/static/inxweb/css/mw_320_768.css" rel="stylesheet" type="text/css" media="screen and (min-width: 320px) and (max-width: 768px)">
+<link rel="shortcut icon" href="${ctx}/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="${ctx}/static/inxweb/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/static/inxweb/css/theme.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/static/inxweb/css/global.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/static/inxweb/css/web.css">
+<link href="${ctx}/static/inxweb/css/mw_320_768.css" rel="stylesheet" type="text/css" media="screen and (min-width: 320px) and (max-width: 768px)">
 <!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
 <script src="http://vod.baofengcloud.com/html/script/bfcloud.js?v=2"></script>
 </head>
@@ -35,7 +35,7 @@
 						<aside class="p-h-goback">
 							<a href="javascript:void(0)" onclick="history.go(-1)" title=""><em class="icon24">&nbsp;</em><tt class="c-fff fsize14 f-fM vam">返回</tt></a>
 						</aside>
-						<h2 class="p-h-title"><span class="c-fff" id="contentTitle">${course.course_name }</span></h2>
+						<h2 class="p-h-title"><span class="c-fff" id="contentTitle">${course.courseName }</span></h2>
 						<aside class="pa" style="right: 40px;top: 22px;">
 							<span class="vam dpBtn"><em class="icon18 dpIcon"></em><a class="c-fff vam" title="关灯" onclick="" href="javascript:void(0)">关灯</a></span>
 						</aside>
@@ -109,7 +109,7 @@
 																>
 																	<c:forEach items="${parentKpoint.kpointList}" var="sonKpoint">
 																		<li class="lh-menu-second ml30">
-																			<a href="javascript:void(0)" onclick="getPlayerHtml(${sonKpoint.id },'${sonKpoint.name }',this)" class="" title="">
+																			<a href="javascript:void(0)" onclick="getPlayerHtml(${sonKpoint.kpointId },'${sonKpoint.name }',this)" class="" title="">
 																				<span class="fr">
 																					<%-- <c:if test="${sonKpoint.free==1 }">
 																						<tt class="free-icon vam mr10">免费试听</tt>
@@ -129,7 +129,7 @@
 														<c:if test="${parentKpoint.kpointType==1 }"><!-- 视频 -->
 															<li class="lh-menu-stair">
 																<ul class="lh-menu-ol no-parent-node">
-																	<li class="lh-menu-second"><a title="" onclick="getPlayerHtml(${parentKpoint.id },'${parentKpoint.name }',this)" href="javascript:void(0)">
+																	<li class="lh-menu-second"><a title="" onclick="getPlayerHtml(${parentKpoint.kpointId },'${parentKpoint.name }',this)" href="javascript:void(0)">
 																			<span class="fr"> 
 																				<%-- <c:if test="${parentKpoint.free==1 }">
 																					<tt class="free-icon vam mr10">免费试听</tt>
@@ -203,19 +203,19 @@
 										<c:forEach items="${courseList}" var="interfixCourse">
 											<li>
 												<aside class="course-r-pic">
-													<a href="/front/couinfo/${interfixCourse.courseId}" title="">
+													<a href="${ctx }/front/couinfo/${interfixCourse.courseId}" title="">
 														<c:choose>
 															<c:when test="${interfixCourse.logo!=null && interfixCourse.logo!=''}">
-																<img alt="" src="${interfixCourse.logo}" />
+																<img alt="" src="<%=staticImage%>${interfixCourse.logo}" />
 															</c:when>
 															<c:otherwise>
-																<img alt="" src="/static/inxweb/img/default-img.gif" />
+																<img alt="" src="${ctx }/static/inxweb/img/default-img.gif" />
 															</c:otherwise>
 														</c:choose>
 													</a>
 												</aside>
 												<section class="hLh20 txtOf">
-													<a href="/front/couinfo/${interfixCourse.courseId}" class="c-333 fsize16">${interfixCourse.courseName}</a>
+													<a href="${ctx }/front/couinfo/${interfixCourse.courseId}" class="c-333 fsize16">${interfixCourse.courseName}</a>
 												</section>
 												<section class="hLh20 mt5 txtOf">
 													<span class="c-999">讲师：
@@ -254,28 +254,27 @@
 	
 
 	<!-- 公共底引入 -->
-	<%-- <jsp:include page="/footer.jsp" /> --%>
+	<jsp:include page="/WEB-INF/layouts/web/footer.jsp" />
 	<!-- 公共底引入 -->
-	<!-- 公共分页 开始 -->
-	<%-- <jsp:include page="/WEB-INF/jsp/common/front_page.jsp" /> --%>
-	<!-- 公共分页 结束 -->
-	<!-- <script type="text/javascript" src="/js/jquery.js"></script> -->
-	<script type="text/javascript" src="/static/common/webutils.js"></script>
-	<script type="text/javascript" src="/static/inxweb/js/common.js" ></script>
+	<script type="text/javascript" src="${ctx}/static/common/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/common/jquery-1.11.1.min.js"></script>
+
+	<script type="text/javascript" src="${ctx}/static/common/webutils.js"></script>
+	<script type="text/javascript" src="${ctx }/static/inxweb/js/common.js" ></script>
 	<script src="/static/inxweb/comment/comment.js" type="text/javascript"></script><!-- 评论js -->
-	<script type="text/javascript" src="/kindeditor/kindeditor-all.js"></script>
-	<script type="text/javascript" src="/static/inxweb/play/playVideo.js"></script>
+	<script type="text/javascript" src="${ctx }/kindeditor/kindeditor-all.js"></script>
+	<script type="text/javascript" src="${ctx}/static/inxweb/play/playVideo.js"></script>
 	
 	<script>
 	//评论课程id
-	var otherId = '${course.course_id}';
+	var otherId = '${course.courseId}';
 	//评论类型,类型2为课程
 	var type = 2;
 	var currentKpointId="0";//当前播放视频id(没有视频节点默认为零)
 	var isok="${isok}";//是否可以播放
 	var message="${message}";//提示信息
 	var countPlayTimeOut='15';//播放后记录播放次数的延时
-	var studyPercent = '0';
+	var studyPercent="${course.studyPercent}";//学习进度百分比
 	</script>
 </body>
 </html>

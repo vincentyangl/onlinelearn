@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/js/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
-<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="/js/jquery-3.0.0.js"></script>
 <script type="text/javascript" src="/ztree/js/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="/ztree/js/jquery.ztree.excheck.js"></script>
 <script type="text/javascript" src="/ztree/js/jquery.ztree.exedit.js"></script>
@@ -136,7 +136,8 @@
 		}
 	}
 	//删除
-	function beforeRemove(treeId, treeNode) {  
+	function beforeRemove(treeId, treeNode) { 
+		alert(treeNode.id);
 		$.ajax({  
 		type: "post",  
 		url: "/admin/eqtag/eqtdelete",  
@@ -159,7 +160,7 @@
 		var data = {id:treeNode.id,name:treeNode.name};
 		$.ajax({  
 		type: "post",  
-		url: "/admin/questions/updateTag",  
+		url: "/admin/eqtag/eqtupdate",  
 		data: data, 
 		dataType: "json",  
 		success: function (data) {

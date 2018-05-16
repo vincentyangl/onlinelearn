@@ -125,3 +125,28 @@ function queryCommentReplyPage(pCommentId) {
 		}
 	});
 }
+
+//点赞
+function addPraise(commentId,otherId,userId,type){
+	// 评论必须先登陆
+	if (!isLogin()) {
+		lrFun();
+		return;
+	}
+	$.post("/web/comment/ajax/addPraise",
+			{"commentId":commentId,"otherId":otherId,"userId":userId,"type":type},
+			function(msg){
+				alert(msg)
+				if(msg==0){
+					alert("你已经点过了");
+				}
+				if(msg==1){
+					// 添加点赞数
+					var praiseCount = $(".addPraise" + commentId).html();
+					$(".addPraise" + commentId).html(praiseCount * 1 + 1);
+					queryComment();
+				}
+			},"json");
+}
+
+

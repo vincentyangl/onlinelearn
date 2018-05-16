@@ -5,20 +5,20 @@
 		<c:if test="${index.index<8 }">
 			<dd>
 				<aside class="n-reply-pic">
-					<c:if test="${empty ac.picImg }">
+					<c:if test="${empty ac.user.picImg }">
 						<img width="50" height="50" class="picImg" src="${ctx }/static/inxweb/img/avatar-boy.gif">
 					</c:if>
-					<c:if test="${!empty ac.picImg }">
-						<img width="50" height="50" class="picImg" src="<%=staticImage%>${ac.picImg }">
+					<c:if test="${!empty ac.user.picImg }">
+						<img width="50" height="50" class="picImg" src="<%=staticImage%>${ac.user.picImg }">
 					</c:if>
 				</aside>
 				<div class="of">
 					<span class="fl"><font class="fsize12 c-blue">
-					<c:if test="${empty ac.userName }">
-						${ac.email}
+					<c:if test="${empty ac.user.userName }">
+						${ac.user.email}
 					</c:if>
-					<c:if test="${!empty ac.userName }">
-						${ac.userName}
+					<c:if test="${!empty ac.user.userName }">
+						${ac.user.userName}
 					</c:if>
 					</font><font class="fsize12 c-999 ml5" >回复：</font></span>
 				</div>

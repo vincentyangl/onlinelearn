@@ -34,9 +34,8 @@ public class Edu_Questions_TagController {
 	}
 	
 	@RequestMapping("/eqtdelete")
-	public String delete(int questionsTagId){
-		
-		edu_Questions_TagService.delete(questionsTagId);
+	public String delete(int qtid){
+		edu_Questions_TagService.delete(qtid);
 		return "redirect:eqtlist";
 	}
 	
@@ -66,7 +65,10 @@ public class Edu_Questions_TagController {
 	
 	@RequestMapping("/eqtupdate")
 	public String update(Edu_Questions_Tag edu_Questions_Tag){
+		System.out.println(edu_Questions_Tag.getQuestionsTagId());
+		System.out.println(edu_Questions_Tag.getQuestionsTagName());
 		edu_Questions_TagService.update(edu_Questions_Tag);
+		System.out.println(edu_Questions_Tag);
 		return "redirect:eqtlist";
 	}
 }
