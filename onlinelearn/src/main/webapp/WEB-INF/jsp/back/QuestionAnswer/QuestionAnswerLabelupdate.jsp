@@ -37,7 +37,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">问答标题:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" "
+				<input type="text" class="form-control" 
 					name="title" value="${edu_Questions.title }"/>
 			</div>
 		</div>
@@ -45,7 +45,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">发表人昵称:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
+				<input type="text" class="form-control" disabled="disabled"
 					name="showName" value="${edu_Questions.edu_User.showName }">
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">发表人邮箱:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
+				<input type="text" class="form-control" disabled="disabled"
 					name="email" value="${edu_Questions.edu_User.email }">
 			</div>
 		</div>
@@ -79,7 +79,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">回复数:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
+				<input type="text" class="form-control" disabled="disabled"
 					name="replyCount" value="${edu_Questions.replyCount }">
 			</div>
 		</div>
@@ -87,7 +87,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">点赞数:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
+				<input type="text" class="form-control" disabled="disabled"
 					name="praiseCount" value="${edu_Questions.praiseCount }">
 			</div>
 		</div>
@@ -95,7 +95,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">浏览数:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
+				<input type="text" class="form-control" disabled="disabled"
 					name="browseCount" value="${edu_Questions.browseCount }">
 			</div>
 		</div>

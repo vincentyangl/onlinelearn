@@ -1,6 +1,8 @@
 package com.bean;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class Edu_Questions_Comment {
 private int id;        //主键id
@@ -10,8 +12,9 @@ private String content;      //评论内容
 private int isBest;        //是否最佳答案 0否1是
 private int replyCount;     //回复数量
 private int praiseCount;     //点赞数
-private String addTime;      //回复时间
+private Timestamp addTime;      //回复时间
 private int commentId;      //父级评论id
+
 public int getId() {
 	return id;
 }
@@ -54,10 +57,10 @@ public int getPraiseCount() {
 public void setPraiseCount(int praiseCount) {
 	this.praiseCount = praiseCount;
 }
-public String getAddTime() {
+public Timestamp getAddTime() {
 	return addTime;
 }
-public void setAddTime(String addTime) {
+public void setAddTime(Timestamp addTime) {
 	this.addTime = addTime;
 }
 public int getCommentId() {

@@ -30,13 +30,13 @@
 				<div class="layui-inline">
 				<label class="layui-inline">问答ID:</label>
 					<div class="layui-input-inline">
-						<input type="text" name="id" value="" placeholder="问答ID"
+						<input type="text" name="id" value="${id }" placeholder="问答ID"
 							class="layui-input search_input">
 					</div>
 					
 					<label class="layui-inline">问答标题:</label>
 					<div class="layui-input-inline">
-						<input type="text" name="title" value="" placeholder="问答标题"
+						<input type="text" name="title" value="${title }" placeholder="问答标题"
 							class="layui-input search_input">
 					</div>
 					
@@ -58,8 +58,9 @@
 			<table class="layui-table">
 				<colgroup>
 					<col width="5%">
-					<col width="30%">
-					<col width="15%">
+					<col width="20%">
+					<col width="20%">
+					<col width="10%">
 					<col width="5%">
 					<col width="5%">
 					<col width="5%">
@@ -70,6 +71,7 @@
 					<tr>
 						<th>问答ID</th>
 						<th>问答标题</th>
+						<th>问答回复</th>
 						<th>发表人</th>
 						<th>是否采纳</th>
 						<th>回复数</th>
@@ -81,6 +83,7 @@
 						<tr>
 							<th>${t.id }</th>
 							<th>${t.edu_Questions.title }</th>
+							<th>${t.content }</th>
 							<th>${t.edu_User.email }</th>
 							<c:if test="${t.isBest==1}"><th>是</th></c:if>
 							<c:if test="${t.isBest==0}"><th>否</th></c:if>
@@ -88,14 +91,14 @@
 							<th>${t.praiseCount }</th>
 							<th>${t.addTime }</th>
 							<th>
-							<a href="/admin/eqcomment/eqcdelete?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del" >删除</a> 
-							<a href="" class="layui-btn layui-btn-mini news_edit">修改</a>
-							<a href="" class="layui-btn layui-btn-danger layui-btn-mini news_del" >查看评论</a>
-							<c:if test="${t.replyCount==0 }">
-							<a href="" class="layui-btn layui-btn-mini news_edit" style="display:none">采纳为最佳</a>
+							<a href="/admin/eqcomment/eqcdelete?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del" >删除</a> <br/>
+<!-- 							<a href="" class="layui-btn layui-btn-mini news_edit">修改</a> -->
+<%-- 							<a href="/admin/eqcomment/eqclistpl?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del" >查看评论</a> --%>
+							<c:if test="${t.isBest==0 }">
+							<a href="" class="layui-btn layui-btn-mini news_edit" style="display:none">采纳为最佳答案</a>
 							</c:if>
-							<c:if test="${t.replyCount>0 }">
-							<a href="" class="layui-btn layui-btn-mini news_edit" >采纳为最佳</a>
+							<c:if test="${t.isBest==1 }">
+							<a href="" class="btn btn-lg " disabled="disabled" >最佳答案</a>
 							</c:if>
 														</th>
 						</tr>

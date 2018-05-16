@@ -68,7 +68,7 @@
 							<div class="of mt5">
 								<span class="fr"><font class="fsize12 c-999 ml5"><fmt:formatDate value="${ac.addTime}" pattern="yyyy/MM/dd HH:mm" /></font></span> <span class="fl"> <a class="noter-dy vam" title="回复" href="javascript: void(0)" onclick="queryCommentReply('${ac.commentId}')">
 										<em class="icon18">&nbsp;</em>(<span class="replyCount${ac.commentId}">${ac.replyCount}</span>)
-									</a> <tt title="赞一下" class="noter-zan vam ml10" onclick="addPraise('${ac.commentId}',4)">
+									</a> <tt title="赞一下" class="noter-zan vam ml10" onclick="addPraise('${ac.commentId}','${ac.otherId }','${ac.user.userId }','${ac.type }')">
 										<em class="icon18">&nbsp;</em>(<span class="addPraise${ac.commentId}_4 praiseCount">${ac.praiseCount }</span>)
 									</tt>
 								</span>
@@ -92,15 +92,10 @@
 		</section>
 	</c:if>
 	<!-- 公共分页 开始 -->
-	<jsp:include page="/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include>
+	<%-- <jsp:include page="/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include> --%>
 	<!-- 公共分页 结束 -->
 </div>
 
-<script type="text/javascript">
-     function addPraise(commentId){
-    	 
-     }
-</script>
 
 <script>
 	$(function() {
@@ -122,6 +117,5 @@
 		}
 		 
 	} */
-	
 	$(".commentTitle").html(title);
 </script>

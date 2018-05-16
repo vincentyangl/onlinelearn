@@ -14,6 +14,7 @@
   <result column="PRAISE_COUNT" property="praiseCount"/>
   <result column="ADD_TIME" property="addTime"/>
   <association property="edu_User" column="CUS_ID" select="com.mapper.Edu_UserDao.getById"></association>
+<!--   <association property="edu_Questions_Tag" column="id" select="com.mapper.Edu_Questions_Tag.getByIdbq"></association> -->
   </resultMap> 
   <select id="listAll" resultMap="Edu_QuestionsMap" parameterType="java.util.Map">
   select * from edu_questions
@@ -24,6 +25,12 @@
   <if test="type>0">
   and TYPE=#{type}
   </if>
+    <if test="flag==4">
+    and type=1
+   </if>
+   <if test="flag==5">
+    and type=2
+   </if>
   </where>
   <if test="flag==1">
   ORDER BY ADD_TIME desc
@@ -34,6 +41,7 @@
     <if test="flag==3">
     ORDER BY REPLY_COUNT desc
    </if>
+  
   </select>
   
   <delete id="delete" parameterType="int">

@@ -61,6 +61,7 @@
         /admin/user/login = anon
         /admin/user/main = anon
         /front/** = anon
+        /uc/** = anon
         /web/** = anon
         /logout = logout
         /**=authc
