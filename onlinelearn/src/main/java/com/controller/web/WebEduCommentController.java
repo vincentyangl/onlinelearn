@@ -25,13 +25,6 @@ public class WebEduCommentController {
 
 	@Autowired
 	private EduCommentService eduCommentService;
-	@RequestMapping("/addArtucleqt/{eduComment}")
-	public ModelAndView addArtucleqt(@PathVariable("eduComment")EduComment eduComment){
-		ModelAndView mv = new ModelAndView();
-		
-		return mv;
-	}
-	
 	@RequestMapping("/query")
 	public ModelAndView query(HttpSession session,int otherId,int type,String order) {
 		ModelAndView mv = new ModelAndView();
@@ -55,6 +48,7 @@ public class WebEduCommentController {
 		return mv;
 	}
 	
+
 	@ResponseBody
 	@RequestMapping("/addcomment")
 	public String addcomment(EduComment eduComment,HttpSession session) {
@@ -67,7 +61,7 @@ public class WebEduCommentController {
 		}
 		return "";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/commentreply")
 	public ModelAndView commentreply(int otherId,int pCommentId) {
@@ -80,9 +74,9 @@ public class WebEduCommentController {
 		mv.setViewName("/web/comment/comment_reply");
 		return mv;
 	}
-	
+
 	public String addPrise() {
 		return "";
 	}
-	
+
 }
