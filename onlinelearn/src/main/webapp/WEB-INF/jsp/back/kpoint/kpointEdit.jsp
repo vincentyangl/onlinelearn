@@ -26,9 +26,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
 	<link href="/js/utf8-jsp/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/common/uploadify/uploadify.css" >
 <script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="/common/uploadify/jquery.uploadify.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/common/uploadify/ccswfobject.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/common/uploadify/swfobject.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/common/uploadify/jquery.uploadify.v2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8" src="/js/utf8-jsp/umeditor.config.js"></script>
   <script type="text/javascript" charset="utf-8" src="/js/utf8-jsp/umeditor.min.js"></script>
   <script type="text/javascript" src="/js/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
@@ -225,7 +226,7 @@ function renderForm(){
 function uploadPicLoad(fileupload,showId,fileQueue){
 	$("#fileuploadUploader").remove();
 	$("#"+fileupload).uploadify({
-		'uploader' : '/common/uploadify/uploadify.swf?ver='+Math.random(), //上传控件的主体文件，flash控件  默认值='uploadify.swf'
+		'uploader' : '/static/common/uploadify/uploadify.swf?ver='+Math.random(), //上传控件的主体文件，flash控件  默认值='uploadify.swf'
 		'script'  :'/admin/kpoint/storeVideo',
 		'scriptData':{"fileType":"mp4","param":"upload/video"},
 		'queueID' : fileQueue, //文件队列ID
@@ -234,14 +235,14 @@ function uploadPicLoad(fileupload,showId,fileQueue){
 		'multi' :false, //是否允许同时上传多文件
 		'hideButton' : false,//上传按钮的隐藏
 		'buttonText' : '选择文件',//默认按钮的名字
-		'buttonImg' : '/common/uploadify/liulan.png',//使用图片按钮，设定图片的路径即可
+		'buttonImg' : '/static/common/uploadify/liulan.png',//使用图片按钮，设定图片的路径即可
 		'width' : 105,
 		'simUploadLimit' : 3,//多文件上传时，同时上传文件数目限制
 		'sizeLimit' : 5120000000,//控制上传文件的大小
 		'queueSizeLimit' : 3,//限制在一次队列中的次数（可选定几个文件）
 		'fileDesc' : '支持格式:mp4.',//出现在上传对话框中的文件类型描述
 		'fileExt' : '*.MP4;*.mp4;*.flv;',//支持的格式，启用本项时需同时声明fileDesc
-		'cancelImg' : '/common/uploadify/uploadify-cancel.png',
+		'cancelImg' : '/static/common/uploadify/cancel.png',
 		onSelect : function(event, queueID,fileObj) {
 			fileuploadIndex = 1;
 			$("#"+fileQueue).html("");
@@ -263,7 +264,6 @@ function initUpdateKpoint(){
 	uploadPicLoad('fileupload','videoUrl2','fileQueue');
 }
 $(function(){
-	alert("1")
 	initUpdateKpoint();
 	});
 </script>

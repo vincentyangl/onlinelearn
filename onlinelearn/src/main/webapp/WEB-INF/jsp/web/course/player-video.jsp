@@ -257,9 +257,9 @@
 	<%-- <jsp:include page="/footer.jsp" /> --%>
 	<!-- 公共底引入 -->
 	<!-- 公共分页 开始 -->
-	<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
+	<%-- <jsp:include page="/WEB-INF/jsp/common/front_page.jsp" /> --%>
 	<!-- 公共分页 结束 -->
-	<script type="text/javascript" src="/js/jquery.js"></script>
+	<!-- <script type="text/javascript" src="/js/jquery.js"></script> -->
 	<script type="text/javascript" src="/static/common/webutils.js"></script>
 	<script type="text/javascript" src="/static/inxweb/js/common.js" ></script>
 	<script src="/static/inxweb/comment/comment.js" type="text/javascript"></script><!-- 评论js -->
@@ -275,6 +275,7 @@
 	var isok="${isok}";//是否可以播放
 	var message="${message}";//提示信息
 	var countPlayTimeOut='15';//播放后记录播放次数的延时
+	var studyPercent = '0';
 	</script>
 </body>
 </html>

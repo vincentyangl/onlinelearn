@@ -92,7 +92,7 @@
 		</section>
 	</c:if>
 	<!-- 公共分页 开始 -->
-	<jsp:include page="/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include>
+	<%-- <jsp:include page="/WEB-INF/jsp/common/ajaxpage.jsp"></jsp:include> --%>
 	<!-- 公共分页 结束 -->
 </div>
 
