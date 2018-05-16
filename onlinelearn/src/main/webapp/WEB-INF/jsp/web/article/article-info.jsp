@@ -76,7 +76,6 @@
 						</article>
 						<!-- 文章评论 开始 -->
 						<div class="mt30 pr20 mb50 commentHtml">
-<%-- 						<jsp:include page="/WEB-INF/jsp/web/comment/comment.jsp" ></jsp:include> --%>
 						</div>
 					</section>
 				</div>
