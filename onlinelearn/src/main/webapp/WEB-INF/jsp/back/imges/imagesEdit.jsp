@@ -108,7 +108,6 @@
 <!-- 				</div> -->
 				
 					<div class="layui-input-inline  ">
-<!-- 								<label class="sr-only" for="exampleInputEmail3">图片类型</label>  -->
                                    <label class="layui-form-label layui-col-md9">图片类型</label>
                         <div class="layui-input-block" style="width: 300px;">
 								<select id="type_id" name="type_ids" class="form-control ">
@@ -119,6 +118,8 @@
 								</select>
 						</div>
 							</div>
+							
+						
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label" >跳转链接</label>

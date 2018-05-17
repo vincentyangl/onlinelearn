@@ -12,4 +12,6 @@ public interface SysUserService {
 	public void delete(int userId);
 	public void update(SysUser sysUser);
 	
+	public SysUser getById(int userId);
+	
 }

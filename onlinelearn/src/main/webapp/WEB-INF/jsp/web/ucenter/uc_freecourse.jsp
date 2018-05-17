@@ -34,18 +34,18 @@
 											<section class="course-img">
 												<c:choose>
 													<c:when test="${not empty course.logo}">
-														<img src="<%=staticImage%>${course.logo}" class="img-responsive" alt="${course.courseName}" />
+														<img src="<%=staticImage%>${course.logo}" class="img-responsive" alt="${course.course_name}" />
 													</c:when>
 													<c:otherwise>
-														<img src="${ctx}/static/inxweb/img/default-img.gif" class="img-responsive" alt="${course.courseName}" />
+														<img src="${ctx}/static/inxweb/img/default-img.gif" class="img-responsive" alt="${course.course_name}" />
 													</c:otherwise>
 												</c:choose>
 												<div class="cc-mask">
-													<a href="${ctx}/uc/play/${course.courseId}" title="" class="comm-btn c-btn-1">继续学习</a>
+													<a href="${ctx}/front/play/${course.course_id}" title="" class="comm-btn c-btn-1">继续学习</a>
 												</div>
 											</section>
 											<h3 class="hLh30 txtOf mt10">
-												<a href="${ctx}/uc/play/${course.courseId}" title="${course.courseName}" class="course-title fsize18 c-333">${course.courseName}</a>
+												<a href="${ctx}/front/play/${course.course_id}" title="${course.course_name}" class="course-title fsize18 c-333">${course.course_name}</a>
 											</h3>
 											<section class="mt10 of">
 												<div class="time-bar-wrap">

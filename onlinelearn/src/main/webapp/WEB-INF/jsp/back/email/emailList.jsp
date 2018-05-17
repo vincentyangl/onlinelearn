@@ -76,11 +76,11 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 		  }
 	  }
 	  
-	  $(function() {
-		    var user = '<%=session.getAttribute("login_success.")%>';
-		    alert(user);
+// 	  $(function() {
+<%-- 		    var user = '<%=session.getAttribute("sysUser")%>'; --%>
+// 		    alert(user.getloginName);
 
-		});
+// 		});
 // 	  $(document).ready(function(){
 // 			$("#list").click(function(){
 	//window.location.href="/shop/index/listProduct";
@@ -147,8 +147,6 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 								</div>
 							</div>
 							</div>
-							
-							
 							   </form>
 						
       </div>
@@ -247,7 +245,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                <td><fmt:formatDate
 										value="${p.send_time }" type="date"
 										pattern="yyyy-MM-dd hh:mm:ss" /></td>
-                                <td>${p.userId.userName}</td>
+                                <td>${p.userId.loginName}</td>
                                 <td>
                                 <a href="/admin/email/content/${p.id}" class="btn btn-default">查看</a>
                                   </td>

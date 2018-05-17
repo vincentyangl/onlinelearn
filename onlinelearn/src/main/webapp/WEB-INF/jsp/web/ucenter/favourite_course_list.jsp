@@ -75,13 +75,13 @@
 											<section class="mt10">
 												<div class="of cancel-colle">
 													<div class="fr tac">
-														<label class="hand"><input type="checkbox" style="vertical-align: -2px;" name="favouriteId" value="${favorite.favouriteId}"></label> <br>
-														<a href="${ctx}/uc/deleteFaveorite/${favorite.favouriteId}" title="" class="c-blue">取消收藏</a>
+														<label class="hand"><input type="checkbox" style="vertical-align: -2px;" name="favouriteId" value="${favorite.id}"></label> <br>
+														<a href="${ctx}/uc/deleteFaveorite/${favorite.id}" title="" class="c-blue">取消收藏</a>
 													</div>
-													<a href="${ctx }/front/couinfo/${favorite.courseId }" title="">
+													<a href="${ctx }/front/couinfo/${favorite.eduCourse.course_id }" title="">
 														<c:choose>
-															<c:when test="${not empty favorite.logo }">
-																<img src="<%=staticImage %>${favorite.logo}" width="120" alt="">
+															<c:when test="${not empty favorite.eduCourse.logo }">
+																<img src="<%=staticImage %>${favorite.eduCourse.logo}" width="120" alt="">
 															</c:when>
 															<c:otherwise>
 																<img src="${ctx }/static/inxweb/img/default-img.gif" width="120" alt="">
@@ -90,7 +90,7 @@
 													</a>
 												</div>
 												<div class="hLh30 txtOf">
-													<a href="${ctx }/front/couinfo/${favorite.courseId }" class="c-666 fsize14">${favorite.courseName }</a>
+													<a href="${ctx }/front/couinfo/${favorite.eduCourse.course_id }" class="c-666 fsize14">${favorite.eduCourse.course_name }</a>
 												</div>
 											</section>
 										</dd>

@@ -11,4 +11,5 @@ public interface Edu_QuestionsService {
 	public void save(Edu_Questions edu_Questions);
 	public Edu_Questions getById(int id);
 	public void update(Edu_Questions edu_Questions);
+	public List<Edu_Questions> myQuestions(int userid);
 }

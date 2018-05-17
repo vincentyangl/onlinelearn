@@ -274,7 +274,7 @@
 	var isok="${isok}";//是否可以播放
 	var message="${message}";//提示信息
 	var countPlayTimeOut='15';//播放后记录播放次数的延时
-	var studyPercent="${course.studyPercent}";//学习进度百分比
+	var studyPercent="${studyPercent}";//学习进度百分比
 	</script>
 </body>
 </html>

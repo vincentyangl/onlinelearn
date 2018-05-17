@@ -13,5 +13,6 @@ public interface Edu_emailsend_historyDao {//邮件管理
 	public List<Edu_emailsend_history> listAll(Map map);
 	public void delete(int id);
 	public Edu_emailsend_history getById(int id);
+	
 	public Edu_User getByEmail(String userName);
 }

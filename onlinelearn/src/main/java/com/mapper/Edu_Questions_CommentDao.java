@@ -14,4 +14,5 @@ public Edu_Questions_Comment getById(int id);
 public List<Edu_Questions_Comment> listPL(int id);
 public List<Edu_Questions_Comment> getByIdPD(int id);
 public List<Edu_Questions_Comment> getByIdsx(int id);
+public List<Edu_Questions_Comment> myQuestionsComment(int userId);
 }

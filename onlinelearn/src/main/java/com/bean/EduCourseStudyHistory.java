@@ -2,7 +2,7 @@ package com.bean;
 
 import java.util.Date;
 
-public class EduCourseStudyHistory {
+public class EduCourseStudyHistory { //学员课程播放记录
 
 	private int id;
 	private Edu_User user;
@@ -13,6 +13,14 @@ public class EduCourseStudyHistory {
 	private String kpointName;
 	private Date dateBack;
 	private Date updateTime;
+	private int num;
+	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public int getId() {
 		return id;
 	}

@@ -91,7 +91,7 @@
 					<span>Wo的学习</span> 
 					<ol>
 						<li class="current"><a href="javascript:void(0)" onclick="mobileHrefCheckLogin('${ctx }/uc/index')" title="">免费课程</a></li>
-						<li><a href="javascript:void(0)" onclick="mobileHrefCheckLogin('${ctx }/front/showcoulist')" title="">选课中心</a></li>
+						<li><a href="javascript:void(0)" onclick="mobileHrefCheckLogin('${ctx }/front/course')" title="">选课中心</a></li>
 						<li><a href="javascript:void(0)" onclick="mobileHrefCheckLogin('${ctx }/uc/myFavorites')" title="">Wo的收藏</a></li>
 					</ol>
 				</li>

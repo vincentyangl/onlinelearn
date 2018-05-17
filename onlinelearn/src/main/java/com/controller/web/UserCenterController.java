@@ -35,4 +35,5 @@ public class UserCenterController {
 		mv.setViewName("web/ucenter/uc_freecourse");
 		return mv;
 	}
+	
 }

@@ -61,5 +61,10 @@ public class Edu_UserServiceImpl implements Edu_UserService{
 		return edu_UserDao.listUser();
 	}
 
+	@Override
+	public void updateMyinformation(Edu_User edu_User) {
+		edu_UserDao.updateMyinformation(edu_User);
+	}
+
 
 }

@@ -47,4 +47,8 @@ public class Edu_QuestionsServiceImpl implements Edu_QuestionsService{
 //		edu_UserDao.update(edu_User);
 	}
 
+	public List<Edu_Questions> myQuestions(int userid) {
+		return edu_QuestionsDao.myQuestions(userid);
+	}
+
 }

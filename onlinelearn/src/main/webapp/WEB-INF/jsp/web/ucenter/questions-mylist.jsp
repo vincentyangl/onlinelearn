@@ -66,37 +66,33 @@
 												</h3>
 												<h3 class="hLh30 txtOf mt5">
 													<em class="icon16 q-hd">&nbsp;</em>
-													<c:if test="${empty question.questionsCommentList }">
+												 	<c:if test="${empty question }">
 														<span class="fsize12 c-999 vam">哈~~~ 此问题大家还有苦思冥想中...</span>
 														<!-- 没有回答时的内容 -->
 													</c:if>
-													<c:if test="${not empty question.questionsCommentList }">
+													<c:if test="${not empty question }">
 														<c:if test="${question.status==0 }">
 															<span class="fsize12 c-999 vam"> <tt class="c-ccc f-fM mr5">[最新回答]</tt> 
-																	<c:forEach items="${question.questionsCommentList }" var="questionsComment">
-																		<c:out value="${questionsComment.content }"></c:out>
-																	</c:forEach>
+																		<c:out value="${question.content }"></c:out>
 															</span>
 															<!-- 有回答时显示最新一条的回答内容 -->
 														</c:if>
 
-														<c:if test="${question.status==1 }">
+														 <c:if test="${question.status==1 }">
 															<span class="fsize12 c-999 vam"> <tt class="c-green f-fM mr5">[最佳回答]</tt> 
-																	<c:forEach items="${question.questionsCommentList }" var="questionsComment">
 																		<c:out value="${questionsComment.content }"></c:out>
-																	</c:forEach>
 															</span>
 															<!-- 采纳最佳显示最佳答案内容 -->
 														</c:if>
-													</c:if>
+													</c:if> 
 												</h3>
 												<div class="mt15">
-													<span class="c-ccc fl vam">时间：${question.modelTime }</span>
+													<span class="c-ccc fl vam">时间：${question.addTime }</span>
 													<section class="fl ml20 pt10">
 														<div class="taglist clearfix">
-															<c:forEach items="${question.questionsTagRelationList }" var="questionsTag">
+														<%-- 	<c:forEach items="${question.questionsTagRelationList }" var="questionsTag">
 																<a title="${questionsTag.tagName }" data-id="${questionsTag.questionsTagId }" class="list-tag" href="${ctx}/questions/list?questions.questionsTagId=${questionsTag.questionsTagId }">${questionsTag.tagName }</a>
-															</c:forEach>
+															</c:forEach> --%>
 														</div>
 													</section>
 													<div class="clear"></div>
