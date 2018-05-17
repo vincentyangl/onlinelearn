@@ -12,7 +12,7 @@ private String content;      //评论内容
 private int isBest;        //是否最佳答案 0否1是
 private int replyCount;     //回复数量
 private int praiseCount;     //点赞数
-private Timestamp addTime;      //回复时间
+private Date addTime;      //回复时间
 private int commentId;      //父级评论id
 private String picImg;//用户图片
 private String showName;//用户姓名
@@ -77,10 +77,10 @@ public int getPraiseCount() {
 public void setPraiseCount(int praiseCount) {
 	this.praiseCount = praiseCount;
 }
-public Timestamp getAddTime() {
+public Date getAddTime() {
 	return addTime;
 }
-public void setAddTime(Timestamp addTime) {
+public void setAddTime(Date addTime) {
 	this.addTime = addTime;
 }
 public int getCommentId() {

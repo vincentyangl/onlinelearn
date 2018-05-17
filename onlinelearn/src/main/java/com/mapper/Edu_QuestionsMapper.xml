@@ -14,7 +14,7 @@
   <result column="PRAISE_COUNT" property="praiseCount"/>
   <result column="ADD_TIME" property="addTime"/>
   <association property="edu_User" column="CUS_ID" select="com.mapper.Edu_UserDao.getById"></association>
-<!--   <association property="edu_Questions_Tag" column="id" select="com.mapper.Edu_Questions_Tag.getByIdbq"></association> -->
+  <association property="edu_Questions_Tag" column="ID" select="com.mapper.Edu_Questions_TagDao.getByIdbq"></association>
   </resultMap> 
   <select id="listAll" resultMap="Edu_QuestionsMap" parameterType="java.util.Map">
   select * from edu_questions
@@ -48,6 +48,12 @@
   delete from edu_questions where ID=#{id}
   </delete>
   
+  <insert id="save" parameterType="Edu_Questions">
+		insert into
+		edu_questions(CUS_ID,TITLE,CONTENT,TYPE,STATUS,REPLY_COUNT,PRAISE_COUNT,ADD_TIME)
+		values(#{edu_User.userId},#{title},#{content},#{type},#{status},#{replyCount},#{praiseCount},#{addTime})
+	</insert>
+  
   <select id="getById" resultMap="Edu_QuestionsMap" parameterType="int">
 <!--   select * from edu_questions where ID=#{id} -->
   
@@ -57,6 +63,22 @@ SELECT * from edu_questions e1,edu_user e2 where e1.CUS_ID=e2.userId and e1.id=#
   <update id="update" parameterType="Edu_Questions">
   update Edu_Questions set TITLE=#{title},TYPE=#{type},STATUS=#{status} where ID=#{id}
   </update>
+  
+  <update id="updatedz" parameterType="int">
+  update Edu_Questions set PRAISE_COUNT=PRAISE_COUNT+1 where ID=#{id}
+  </update>
+  
+  <insert id="saveRelation" parameterType="java.util.Map">
+		insert into
+		edu_questions_tag_relation(QUESTIONS_ID,QUESTIONS_TAG_ID)
+		values(#{id},#{questionsTagId})
+	</insert>
+	<select id="getMaxId" resultType="int">
+		select max(id) from
+		edu_questions
+	</select>
+  
+
   <select id="myQuestions" parameterType="int" resultMap="play">
   SELECT * from edu_questions a,edu_user b 
   where a.CUS_ID=b.userId 

@@ -47,6 +47,35 @@
   <select id="getByIdsx" resultMap="Edu_Questions_CommentMap" parameterType="int">
   select * from Edu_Questions_Comment where QUESTION_ID=#{edu_questions.QUESTION_ID}
   </select>
+  
+  <update id="updatedzc" parameterType="int">
+  update Edu_Questions_CommentMap set PRAISE_COUNT=PRAISE_COUNT+1 where ID=#{id}
+  </update>
+  
+  <select id="getById2" resultMap="Edu_Questions_CommentMap"
+		parameterType="int">
+		select * from edu_questions_comment where QUESTION_ID =
+		#{edu_Questions.id} and IS_BEST=0
+	</select>
+	
+	<select id="getById3" resultMap="Edu_Questions_CommentMap"
+		parameterType="int">
+		select * from edu_questions_comment where QUESTION_ID =
+		#{edu_Questions.id} and IS_BEST=1
+	</select>
+	
+	<insert id="save" parameterType="Edu_Questions_Comment">
+		insert into
+		edu_questions_comment(CUS_ID,QUESTION_ID,CONTENT,IS_BEST,REPLY_COUNT,PRAISE_COUNT,ADD_TIME,COMMENT_ID)
+		values(#{edu_User.userId},#{edu_Questions.id},#{content},#{isBest},#{replyCount},#{praiseCount},#{addTime},#{commentId})
+	</insert>
+	
+	<select id="getListById" resultMap="Edu_Questions_CommentMap"
+		parameterType="int">
+		select * from edu_questions_comment where COMMENT_ID
+		=#{value}
+	</select>
+
   <select id="myQuestionsComment" parameterType="int" resultMap="Edu_Questions_CommentMap">
    SELECT * from Edu_Questions_Comment 
   where  CUS_ID=#{userId}

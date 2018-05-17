@@ -122,17 +122,17 @@
 															</c:if>
 														</c:if>
 													</h3>
-													<!-- 													<div class="mt15"> -->
-													<%-- 														<span class="c-ccc fl vam">${question.modelTime }</span> --%>
-													<!-- 														<section class="fl ml20 pt10"> -->
-													<!-- 															<div class="taglist clearfix"> -->
-													<%-- 																<c:forEach items="${question.questionsTagRelationList }" var="questionsTag"> --%>
-													<%-- 																	<a title="${questionsTag.tagName }" data-id="${questionsTag.questionsTagId }" onclick="submitForm('${questionsTag.questionsTagId }','questionsTagId')" class="list-tag" href="javascript:;">${questionsTag.tagName }</a> --%>
-													<%-- 																</c:forEach> --%>
-													<!-- 															</div> -->
-													<!-- 														</section> -->
-													<!-- 														<div class="clear"></div> -->
-													<!-- 													</div> -->
+																										<div class="mt15">
+																											<span class="c-ccc fl vam">${question.addTime }</span>
+																											<section class="fl ml20 pt10">
+																												<div class="taglist clearfix">
+																													<c:forEach items="${question.edu_Questions_Tag }" var="questionsTag">
+																														<a title="${questionsTag.questionsTagName }" data-id="${questionsTag.questionsTagId }" onclick="submitForm('${questionsTag.questionsTagId }','questionsTagId')" class="list-tag" href="javascript:;">${questionsTag.questionsTagName }</a>
+																													</c:forEach>
+																												</div>
+																											</section>
+																											<div class="clear"></div>
+																										</div>
 												</section>
 											</li>
 										</c:forEach>

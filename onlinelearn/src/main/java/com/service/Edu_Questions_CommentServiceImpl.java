@@ -64,6 +64,29 @@ public class Edu_Questions_CommentServiceImpl implements Edu_Questions_CommentSe
 	}
 
 	@Override
+	public void updatedzc(int id) {
+		edu_Questions_CommentDao.updatedzc(id);
+	}
+
+	@Override
+	public List<Edu_Questions_Comment> getById2(int id) {
+		List<Edu_Questions_Comment> edu_Questions_Comments=edu_Questions_CommentDao.getById2(id);
+		return edu_Questions_Comments;
+	}
+
+	@Override
+	public List<Edu_Questions_Comment> getById3(int id) {
+		List<Edu_Questions_Comment> edu_Questions_Comments=edu_Questions_CommentDao.getById3(id);
+		return edu_Questions_Comments;
+	}
+
+	@Override
+	public List<Edu_Questions_Comment> getListById(int commentId) {
+		List<Edu_Questions_Comment> list=edu_Questions_CommentDao.getListById(commentId);
+		return list;
+	}
+	
+	@Override
 	public List<Edu_Questions_Comment> myQuestionsComment(int userId) {
 		return edu_Questions_CommentDao.myQuestionsComment(userId);
 	}

@@ -95,21 +95,21 @@ function addQuestions(){
 	}
 	
 	var randomCode=$("input[name='randomCode']").val();
-	if(randomCode.trim()==""){
+	/*if(randomCode.trim()==""){
 		$("input[name='randomCode']").parent().next().next().html('<img width="16" height="16" alt="错误" src="/static/inxweb/img/c-icon.png">');
 		dialog('提示信息',"请输入验证码",1);
 		return;
 	}else{
 		$("input[name='randomCode']").parent().next().next().html('<img width="16" height="16" alt="正确" src="/static/inxweb/img/d-icon.png">');
-	}
+	}*/
 	
 	
 	$.ajax({
-		url:baselocation + "/questions/ajax/add",
+		url:baselocation + "/front/equestions/ajax/add",
 		data:{
-			"questions.title":title,
-			"questions.content":questionsContent,
-			"questions.type":type,
+			"title":title,
+			"content":questionsContent,
+			"type":type,
 			"randomCode":randomCode,
 			"questionsTag":$("#questionsTag").val()
 		},
