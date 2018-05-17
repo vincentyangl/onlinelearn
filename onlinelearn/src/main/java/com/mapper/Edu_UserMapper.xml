@@ -83,6 +83,9 @@
 <!--   update edu_user set MOBILE=#{mobile},EMAIL=#{email},CLASS_ID=#{classId},PASSWORD=#{password},USER_NAME=#{userName},SHOW_NAME=#{showName},SEX=#{sex},AGE=#{age}, -->
 <!--   CREATE_TIME=#{createTime},IS_AVALIBLE=#{isAvalible},PIC_IMG=#{picImg},BANNER_URL=#{bannerUrl},MSG_NUM=#{msgNum},SYS_MSG_NUM=#{sysMsgNum},LAST_SYSTEM_TIME=#{lastSystemTime} where USER_ID=#{userId} -->
 <!--   </update> -->
-  
+  <update id="updateMyinformation" parameterType="com.bean.Edu_User">
+  update edu_user set userName='${userName}', showName='${showName}' , sex=#{sex},
+  age=#{age} where userId=#{userId}
+  </update>
 
   </mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.StatisticalFigureDao">
+  
+  <select id="listAll" resultType="Edu_User" parameterType="java.util.Map" >
+     select date_format(createTime,'%Y-%m-%d') createTime,count(*) as num from edu_user 
+     where createTime like '${createTime}%' GROUP BY date_format(createTime,'%Y-%m-%d')  
+  </select>
+  
+  <select id="listStudyhistory" resultType="EduCourseStudyHistory" parameterType="java.util.Map">
+    select date_format(updateTime,'%Y-%m-%d') updateTime,count(*) as num from edu_course_studyhistory 
+     where updateTime like '${updateTime}%' group by date_format(updateTime,'%Y-%m-%d') 
+   </select>
+  
+  </mapper>

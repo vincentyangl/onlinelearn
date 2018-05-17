@@ -47,4 +47,9 @@
   <select id="getByIdsx" resultMap="Edu_Questions_CommentMap" parameterType="int">
   select * from Edu_Questions_Comment where QUESTION_ID=#{edu_questions.QUESTION_ID}
   </select>
+  <select id="myQuestionsComment" parameterType="int" resultMap="Edu_Questions_CommentMap">
+   SELECT * from Edu_Questions_Comment 
+  where  CUS_ID=#{userId}
+  order by praise_count,add_time desc
+  </select>
   </mapper>

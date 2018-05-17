@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.EduCourseFavoritesDao">
+    
+    <insert id="save" parameterType="EduCourseFavorites">
+        insert into edu_course_favorites (course_id,user_id,add_time) values (#{eduCourse.course_id},#{user.userId},NOW())
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete from edu_course_favorites where id=#{value}
+    </delete>
+    <resultMap type="EduCourseFavorites" id="EduCourseFavoritesMap">
+        <result column="id" property="id"/> 
+        <result column="add_time" property="addTime"/> 
+        <association property="eduCourse" column="course_id" select="com.mapper.EduCourseDao.getById"></association>
+        <association property="user" column="user_id" select="com.mapper.Edu_UserDao.getById"></association>
+    </resultMap>
+    <select id="listAll" parameterType="java.util.Map" resultMap="EduCourseFavoritesMap">
+        select * from edu_course_favorites where 0=0 
+        <if test="userId!=null">
+            and user_id=#{userId}
+        </if>
+        <if test="courseId!=null">
+            and course_id=#{courseId}
+        </if>
+    </select>
+    <select id="getById" parameterType="int" resultMap="EduCourseFavoritesMap">
+        select * from edu_course_favorites where id=#{value}
+    </select>
+  </mapper>

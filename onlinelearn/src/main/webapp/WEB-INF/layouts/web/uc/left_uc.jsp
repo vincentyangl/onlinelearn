@@ -30,7 +30,7 @@
 					<span>Wo的学习</span>
 					<ol>
 						<li><a href="${ctx}/uc/index" title="">免费课程</a></li>
-						<li><a href="${ctx}/front/showcoulist" title="" target="view_window">选课中心</a></li>
+						<li><a href="${ctx}/front/course" title="" target="view_window">选课中心</a></li>
 						<li><a href="${ctx}/uc/myFavorites" title="">Wo的收藏</a></li>
 					</ol>
 				</li>
@@ -48,9 +48,9 @@
 				<li>
 					<span>Wo的资料</span>
 					<ol>
-						<li><a href="${ctx}/uc/initUpdateUser/0" title="">基本资料</a></li>
-						<li><a href="${ctx}/uc/initUpdateUser/1" title="">个人头像</a></li>
-						<li><a href="${ctx}/uc/initUpdateUser/2" title="">密码设置</a></li>
+						<li><a href="${ctx}/uc/initUpdateUser?type=0" title="">基本资料</a></li>
+						<li><a href="${ctx}/uc/initUpdateUser?type=1" title="">个人头像</a></li>
+						<li><a href="${ctx}/uc/initUpdateUser?type=2" title="">密码设置</a></li>
 					</ol>
 				</li>
 			</ul>

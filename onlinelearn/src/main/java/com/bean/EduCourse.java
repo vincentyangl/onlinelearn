@@ -47,6 +47,7 @@ public class EduCourse {
 	private double course_gross_income;
 	//负责给课程的老师
 	private List<EduTeacher> eduTeachers;
+	private int studyPercent; //学习进度
 	public int getCourse_id() {
 		return course_id;
 	}
@@ -172,6 +173,12 @@ public class EduCourse {
 	}
 	public void setEduTeachers(List<EduTeacher> eduTeachers) {
 		this.eduTeachers = eduTeachers;
+	}
+	public int getStudyPercent() {
+		return studyPercent;
+	}
+	public void setStudyPercent(int studyPercent) {
+		this.studyPercent = studyPercent;
 	}
 	
 	

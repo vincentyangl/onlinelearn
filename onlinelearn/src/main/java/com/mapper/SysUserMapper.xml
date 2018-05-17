@@ -14,6 +14,11 @@
        update sys_user set userName=#{userName},email=#{email},tel=#{tel},roleId=#{sysRole.roleId} where 
        userId=#{userId}
     </update>
+    
+    <select id="getById" resultType="SysUser" parameterType="int">
+      select * from sys_user where userId=#{value}
+    </select>
+    
     <resultMap type="SysUser" id="SysUserMap">
        <result column="userId" property="userId"/>
        <result column="loginName" property="loginName"/>

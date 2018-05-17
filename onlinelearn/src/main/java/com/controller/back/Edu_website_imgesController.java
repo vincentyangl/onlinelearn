@@ -52,6 +52,12 @@ public class Edu_website_imgesController { //图片管理
 	  public Map initMap(HttpServletRequest request,Map map) {
 		   String qname=request.getParameter("qname");
 		   String type_id=request.getParameter("type_id");
+		   String shows=request.getParameter("shows");
+		   
+		   if (shows==null) {
+			shows="-1";
+		}
+		   map.put("shows", shows);
 		   map.put("qname", qname);
 		   map.put("type_id", type_id);
 		   return map;
@@ -117,6 +123,21 @@ public class Edu_website_imgesController { //图片管理
 	    	  mv.addObject("type", type);
 	    	  mv.setViewName("/back/imges/imagesEdit");
 	    	return mv;
+		}
+	    
+	    @RequestMapping("/toupdate/{imge_id}/{shows}")
+	    public String toupdate(@PathVariable("imge_id")int imge_id,@PathVariable("shows")int shows) {
+			Edu_website_images img=new Edu_website_images();
+			img.setImge_id(imge_id);
+			if (shows==0) {
+				shows=1;
+				img.setShows(shows);
+			}else if (shows==1) {
+				shows=0;
+				img.setShows(shows);
+			} 
+			edu_website_imagesService.showUpdate(img);
+	    	return "redirect:/admin/imge/imagesPage";
 		}
 	    
 	    @RequestMapping(value="/toupdate",method=RequestMethod.POST)

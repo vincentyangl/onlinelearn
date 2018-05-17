@@ -12,5 +12,6 @@ public interface Edu_website_imagesService {//图片管理
 	 public List<Edu_website_images> listAll(Map map);
 	 public void update(Edu_website_images edu_website_images);
 	 public Edu_website_images getById(int imge_id);
-
+	 public List<Edu_website_images> weblistAll();
+	 public void showUpdate(Edu_website_images edu_website_images);
 }

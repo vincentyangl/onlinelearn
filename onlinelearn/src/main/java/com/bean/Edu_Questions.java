@@ -14,6 +14,27 @@ private int replyCount;     //问答回复数量
 private int browseCount;     //问答浏览次数
 private int praiseCount;      //问答点赞数量
 private Timestamp addTime;        //添加时间
+private String picImg;//用户图片
+private String showName;//用户姓名
+private String email;//邮箱
+public String getPicImg() {
+	return picImg;
+}
+public void setPicImg(String picImg) {
+	this.picImg = picImg;
+}
+public String getShowName() {
+	return showName;
+}
+public void setShowName(String showName) {
+	this.showName = showName;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
+}
 //private List<Edu_Questions_Tag> edu_Questions_Tag;
 //public List<Edu_Questions_Tag> getEdu_Questions_Tag() {
 //	return edu_Questions_Tag;

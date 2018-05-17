@@ -14,7 +14,27 @@ private int replyCount;     //回复数量
 private int praiseCount;     //点赞数
 private Timestamp addTime;      //回复时间
 private int commentId;      //父级评论id
-
+private String picImg;//用户图片
+private String showName;//用户姓名
+private String email;//邮箱
+public String getPicImg() {
+	return picImg;
+}
+public void setPicImg(String picImg) {
+	this.picImg = picImg;
+}
+public String getShowName() {
+	return showName;
+}
+public void setShowName(String showName) {
+	this.showName = showName;
+}
+public String getEmail() {
+	return email;
+}
+public void setEmail(String email) {
+	this.email = email;
+}
 public int getId() {
 	return id;
 }

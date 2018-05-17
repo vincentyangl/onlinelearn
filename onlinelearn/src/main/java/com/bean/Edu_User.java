@@ -20,8 +20,15 @@ private String bannerUrl;    //个人中心用户背景图片
 private int msgNum;       //站内信未读消息数
 private int sysMsgNum;   //
 private Date lastSystemTime;   //上传统计系统消息时间
+private int num;
 
 
+public int getNum() {
+	return num;
+}
+public void setNum(int num) {
+	this.num = num;
+}
 public int getUserId() {
 	return userId;
 }

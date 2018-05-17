@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduComment;
 import com.bean.EduCourse;
+import com.bean.EduCourseFavorites;
 import com.bean.EduKpoint;
 import com.bean.EduTeacher;
 import com.bean.Edu_User;
@@ -29,6 +30,7 @@ import com.bean.SysSubject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.service.EduCommentService;
+import com.service.EduCourseFavoritesService;
 import com.service.EduCourseService;
 import com.service.EduKpointService;
 import com.service.EduTeacherService;
@@ -47,6 +49,8 @@ public class WebEduCourseController {
 	private EduCourseService eduCourseService;
 	@Autowired
 	private EduKpointService eduKpointService;
+	@Autowired
+	private EduCourseFavoritesService eduCourseFavoritesService;
 	
 	@RequestMapping("/course")
 	public ModelAndView courseList(@ModelAttribute("queryCourse") QueryCourse queryCourse,@RequestParam(required=true,defaultValue="1")Integer currentPage) {
@@ -109,12 +113,24 @@ public class WebEduCourseController {
 	}
 	
 	@RequestMapping("/couinfo/{course_id}")
-	public ModelAndView couinfo(@PathVariable("course_id") int course_id) {
+	public ModelAndView couinfo(@PathVariable("course_id") int course_id,HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/web/course/course-infor");
 		EduCourse course = eduCourseService.getById(course_id);
 		List<EduTeacher> teacherList = eduTeacherService.getTeacherBySubjectId(course.getSysSubject().getSubjectId());
 		List<EduKpoint> parentKpointList = eduKpointService.getByCourseId(course_id);
+		boolean isFavorites = false;
+		Edu_User user = (Edu_User) session.getAttribute("login_success");
+		if (ObjectUtils.isNotNull(user)) {
+			Map map = new HashMap<>();
+			map.put("courseId", course_id);
+			map.put("userId", user.getUserId());
+			List<EduCourseFavorites> favoriteList = eduCourseFavoritesService.listAll(map);
+			if (favoriteList.size()>0) {
+				isFavorites=true;
+			}
+		}
+		mv.addObject("isFavorites", isFavorites);
 		mv.addObject("course", course);
 		mv.addObject("teacherList", teacherList);
 		mv.addObject("parentKpointList", parentKpointList);
@@ -122,7 +138,7 @@ public class WebEduCourseController {
 	}
 	
 	@RequestMapping("/play/{course_id}")
-	public ModelAndView play(@PathVariable("course_id") int course_id) {
+	public ModelAndView play(@PathVariable("course_id") int course_id,HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/web/course/player-video");
 		EduCourse course = eduCourseService.getById(course_id);

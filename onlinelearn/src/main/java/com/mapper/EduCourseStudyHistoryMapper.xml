@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.EduCourseStudyHistoryDao">
+    <insert id="save" parameterType="EduCourseStudyHistory">
+        insert into edu_course_studyhistory (USER_ID,COURSE_ID,KPOINT_ID,PLAYERCOUNT,COURSE_NAME,
+        KPOINT_NAME,DATABACK,updateTime) values (#{user.userId},#{eduCourse.course_id},
+        #{eduKpoint.id},1,#{courseName},#{kpointName},#{dateBack},NOW())
+    </insert>
+    <delete id="delete" parameterType="int">
+        delete from edu_course_studyhistory where id=#{value}
+    </delete>
+    <update id="update" parameterType="EduCourseStudyHistory">
+        update edu_course_studyhistory set PLAYERCOUNT=PLAYERCOUNT+1 , DATABACK=#{dateBack},
+        UPDATE_TIME=NOW() where id=#{id}
+    </update>
+    <resultMap type="EduCourseStudyHistory" id="EduCourseStudyHistoryMap">
+        <result column="id" property="id"/>
+        <result column="PLAYERCOUNT" property="playerCount"/>
+        <result column="COURSE_NAME" property="courseName"/>
+        <result column="KPOINT_NAME" property="kpointName"/>
+        <result column="DATABACK" property="dateBack"/>
+        <result column="updateTime" property="updateTime"/>
+        <association property="user" column="USER_ID" select="com.mapper.Edu_UserDao.getById"></association>
+        <association property="eduCourse" column="USER_ID" select="com.mapper.EduCourseDao.getById"></association>
+        <association property="eduKpoint" column="USER_ID" select="com.mapper.EduKpointDao.getById"></association>
+    </resultMap>
+    <select id="listAll" parameterType="java.util.Map" resultMap="EduCourseStudyHistoryMap">
+        select * from edu_course_studyhistory
+    </select>
+    <select id="getById" parameterType="int" resultMap="EduCourseStudyHistoryMap">
+        select * from edu_course_studyhistory where id=#{id}
+    </select>
+  </mapper>

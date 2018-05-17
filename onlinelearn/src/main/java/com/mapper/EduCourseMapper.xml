@@ -15,10 +15,10 @@
        </selectKey>
        insert into edu_course (course_name,is_avaliable,subject_id,subject_link,add_time,
        source_price,current_price,title,context,lession_num,logo,update_time,page_buyCount,
-       page_viewCount,end_time,loseType,lose_time,sequence,course_gross_income) values 
+       page_viewCount,end_time,loseType,lose_time,sequence,course_gross_income,studyPercent) values 
        (#{course_name},#{is_avaliable},#{sysSubject.subjectId},#{subject_link},CURDATE(),
        #{source_price},#{current_price},#{title},#{context},#{lession_num},#{logo},NOW(),
-       0,0,#{end_time},#{loseType},#{lose_time},0,0)
+       0,0,#{end_time},#{loseType},#{lose_time},0,0,0)
     </insert>
     <update id="delete" parameterType="int">
        update edu_course set is_avaliable = 3 where course_id=#{value}
@@ -51,12 +51,16 @@
        <result column="lose_time" property="lose_time"/>
        <result column="sequence" property="sequence"/>
        <result column="course_gross_income" property="course_gross_income"/>
+        <result column="studyPercent" property="studyPercent"/>
        <association property="sysSubject" column="subject_id" select="com.mapper.SysSubjectDao.getById"></association>
        <association property="eduTeachers" column="course_id" select="com.mapper.EduTeacherDao.getTeacherByCourseId"></association>
     </resultMap>
     <select id="listAll"  parameterType="java.util.Map" resultMap="EduCourseMap">
        select * from edu_course 
        <where>
+	      <if test="current_price!=null">
+	         and current_price=#{current_price}
+	      </if>
 	      <if test="is_avaliable!=null">
 	         and is_avaliable=#{is_avaliable}
 	      </if>
@@ -74,6 +78,9 @@
 	      </if>
 	      <if test="teacherId!=null">
 	         and course_id in (select course_id from edu_course_teacher where teacher_id=#{teacherId})
+	      </if>
+	      <if test="userId!=null">
+	         and course_id in (select course_id from edu_course_studyhistory where user_id=#{userId})
 	      </if>
        </where>
         <if test="pageViewCount == 'FOLLOW'">
