@@ -20,6 +20,14 @@ public class EduKpoint {
 	private String videoType;//视频类型
 	private String fileType;//VIDEO视频 AUDIO音频 FILE文档 TXT文本 ATLAS图片集
 	private String content;//文本
+	private int num;    //用来做统计图显示某个时间的播放次数
+	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	//子节点集合
 	private List<EduKpoint> kpointList;
 	public int getId() {

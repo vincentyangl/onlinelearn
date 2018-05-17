@@ -15,10 +15,9 @@ import com.tools.Result;
 //import com.util.Encryption;
 //import com.util.Result;
 @Controller
-public class LoginController {
+public class LoginController {   //前台登录
 	@Autowired
 	private Edu_UserService service;
-
 
 	private static final String getKopintHtml = "/web/course/videocode";// 
 

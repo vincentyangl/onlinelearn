@@ -129,7 +129,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 								<select id="shows" name="shows" class="form-control">
 									<option value="-1">--请选择状态--</option>
 								    <option value="1">显示</option>
-								    <option value="0">不显示</option>
+								    <option value="0">隐藏</option>
 <!-- 								isAvalible;   //是否可用 1正常  2冻结 -->
 								</select>
 							</div>

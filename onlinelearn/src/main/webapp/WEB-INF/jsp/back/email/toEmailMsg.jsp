@@ -10,49 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>邮件发送</title>
 
-<!-- <meta name="renderer" content="webkit"> -->
-<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
-<!-- <meta name="viewport" -->
-<!-- 	content="width=device-width, initial-scale=1, maximum-scale=1"> -->
-<!-- <meta name="apple-mobile-web-app-status-bar-style" content="black"> -->
-<!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
-<!-- <meta name="format-detection" content="telephone=no"> -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<!-- 	href="/common/layui/css/layui.css" media="all"> -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<!-- 	href="/common/bootstrap/css/bootstrap.css" media="all"> -->
-<!-- <link rel="stylesheet" type="text/css" href="/common/global.css" -->
-<!-- 	media="all"> -->
-<!-- <link rel="stylesheet" type="text/css" href="/css/personal.css" -->
-<!-- 	media="all"> -->
-<!--  <script type="text/javascript" src="../../../js/jquery-3.2.0.min.js"></script>  -->
-<!--  <script type="text/javascript" src="/js/jquery.tips.js"></script>  -->
 
-<!-- <link href="/js/utf8-jsp/themes/default/css/umeditor.css" -->
-<!-- 	type="text/css" rel="stylesheet"> -->
-<!-- <script type="text/javascript" src="/js/jquery.min.js"></script> -->
-<!-- <script language="javascript" type="text/javascript" -->
-<!-- 	src="/js/My97DatePicker/WdatePicker.js"></script> -->
-<!-- <script type="text/javascript" charset="utf-8" -->
-<!-- 	src="/js/utf8-jsp/umeditor.config.js"></script> -->
-<!-- <script type="text/javascript" charset="utf-8" -->
-<!-- 	src="/js/utf8-jsp/umeditor.min.js"></script> -->
-<!-- <script type="text/javascript" src="/js/utf8-jsp/lang/zh-cn/zh-cn.js"></script> -->
-
-<!-- 	<meta name="renderer" content="webkit">	 -->
-<!-- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	 -->
-<!-- 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	 -->
-<!-- 	<meta name="apple-mobile-web-app-status-bar-style" content="black">	 -->
-<!-- 	<meta name="apple-mobile-web-app-capable" content="yes">	 -->
-<!-- 	<meta name="format-detection" content="telephone=no">	 -->
-<!-- 	<link rel="stylesheet" type="text/css" href="/common/layui/css/layui.css" media="all"> -->
-<!-- 	<link rel="stylesheet" type="text/css" href="/common/bootstrap/css/bootstrap.css" media="all"> -->
-<!-- 	<link rel="stylesheet" type="text/css" href="/common/global.css" media="all"> -->
-<!-- 	<link rel="stylesheet" type="text/css" href="/css/personal.css" media="all"> -->
-<!--     <script type="text/javascript" src="../../../js/jquery-3.2.0.min.js"></script> -->
-<!--     <script type="text/javascript" src="../../../js/jquery.tips.js"></script> -->
-<!--     	<link href="/js/utf8-jsp/themes/default/css/umeditor.css" -->
-<!-- 	type="text/css" rel="stylesheet"> -->
 
 <script src="/js/jquery-3.0.0.js" type="text/javascript"
 	charset="utf-8"></script>
@@ -106,7 +64,7 @@ $(function(){
 
 function cz() { 
 
-    	  $("#email").val(""); 
+    	  $("#email").val("");              
     	  $("#title").val(""); 
     	  $("#myEditor").val("");
     	  $("#content").val(""); 
@@ -119,6 +77,7 @@ Date d = new Date();
 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
 String now = df.format(d);  
 %>  
+<%--     当前时间:<%=now %>  --%>
 // 	$("#btn").click(function(){
 	
 //		var content= UM.getEditor('myEditor').getContentTxt();
@@ -308,7 +267,7 @@ $(function() {
      
  
       
-    当前时间:<%=now %> 
+
 <section class="layui-larry-box">
 	<div class="larry-personal">
 		<header class="larry-personal-tit">
@@ -340,7 +299,7 @@ $(function() {
 				</div>
 
 				<div class="layui-form-item">
-					<label class="layui-form-label">邮件内容</label>
+					<label class="layui-form-label">内容</label>
 					<div class="layui-input-block">
 						<script type="text/plain" id="myEditor"
 							style="width:500px;height:240px;">
@@ -350,9 +309,10 @@ $(function() {
 						<br>
 					</div>
 				</div>
+				
 
 				<div class="layui-input-inline  ">
-                                   <label class="layui-form-label layui-col-md9">发送方式</label>
+                                   <label class="layui-form-label layui-col-md9">方式</label>
                         <div class="layui-input-block" style="width: 500px;">
 								<select name="type" id="tid" class="form-control ">
     							<option value="1">普通发送</option>
