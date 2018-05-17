@@ -15,4 +15,5 @@ public interface Edu_UserService {//学员管理
 	public void toupdate(Edu_User edu_User);
 	public Edu_User getPwd(String email);
 	public List<Edu_User> listUser();
+	public void updateMyinformation(Edu_User edu_User);
 }

@@ -15,9 +15,13 @@ function updateUserInfo(userId){
 		success:function(result){
 			if(result.success==true){
 				showUserInfo();
-				dialog('提示信息',result.message,0);
+				dialog('提示信息','修改成功',0);
+				 var int=self.setInterval(function(){  // 这个方法是说在延迟两秒后执行大括号里的方法
+				      location.reload();
+				  // 这个方法是刷新当前页面
+				      },2000)
 			}else{
-				dialog('提示信息',result.message,1);
+				dialog('提示信息','修改失败',1);
 			}
 		}
 	});
@@ -81,10 +85,19 @@ function updatePwd(){
 		data:params,
 		success:function(result){
 			if(result.success==true){
-				dialog('提示信息',result.message,0);
-				$("input:password").val('');
+				dialog('提示信息','成功请重新登录',0);
+				var int=self.setInterval(function(){  // 这个方法是说在延迟两秒后执行大括号里的方法
+				      location.reload();
+				  // 这个方法是刷新当前页面
+				      },2000)
 			}else{
-				dialog('提示信息',result.message,1);
+				if(result.message=='1'){
+					dialog('提示信息','原密码有误',1);
+				}
+				if(result.message=='2'){
+					dialog('提示信息','两次密码不一致',1);
+				}
+				
 			}
 		},
 		error:function(error){

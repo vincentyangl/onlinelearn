@@ -57,6 +57,23 @@ SELECT * from edu_questions e1,edu_user e2 where e1.CUS_ID=e2.userId and e1.id=#
   <update id="update" parameterType="Edu_Questions">
   update Edu_Questions set TITLE=#{title},TYPE=#{type},STATUS=#{status} where ID=#{id}
   </update>
+  <select id="myQuestions" parameterType="int" resultMap="play">
+  SELECT * from edu_questions a,edu_user b 
+  where a.CUS_ID=b.userId 
+  and a.CUS_ID=#{userId}
+  order by a.praise_count,a.add_time desc
+  </select>
+    <resultMap type="Edu_Questions" id="play">
+  <result column="ID" property="id"/>
+  <result column="TITLE" property="title"/>
+  <result column="CONTENT" property="content"/>
+  <result column="TYPE" property="type"/>
+  <result column="STATUS" property="status"/>
+  <result column="REPLY_COUNT" property="replyCount"/>
+  <result column="BROWSE_COUNT" property="browseCount"/>
+  <result column="PRAISE_COUNT" property="praiseCount"/>
+  <result column="ADD_TIME" property="addTime"/>
+  </resultMap> 
   </mapper>
   
   
