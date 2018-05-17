@@ -6,14 +6,14 @@
     <insert id="save" parameterType="EduCourseStudyHistory">
         insert into edu_course_studyhistory (USER_ID,COURSE_ID,KPOINT_ID,PLAYERCOUNT,COURSE_NAME,
         KPOINT_NAME,DATABACK,updateTime) values (#{user.userId},#{eduCourse.course_id},
-        #{eduKpoint.id},1,#{courseName},#{kpointName},#{dateBack},NOW())
+        #{eduKpoint.id},1,#{courseName},#{kpointName},#{dateBack},#{updateTime})
     </insert>
     <delete id="delete" parameterType="int">
         delete from edu_course_studyhistory where id=#{value}
     </delete>
     <update id="update" parameterType="EduCourseStudyHistory">
         update edu_course_studyhistory set PLAYERCOUNT=PLAYERCOUNT+1 , DATABACK=#{dateBack},
-        UPDATE_TIME=NOW() where id=#{id}
+        UPDATE_TIME=#{updateTime} where id=#{id}
     </update>
     <resultMap type="EduCourseStudyHistory" id="EduCourseStudyHistoryMap">
         <result column="id" property="id"/>
@@ -27,7 +27,16 @@
         <association property="eduKpoint" column="USER_ID" select="com.mapper.EduKpointDao.getById"></association>
     </resultMap>
     <select id="listAll" parameterType="java.util.Map" resultMap="EduCourseStudyHistoryMap">
-        select * from edu_course_studyhistory
+        select * from edu_course_studyhistory where 0=0 
+        <if test="userId!=null">
+	         and user_id=#{userId}
+	    </if>
+	    <if test="courseId!=null">
+	         and course_id=#{courseId}
+	    </if>
+	    <if test="kpointId!=null">
+	         and kpoint_id=#{kpointId}
+	    </if>
     </select>
     <select id="getById" parameterType="int" resultMap="EduCourseStudyHistoryMap">
         select * from edu_course_studyhistory where id=#{id}

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bean.EduComment;
 import com.bean.EduCourse;
 import com.bean.EduCourseFavorites;
+import com.bean.EduCourseStudyHistory;
 import com.bean.EduKpoint;
 import com.bean.EduTeacher;
 import com.bean.Edu_User;
@@ -32,6 +33,7 @@ import com.github.pagehelper.PageInfo;
 import com.service.EduCommentService;
 import com.service.EduCourseFavoritesService;
 import com.service.EduCourseService;
+import com.service.EduCourseStudyHistoryService;
 import com.service.EduKpointService;
 import com.service.EduTeacherService;
 import com.service.SysSubjectService;
@@ -51,6 +53,8 @@ public class WebEduCourseController {
 	private EduKpointService eduKpointService;
 	@Autowired
 	private EduCourseFavoritesService eduCourseFavoritesService;
+	@Autowired
+	private EduCourseStudyHistoryService eduCourseStudyHistoryService;
 	
 	@RequestMapping("/course")
 	public ModelAndView courseList(@ModelAttribute("queryCourse") QueryCourse queryCourse,@RequestParam(required=true,defaultValue="1")Integer currentPage) {
@@ -119,17 +123,8 @@ public class WebEduCourseController {
 		EduCourse course = eduCourseService.getById(course_id);
 		List<EduTeacher> teacherList = eduTeacherService.getTeacherBySubjectId(course.getSysSubject().getSubjectId());
 		List<EduKpoint> parentKpointList = eduKpointService.getByCourseId(course_id);
-		boolean isFavorites = false;
 		Edu_User user = (Edu_User) session.getAttribute("login_success");
-		if (ObjectUtils.isNotNull(user)) {
-			Map map = new HashMap<>();
-			map.put("courseId", course_id);
-			map.put("userId", user.getUserId());
-			List<EduCourseFavorites> favoriteList = eduCourseFavoritesService.listAll(map);
-			if (favoriteList.size()>0) {
-				isFavorites=true;
-			}
-		}
+		boolean isFavorites = eduCourseFavoritesService.getIsFavorites(course_id, user);
 		mv.addObject("isFavorites", isFavorites);
 		mv.addObject("course", course);
 		mv.addObject("teacherList", teacherList);
@@ -144,6 +139,9 @@ public class WebEduCourseController {
 		EduCourse course = eduCourseService.getById(course_id);
 		List<EduTeacher> teacherList = eduTeacherService.getTeacherBySubjectId(course.getSysSubject().getSubjectId());
 		List<EduKpoint> parentKpointList = eduKpointService.getByCourseId(course_id);
+		Edu_User user = (Edu_User) session.getAttribute("login_success");
+		boolean isFavorites = eduCourseFavoritesService.getIsFavorites(course_id, user);
+		mv.addObject("isFavorites", isFavorites);
 		mv.addObject("course", course);
 		mv.addObject("teacherList", teacherList);
 		mv.addObject("parentKpointList", parentKpointList);
@@ -151,12 +149,13 @@ public class WebEduCourseController {
 	}
 	
 	@RequestMapping("/ajax/getKopintHtml")
-	public String getKopintHtml(Model model, HttpServletRequest request,@RequestParam("kpointId") int kpointId, HttpServletResponse response) {
+	public String getKopintHtml(Model model, HttpServletRequest request,@RequestParam("kpointId") int kpointId, HttpServletResponse response,HttpSession session,EduCourseStudyHistory eduCourseStudyHistory) {
 		System.out.println(kpointId+"节点id");
 		response.setContentType("text/html;charset=utf-8");
+		EduKpoint courseKpoint = null;
 		try {
 			PrintWriter out=response.getWriter();
-			EduKpoint courseKpoint= eduKpointService.getById(kpointId);
+			courseKpoint= eduKpointService.getById(kpointId);
 			// 当传入数据不正确时直接返回
 			if (ObjectUtils.isNull(courseKpoint)) {
 				out.println("<script>var noCover=true; dialog dialog('提示','参数错误！',1);</script>");
@@ -169,6 +168,9 @@ public class WebEduCourseController {
 			}
 			model.addAttribute("courseKpoint",courseKpoint);
 			model.addAttribute("course",course);
+			//用户
+			Edu_User user = (Edu_User) session.getAttribute("login_success");
+			eduCourseStudyHistoryService.UpdateOrSave(eduCourseStudyHistory, user, course, courseKpoint);
 				// 视频url
 			String videourl = courseKpoint.getVideoUrl();
 			System.out.println("视频url"+videourl);

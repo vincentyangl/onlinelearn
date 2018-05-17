@@ -78,7 +78,7 @@
 										<span class="ml10 vam sc-end"><em class="icon18 scIcon"></em><a class="c-fff vam" title="已收藏" onclick="" href="javascript:void(0)">已收藏</a></span>
 									</c:if>
 									<c:if test="${isFavorites==false }">
-										<span class="ml10 vam"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="favorites(${course.courseId},this)" href="javascript:void(0)">收藏</a></span>
+										<span class="ml10 vam"><em class="icon18 scIcon"></em><a class="c-fff vam" title="收藏" onclick="favorites(${course.course_id},this)" href="javascript:void(0)">收藏</a></span>
 									</c:if>
 									
 									

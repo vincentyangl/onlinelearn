@@ -11,7 +11,7 @@ public class EduCourseStudyHistory { //学员课程播放记录
 	private int playerCount;
 	private String courseName;
 	private String kpointName;
-	private Date dateBack;
+	private String dateBack;
 	private Date updateTime;
 	private int num;
 	
@@ -63,10 +63,11 @@ public class EduCourseStudyHistory { //学员课程播放记录
 	public void setKpointName(String kpointName) {
 		this.kpointName = kpointName;
 	}
-	public Date getDateBack() {
+	
+	public String getDateBack() {
 		return dateBack;
 	}
-	public void setDateBack(Date dateBack) {
+	public void setDateBack(String dateBack) {
 		this.dateBack = dateBack;
 	}
 	public Date getUpdateTime() {
