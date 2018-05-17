@@ -9,7 +9,7 @@ function queryWonderfulComment() {
 function commentCallBack(result) {
 	$(".commentHtml").html(result);
 }
-// 查询文章评论回复
+//查询文章评论回复
 function queryCommentReply(pCommentId) {
 	$.ajax({
 		url : baselocation + '/web/comment/ajax/commentreply',
@@ -70,7 +70,7 @@ function addCommentReply(commentId) {
 	});
 
 }
-// 添加评论
+//添加评论
 function addComment() {
 	// 点击时清空错误提示
 	$(".commentContentmeg").val("").hide();

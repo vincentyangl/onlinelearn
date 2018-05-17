@@ -13,7 +13,7 @@
   <result property="send_time" column="send_time"/>
   <result property="status" column="status"/>
   <result property="type" column="type"/>
-  <association property="userId" column="userId" select="com.mapper.Edu_UserDao.getById"></association>
+  <association property="userId" column="userId" select="com.mapper.SysUserDao.getById"></association>
   </resultMap>
   
    <select id="listAll" resultMap="edu_emailsend_historyMap" parameterType="java.util.Map">
@@ -37,7 +37,7 @@
    </where>
    </select>
    
-   <select id="getById" resultType="Edu_emailsend_history" parameterType="int">
+   <select id="getById" resultMap="edu_emailsend_historyMap" parameterType="int">
    select * from edu_emailsend_history where id=#{id}
    </select>
    

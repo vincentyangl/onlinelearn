@@ -22,7 +22,7 @@ private int clickNum;      //文章点击量
 private int praiseCount;     //点赞数量
 private int commentNum;     //评论数
 private int sort;       //排序值
-private Edu_Article_Content edu_Article_Content;
+private Edu_Article_Content edu_Article_Content;//文章内容
 public int getArticleId() {
 	return articleId;
 }

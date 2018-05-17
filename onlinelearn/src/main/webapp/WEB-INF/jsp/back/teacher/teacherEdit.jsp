@@ -46,7 +46,10 @@
 		}
 	};
 
-	var zNodes = ${sysSubjects};
+	var zNodes = $
+	{
+		sysSubjects
+	};
 
 	function onClick(e, treeId, treeNode) {
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -119,16 +122,17 @@
 				</div>
 				<div class="form-group">
 					<label for="is_star" class="col-sm-2 control-label">讲师专业</label>
-					<div class="content_wrap">
+					<div class="">
 						<div class="zTreeDemoBackground left">
 							<ul class="list">
 								<li class="title"><input id="citySel" type="text" readonly
-									value="${e.sysSubject.subjectName }" style="width: 120px;" onclick="showMenu();" /></li>
+									value="${e.sysSubject.subjectName }" style="width: 120px;"
+									onclick="showMenu();" /></li>
 							</ul>
 						</div>
 					</div>
 					<div id="menuContent" class="menuContent"
-						style="display: none; position: absolute;">
+						style="display: none; position: absolute; z-index: 9999">
 						<ul id="treeDemo" class="ztree"
 							style="margin-top: 0; width: 180px; height: 300px;"></ul>
 					</div>
@@ -180,24 +184,48 @@
 				<div class="form-group">
 					<label class="col-sm-1 control-label"></label>
 					<div class="col-sm-4">
-						<input type="submit" class="btn btn-info" value="确定" />&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" onclick="getContent()" class="layui-btn" value="确定" />&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" onclick="nullTeacher()"
-							class="btn btn-default" value="重置" />
+							class="layui-btn" value="重置" />
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript">
-		document.getElementById('file').onchange = function() {
-			var imgFile = this.files[0];
-			var fr = new FileReader();
-			fr.onload = function() {
-				document.getElementById("img").style.display = "block";
-				document.getElementsByTagName('img')[0].src = fr.result;
-			};
-			fr.readAsDataURL(imgFile);
+		function getContent() {
+			document.forms[0].action = "/admin/teacher/update";
+			document.forms[0].submit();
 		}
+
+		layui.use([ 'form', 'upload' ], function() {
+			var form = layui.form();
+		});
+
+		//  图片显示
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#blah').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#file").change(function() {
+			readURL(this);
+		});
+
+		// 		document.getElementById('file').onchange = function() {
+		// 			var imgFile = this.files[0];
+		// 			var fr = new FileReader();
+		// 			fr.onload = function() {
+		// 				document.getElementById("img").style.display = "block";
+		// 				document.getElementsByTagName('img')[0].src = fr.result;
+		// 			};
+		// 			fr.readAsDataURL(imgFile);
+		// 		}
 	</script>
 </body>
 </html>

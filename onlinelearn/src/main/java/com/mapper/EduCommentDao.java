@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bean.EduComment;
+import com.bean.Edu_Article;
 
 public interface EduCommentDao {
 

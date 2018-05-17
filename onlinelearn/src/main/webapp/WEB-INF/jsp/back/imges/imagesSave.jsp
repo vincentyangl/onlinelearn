@@ -107,6 +107,19 @@
 								</select>
 						</div>
 							</div>
+							
+								<div class="layui-input-inline  ">
+                                   <label class="layui-form-label layui-col-md9">图片状态</label>
+                        <div class="layui-input-block" style="width: 300px;">
+								<select id="shows" name="shows" class="form-control ">
+<!-- 									<option value="-1">--请选择类型--</option> -->
+<%-- 									<c:forEach items="${type}" var="t"> --%>
+											<option value="0">不显示</option>
+											<option value="0">显示</option>
+<%-- 									</c:forEach> --%>
+								</select>
+						</div>
+							</div>
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label" >跳转链接</label>

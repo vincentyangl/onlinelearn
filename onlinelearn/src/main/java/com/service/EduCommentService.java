@@ -12,6 +12,7 @@ public interface EduCommentService {
 	List<EduComment> listAll(Map map);
 	EduComment getById(int commentId);
 	List<EduComment> getChildComment(int commentId);
+	List<EduComment> getByOtherId(int otherId);
 	void updatePraiseCount(int commentId);
 	void updateReplyCount(int commentId);
 }

@@ -32,7 +32,7 @@ import com.util.JsonUtils;
 @Controller
 public class EduTeacherController {
 
-	
+
 	@Autowired
 	private EduTeacherService eduTeacherService;
 	@Autowired
@@ -76,44 +76,69 @@ public class EduTeacherController {
 	}
 	@RequestMapping("/admin/teacher/update")
 	public String update(@RequestParam("file")MultipartFile file, EduTeacher eduTeacher, HttpServletRequest request){
-		String path = request.getRealPath("/images/upload/teacher/20150915");
+		if(!file.isEmpty()) {
+			String path = request.getRealPath("/images/upload/teacher/20150915");
+			String fileName = file.getOriginalFilename();
+			File newfile = new File(path,fileName);
+			if (!newfile.getParentFile().exists()) { 
+				newfile.getParentFile().mkdirs();
+			}
+			try {
+				file.transferTo(new File(path + File.separator + fileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			eduTeacher.setPicPath("/images/upload/teacher/20150915"+fileName);
+		}
 		int id = Integer.parseInt(request.getParameter("subjectId"));
 		SysSubject subject = new SysSubject();
 		subject.setSubjectId(id);
-		String fileName = file.getOriginalFilename();
-		String newPath = path+fileName;
-		File newfile = new File(path,fileName);
 		Date date = new Date();
-		try {
-			file.transferTo(newfile);
-			eduTeacher.setPicPath(newPath);
-			eduTeacher.setUpdateTime(date);
-			eduTeacher.setSysSubject(subject);
-			eduTeacherService.update(eduTeacher);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		eduTeacher.setUpdateTime(date);
+		eduTeacher.setSysSubject(subject);
+		eduTeacherService.update(eduTeacher);
 		return "redirect:/admin/teacher/teacherList";
 	}
 	@RequestMapping(value="/admin/teacher/save",method=RequestMethod.POST)
 	public String addTeacher(@RequestParam("file")MultipartFile file, EduTeacher eduTeacher, HttpServletRequest request) {
-		String path = request.getRealPath("/images/upload/teacher/20150915");
+		if(!file.isEmpty()) {
+			String path = request.getRealPath("/images/upload/teacher/20150915");
+			String fileName = file.getOriginalFilename();
+			File newfile = new File(path,fileName);
+			if (!newfile.getParentFile().exists()) { 
+				newfile.getParentFile().mkdirs();
+			}
+			try {
+				file.transferTo(new File(path + File.separator + fileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			eduTeacher.setPicPath("/images/upload/teacher/20150915"+fileName);
+		}
 		int id = Integer.parseInt(request.getParameter("subjectId"));
-		String fileName = file.getOriginalFilename();
-		String newPath = path+fileName;
 		SysSubject subject = new SysSubject();
 		subject.setSubjectId(id);
-		File newfile = new File(path,newPath);
 		Date date = new Date();
-		try {
-			file.transferTo(newfile);
-			eduTeacher.setPicPath(newPath);
-			eduTeacher.setCreateTime(date);
-			eduTeacher.setSysSubject(subject);
-			eduTeacherService.save(eduTeacher);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		eduTeacher.setCreateTime(date);
+		eduTeacher.setSysSubject(subject);
+		eduTeacherService.save(eduTeacher);
+
+		//	String path = request.getRealPath("/images/upload/teacher/20150915");
+		//	int id = Integer.parseInt(request.getParameter("subjectId"));
+		//	String fileName = file.getOriginalFilename();
+		//	SysSubject subject = new SysSubject();
+		//	subject.setSubjectId(id);
+		//	File newfile = new File(path,fileName);
+		//	Date date = new Date();
+		//	try {
+		//		file.transferTo(newfile);
+		//		eduTeacher.setPicPath(fileName);
+		//		eduTeacher.setCreateTime(date);
+		//		eduTeacher.setSysSubject(subject);
+		//		eduTeacherService.save(eduTeacher);
+		//	} catch (Exception e) {
+		//		e.printStackTrace();
+		//	}
 		return "redirect:/admin/teacher/teacherList";
 	}
 	@RequestMapping("/admin/teacher/getById/{id}")
@@ -135,14 +160,14 @@ public class EduTeacherController {
 		mv.setViewName("/back/teacher/teacherEdit");
 		return mv;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/admin/teacher/getTeacherBySubjectId/{subjectId}")
 	public List<EduTeacher> getTeacherBySubjectId(@PathVariable("subjectId") Integer subjectId) {
 		List<EduTeacher> ets = eduTeacherService.getTeacherBySubjectId(subjectId);
 		return ets;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/admin/teacher/listTeacher")
 	public List<EduTeacher> listTeacher(){
@@ -151,5 +176,4 @@ public class EduTeacherController {
 		mv.addObject("list", list);
 		return list;
 	}
-	
 }

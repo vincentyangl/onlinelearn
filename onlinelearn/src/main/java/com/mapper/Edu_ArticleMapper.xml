@@ -2,70 +2,84 @@
 <!DOCTYPE mapper  
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.mapper.Edu_ArticleDao">
-  <resultMap type="Edu_Article" id="Edu_Articles">
-  <result column="ARTICLE_ID" property="articleId"  />
-  <result column="TITLE" property="title"  />
-  <result column="SUMMARY" property="summary"  />
-  <result column="KEY_WORD" property="keyWord"  />
-  <result column="IMAGE_URL" property="imageUrl"  />
-  <result column="SOURCE" property="source"  />
-  <result column="AUTHOR" property="author"  />
-  <result column="CREATE_TIME" property="createTime"  />
-  <result column="PUBLISH_TIME" property="publishTime"  />
-  <result column="LINK" property="link"  />
-  <result column="ARTICLE_TYPE" property="articleType"  />
-  <result column="CLICK_NUM" property="clickNum"  />
-  <result column="PRAISE_COUNT" property="praiseCount"  />
-  <result column="COMMENT_NUM" property="commentNum"  />
-  <result column="SORT" property="sort"  />
-  <association property="edu_Article_Content" column="ARTICLE_ID" select="com.mapper.Edu_Article_ContentDao.getById"></association>
-  </resultMap>
-  
-  
-  <select id="listAll"  resultMap="Edu_Articles" parameterType="java.util.Map">
- 	 select * from Edu_Article ea,edu_article_content eac where ea.ARTICLE_ID=eac.ARTICLE_ID
- 	 <where>
- 	 <if test="title!=null">
- 	 and TITLE like '%${title}%'
- 	 </if>
- 	 <if test="articleType>0">
- 	 and ARTICLE_TYPE=#{articleType}
- 	 </if>
- 	 </where>
-  </select>
-  
-  <delete id="delete" parameterType="int">
-  delete from Edu_Article where ARTICLE_ID=#{articleId}
-  </delete>
-  
-  <select id="getById" parameterType="int" resultMap="Edu_Articles">
-  select * from Edu_Article where ARTICLE_ID=#{articleId}
-  </select>
-  
-  <update id="update" parameterType="Edu_Article">
-  <selectKey resultType="int" order="AFTER" keyProperty="articleId">
+<mapper namespace="com.mapper.Edu_ArticleDao">
+	<resultMap type="Edu_Article" id="Edu_articleMap">
+		<result column="ARTICLE_ID" property="articleId" />
+		<result column="TITLE" property="title" />
+		<result column="SUMMARY" property="summary" />
+		<result column="KEY_WORD" property="keyWord" />
+		<result column="IMAGE_URL" property="imageUrl" />
+		<result column="SOURCE" property="source" />
+		<result column="AUTHOR" property="author" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="PUBLISH_TIME" property="publishTime" />
+		<result column="LINK" property="link" />
+		<result column="ARTICLE_TYPE" property="articleType" />
+		<result column="CLICK_NUM" property="clickNum" />
+		<result column="PRAISE_COUNT" property="praiseCount" />
+		<result column="COMMENT_NUM" property="commentNum" />
+		<result column="SORT" property="sort" />
+		<association property="edu_Article_Content" column="ARTICLE_ID"
+			select="com.mapper.Edu_Article_ContentDao.getById"></association>
+	</resultMap>
+
+
+	<select id="listAll" resultMap="Edu_articleMap" parameterType="java.util.Map">
+		select * from Edu_Article ea,edu_article_content eac
+
+		<where>
+			ea.ARTICLE_ID=eac.ARTICLE_ID
+			<if test="title!=null">
+				and TITLE like '%${title}%'
+			</if>
+			<if test="articleType>0">
+				and ARTICLE_TYPE=#{articleType}
+			</if>
+		</where>
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete from Edu_Article where
+		ARTICLE_ID=#{articleId}
+	</delete>
+
+	<select id="getById" parameterType="int" resultMap="Edu_articleMap">
+		select * from
+		Edu_Article where ARTICLE_ID=#{articleId}
+	</select>
+
+	<update id="update" parameterType="Edu_Article">
+		<selectKey resultType="int" order="AFTER" keyProperty="articleId">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		update Edu_Article set TITLE=#{title},SUMMARY=#{summary},AUTHOR=#{author},SOURCE=#{source},SORT=#{sort},IMAGE_URL=#{imageUrl} where ARTICLE_ID=#{articleId}
+		update Edu_Article set
+		TITLE=#{title},SUMMARY=#{summary},AUTHOR=#{author},SOURCE=#{source},SORT=#{sort},IMAGE_URL=#{imageUrl}
+		where ARTICLE_ID=#{articleId}
 
-  </update>
-  
-  <update id="updateContent" parameterType="Edu_Article">
-		update edu_article_content set content=#{edu_Article_Content.content} where
+	</update>
+
+	<update id="updateContent" parameterType="Edu_Article">
+		update
+		edu_article_content set content=#{edu_Article_Content.content} where
 		ARTICLE_ID=#{edu_Article_Content.articleId}
 	</update>
-  	
-  <insert id="save" parameterType="Edu_Article">
- <selectKey resultType="int" order="AFTER" keyProperty="articleId">
+
+	<!-- <insert id="save" parameterType="Edu_Article"> insert into Edu_Article 
+		(title,SUMMARY,IMAGE_URL,SOURCE,AUTHOR,CREATE_TIME,SORT) values (#{title},#{summary},#{imageUrl},#{source},#{author},#{createTime},#{sort}) 
+		</insert> -->
+		
+	<insert id="save" parameterType="Edu_Article">
+		<selectKey resultType="int" order="AFTER" keyProperty="articleId">
 			SELECT LAST_INSERT_ID()
-		</selectKey> 
-  insert into Edu_Article (title,SUMMARY,IMAGE_URL,SOURCE,AUTHOR,CREATE_TIME,SORT) values (#{title},#{summary},#{imageUrl},#{source},#{author},#{createTime},#{sort})
-  </insert>
-  
-  <insert id="saveContent" parameterType="Edu_Article">
+		</selectKey>
+		insert into Edu_Article
+		(title,SUMMARY,IMAGE_URL,SOURCE,AUTHOR,CREATE_TIME,SORT) values
+		(#{title},#{summary},#{imageUrl},#{source},#{author},#{createTime},#{sort})
+	</insert>
+
+	<insert id="saveContent" parameterType="Edu_Article">
 		insert into
 		edu_article_content (ARTICLE_ID,content) values
 		(#{articleId},#{edu_Article_Content.content})
 	</insert>
-  </mapper>
+</mapper>

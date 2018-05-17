@@ -50,7 +50,9 @@ public class EduCommentServiceImpl implements EduCommentService{
 		eduCommentDao.updateReplyCount(commentId);
 	}
 
-	
-	
-	
+	@Override
+	public List<EduComment> getByOtherId(int otherId) {
+		List<EduComment> list=eduCommentDao.getByOtherId(otherId);
+		return list;
+	}
 }

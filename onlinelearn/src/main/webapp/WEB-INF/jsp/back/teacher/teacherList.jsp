@@ -40,7 +40,7 @@
 				<blockquote class="layui-elem-quote news_search">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
-							<input value="${map.qname }" placeholder="请输入关键字"
+							<input value="${map.qname }" placeholder="请输入姓名关键字"
 								class="layui-input search_input" type="text" name="qname">
 						</div>
 						开始时间:
@@ -53,10 +53,7 @@
 							<input value="${map.endTime }" class="layui-input search_input" type="text"
 								name="endTime" onclick="WdatePicker()">
 						</div>
-						<input type="submit" class="btn btn-primary" value="查询" />
-					</div>
-					<div class="layui-inline">
-						<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
+						<input type="submit" class="layui-btn search_btn" value="查询" />
 					</div>
 					</blockquote>
 			</form>
@@ -105,7 +102,7 @@
 									class="layui-btn layui-btn-mini"><i
 										class="iconfont icon-edit"></i> 编辑</a> <a
 									href="/admin/teacher/delete/${l.id }"
-									class="layui-btn layui-btn-danger" data-id="13"><i
+									class="layui-btn layui-btn-mini" data-id="13"><i
 										class="layui-icon"></i> 删除</a></td>
 							</tr>
 						</c:forEach>

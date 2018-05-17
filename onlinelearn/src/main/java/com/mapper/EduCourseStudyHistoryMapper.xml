@@ -5,8 +5,8 @@
   <mapper namespace="com.mapper.EduCourseStudyHistoryDao">
     <insert id="save" parameterType="EduCourseStudyHistory">
         insert into edu_course_studyhistory (USER_ID,COURSE_ID,KPOINT_ID,PLAYERCOUNT,COURSE_NAME,
-        KPOINT_NAME,DATABACK,UPDATE_TIME) values (#{user.userId},#{eduCourse.course_id},
-        #{eduKpoint.id},1,#{courseName},#{kpointName},#{dateBack},Now())
+        KPOINT_NAME,DATABACK,updateTime) values (#{user.userId},#{eduCourse.course_id},
+        #{eduKpoint.id},1,#{courseName},#{kpointName},#{dateBack},NOW())
     </insert>
     <delete id="delete" parameterType="int">
         delete from edu_course_studyhistory where id=#{value}
@@ -21,7 +21,7 @@
         <result column="COURSE_NAME" property="courseName"/>
         <result column="KPOINT_NAME" property="kpointName"/>
         <result column="DATABACK" property="dateBack"/>
-        <result column="UPDATE_TIME" property="updateTime"/>
+        <result column="updateTime" property="updateTime"/>
         <association property="user" column="USER_ID" select="com.mapper.Edu_UserDao.getById"></association>
         <association property="eduCourse" column="USER_ID" select="com.mapper.EduCourseDao.getById"></association>
         <association property="eduKpoint" column="USER_ID" select="com.mapper.EduKpointDao.getById"></association>

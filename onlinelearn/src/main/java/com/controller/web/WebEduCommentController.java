@@ -8,8 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.CommentPraise;
@@ -17,6 +17,8 @@ import com.bean.EduComment;
 import com.bean.Edu_User;
 import com.service.CommentPraiseService;
 import com.service.EduCommentService;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.util.ObjectUtils;
 
 @Controller
@@ -51,6 +53,7 @@ public class WebEduCommentController {
 		return mv;
 	}
 	
+
 	@ResponseBody
 	@RequestMapping("/addcomment")
 	public String addcomment(EduComment eduComment,HttpSession session) {
@@ -63,7 +66,7 @@ public class WebEduCommentController {
 		}
 		return "";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/commentreply")
 	public ModelAndView commentreply(int otherId,int pCommentId) {
@@ -76,7 +79,6 @@ public class WebEduCommentController {
 		mv.setViewName("/web/comment/comment_reply");
 		return mv;
 	}
-	
 	@ResponseBody
 	@RequestMapping("/addPraise")
 	public int addPraise(CommentPraise praise) {
@@ -90,5 +92,5 @@ public class WebEduCommentController {
 		}
 		return count;
 	}
-	
+
 }

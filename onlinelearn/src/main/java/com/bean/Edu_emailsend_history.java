@@ -6,7 +6,7 @@ public class Edu_emailsend_history {//邮件发送记录
 	
 	private int id;
 	private String email;  //邮箱号
-	private Edu_User userId; //用户id
+	private SysUser userId; //用户id
 	private String title; //邮箱标题
 	private String content;//邮箱正文
 	private Date create_time;//发送时间
@@ -15,6 +15,14 @@ public class Edu_emailsend_history {//邮件发送记录
 	private int type;//1 普通 2 定时
 	
 	
+	
+	
+	public SysUser getUserId() {
+		return userId;
+	}
+	public void setUserId(SysUser userId) {
+		this.userId = userId;
+	}
 	public int getId() {
 		return id;
 	}
@@ -27,12 +35,7 @@ public class Edu_emailsend_history {//邮件发送记录
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Edu_User getUserId() {
-		return userId;
-	}
-	public void setUserId(Edu_User userId) {
-		this.userId = userId;
-	}
+
 	public String getTitle() {
 		return title;
 	}
