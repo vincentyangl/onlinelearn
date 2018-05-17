@@ -33,15 +33,15 @@
 										<li>
 											<aside class="q-head-pic">
 												<c:choose>
-													<c:when test="${not empty question.picImg }">
-														<img src="<%=staticImage %>${question.picImg }" alt="">
+													<c:when test="${not empty question.edu_User.picImg }">
+														<img src="<%=staticImage %>${question.edu_User.picImg }" alt="">
 													</c:when>
 													<c:otherwise>
 														<img src="${ctx }/static/inxweb/img/avatar-boy.gif" alt="">
 													</c:otherwise>
 												</c:choose>
 												<p class="hLh30 txtOf">
-													<span class="c-999"> <c:if test="${empty question.showName }">${question.email }</c:if> <c:if test="${not empty question.showName }">${question.showName }</c:if>
+													<span class="c-999"> <c:if test="${empty question.edu_User.showName }">${question.edu_User.email }</c:if> <c:if test="${not empty question.edu_User.showName }">${question.edu_User.showName }</c:if>
 													</span>
 												</p>
 											</aside>
@@ -54,7 +54,7 @@
 														</p>
 													</div>
 													<div class="browseNum">
-														<span class="r-b-num">${question.browseCount }</span>
+														<span class="r-b-num">${question.edu_Questions.browseCount }</span>
 														<p class="hLh30">
 															<span class="c-999 f-fA">浏览数</span>
 														</p>
@@ -62,39 +62,34 @@
 												</a>
 												<h3 class="hLh30 txtOf">
 													<em class="icon16 q-tw">&nbsp;</em>
-													<a href="${ctx }/questions/info/${question.id }" title="" class="fsize16 c-333 vam">${question.title }</a>
+													<a href="${ctx }/questions/info/${question.edu_Questions.id }" title="" class="fsize16 c-333 vam">${question.edu_Questions.title }</a>
 												</h3>
 												<h3 class="hLh30 txtOf mt5">
 													<em class="icon16 q-hd">&nbsp;</em>
-													<c:if test="${empty question.questionsCommentList }">
+													<c:if test="${empty question }">
 														<span class="fsize12 c-999 vam">哈~~~ 此问题大家还有苦思冥想中...</span>
 														<!-- 没有回答时的内容 -->
 													</c:if>
-													<c:if test="${not empty question.questionsCommentList }">
-														<c:if test="${question.status==0 }">
-															<span class="fsize12 c-999 vam"> <tt class="c-ccc f-fM mr5">[最新回答]</tt> <c:forEach items="${question.questionsCommentList }" var="questionsComment">
-																		<c:out value="${questionsComment.content }"></c:out>
-																	</c:forEach>
+													<c:if test="${not empty question }">
+														<c:if test="${question.isBest==0 }">
+															<span class="fsize12 c-999 vam"> <tt class="c-ccc f-fM mr5">[最新回答]</tt>
+																		<c:out value="${question.content }"></c:out>
 															</span>
 															<!-- 有回答时显示最新一条的回答内容 -->
 														</c:if>
 
-														<c:if test="${question.status==1 }">
-															<span class="fsize12 c-999 vam"> <tt class="c-green f-fM mr5">[最佳回答]</tt> <c:forEach items="${question.questionsCommentList }" var="questionsComment">
-																		<c:out value="${questionsComment.content }"></c:out>
-																	</c:forEach>
+														<c:if test="${question.isBest==1 }">
+															<span class="fsize12 c-999 vam"> <tt class="c-green f-fM mr5">[最佳回答]</tt> 
+																		<c:out value="${question.content }"></c:out>
 															</span>
 															<!-- 采纳最佳显示最佳答案内容 -->
 														</c:if>
 													</c:if>
 												</h3>
 												<div class="mt15">
-													<span class="c-ccc fl vam">时间：${question.modelTime }</span>
+													<span class="c-ccc fl vam">时间：${question.addTime }</span>
 													<section class="fl ml20 pt10">
 														<div class="taglist clearfix">
-															<c:forEach items="${question.questionsTagRelationList }" var="questionsTag">
-																<a title="${questionsTag.tagName }" data-id="${questionsTag.questionsTagId }" class="list-tag" href="${ctx}/questions/list?questions.questionsTagId=${questionsTag.questionsTagId }">${questionsTag.tagName }</a>
-															</c:forEach>
 														</div>
 													</section>
 													<div class="clear"></div>
@@ -107,7 +102,7 @@
 						</div>
 					</c:if>
 					<!-- 公共分页 开始 -->
-					<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
+					<%-- <jsp:include page="/WEB-INF/view/common/front_page.jsp" /> --%>
 					<!-- 公共分页 结束 -->
 					<form action="${ctx}/uc/myrepquestions/list" id="searchForm" method="post">
 						<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />

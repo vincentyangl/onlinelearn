@@ -48,9 +48,9 @@
 				<li>
 					<span>Wo的资料</span>
 					<ol>
-						<li><a href="${ctx}/uc/initUpdateUser/0" title="">基本资料</a></li>
-						<li><a href="${ctx}/uc/initUpdateUser/1" title="">个人头像</a></li>
-						<li><a href="${ctx}/uc/initUpdateUser/2" title="">密码设置</a></li>
+						<li><a href="${ctx}/uc/initUpdateUser?type=0" title="">基本资料</a></li>
+						<li><a href="${ctx}/uc/initUpdateUser?type=1" title="">个人头像</a></li>
+						<li><a href="${ctx}/uc/initUpdateUser?type=2" title="">密码设置</a></li>
 					</ol>
 				</li>
 			</ul>

@@ -63,4 +63,9 @@ public class Edu_Questions_CommentServiceImpl implements Edu_Questions_CommentSe
 		return listsx;
 	}
 
+	@Override
+	public List<Edu_Questions_Comment> myQuestionsComment(int userId) {
+		return edu_Questions_CommentDao.myQuestionsComment(userId);
+	}
+
 }
