@@ -10,7 +10,7 @@
 				</div>
 				<h4 class="mt10"><span class="fsize16 c-666 userNameClass"><!-- 用户名 --></span></h4>
 				<div class="hLh30 mt10">
-					<a href="${ctx}/uc/initUpdateUser/0" title="" class="c-blue">个人资料设置</a>
+					<a href="${ctx}/uc/initUpdateUser?type=0" title="" class="c-blue">个人资料设置</a>
 				</div>
 				<div class="clear"></div>
 			</section><!-- /u-face-attr -->
@@ -30,7 +30,7 @@
 					<span>Wo的学习</span>
 					<ol>
 						<li><a href="${ctx}/uc/index" title="">免费课程</a></li>
-						<li><a href="${ctx}/front/showcoulist" title="" target="view_window">选课中心</a></li>
+						<li><a href="${ctx}/front/course" title="" target="view_window">选课中心</a></li>
 						<li><a href="${ctx}/uc/myFavorites" title="">Wo的收藏</a></li>
 					</ol>
 				</li>
