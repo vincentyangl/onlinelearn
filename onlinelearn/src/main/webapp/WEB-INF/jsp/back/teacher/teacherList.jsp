@@ -53,7 +53,7 @@
 							<input value="${map.endTime }" class="layui-input search_input" type="text"
 								name="endTime" onclick="WdatePicker()">
 						</div>
-						<input type="submit" class="btn btn-primary" value="查询" />
+						<input type="submit" class="layui-btn search_btn" value="查询" />
 					</div>
 					</blockquote>
 			</form>
@@ -102,7 +102,7 @@
 									class="layui-btn layui-btn-mini"><i
 										class="iconfont icon-edit"></i> 编辑</a> <a
 									href="/admin/teacher/delete/${l.id }"
-									class="layui-btn layui-btn-danger" data-id="13"><i
+									class="layui-btn layui-btn-mini" data-id="13"><i
 										class="layui-icon"></i> 删除</a></td>
 							</tr>
 						</c:forEach>
