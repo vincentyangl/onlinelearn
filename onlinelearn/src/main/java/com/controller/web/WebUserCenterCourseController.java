@@ -54,7 +54,7 @@ public class WebUserCenterCourseController {
 	}
 	
 	@RequestMapping("/front/createfavorites/{courseId}")
-	public Result createfavorites(@PathVariable("courseId") int courseId,HttpSession session) {
+	public Result createfavorites(@PathVariable("courseId") int courseId,HttpSession session,EduCourseFavorites eduCourseFavorites) {
 		Result result = new Result();
 		Edu_User user = (Edu_User) session.getAttribute("login_success");
 		Map map = new HashMap<>();
@@ -62,17 +62,22 @@ public class WebUserCenterCourseController {
 		map.put("userId", user.getUserId());
 		List<EduCourseFavorites> favoriteList = eduCourseFavoritesService.listAll(map);
 		if (favoriteList.size()==0) {
-			EduCourseFavorites eduCourseFavorites = new EduCourseFavorites();
 			eduCourseFavorites.setEduCourse(eduCourseService.getById(courseId));
 			eduCourseFavorites.setUser(user);
 			eduCourseFavoritesService.save(eduCourseFavorites);
-			result.setSuccess(true);
+			result.setSuccess(false);
 			result.setMessage("收藏成功!");
 		}else {
-			result.setSuccess(false);
+			result.setSuccess(true);
 			result.setMessage("已经收藏过了!");
 		}
 		return result;
+	}
+	
+	@RequestMapping("/uc/deleteFaveorite/{id}")
+	public String deleteFaveorite(@PathVariable("id") int id) {
+		eduCourseFavoritesService.delete(id);
+		return "redirect:/uc/myFavorites";
 	}
 	
 }

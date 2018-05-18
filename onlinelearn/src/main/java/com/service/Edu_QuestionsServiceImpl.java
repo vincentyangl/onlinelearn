@@ -47,6 +47,26 @@ public class Edu_QuestionsServiceImpl implements Edu_QuestionsService{
 //		edu_UserDao.update(edu_User);
 	}
 
+
+	@Override
+	public void updatedz(int id) {
+		edu_QuestionsDao.updatedz(id);
+		
+	}
+
+	@Override
+	public void saveRelation(Map map) {
+		edu_QuestionsDao.saveRelation(map);
+		
+	}
+
+	@Override
+	public int getMaxId() {
+		
+		return edu_QuestionsDao.getMaxId();
+	}
+	
+	@Override
 	public List<Edu_Questions> myQuestions(int userid) {
 		return edu_QuestionsDao.myQuestions(userid);
 	}

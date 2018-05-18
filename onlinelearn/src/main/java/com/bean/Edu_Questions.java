@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 public class Edu_Questions {
@@ -13,7 +14,7 @@ private int status;     //状态 0可回复1不可回复（采纳最佳答案后改为1 ）
 private int replyCount;     //问答回复数量
 private int browseCount;     //问答浏览次数
 private int praiseCount;      //问答点赞数量
-private Timestamp addTime;        //添加时间
+private Date addTime;        //添加时间
 private String picImg;//用户图片
 private String showName;//用户姓名
 private String email;//邮箱
@@ -96,10 +97,11 @@ public int getPraiseCount() {
 public void setPraiseCount(int praiseCount) {
 	this.praiseCount = praiseCount;
 }
-public Timestamp getAddTime() {
+
+public Date getAddTime() {
 	return addTime;
 }
-public void setAddTime(Timestamp addTime) {
+public void setAddTime(Date addTime) {
 	this.addTime = addTime;
 }
 @Override

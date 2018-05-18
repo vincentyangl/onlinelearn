@@ -67,7 +67,7 @@
 								<dd>
 									<div class="taglist clearfix" id="js-tags">
 										<input type="hidden" name="questionsTag" id="questionsTag" value="">
-										<c:forEach items="${questionsTagList }" var="questionsTag">
+										<c:forEach items="${edu_Questions_Tags }" var="questionsTag">
 											<a title="${questionsTag.questionsTagName }" data-id="${questionsTag.questionsTagId }" class="list-tag" href="javascript:;">${questionsTag.questionsTagName }</a>
 										</c:forEach>
 									</div>
@@ -78,7 +78,7 @@
 								<dt>
 									<span class="c-999 fsize14">&nbsp;</span>
 								</dt>
-								<dd class="pr">
+								<%-- <dd class="pr">
 									<label class=""><input type="text" style="width: 80px;" name="randomCode" placeholder="输入验证码" value="" onkeyup='$(this).parent().next().next().html("<img width=\"16\" height=\"16\" alt=\"正确\" src=\"${ctx }/static/inxweb/img/d-icon.png\">")'></label>
 									<div class="v-code-pic">
 										<img src="${ctx}/ran/random" alt="验证码，点击图片更换" onclick="this.src='${ctx}/ran/random?random='+Math.random();" width="80" height="34" class="vam">
@@ -86,8 +86,8 @@
 										<a href="javascript:void(0)" onclick="$(this).prev().prev().click();" title="" class="c-green"> 换一换 </a>
 									</div>
 									<aside class="q-c-jy"></aside>
-								</dd>
-							</dl>
+								</dd>--%>
+							</dl> 
 							<dl>
 								<dt>
 									<span class="c-999 fsize14">&nbsp;</span>

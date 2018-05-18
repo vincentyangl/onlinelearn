@@ -14,5 +14,9 @@ public interface Edu_Questions_CommentService {
 	public List<Edu_Questions_Comment> listPL(int id);
 	public List<Edu_Questions_Comment> getByIdPD(int id);
 	public List<Edu_Questions_Comment> getByIdsx(int id);
+	public void updatedzc(int id);
+	public List<Edu_Questions_Comment> getById2(int id);
+	public List<Edu_Questions_Comment> getById3(int id);
+	public List<Edu_Questions_Comment> getListById(int commentId);
 	public List<Edu_Questions_Comment> myQuestionsComment(int userId);
 }

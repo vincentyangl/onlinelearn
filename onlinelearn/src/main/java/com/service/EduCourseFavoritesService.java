@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bean.EduCourseFavorites;
+import com.bean.Edu_User;
 
 public interface EduCourseFavoritesService {
 
@@ -11,4 +12,5 @@ public interface EduCourseFavoritesService {
 	void delete(int id);//»°œ˚ ’≤ÿ
 	List<EduCourseFavorites> listAll(Map map);
 	EduCourseFavorites getById(int id);
+	boolean getIsFavorites(int course_id,Edu_User user);
 }

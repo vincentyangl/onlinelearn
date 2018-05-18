@@ -14,5 +14,6 @@ public interface Edu_Questions_TagService {
 	public void delete(int questionsTagId);
 	public void update(Edu_Questions_Tag edu_Questions_Tag);
 	public Edu_Questions_Tag getById(int questionsTagId);
-//	public List<Edu_Questions_Tag> getByIdbq(int id);
+	public List<Edu_Questions_Tag> getByIdbq(int id);
+	public List<Edu_Questions_Tag> listtj();
 }

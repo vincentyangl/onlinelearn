@@ -18,6 +18,10 @@
   select * from Edu_Questions_Tag
   </select>
   
+  <select id="listtj" resultMap="Edu_Questions_Tags">
+  select * from Edu_Questions_Tag where STATUS=0
+  </select>
+  
   <delete id="delete" parameterType="int">
   delete from Edu_Questions_Tag where QUESTIONS_TAG_ID=#{questionsTagId}
   </delete>
@@ -34,9 +38,9 @@
   update Edu_Questions_Tag set QUESTIONS_TAG_NAME=#{questionsTagName} where QUESTIONS_TAG_ID=#{questionsTagId}
   </update>
   
-   <!-- <select id="getByIdbq" resultMap="Edu_Questions_Tags" parameterType="int">
+   <select id="getByIdbq" resultMap="Edu_Questions_Tags" parameterType="int">
     select * from edu_questions_tag where questions_tag_id
     in (select questions_tag_id from edu_questions_tag_relation where  questions_id=#{value})
-    </select> -->
+    </select> 
 
   </mapper>

@@ -60,11 +60,17 @@ public class Edu_Questions_TagServiceImpl implements Edu_Questions_TagService{
 		return notes;
 	}
 
-//	@Override
-//	public List<Edu_Questions_Tag> getByIdbq(int id) {
-//		List<Edu_Questions_Tag> edu_Questions_Tags=edu_Questions_TagDao.getByIdbq(id);
-//		return edu_Questions_Tags;
-//	}
+	@Override
+	public List<Edu_Questions_Tag> listtj() {
+		List<Edu_Questions_Tag> edu_Questions_Tag=edu_Questions_TagDao.listtj();
+		return edu_Questions_Tag;
+	}
+
+	@Override
+	public List<Edu_Questions_Tag> getByIdbq(int id) {
+		List<Edu_Questions_Tag> edu_Questions_Tags=edu_Questions_TagDao.getByIdbq(id);
+		return edu_Questions_Tags;
+	}
 
 	
 
