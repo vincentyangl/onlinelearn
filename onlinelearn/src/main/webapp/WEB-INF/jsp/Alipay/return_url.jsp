@@ -5,6 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>电脑网站支付return_url</title>
 </head>
+<body>
+<form action="/front/course">
+		<input type="submit" value="返回课程">
+</form>
+</body>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="com.alipay.config.*"%>
@@ -51,8 +56,8 @@
 	
 		//付款金额
 		String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
-		
-		out.println("交易单号:"+trade_no+"<br/>商户订单号:"+out_trade_no+"<br/>total_amount:"+total_amount);
+		out.println("交易成功！");
+		out.println("交易单号:"+trade_no+"<br/>商户订单号:"+out_trade_no+"<br/>交易总金额:"+total_amount);
 	}else {
 		out.println("验签失败");
 	}

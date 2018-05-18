@@ -203,7 +203,7 @@ h2 {
 			<h2 id="tab4" name="tab">退 款 查 询</h2>
 			<h2 id="tab5" name="tab">交 易 关 闭</h2>
 		</div>
-		<form name=alipayment action=alipay.trade.page.pay.jsp method=post
+		<form name=alipayment action=/Alipay/topay method=post
 			target="_blank">
 			<div id="body1" class="show" name="divcontent">
 				<dl class="content">
@@ -237,7 +237,7 @@ h2 {
 				</dl>
 			</div>
 		</form>
-		<form name=tradequery action=alipay.trade.query.jsp method=post
+		<form name=tradequery action=/Alipay/query method=post
 			target="_blank">
 			<div id="body2" class="tab-content" name="divcontent">
 				<dl class="content">
@@ -261,7 +261,7 @@ h2 {
 				</dl>
 			</div>
 		</form>
-		<form name=traderefund action=alipay.trade.refund.jsp method=post
+		<form name=traderefund action=/Alipay/refund method=post
 			target="_blank">
 			<div id="body3" class="tab-content" name="divcontent">
 				<dl class="content">
@@ -301,7 +301,7 @@ h2 {
 			</div>
 		</form>
 		<form name=traderefundquery
-			action=alipay.trade.fastpay.refund.query.jsp method=post
+			action=/Alipay/refundquery method=post
 			target="_blank">
 			<div id="body4" class="tab-content" name="divcontent">
 				<dl class="content">
@@ -330,7 +330,7 @@ h2 {
 				</dl>
 			</div>
 		</form>
-		<form name=tradeclose action=alipay.trade.close.jsp method=post
+		<form name=tradeclose action=/Alipay/close method=post
 			target="_blank">
 			<div id="body5" class="tab-content" name="divcontent">
 				<dl class="content">
@@ -395,7 +395,7 @@ h2 {
 		sNow += String(vNow.getMilliseconds());
 		document.getElementById("WIDout_trade_no").value =  sNow;
 		document.getElementById("WIDsubject").value = "测试";
-		document.getElementById("WIDtotal_amount").value = "0.01";
+		document.getElementById("WIDtotal_amount").value = "${courseprice}";
 	}
 	GetDateNow();
 </script>
