@@ -85,6 +85,7 @@ public class Edu_ArticleController {
 
 	@RequestMapping("/update")
 	public String update(@RequestParam("file")MultipartFile file, Edu_Article edu_Article,Edu_Article_Content edu_Article_Content,HttpServletRequest request) throws Exception{
+		String hidden = request.getParameter("hidden");
 		if(!file.isEmpty()) {
 			String path = request.getRealPath("/images/upload/article/");
 			String filename = file.getOriginalFilename();
@@ -98,7 +99,10 @@ public class Edu_ArticleController {
 				e.printStackTrace();
 			} 
 			edu_Article.setImageUrl("/images/upload/article/"+filename);
+		}else{
+			edu_Article.setImageUrl(hidden);
 		}
+		
 		edu_Article_Content.setArticleId(edu_Article.getArticleId());
 		edu_Article.setEdu_Article_Content(edu_Article_Content);
 		edu_ArticleService.update(edu_Article);

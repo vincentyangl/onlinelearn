@@ -46,10 +46,7 @@
 		}
 	};
 
-	var zNodes = $
-	{
-		sysSubjects
-	};
+	var zNodes = ${sysSubjects};
 
 	function onClick(e, treeId, treeNode) {
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -115,14 +112,14 @@
 					name="subjectId" value="${e.sysSubject.subjectId }" />
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">讲师名称</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" name="name" id="name"
 							placeholder="讲师名" value="${e.name }">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="is_star" class="col-sm-2 control-label">讲师专业</label>
-					<div class="">
+					<div class="col-sm-4">
 						<div class="zTreeDemoBackground left">
 							<ul class="list">
 								<li class="title"><input id="citySel" type="text" readonly
@@ -139,7 +136,7 @@
 				</div>
 				<div class="form-group">
 					<label for="is_star" class="col-sm-2 control-label">讲师头衔</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<select class="form-control" name="isStar" class="star">
 							<c:if test="${e.isStar==1 }">
 								<option value="1">高级讲师</option>
@@ -154,21 +151,21 @@
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">讲师排序</label>
-					<div class="col-sm-3">
+					<div class="col-sm-4">
 						<input type="text" id="sort" name="sort" class="form-control"
 							placeholder="排序" value="${e.sort }" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="education" class="col-sm-2 control-label">讲师资历</label>
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 						<input type="text" class="form-control" name="education"
 							id="education" placeholder="资历" value="${e.education }">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="name" class="col-sm-2 control-label">讲师简介</label>
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 						<textarea name="career" class="form-control" rows="3" id="career"
 							value="">${e.career }</textarea>
 					</div>
@@ -176,17 +173,18 @@
 				<div class="form-group">
 					<label for="pic_path" class="col-sm-2 control-label">讲师头像</label>
 					<div class="col-sm-4">
-						<img name="img" id="img" src="${e.picPath }"
+						<img name="img" id="img" src="${e.picPath }" id="blah"
 							style="width: 260px; height: 300px;"> <input type="file"
-							name="file" value="">
+							name="file" ID="file" value="">
+							<input type="hidden" name="hidden" value="${e.picPath }">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-1 control-label"></label>
 					<div class="col-sm-4">
-						<input type="button" onclick="getContent()" class="layui-btn" value="确定" />&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="button" onclick="nullTeacher()"
-							class="layui-btn" value="重置" />
+						<input type="button" onclick="getContent()" class="layui-btn"
+							value="确定" />&nbsp;&nbsp;&nbsp;&nbsp; <input type="button"
+							onclick="nullTeacher()" class="layui-btn" value="重置" />
 					</div>
 				</div>
 			</form>
@@ -217,15 +215,15 @@
 			readURL(this);
 		});
 
-		// 		document.getElementById('file').onchange = function() {
-		// 			var imgFile = this.files[0];
-		// 			var fr = new FileReader();
-		// 			fr.onload = function() {
-		// 				document.getElementById("img").style.display = "block";
-		// 				document.getElementsByTagName('img')[0].src = fr.result;
-		// 			};
-		// 			fr.readAsDataURL(imgFile);
-		// 		}
+		// 				document.getElementById('file').onchange = function() {
+		// 					var imgFile = this.files[0];
+		// 					var fr = new FileReader();
+		// 					fr.onload = function() {
+		// 						document.getElementById("img").style.display = "block";
+		// 						document.getElementsByTagName('img')[0].src = fr.result;
+		// 					};
+		// 					fr.readAsDataURL(imgFile);
+		// 				}
 	</script>
 </body>
 </html>
