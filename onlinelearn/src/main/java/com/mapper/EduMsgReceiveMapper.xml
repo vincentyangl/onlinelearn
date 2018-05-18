@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.EduMsgReceiveMapper">
+  <select id="myMsg" parameterType="com.bean.EduMsgReceive" resultType="com.bean.EduMsgReceive">
+  select * from edu_msg_receive where receiving_cusid=#{userId} and STATUS&lt;3
+  </select>
+  <select id="systemMsg"  resultType="com.bean.EduMsgSystem">
+  select * from edu_msg_system where status=0
+  </select>
+  <update id="deleteSystemMsg" parameterType="int">
+  update edu_msg_system set status=2 where id=#{Id}
+  </update>
+  </mapper>

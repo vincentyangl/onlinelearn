@@ -2,17 +2,17 @@
 <%@ include file="/base.jsp"%>
 <!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
 <title>我的资料</title>
 <link rel="stylesheet" type="text/css" href="/static/common/jcrop/jquery.Jcrop.min.css" />
 <script type="text/javascript" src="/static/common/jcrop/jquery.Jcrop.min.js"></script>
 <script type="text/javascript" src="/static/inxweb/user/user.js"></script>
 <script type="text/javascript" src="/kindeditor/kindeditor-all.js"></script>
-<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/js/jquery-3.0.0.js"></script>
 <script type="text/javascript">
 $(function(){
 	showTab('${index}');//选项控制显示
-	uploadImg('fileupload','uploadfile');
+// 	uploadImg('fileupload');
 });
 </script>
 
@@ -97,16 +97,17 @@ $(function(){
 					</div>
 					
 					<!--修改头像，开始-->
+					
 					<div class="u-account-box undis">
 					
 						<div id="tabCont">
+						<form id="from1" method="post"  enctype="multipart/form-data">
 							<section>
 								<section class="ukindeditor of">
 									<section class="clearfix">
 										<!--个人头像上传控件-->
-										
 										<section>
-											<input id="fileupload" type="button" width="133" value="选择头像" height="45" class="pa" />
+											<input id="fileupload" type="file" name="file" width="133" value="选择头像" height="45" class="pa" />
 										</section>
 										<!--个人头像上传控件-->
 										<!--个人头像裁切控件-->
@@ -114,10 +115,10 @@ $(function(){
 										<div class="fl jc-demo-box pr mt40">
 											<c:choose>
 												<c:when test="${user.picImg!=null && user.picImg!=''}">
-													<img src="<%=staticImage%>${user.picImg}" width="100%"  height="100%" alt="头像加载中..." class="dis pictureWrap" id="picture" />
+													<img src="<%=staticImage%>${user.picImg}" name="img" width="100%"  height="100%" alt="头像加载中..." class="dis pictureWrap" id="picture" />
 												</c:when>
 												<c:otherwise>
-													<img src="/static/inxweb/img/avatar-boy.gif" width="100%"  height="100%" alt="头像加载中..." class="dis pictureWrap"
+													<img src="/static/inxweb/img/avatar-boy.gif" name="img" width="100%"  height="100%" alt="头像加载中..." class="dis pictureWrap"
 														id="picture" />
 												</c:otherwise>
 											</c:choose>
@@ -125,10 +126,10 @@ $(function(){
 												<div class="preview-container">
 													<c:choose>
 														<c:when test="${user.picImg!=null && user.picImg!=''}">
-															<img src="<%=staticImage%>${user.picImg}"  class="jcrop-preview" alt="头像加载中..." width="100%" />
+															<img src="<%=staticImage%>${user.picImg}" name="img"  class="jcrop-preview" alt="头像加载中..." width="100%"  height="100%"/>
 														</c:when>
 														<c:otherwise>
-															<img src="/static/inxweb/img/avatar-boy.gif"  class="jcrop-preview" alt="头像加载中..." width="100%" />
+															<img src="/static/inxweb/img/avatar-boy.gif"  name="img" class="jcrop-preview" alt="头像加载中..." width="100%"  height="100%"/>
 														</c:otherwise>
 													</c:choose>
 												</div>
@@ -139,10 +140,10 @@ $(function(){
 												<div class="preview-container" style="width: 80px; height: 80px; margin: 0 auto;">
 													<c:choose>
 														<c:when test="${user.picImg!=null && user.picImg!=''}">
-															<img src="<%=staticImage%>${user.picImg}"  class="jcrop-preview" alt="头像加载中..." width="100%" />
+															<img src="<%=staticImage%>${user.picImg}" name="img"  class="jcrop-preview" alt="头像加载中..." width="100%" height="100%"/>
 														</c:when>
 														<c:otherwise>
-															<img src="/static/inxweb/img/avatar-boy.gif"    class="jcrop-preview" alt="头像加载中..." width="100%" />
+															<img src="/static/inxweb/img/avatar-boy.gif" name="img"   class="jcrop-preview" alt="头像加载中..." width="100%" height="100%" />
 														</c:otherwise>
 													</c:choose>
 												</div>
@@ -152,10 +153,10 @@ $(function(){
 												<div class="preview-container" style="width: 50px; height: 50px;">
 													<c:choose>
 														<c:when test="${user.picImg!=null && user.picImg!=''}">
-															<img src="<%=staticImage%>${user.picImg}"  class="jcrop-preview" alt="头像加载中..." width="100%" />
+															<img src="<%=staticImage%>${user.picImg}" name="img"  class="jcrop-preview" alt="头像加载中..." width="100%" height="100%"/>
 														</c:when>
 														<c:otherwise>
-															<img src="/static/inxweb/img/avatar-boy.gif"  class="jcrop-preview" alt="头像加载中..." width="100%" />
+															<img src="/static/inxweb/img/avatar-boy.gif" name="img" class="jcrop-preview" alt="头像加载中..." width="100%" height="100%"/>
 														</c:otherwise>
 													</c:choose>
 												</div>
@@ -180,6 +181,7 @@ $(function(){
 									</section>
 								</section>
 							</section>
+							</form>
 							<!-- /修改个人头像 -->
 						</div>
 						<input type="button" class="commBtn bgGreen w80 ml50" id="deleImage" style="display: none">
@@ -236,17 +238,20 @@ $(function(){
 			<!-- /我的资料 -->
 		</div>
 	</article>
-	<!-- /右侧内容区 结束 -->
-
-   <script type="text/javascript">
+		<script type="text/javascript">
     document.getElementById('fileupload').onchange = function() {
         var imgFile = this.files[0];
         var fr = new FileReader(); 
         fr.onload = function() {
-        document.getElementsByTagName('img')[0].src = fr.result;
+        document.getElementsByTagName('img')[4].src = fr.result;
+        document.getElementsByTagName('img')[5].src = fr.result;
+        document.getElementsByTagName('img')[6].src = fr.result;
+        document.getElementsByTagName('img')[7].src = fr.result;
+        document.getElementsByTagName('img')[8].src = fr.result;
         };
         fr.readAsDataURL(imgFile);
     };
     </script>
+	<!-- /右侧内容区 结束 -->
 </body>
 </html>

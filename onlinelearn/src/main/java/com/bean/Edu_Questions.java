@@ -36,13 +36,13 @@ public String getEmail() {
 public void setEmail(String email) {
 	this.email = email;
 }
-//private List<Edu_Questions_Tag> edu_Questions_Tag;
-//public List<Edu_Questions_Tag> getEdu_Questions_Tag() {
-//	return edu_Questions_Tag;
-//}
-//public void setEdu_Questions_Tag(List<Edu_Questions_Tag> edu_Questions_Tag) {
-//	this.edu_Questions_Tag = edu_Questions_Tag;
-//}
+private List<Edu_Questions_Tag> edu_Questions_Tag;
+public List<Edu_Questions_Tag> getEdu_Questions_Tag() {
+	return edu_Questions_Tag;
+}
+public void setEdu_Questions_Tag(List<Edu_Questions_Tag> edu_Questions_Tag) {
+	this.edu_Questions_Tag = edu_Questions_Tag;
+}
 public int getId() {
 	return id;
 }

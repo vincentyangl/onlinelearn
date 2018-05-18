@@ -46,6 +46,7 @@
      -->
     <property name="filterChainDefinitions">
       <value>
+      	/Alipay/** = anon
        /js/** = anon
        /css/** = anon
        /images/** = anon

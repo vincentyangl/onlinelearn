@@ -46,7 +46,7 @@
 												</p>
 											</aside>
 											<section class="q-txt-box">
-												<a class="replyBrowseNum" href="${ctx }/questions/info/${question.id }" title="">
+												<a class="replyBrowseNum" href="${ctx }/webedgetById/{id}/${question.id }" title="">
 													<div class="replyNum">
 														<span class="r-b-num">${question.replyCount }</span>
 														<p class="hLh30">
@@ -62,7 +62,7 @@
 												</a>
 												<h3 class="hLh30 txtOf">
 													<em class="icon16 q-tw">&nbsp;</em>
-													<a href="${ctx }/questions/info/${question.id }" title="" class="fsize16 c-333 vam">${question.title }</a>
+													<a href="${ctx }/front/equestions/webedgetById/${question.id }" title="" class="fsize16 c-333 vam">${question.title }</a>
 												</h3>
 												<h3 class="hLh30 txtOf mt5">
 													<em class="icon16 q-hd">&nbsp;</em>

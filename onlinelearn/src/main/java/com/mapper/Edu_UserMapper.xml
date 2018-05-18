@@ -87,5 +87,8 @@
   update edu_user set userName='${userName}', showName='${showName}' , sex=#{sex},
   age=#{age} where userId=#{userId}
   </update>
+  <update id="updatepic" parameterType="com.bean.Edu_User">
+  update edu_user set picImg='${picImg}' where userId=#{userId}
+  </update>
 
   </mapper>

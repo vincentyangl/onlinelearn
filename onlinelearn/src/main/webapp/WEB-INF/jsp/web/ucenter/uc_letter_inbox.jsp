@@ -10,7 +10,7 @@ function delULetter(id){//删除站内信
 		type:"POST",
 		dataType:"json",
 		url:baselocation+"/uc/ajax/delLetterInbox",
-		data:{"msgReceive.id":id},
+		data:{"id":id},
 		cache:true,
 		async:false,
 		success:function(result){
