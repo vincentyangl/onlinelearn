@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ include file="/base.jsp"%>
-<c:forEach items="${questionsCommentRepList }" var="questionsComment" varStatus="index">
+<c:forEach items="${comments }" var="questionsComment" varStatus="index">
 	<c:if test="${index.index<8 }">
 		<dd>
 			<aside class="n-reply-pic">

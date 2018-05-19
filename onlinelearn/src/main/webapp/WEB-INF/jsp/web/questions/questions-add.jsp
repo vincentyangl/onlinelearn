@@ -36,7 +36,7 @@
 									<span class="c-999 fsize14">标题：</span>
 								</dt>
 								<dd class="pr">
-									<label class=""><input type="text" name="questions.title" placeholder="问题标题不少于16个字" onkeyup="checkTitleLength(this)" value=""></label>
+									<label class=""><input type="text" name="questions.title" placeholder="问题标题不小于16" onkeyup="checkTitleLength(this)" value=""></label>
 									<aside class="q-c-jy"></aside>
 								</dd>
 							</dl>

@@ -22,40 +22,36 @@
 <script src="bootstrap-table.js" type="text/javascript" charset="utf-8"></script>
 <script src="locale/bootstrap-table-zh-CN.js" type="text/javascript"
 	charset="utf-8"></script>
+
 </head>
 <body>
 <form action="/admin/eqcomment/eqclist" method="post">
-
-			<div class="col-md-4 col-md-offset-4">
-				<div class="layui-inline">
-				<label class="layui-inline">问答ID:</label>
-					<div class="layui-input-inline">
-						<input type="text" name="id" value="${id }" placeholder="问答ID"
-							class="layui-input search_input">
-					</div>
-					
-					<label class="layui-inline">问答标题:</label>
-					<div class="layui-input-inline">
-						<input type="text" name="title" value="${title }" placeholder="问答标题"
-							class="layui-input search_input">
-					</div>
-					
-			<label class="layui-inline">是否采纳:</label>
+<blockquote class="layui-elem-quote news_search">
+			<div class="layui-inline">
+			
+			<label class="layui-inline">问答标题:</label>
 			<div class="layui-input-inline">
-				<select class="layui-input" name="isBest" id="isBest">
+			<input type="text" name="title" value="${title }" placeholder="问答标题"
+							class="layui-input search_input">
+			</div>			
+			
+			<label class="layui-inline">是否采纳:</label>
+			<div class="layui-input-inline">	
+			<select class="layui-input" name="isBest" id="isBest">
 					<option value="-1">--全部--</option>
 					<option value="0">否</option>
 					<option value="1">是</option>
-				</select>
+			</select>
 			</div>
-					<input type="submit" value="查询" class="layui-btn search_btn" /><br />
-				</div>
+			<div class="layui-input-inline">
+					<input type="submit" value="查询" class="layui-btn search_btn" />
+		     </div>
 
 			</div>
-
+</blockquote>
 		<!-- 操作日志 -->
 		<div class="layui-form news_list">
-			<table class="layui-table">
+			<table class="layui-table" style="table-layout: fixed">
 				<colgroup>
 					<col width="5%">
 					<col width="20%">
@@ -64,8 +60,8 @@
 					<col width="5%">
 					<col width="5%">
 					<col width="5%">
-					<col width="5%">
-					<col width="20%">
+					<col width="15%">
+					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr>
@@ -83,7 +79,7 @@
 						<tr>
 							<th>${t.id }</th>
 							<th>${t.edu_Questions.title }</th>
-							<th>${t.content }</th>
+							<th style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;" title="${t.content }">${t.content }</th>
 							<th>${t.edu_User.email }</th>
 							<c:if test="${t.isBest==1}"><th>是</th></c:if>
 							<c:if test="${t.isBest==0}"><th>否</th></c:if>

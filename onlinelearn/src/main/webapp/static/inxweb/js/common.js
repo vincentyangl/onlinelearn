@@ -244,7 +244,7 @@ function goPageAjax(pageNum){
 function addPraise(targetId,type,obj){
 	if(isLogin()){
 		$.ajax({
-			url:baselocation + "/praise/ajax/add",
+			url:baselocation + "/front/equestions/comment/ajax/addPraise",
 			data:{
 				"praise.targetId":targetId,
 				"praise.type":type

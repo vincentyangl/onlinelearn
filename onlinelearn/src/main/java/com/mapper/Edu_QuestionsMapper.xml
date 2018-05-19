@@ -41,7 +41,10 @@
     <if test="flag==3">
     ORDER BY REPLY_COUNT desc
    </if>
+  </select>
   
+  <select id="listAlls" resultMap="Edu_QuestionsMap" parameterType="java.util.Map">
+  select * from edu_questions ORDER BY REPLY_COUNT desc LIMIT 10
   </select>
   
   <delete id="delete" parameterType="int">

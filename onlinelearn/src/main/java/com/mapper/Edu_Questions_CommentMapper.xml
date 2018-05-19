@@ -49,7 +49,7 @@
   </select>
   
   <update id="updatedzc" parameterType="int">
-  update Edu_Questions_CommentMap set PRAISE_COUNT=PRAISE_COUNT+1 where ID=#{id}
+  update Edu_Questions_Comment set PRAISE_COUNT=PRAISE_COUNT+1 where ID=#{id}
   </update>
   
   <select id="getById2" resultMap="Edu_Questions_CommentMap"

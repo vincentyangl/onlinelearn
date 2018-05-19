@@ -122,7 +122,7 @@ function acceptComment(commentId){
 */
 function getCommentById(obj,commentId){
 	$.ajax({
-		url:baselocation + "/front/equestions/questionscomment/ajax/getCommentById"+commentId,
+		url:baselocation + "/front/equestions/ajax/getCommentById/"+commentId,
 		data:{
 		},
 		type:"post",
@@ -140,7 +140,7 @@ function getCommentById(obj,commentId){
 function getAllCommentById(pCommentId) {
 	//ajaxPage("/questionscommentall/ajax/getCommentById/"+pCommentId, "" , 1, dialog("评论列表",result,5));
 	$.ajax({
-		url : baselocation + '/front/questionscommentall/ajax/getCommentById/'+pCommentId,
+		url : baselocation + '/front/equestions/questionscommentall/ajax/getCommentById/'+pCommentId,
 		data : {
 		},
 		type : 'post',
