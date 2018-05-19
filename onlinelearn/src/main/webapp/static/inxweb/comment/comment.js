@@ -148,5 +148,3 @@ function addPraise(commentId,otherId,userId,type){
 				}
 			},"json");
 }
-
-
