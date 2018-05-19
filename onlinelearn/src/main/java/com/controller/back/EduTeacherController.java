@@ -76,6 +76,7 @@ public class EduTeacherController {
 	}
 	@RequestMapping("/admin/teacher/update")
 	public String update(@RequestParam("file")MultipartFile file, EduTeacher eduTeacher, HttpServletRequest request){
+		String hidden=request.getParameter("hidden");
 		if(!file.isEmpty()) {
 			String path = request.getRealPath("/images/upload/teacher/20150915");
 			String fileName = file.getOriginalFilename();
@@ -88,7 +89,9 @@ public class EduTeacherController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			eduTeacher.setPicPath("/images/upload/teacher/20150915"+fileName);
+				eduTeacher.setPicPath("/images/upload/teacher/20150915"+fileName);
+		}else {
+			eduTeacher.setPicPath(hidden);
 		}
 		int id = Integer.parseInt(request.getParameter("subjectId"));
 		SysSubject subject = new SysSubject();

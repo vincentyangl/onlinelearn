@@ -10,7 +10,7 @@
 				</div>
 				<h4 class="mt10"><span class="fsize16 c-666 userNameClass"><!-- 用户名 --></span></h4>
 				<div class="hLh30 mt10">
-					<a href="${ctx}/uc/initUpdateUser/0" title="" class="c-blue">个人资料设置</a>
+					<a href="${ctx}/uc/initUpdateUser?type=0" title="" class="c-blue">个人资料设置</a>
 				</div>
 				<div class="clear"></div>
 			</section><!-- /u-face-attr -->

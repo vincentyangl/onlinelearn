@@ -77,7 +77,11 @@
 						</section>
 						<section class="c-attr-mt">
 						     <%--        <a href="javascript:void(0)" title="立即观看" onclick="if(isLogin()){ window.location.href='/uc/play/${course.course_id }'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a> --%>
-									<a href="javascript:void(0)" title="立即观看" onclick="if(1==1){ window.location.href='/front/play/${course.course_id }'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a>
+<%-- 									<a href="javascript:void(0)" title="立即观看" onclick="if(1==1){ window.location.href='/front/play/${course.course_id }'} else{lrFun();} " class="comm-btn c-btn-3">立即观看</a> --%>
+									<a href="javascript:void(0)" title="立即观看" onclick="if(!isLogin()){lrFun(); } 
+									else if(${course.current_price }=='0'){window.location.href='/front/play/${course.course_id }'}
+									else{window.location.href='/Alipay/toindex?courseprice=${course.current_price }'} 
+									" class="comm-btn c-btn-3">立即观看</a>
 							<span class="ml10"><tt class="c-yellow f-fM">*咨询 ${websitemap.web.phone}</tt></span>
 						</section>
 						<section class="c-attr-mt of ml10">
@@ -135,7 +139,7 @@
 									<h6 class="c-i-content c-infor-title">
 										<span>课程介绍</span>
 									</h6>
-									<!-- /无数据提示 开始-->
+									<!-- /无数据提示 -->
 									<c:if test="${empty course.context}">
 										<section class="no-data-wrap">
 											<em class="icon30 no-data-ico">&nbsp;</em> <span class="c-666 fsize14 ml10 vam">没有相关数据，小编正在努力整理中...</span>

@@ -66,5 +66,10 @@ public class Edu_UserServiceImpl implements Edu_UserService{
 		edu_UserDao.updateMyinformation(edu_User);
 	}
 
+	@Override
+	public void updatepic(Edu_User edu_User) {
+		edu_UserDao.updatepic(edu_User);
+	}
+
 
 }

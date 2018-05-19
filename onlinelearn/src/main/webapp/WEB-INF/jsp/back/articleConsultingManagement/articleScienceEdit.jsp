@@ -80,6 +80,7 @@
 				<img alt="头像图片" src="${edu_Article.imageUrl }" name="imageUrl"
 					id="blah" style="height: 200px; width: 200px" /><input type="file"
 					name="file" id="file">
+					<input type="hidden" name="hidden" value="${edu_Article.imageUrl }">
 			</div>
 		</div>
 

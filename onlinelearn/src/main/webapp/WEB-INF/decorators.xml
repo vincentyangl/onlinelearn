@@ -6,6 +6,7 @@
 		<pattern>/static/*</pattern>
 		<pattern>/article/*</pattern>
 		<pattern>/kindeditor/*</pattern>
+		<pattern>/Alipay/*</pattern>
 		<pattern>/*/ajax/*</pattern>
 		<pattern>/admin</pattern>
 		<pattern>/admin/</pattern>
