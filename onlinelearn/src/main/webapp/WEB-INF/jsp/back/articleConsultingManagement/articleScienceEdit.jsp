@@ -60,15 +60,15 @@
 
 		<div class="layui-inline">
 			<label class="layui-form-label">作者:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input class="layui-input newsAuthor" lay-verify="required"
 					name="author" value="${edu_Article.author }" type="text">
 			</div>
 		</div>
 
-		<div class="layui-inline">
+		<div class="layui-item">
 			<label class="layui-form-label">来源:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input class="layui-input newsAuthor" lay-verify="required"
 					name="source" value="${edu_Article.source }" type="text">
 			</div>
