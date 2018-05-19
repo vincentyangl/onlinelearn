@@ -27,8 +27,19 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 			   for(i=0;i<msg.length;i++){
 				   $("#roleId").append("<option value='"+msg[i].roleId+"'>"+msg[i].roleName+"</option>");
 			   }
+			   var roleId = "${roleId}";
+			   if(roleId==null||roleId==''){
+				   roleId=-1;
+			   }
+			   $("#roleId").val(roleId);
 		   });
 	   });
+	   
+	   function cleanText(){
+		   $("#roleId").val("-1");
+		   $("#qname").val("");
+	   }
+	   
 	</script>
 </head>
 <body>
@@ -36,26 +47,25 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 	<div class="larry-personal">
 	    <div class="layui-tab">
             <blockquote class="layui-elem-quote news_search">
-		<form action="/admin/user/getSysUserByNameAndRoleId" method="POST">
+		<form action="/admin/user/userList" method="POST">
 		<div class="layui-inline">
 		    <div class="layui-input-inline">
-		    	<input name="qname" placeholder="请输入关键字" class="layui-input search_input" type="text">
+		    	<input name="qname" id="qname" value="${qname }" placeholder="请输入关键字" class="layui-input search_input" type="text">
 		    </div>
 		    <div class="layui-input-inline">
-		    	<select class="layui-input"  width="150" name="roleId"  id="roleId">
+		    	<select class="layui-input"   name="roleId"  id="roleId">
 		    	   <option value="-1" selected="selected">请选择</option>
 		    	</select>
 		    </div>
-		    <button type="submit" class="layui-btn search_btn">查询</button>
-		    
-		</div><div class="layui-inline">
+		</div>
+		<div class="layui-inline">
+			<button type="submit" class="layui-btn search_btn">查询</button>
+		</div>
+		<div class="layui-inline">
+			<input type="button" value="清空" onclick="cleanText()" class="layui-btn search_btn"/>
+		</div>
+		<div class="layui-inline">
 			<a class="layui-btn layui-btn-normal newsAdd_btn"  href="/admin/user/toUserAdd">添加用户</a>
-		</div>
-		<div class="layui-inline">
-			<a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-		</div>
-		<div class="layui-inline">
-			<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
 		</div>
 		</form>
 	</blockquote>
@@ -70,7 +80,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                   <th>ID</th>
                                   <th>登陆名</th>
                                   <th>角色</th>
-                                  <th>姓名</th>
+                                  <th>昵称</th>
                                   <th>EMAIL</th>
                                   <th>电话号</th>
                                   <th>创建时间</th>
@@ -154,15 +164,16 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
             
           laypage({
 					cont: 'page',
-					pages: 10 //总页数
-						,
-					groups: 5 //连续显示分页数
-						,
+					pages: '${info.pages}',  //总页数
+					curr: '${info.pageNum}',
+					groups: 5 ,  //连续显示分页数
 					jump: function(obj, first) {
 						//得到了当前页，用于向服务端请求对应数据
 						var curr = obj.curr;
 						if(!first) {
 							//layer.msg('第 '+ obj.curr +' 页');
+							document.forms[0].action="/admin/user/userList?currentPage="+curr;
+							document.forms[0].submit();
 						}
 					}
 				});

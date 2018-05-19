@@ -106,7 +106,7 @@
 	function add(){
 		var qname= $("#name").val();
 		if(qname==null||qname.trim().length==0){
-			alert("不能为空!");
+			alert("权限名称不能为空!");
 		}else{
 			$("#pId").val(id);
 			document.forms[0].action="/admin/permissions/addPermissions";

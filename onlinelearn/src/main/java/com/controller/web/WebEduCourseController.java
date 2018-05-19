@@ -170,7 +170,9 @@ public class WebEduCourseController {
 			model.addAttribute("course",course);
 			//用户
 			Edu_User user = (Edu_User) session.getAttribute("login_success");
-			eduCourseStudyHistoryService.UpdateOrSave(eduCourseStudyHistory, user, course, courseKpoint);
+			if (ObjectUtils.isNotNull(user)) {
+				eduCourseStudyHistoryService.UpdateOrSave(eduCourseStudyHistory, user, course, courseKpoint);
+			}
 				// 视频url
 			String videourl = courseKpoint.getVideoUrl();
 			System.out.println("视频url"+videourl);

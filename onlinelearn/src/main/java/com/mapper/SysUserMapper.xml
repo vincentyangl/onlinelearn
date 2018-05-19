@@ -33,8 +33,7 @@
        <association property="sysRole" column="roleId" select="com.mapper.SysRoleDao.getById"></association>
     </resultMap>
     <select id="listAll" parameterType="java.util.Map" resultMap="SysUserMap">
-       select * from sys_user 
-       <where>
+       select * from sys_user  where 0=0
           <if test="userId!=null">
              and userId=#{userId}
           </if>
@@ -44,13 +43,12 @@
           <if test="loginPwd!=null">
              and loginPwd=#{loginPwd}
           </if>
-          <if test="rid!=null">
+          <if test="rid>0">
              and roleId=#{rid}
           </if>
           <if test="qname!=null">
           <!-- 必须加括号，不然下拉框查询不出来 -->
              and (loginName like '%${qname}%' or userName like '%${qname}%')
           </if>
-       </where>
     </select>
   </mapper>

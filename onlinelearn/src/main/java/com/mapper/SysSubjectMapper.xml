@@ -11,7 +11,7 @@
        delete from sys_subject where subjectId=#{value}
     </delete>
     <update id="update" parameterType="SysSubject">
-       update sys_subject set subjectName=#{subjectName}
+       update sys_subject set subjectName=#{subjectName} where subjectId=#{subjectId}
     </update>
     <resultMap type="SysSubject" id="SysSubjectMap">
        <result column="subjectId" property="subjectId"/>

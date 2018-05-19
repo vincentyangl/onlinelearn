@@ -31,6 +31,9 @@
    #time1{
       display: none
    }
+   .layui-form-item{
+      width:68%
+   }
 </style>
 <script type="text/javascript">
     //用来存储选择的老师信息传到后台
@@ -39,7 +42,7 @@
     var count =0;
 	function renderForm(){
 		 layui.use('form', function(){
-		 var form = layui.form();//高版本建议把括号去掉，有的低版本，需要加()
+		 var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
 		 form.render();
 		 });
 		 }
@@ -115,7 +118,7 @@
 	    	}
 		   
 		   layui.use('form', function () {
-			    var form = layui.form();
+			    var form = layui.form;
 			    //专业子id选择
 			    form.on('select(subId)', function(data){
 			        if(data.value!=-1){
@@ -194,7 +197,7 @@
 	   
 		$(function(){
 			  layui.use('form', function () {
-				    var form = layui.form();
+				    var form = layui.form;
 				    form.on('select(subjId)', function(data){
 				        if(data.value!=-1){
 				        	$.post("/admin/teacher/getTeacherBySubjectId/"+data.value,function(msg){
@@ -341,7 +344,7 @@
 							<ul id="tea1">
 							    <c:forEach items="${course.eduTeachers }" var="et">
 							        <input type="hidden" name="tid" value="${et.id }" />
-							        <li class="tli">${et.name }&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#" onclick="removeTname(this,${et.id})" >删除</a></li>
+							        <li class="tli">${et.name }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="removeTname(this,${et.id})" >删除</a></li>
 							    </c:forEach>
 							</ul>
 						</div>
@@ -385,19 +388,8 @@
 			</div>
 		</div>
 	</section>
-	<script type="text/javascript" src="/common/layui/layui.js"></script>
+	<script type="text/javascript" src="/common/larry/layui/layui.js"></script>
 	<script type="text/javascript">
-	layui.use(['form','upload'],function(){
-         var form = layui.form();
-         layui.upload({ 
-             url: '' ,//上传接口 
-             success: function(res){
-              //上传成功后的回调 
-              console.log(res) 
-            } 
-         });
-
-	});
 	//实例化编辑器
     var um = UM.getEditor('myEditor');
 </script>

@@ -71,6 +71,19 @@ public class SysSubjectController {
 	@RequestMapping("/subjectAdd")
 	public String subjectAdd(SysSubject subject) {
 		sysSubjectService.save(subject);
-		return "redirect:/admin/subject/subjectList";
+		return "redirect:/admin/subject/subjectList/0";
 	}
+	
+	@RequestMapping("/subjectEdit")
+	public String subjectEdit(SysSubject subject) {
+		sysSubjectService.update(subject);
+		return "redirect:/admin/subject/subjectList/0";
+	}
+	
+	@RequestMapping("/deleteSubject/{id}")
+	public String deleteSubject(@PathVariable("id") int id) {
+		sysSubjectService.delete(id);
+		return "redirect:/admin/subject/subjectList/0";
+	}
+	
 }
