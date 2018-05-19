@@ -53,7 +53,9 @@ public class Edu_website_imgesController { //图片管理
 		   String qname=request.getParameter("qname");
 		   String type_id=request.getParameter("type_id");
 		   String shows=request.getParameter("shows");
-		   
+		   if (qname!=null) {
+			request.setAttribute("qname", qname);
+		}
 		   if (shows==null) {
 			shows="-1";
 		}

@@ -97,6 +97,7 @@ public class LoginController {   //前台登录
 			user.setMobile(request.getParameter("user.mobile"));
 			user.setUserName("小星星");
 			user.setShowName("其实你都知道");
+			
 			user.setCreateTime(new Date());
 			user.setIsAvalible(Integer.valueOf(1));
 			user.setPicImg("/images/upload/customer/20150910/1441866820099.jpg");
@@ -107,7 +108,12 @@ public class LoginController {   //前台登录
 		}
 	}
 
-	
+//	/front/passwordRecovery
+	@RequestMapping("/front/passwordRecovery")
+	public String passwordRecovery() {
+		return "/web/user/password-recovery";
+				
+	}
 	
 
 

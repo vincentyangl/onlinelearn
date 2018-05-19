@@ -70,6 +70,9 @@ public class Edu_UserController {
 		String end=request.getParameter("end");
 		String isAvalible=request.getParameter("isAvalible");
 //		System.out.println("isAvalible:"+isAvalible+"id:"+id);
+		if (qname!=null) {
+			request.setAttribute("qnames", qname);
+		}
 		 if (id==null) {
 //			 request.setAttribute("id", id);
 			 id="-1";
@@ -130,6 +133,7 @@ public class Edu_UserController {
 	
 	@RequestMapping("/toBatchOpen")
 	public String toBatchOpen() {
+		System.out.println("批量");
 		return "/back/student/toBatchOpen";
 	}
 	
