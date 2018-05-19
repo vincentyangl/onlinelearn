@@ -153,7 +153,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                               <tr>
                                   <th>ID</th>
                                   <th>表题</th>
-                                  <th>图片路径</th>
+                                  <th>图片</th>
                                   <th>连接路径</th>
                                   <th>类型</th>
                                   <th>序列号</th>
@@ -164,7 +164,8 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                           <tbody>
                           <c:forEach items="${list}" var="p" varStatus="statu">
                               <tr>
-                                <td>${p.imge_id }</td>
+<%--                                 <td>${p.imge_id }</td> --%>
+                                   <td>${statu.index+1}</td>
                                  <td>${p.title}</td>
 <%--                                 <c:if test="${p.type==1}"><td>普通</td></c:if> --%>
 <%--                                 <c:if test="${p.type==2}"><td>定时</td></c:if> --%>
