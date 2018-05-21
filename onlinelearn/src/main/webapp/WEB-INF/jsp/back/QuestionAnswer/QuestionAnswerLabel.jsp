@@ -26,8 +26,8 @@
 <body>
 	<form action="/admin/equestions/edlist" method="post">
 			
-		<div class="col-md-4 col-md-offset-4">
-			<div class="layui-inline">
+		<div class="layui-inline">
+			
 			<label class="layui-inline">标题:</label>
 				<div class="layui-input-inline">
 					<input type="text" name="title" value="${title }" placeholder="标题" class="layui-input search_input"> 
@@ -41,8 +41,9 @@
 					<option value="2">学习分享</option>
 				</select>
 			</div>
+			<div class="layui-inline">
+				<input type="submit" value="查询" class="layui-btn search_btn" />
 				
-				<input type="submit" value="查询" class="layui-btn search_btn" /><br />
 			</div>
 
 		</div>

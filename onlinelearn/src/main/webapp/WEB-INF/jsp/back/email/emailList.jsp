@@ -134,7 +134,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 <!--                                  <h6 class="modal-title" align="left" id="myModalLabel">修改密码</h6> -->
 								<div class="col-sm-9">
 								    <input  type="hidden" class="form-control zh" id="userId" name="userId" >
-									<input placeholder="密码至少在6位以上" type="text" class="form-control zh" id="password" name="password" value="">
+									<input placeholder="密码至少在6位以上" type="password" class="form-control zh" id="password" name="password" value="">
 								</div>
 							</div>
 							</div>
@@ -143,7 +143,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-3 control-label" style=" font-family:Arial,Verdana,Sans-serif; font-weight: normal;font-size:16px;">再次确认密码 </label>
 								<div class="col-sm-9">
-									<input placeholder="保持和上次密码输入一致" type="text" class="form-control zh" id="password2" name="password" value="">
+									<input placeholder="保持和上次密码输入一致" type="password" class="form-control zh" id="password2" name="password" value="">
 								</div>
 							</div>
 							</div>
@@ -172,7 +172,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 						<div class="layui-inline">
 						
 							<div class="layui-input-inline">
-								<input placeholder="收件人邮箱" name="qname" id="qname" value="${qname}"
+								<input placeholder="收件人邮箱" name="qname" id="qname" value="${qnames}"
 									class="layui-input search_input" type="text">
 									
 							</div>

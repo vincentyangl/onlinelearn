@@ -46,10 +46,26 @@ public class Edu_QuestionsqtController {
 		Map map = new HashMap<>();
 		map.put("flag", flag);
 		List<Edu_Questions> list=edu_QuestionsService.listAll(map);
+		List<Edu_Questions_Tag> questionsTagList=edu_Questions_TagService.listAlls();
+		mv.addObject("questionsTagList",questionsTagList );
 		mv.setViewName("web/questions/questions-list");
 		mv.addObject("list", list);
 		return mv;
 	}
+	
+	//热门问答推荐
+		@RequestMapping("/ajax/hotRecommend")
+		@ResponseBody
+		public Result hotRecommend() {
+			Result result=new Result();
+			boolean b =true;
+			List<Edu_Questions> listquestions=edu_QuestionsService.listAlls();
+			result.setEntity(listquestions);
+			result.setSuccess(b);
+//			System.out.println(result);
+			return result;
+		}
+	
 	@RequestMapping("/ajax/hotRecommend/{flag}")
 	@ResponseBody
 	public Result hotRecommend(@PathVariable("flag") int flag){
@@ -60,7 +76,7 @@ public class Edu_QuestionsqtController {
 		Map map = new HashMap<>();
 		map.put("flag", flag);
 		List<Edu_Questions> list =edu_QuestionsService.listAll(map);
-		System.out.println("打印"+list);
+		System.out.println("sss"+list);
 		result.setEntity(list);
 		result.setSuccess(b);
 		return result;
@@ -132,10 +148,8 @@ public class Edu_QuestionsqtController {
 //	}
 	
 	
-	/*
-	 * 点赞
-	 */
-	@RequestMapping("/praise/ajax/add")
+	
+	@RequestMapping("/comment/ajax/addPraise")
 	@ResponseBody
 	public Result updatePraise(HttpServletRequest request) {
 		Result result=new Result();
@@ -168,46 +182,48 @@ public class Edu_QuestionsqtController {
 	}
 	
 	
-	@RequestMapping("/ajax/add")
+	@RequestMapping("/praise/ajax/add")
 	public Result add(HttpSession session,HttpServletRequest request){
-	int type=Integer.parseInt(request.getParameter("type"));
-	String a[]= request.getParameter("questionsTag").split(",");
-	int b[] = new int [a.length];
-	for(int i=1;i<a.length;i++){
-		b[i]=Integer.parseInt(a[i]);	
-	}
-		Result result = new Result();
-		boolean bool = true;
-		result.setSuccess(bool);
-		Edu_User  user=	(Edu_User) session.getAttribute("login_success");
-		Edu_Questions questions = new Edu_Questions();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date add_time = null;
-		try {
-			add_time = df.parse(df.format(new Date()));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		int type=Integer.parseInt(request.getParameter("type"));
+		String a[]= request.getParameter("questionsTag").split(",");
+		int b[] = new int [a.length];
+		for(int i=1;i<a.length;i++){
+			b[i]=Integer.parseInt(a[i]);	
 		}
-		questions.setEdu_User(user);
-		questions.setTitle(request.getParameter("title"));
-		questions.setContent(request.getParameter("content"));
-		questions.setType(type);
-		questions.setStatus(0);
-		questions.setReplyCount(0);
-		questions.setBrowseCount(0);
-		questions.setPraiseCount(0);
-		questions.setAddTime(add_time);
-		edu_QuestionsService.save(questions);
-		int qid =edu_QuestionsService.getMaxId();
-		for (int i = 1; i < b.length; i++) {
-			Map map = new HashMap<>();
-			int tid = b[i];
-			map.put("qid", qid);
-			map.put("tid", tid);
-			edu_QuestionsService.saveRelation(map);
+			Result result = new Result();
+			boolean bool = true;
+			result.setSuccess(bool);
+			Edu_User  user=	(Edu_User) session.getAttribute("login_success");
+			Edu_Questions questions = new Edu_Questions();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date add_time = null;
+			try {
+				add_time = df.parse(df.format(new Date()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			questions.setEdu_User(user);
+			questions.setTitle(request.getParameter("title"));
+			questions.setContent(request.getParameter("content"));
+			questions.setType(type);
+			questions.setStatus(0);
+			questions.setReplyCount(0);
+			questions.setBrowseCount(0);
+			questions.setPraiseCount(0);
+			questions.setAddTime(add_time);
+			edu_QuestionsService.save(questions);
+			int qid =edu_QuestionsService.getMaxId();
+			for (int i = 1; i < b.length; i++) {
+				Map map = new HashMap<>();
+				int tid = b[i];
+				map.put("qid", qid);
+				map.put("tid", tid);
+				edu_QuestionsService.saveRelation(map);
+			}
+			result.setEntity(qid);
+			result.setSuccess(true);
+			return result;
 		}
-		return result;
-	}
 	
 	
 	@RequestMapping("/ajax/addComment")
@@ -256,6 +272,7 @@ public class Edu_QuestionsqtController {
 	@RequestMapping("/ajax/addReply")
 	@ResponseBody
 	public Result addReply(HttpServletRequest request,HttpSession session){
+		System.out.println("123123");
 		Result result = new Result();
 		Edu_User  user=	(Edu_User) session.getAttribute("login_success");
 		Edu_Questions_Comment comment = new Edu_Questions_Comment();
@@ -275,11 +292,13 @@ public class Edu_QuestionsqtController {
 		return result;
 	}
 	
-	@RequestMapping("/questionscomment/ajax/getCommentById/{commentId}")
+	@RequestMapping("/ajax/getCommentById/{commentId}")
 	@ResponseBody
 	public ModelAndView getCommentById(@PathVariable("commentId")int commentId){
+		System.out.println("123"+commentId);
 		ModelAndView mv = new ModelAndView();
 		List<Edu_Questions_Comment> comments = edu_Questions_CommentService.getListById(commentId);
+		System.out.println(comments);
 		mv.addObject("comments", comments);
 		mv.setViewName("web/questionscomment/questionscomment-ajax-listreply");
 		return mv;

@@ -66,6 +66,11 @@ public class EduCourseController {
 		System.out.println(info);
 		mv.addObject("eduCourses", eduCourses);
 		mv.addObject("info", info);
+		mv.addObject("qname", qname);
+		mv.addObject("is_avaliable", is_avaliable);
+		mv.addObject("subjectId", subjectId);
+		mv.addObject("beginTime", beginTime);
+		mv.addObject("endTime", endTime);
 		mv.setViewName("/back/course/courseList");
 		return mv;
 	}

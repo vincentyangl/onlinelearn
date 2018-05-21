@@ -70,7 +70,7 @@ function addQuestions(){
 		return;
 	}else if(title.length<16){
 		$("input[name='questions.title']").parent().next().html('<img width="16" height="16" alt="错误" src="/static/inxweb/img/c-icon.png">'); 
-		dialog('提示信息',"问答标题长度不能小于16个字",1);
+		dialog('提示信息',"问答标题长度不能小于16",1);
 		return;
 	}else{
 		$("input[name='questions.title']").parent().next().html('<img width="16" height="16" alt="正确" src="/static/inxweb/img/d-icon.png">');

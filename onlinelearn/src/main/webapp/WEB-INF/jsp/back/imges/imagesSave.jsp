@@ -37,10 +37,16 @@
 	type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/js/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
 	
-<link rel="stylesheet" type="text/css" href="/css/main.css" />
-<link rel="stylesheet" type="text/css" href="/css/jquery.bigcolorpicker.css" />
-<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="/js/jquery.bigcolorpicker.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/css/main.css" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="/css/jquery.bigcolorpicker.css" /> -->
+<!-- <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script> -->
+<!-- <script type="text/javascript" src="/js/jquery.bigcolorpicker.min.js"></script> -->
+<link
+	href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="/js/color/css/htmleaf-demo.css">
+<link href="/js/color/dist/css/bootstrap-colorpicker.css" rel="stylesheet">
     
     <style type="text/css">
     #img1{
@@ -68,6 +74,36 @@
   
     
 </script>
+
+<script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"
+	type="text/javascript"></script>
+<script>
+			window.jQuery || document.write('<script src="/js/color/js/jquery-1.11.0.min.js"><\/script>')
+</script>
+<script src="/js/color/dist/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript">
+			$(function() {
+				$('#mycp').colorpicker();
+			});
+			$(function() {
+				$('#cp2, #cp3a, #cp3b').colorpicker();
+				$('#cp4').colorpicker({
+					"color": "#16813D"
+				});
+				$('#cp5').colorpicker({
+					format: "rgba"
+				});
+				$('#cp6').colorpicker({
+					horizontal: true
+				});
+				$('#cp9').colorpicker({
+					useAlpha: false
+				});
+				$('#cp10').colorpicker({
+					useHashPrefix: false
+				});
+			});
+		</script>
 
 </head>
 <body>
@@ -97,7 +133,7 @@
 				
 				
 					<div class="layui-input-inline  ">
-                                   <label class="layui-form-label layui-col-md9">图片类型</label>
+                                   <label class="layui-form-label ">图片类型</label>
                         <div class="layui-input-block" style="width: 300px;">
 								<select id="type_id" name="type_ids" class="form-control ">
 <!-- 									<option value="-1">--请选择类型--</option> -->
@@ -108,8 +144,8 @@
 						</div>
 							</div>
 							
-								<div class="layui-input-inline  ">
-                                   <label class="layui-form-label layui-col-md9">图片状态</label>
+								<div class="layui-form-item  ">
+                                   <label class="layui-form-label ">图片状态</label>
                         <div class="layui-input-block" style="width: 300px;">
 								<select id="shows" name="shows" class="form-control ">
 <!-- 									<option value="-1">--请选择类型--</option> -->
@@ -143,17 +179,28 @@
 					</div>
 				</div>
 				
-				<div class="layui-form-item">
-					<label class="layui-form-label" >背景色</label>
-					<div class="layui-input-block">
-					<input type="text" id="color" name="color"  class="layui-input "  style="width:300px;" >
-					<div></div>
-					<input id="btn" class="layui-btn " type="button" value="选色" style="width:300px;" />
+<!-- 				<div class="layui-form-item"> -->
+<!-- 					<label class="layui-form-label" >背景色</label> -->
+<!-- 					<div class="layui-input-block"> -->
+<!-- 					<input type="text" id="color" name="color"  class="layui-input "  style="width:300px;" > -->
+<!-- 					<div></div> -->
+<!-- 					<input id="btn" class="layui-btn " type="button" value="选色" style="width:300px;" /> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+					<div class="form-group">
+						<label for="color" class="col-sm-1 control-label">背景颜色:</label>
+						<div class="col-sm-4">
+							<input id="mycp" type="text" class="form-control" value=""
+								name="color" />
+						</div>
+						<div class="col-sm-2">
+							<span id="s5" style="font-size: 13px; color: red"></span>
+						</div>
 					</div>
-				</div>
 
-				
-				<div class="layui-form-item">
+
+
+					<div class="layui-form-item">
 					<div class="layui-input-block">
 <!-- 					 <button type="submit" class="layui-btn" >确认修改</button> -->
 <!--                      <button type="button" class="layui-btn" onclick="up()">确认修改</button> -->

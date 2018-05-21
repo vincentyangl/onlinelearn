@@ -116,10 +116,35 @@ function checkAllNodeOff(){//默认全部不勾选
     zTree.checkAllNodes(false);  
 }  
 
-
+//为专业赋值
+function toUpdateSubjectName(){
+	if (id == -1) {
+		alert("请选择要修改的专业");
+		return;
+	}
+	$("#updateModal").modal("show");
+	$("#subjectId").val(id);
+	$("#sname").val(name);
+}
+	//修改专业
+function updateSubjectName(){
+	var sname = $("#sname").val();
+	if(sname!=null&&sname.trim().length!=0){
+		document.forms[1].action="/admin/subject/subjectEdit";
+		document.forms[1].submit();
+	}else{
+		alert("专业名不能为空！");
+	}
+} 
 	
-
-
+//删除专业
+function deleteSubject(){
+	if(id==-1){
+		alert("请选择专业！");
+	}else{
+		window.location.href="/admin/subject/deleteSubject/"+id;
+	}
+}
 
 
 
@@ -145,6 +170,8 @@ function checkAllNodeOff(){//默认全部不勾选
 </div>
 	<div>
 	    <button type="button" onclick="toaddSubject()" class="btn btn-default">添加专业</button>
+	    <button type="button" onclick="toUpdateSubjectName()" class="btn btn-default">修改专业</button>
+	    <a  href="#" onclick="deleteSubject()" class="btn btn-default">删除选中专业</a>
 	</div>
 	
 
@@ -177,6 +204,36 @@ function checkAllNodeOff(){//默认全部不勾选
     </div>
   </div>
 </div>
+
+	<!-- 修改专业名称  -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改专业名称</h4>
+      </div>
+      <div class="modal-body">
+
+					<form class="form-horizontal" action="" method="POST">
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-3 control-label">专业名称:</label>
+							<div class="col-sm-9">
+							    <input type="hidden" class="form-control" id="subjectId"  name="subjectId">
+								<input type="text" class="form-control" id="sname"  name="subjectName">
+							</div>
+						</div>
+					</form>
+
+				</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary"  onclick="updateSubjectName()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
 
 
 

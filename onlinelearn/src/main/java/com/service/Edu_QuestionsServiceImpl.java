@@ -71,4 +71,10 @@ public class Edu_QuestionsServiceImpl implements Edu_QuestionsService{
 		return edu_QuestionsDao.myQuestions(userid);
 	}
 
+	@Override
+	public List<Edu_Questions> listAlls() {
+		List<Edu_Questions> list=edu_QuestionsDao.listAlls();
+		return list;
+	}
+
 }

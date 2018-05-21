@@ -173,7 +173,7 @@
 				<div class="form-group">
 					<label for="pic_path" class="col-sm-2 control-label">讲师头像</label>
 					<div class="col-sm-4">
-						<img name="img" id="img" src="${e.picPath }" id="blah"
+						<img name="imageUrl" src="${e.picPath }" id="blah"
 							style="width: 260px; height: 300px;"> <input type="file"
 							name="file" ID="file" value="">
 							<input type="hidden" name="hidden" value="${e.picPath }">
@@ -195,11 +195,6 @@
 			document.forms[0].action = "/admin/teacher/update";
 			document.forms[0].submit();
 		}
-
-		layui.use([ 'form', 'upload' ], function() {
-			var form = layui.form();
-		});
-
 		//  图片显示
 		function readURL(input) {
 			if (input.files && input.files[0]) {

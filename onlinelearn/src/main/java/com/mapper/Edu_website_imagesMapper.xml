@@ -33,7 +33,7 @@
     </select>
     
     <select id="weblistAll" resultMap="imgMap" >
-    select * from edu_website_images where shows=1 order by series_number desc
+    select * from edu_website_images where shows=1 order by series_number 
     
     </select>
     

@@ -81,7 +81,7 @@
 				<div  class="layui-form-item col-lg-5">
 					<label class="layui-form-label">邮箱正文</label>
 					<div class="layui-input-block"> 
-						<textarea cols="100" rows="10">${list.content}</textarea>
+						<textarea cols="100" rows="10" autocomplete="off" >${list.content}</textarea>
 					</div>
 				</div>
 					

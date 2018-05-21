@@ -72,6 +72,10 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 		 mv.setViewName("/back/email/emailList");
 		return mv;
 	}
+    @RequestMapping("/test")
+    public String name() {
+		return "/back/email/test2";
+	}
     
     public Map  initMap(HttpServletRequest request,Map map) {
 		 String qname=request.getParameter("qname");
@@ -79,6 +83,9 @@ public class Edu_emailsend_historyConntroller {//邮件管理
 		 String id=request.getParameter("id");
 		 String start=request.getParameter("start");
 		 String end=request.getParameter("end");
+		 if (qname!=null) {
+			request.setAttribute("qnames", qname);
+		}
 		 
 		 if (type==null) {
 			type="-1";

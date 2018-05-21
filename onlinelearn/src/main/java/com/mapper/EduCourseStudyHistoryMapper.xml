@@ -13,7 +13,7 @@
     </delete>
     <update id="update" parameterType="EduCourseStudyHistory">
         update edu_course_studyhistory set PLAYERCOUNT=PLAYERCOUNT+1 , DATABACK=#{dateBack},
-        UPDATE_TIME=#{updateTime} where id=#{id}
+        updateTime=#{updateTime} where id=#{id}
     </update>
     <resultMap type="EduCourseStudyHistory" id="EduCourseStudyHistoryMap">
         <result column="id" property="id"/>

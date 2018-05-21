@@ -95,6 +95,11 @@ $(document).ready(function(){
 		 for(i=0;i<msg.length;i++){
 			   $("#roleId").append("<option value='"+msg[i].roleId+"'>"+msg[i].roleName+"</option>");
 		   }
+		 var rid = "${roleId}";
+		 $("#roleId").val(rid);
+		 if(rid!=-1){
+			 roleChange();
+		 }
 	});
 });
 
@@ -108,7 +113,7 @@ function roleChange(){
 	var zTree = $.fn.zTree.getZTreeObj("myTree"); 
 	var roleId = $("#roleId").val();
 	if(roleId==-1){
-		alert("请选择角色");
+		alert("请选择角色"); 
 		return false;
 	}
 	$.ajax({
@@ -119,8 +124,8 @@ function roleChange(){
 		success:function(msg){
 			if(msg!=null){
 				for(i=0;i<msg.length;i++){
-					var node = zTree.getNodeByParam("id", msg[i].id);   
-					zTree.checkNode(node,true,true,false);
+					var node = zTree.getNodeByParam("id", msg[i].id);
+					zTree.checkNode(node,true,false,false);
 				}
 			}
 		}
@@ -128,16 +133,25 @@ function roleChange(){
 }
 
 function toUpdateRoleName(){
-	$("#updateModal").modal("show");
 	var rid = $("#roleId option:selected").val();
+	if(rid==-1){
+		alert("请选择角色！");
+		return;
+	}
+	$("#updateModal").modal("show");
 	$("#rid").val(rid);
 	var rname=$("#roleId option:selected").text();
 	$("#rname").val(rname);
 }
 	
 function updateRoleName(){
-	document.forms[0].action="/admin/role/updateRole";
-	document.forms[0].submit();
+	var rname = $("rname").val();
+	if(rname!=null&&rname.trim().length!=0){
+		document.forms[0].action="/admin/role/updateRole";
+		document.forms[0].submit();
+	}else{
+		alert("角色名不能为空！");
+	}
 } 
 
 function toaddRole(){
@@ -174,13 +188,44 @@ function roleAuthorize(){
 			alert("赋予权限个数不能为0");
 		}else{
 			var functionIds = new Array();
-			for(var i=0;i<addNodes.length;i++){    
+			for(var i=0;i<addNodes.length;i++){
 				functionIds[i] = addNodes[i].id;
 		    } 
 			window.location.href="/admin/role/roleAuthorize/"+roleId+"/"+functionIds;
 		}
 	}
 }
+
+//清空角色选项框和权限树
+function cleanRoleIdText(){
+	var roleId = $("#roleId").val();
+	if(roleId==-1){
+		alert("你没有选择角色！");
+	}else{
+	    $("#roleId").val("-1");
+	    var treeObj=$.fn.zTree.getZTreeObj("myTree");
+	    treeObj.checkAllNodes(false);
+	}
+}
+//选择所有权限
+function checkAllFunction(){
+	var roleId = $("#roleId").val();
+	if(roleId==-1){
+		alert("你没有选择角色！");
+	}else{
+		var functionBtn = $("#functionBtn").text();
+		if(functionBtn=='选择所有权限'){
+			var treeObj=$.fn.zTree.getZTreeObj("myTree");
+			treeObj.checkAllNodes(true);
+			$("#functionBtn").text("取消所有权限");
+		}else{
+			var treeObj=$.fn.zTree.getZTreeObj("myTree");
+			treeObj.checkAllNodes(false);
+			$("#functionBtn").text("选择所有权限");
+		}
+	}
+}
+
 
 </script>
 </head>
@@ -206,12 +251,15 @@ function roleAuthorize(){
        </td>
    </tr>
 </table>
+<br><br>
 </div>
 	<div>
-	    <button type="button" onclick="toUpdateRoleName()" class="btn btn-default">修改角色名称</button>
 	    <button type="button" onclick="toaddRole()" class="btn btn-default">添加角色</button>
-	    <a href="#" onclick=" roleAuthorize()" class="btn btn-default">保存</a>
+	    <button type="button" onclick="toUpdateRoleName()" class="btn btn-default">修改角色名称</button>
 	    <a  href="#" onclick="deleteRole()" class="btn btn-default">删除选中角色</a>
+	    <a  href="#" onclick="cleanRoleIdText()" class="btn btn-default">角色取消选择</a>
+	    <a  href="#" onclick="checkAllFunction()" id="functionBtn" class="btn btn-default">选择所有权限</a>
+	    <a href="#" onclick=" roleAuthorize()" class="btn btn-default">保存权限</a>
 	</div>
 	
 	<!-- 修改角色名称  -->

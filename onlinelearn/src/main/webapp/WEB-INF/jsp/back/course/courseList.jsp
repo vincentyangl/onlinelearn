@@ -33,7 +33,17 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 			   for(i=0;i<msg.length;i++){
 				   $("#subjectId").append("<option value='"+msg[i].subjectId+"'>"+msg[i].subjectName+"</option>");
 			   }
+			   var subjectId = "${subjectId}";
+			   if(subjectId==null||subjectId==''){
+				   subjectId = -1;
+			   }
+			   $("#subjectId").val(subjectId);
 		   });
+		   var is_avaliable = "${is_avaliable}";
+		   if(is_avaliable==null||is_avaliable==''){
+			   is_avaliable = -1;
+		   }
+		   $("#is_avaliable").val(is_avaliable);
 	   });
 	   function cleanText(){
 		   $("#qname").val("");
@@ -53,7 +63,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 		<div class="layui-inline">
 		    <label class="layui-inline  tt">课程名称:</label>
 		    <div class="layui-input-inline">
-		    	<input value="" placeholder="请输入关键字" id="qname" name="qname" class="layui-input search_input" type="text">
+		    	<input  placeholder="请输入关键字" id="qname" name="qname"  value="${qname }" class="layui-input search_input"  type="text">
 		    </div>
 		    <label class="layui-inline tt">状态:</label>
 		    <div class="layui-input-inline">
@@ -72,11 +82,11 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 		    </div>
 		    <label class="layui-inline tt" >创建时间:</label>
 		    <div class="layui-input-inline">
-		    	<input  id="beginTime" name="beginTime" class="layui-input search_input"   type="date">
+		    	<input  id="beginTime" name="beginTime" value="${ beginTime}" class="layui-input search_input"   type="date">
 		    </div>
 		    <label class="layui-inline tt">-</label>
 		    <div class="layui-input-inline">
-		    	<input id="endTime"  name="endTime" class="layui-input search_input"  type="date">
+		    	<input id="endTime"  name="endTime" value="${ endTime}" class="layui-input search_input"  type="date">
 		    </div>
 		    <button class="layui-btn search_btn" type="submit">课程查询</button>
 		</div>

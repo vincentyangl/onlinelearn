@@ -7,6 +7,7 @@ import com.bean.Edu_Questions;
 
 public interface Edu_QuestionsService {
 	public List<Edu_Questions> listAll(Map map);
+	public List<Edu_Questions> listAlls();
 	public void delete(int id);
 	public void save(Edu_Questions edu_Questions);
 	public Edu_Questions getById(int id);

@@ -10,19 +10,14 @@
 <link rel="stylesheet" type="text/css"
 	href="/common/layui/css/layui.css" media="all">
 <link rel="stylesheet" type="text/css"
-	href="common/bootstrap/css/bootstrap.css" media="all">
+	href="/common/bootstrap/css/bootstrap.css" media="all">
 <link rel="stylesheet" type="text/css" href="/common/global.css"
 	media="all">
 <link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
-<script src="js/jquery-3.0.0.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-
-<link rel="stylesheet" type="text/css" href="/bootstrap-table.css" />
-<script src="bootstrap-table.js" type="text/javascript" charset="utf-8"></script>
-<script src="locale/bootstrap-table-zh-CN.js" type="text/javascript"
-	charset="utf-8"></script>
+<script src="/js/jquery-3.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<form action="/admin/earticle/articleList" method="post">

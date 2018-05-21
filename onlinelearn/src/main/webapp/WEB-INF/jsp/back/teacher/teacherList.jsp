@@ -99,10 +99,10 @@
 										pattern="yyyy-MM-dd" /></td>
 								<td>${l.sort }</td>
 								<td><a href="/admin/teacher/getById/${l.id}"
-									class="layui-btn layui-btn-mini"><i
+									class="layui-btn layui-btn-mini news_edit"><i
 										class="iconfont icon-edit"></i> 编辑</a> <a
 									href="/admin/teacher/delete/${l.id }"
-									class="layui-btn layui-btn-mini" data-id="13"><i
+									class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="13"><i
 										class="layui-icon"></i> 删除</a></td>
 							</tr>
 						</c:forEach>

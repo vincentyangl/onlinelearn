@@ -22,8 +22,6 @@ public class WebFrontController {
 	 @RequestMapping("/front") //主界面传图片参数
 	  public ModelAndView websiteImagesList(HttpServletRequest request) {
 		ModelAndView mv=new ModelAndView();
-//		 Map map=new HashMap<>();
-//		 map=initMap(request, map);
 		List<Edu_website_images>websiteImagesList=edu_website_imagesService.weblistAll();
 		 System.out.println("0:"+websiteImagesList.size());
 		mv.addObject("websiteImagesList", websiteImagesList);

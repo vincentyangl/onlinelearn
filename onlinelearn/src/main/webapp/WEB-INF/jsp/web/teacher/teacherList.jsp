@@ -63,9 +63,11 @@
 			<table width="100%" border="0">
 				<tr>
 					<td align="center">一共${page.pages }页 <a
-						href="/front/teacher${l.id }?page=${page.firstPage}">首页</a> <a
-						href="/front/teacher${l.id }?page=${page.prePage}">上一页</a> <a
-						href="/front/teacher${l.id }?page=${page.nextPage}">下一页</a> <a
+						href="/front/teacher${l.id }?page=${page.firstPage}">首页</a>
+						<a href="/front/teacher${l.id }?page=${page.prePage}">上一页</a>
+						<a
+						href="/front/teacher${l.id }?page=${page.nextPage}">下一页</a>
+						<a
 						href="/front/teacher${l.id }?page=${page.lastPage}">尾页</a></td>
 				</tr>
 			</table>

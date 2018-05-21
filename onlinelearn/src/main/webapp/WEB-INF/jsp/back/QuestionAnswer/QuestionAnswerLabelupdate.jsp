@@ -26,6 +26,7 @@
 <body>
 
 	<form class="form-horizontal" action="/admin/equestions/edupdate" method="post">
+	<a href="/admin/equestions/edlist" class="btn btn-primary btn-lg active" role="button">返回</a>
 	<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label"></label>
 			<div class="col-sm-4">
@@ -71,7 +72,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">问答采纳:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
+				<input type="text" class="form-control" disabled="disabled"
 					name="status" value="${edu_Questions.status }">
 			</div>
 		</div>
@@ -103,7 +104,7 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">添加时间:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
+				<input type="text" class="form-control" disabled="disabled"
 					name="addTime" value="${edu_Questions.addTime }">
 			</div>
 		</div>

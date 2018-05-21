@@ -89,13 +89,13 @@ h2 {
 				<td>第四列:赠送课程模板（<a href="#">点击下载模板</a>）
 				</td>
 			</tr>
-			<tr>
-				<td>导入中出错选择项</td>
-				<td><select class="layui-input" name="" id="">
-						<option value="-1">--请选择--</option>
-						<option value="1">跳过</option>
-				</select></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>导入中出错选择项</td> -->
+<!-- 				<td><select class="layui-input" name="" id=""> -->
+<!-- 						<option value="-1">--请选择--</option> -->
+<!-- 						<option value="1">跳过</option> -->
+<!-- 				</select></td> -->
+<!-- 			</tr> -->
 			<tr>
 				<td>上传</td>
 				<td>
