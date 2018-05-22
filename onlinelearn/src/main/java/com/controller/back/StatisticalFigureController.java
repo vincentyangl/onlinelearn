@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.EduCourseStudyHistory;
 import com.bean.Edu_User;
+import com.bean.Edu_user_login_log;
 import com.service.StatisticalFigureService;
 import com.util.JsonUtils;
 
@@ -46,7 +47,6 @@ public class StatisticalFigureController {//统计图
 		mv.setViewName("/back/figure/statisticalFigure");
 		return mv;
 	}
-//	/admin/statisticsPage/videoViewingNum
 	@RequestMapping("/videoViewingNum")//视频播放统计图
 	public ModelAndView Studyhistory(HttpServletRequest request) throws Exception {
 		String update_Time=request.getParameter("update_Time");
@@ -67,7 +67,24 @@ public class StatisticalFigureController {//统计图
 		mv.setViewName("/back/figure/StudyhistoryFigure");
 		return mv;
 	}
-	
-	
-	
+	@RequestMapping("/login")//视频播放统计图
+	public ModelAndView Edu_user_login(HttpServletRequest request) throws Exception {
+		String LOGIN_TIME=request.getParameter("LOGIN_TIME");
+		Map map=new HashMap<>();
+		map.put("LOGIN_TIME", LOGIN_TIME);
+		ModelAndView mv=new ModelAndView();
+		List<Edu_user_login_log>list=service.listLoginAll(map);
+		List<String> list1=new ArrayList<>();
+		List<String> list2=new ArrayList<>();
+		SimpleDateFormat sdf1= new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+		SimpleDateFormat sdf2= new SimpleDateFormat("yyyy-MM-dd");
+		for (Edu_user_login_log edu_user_login_log : list) {
+			list1.add(sdf2.format(sdf1.parse(edu_user_login_log.getLogin_time()+"")));
+			list2.add(edu_user_login_log.getNum()+"");
+		}
+		mv.addObject("LOGIN_TIME", JsonUtils.objectToJson(list1));
+		mv.addObject("num", JsonUtils.objectToJson(list2));
+		mv.setViewName("/back/figure/Edu_user_loginFigure");
+		return mv;
+	}
 }

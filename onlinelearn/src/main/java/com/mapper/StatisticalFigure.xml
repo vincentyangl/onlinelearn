@@ -14,4 +14,8 @@
      where updateTime like '${updateTime}%' group by date_format(updateTime,'%Y-%m-%d') 
    </select>
   
+  <select id="listLoginAll" resultType="Edu_user_login_log" parameterType="java.util.Map">
+    select date_format(LOGIN_TIME,'%Y-%m-%d') LOGIN_TIME,count(*) as num from edu_user_login_log 
+     where LOGIN_TIME like '${LOGIN_TIME}%' group by date_format(LOGIN_TIME,'%Y-%m-%d') 
+   </select>
   </mapper>

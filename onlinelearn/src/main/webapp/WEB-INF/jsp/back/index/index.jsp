@@ -33,7 +33,7 @@
 		<div class="layui-main">
 		    <!-- logo区域 -->
 			<div class="admin-logo-box">
-				<a class="logo" href="http://www.kuxuebao.net" title="logo">后台管理系统</a>
+				<a class="logo" href="/admin/user/index" title="logo">后台管理系统</a>
 				<div class="larry-side-menu">
 					<i class="fa fa-bars" aria-hidden="true"></i>
 				</div>

@@ -53,7 +53,9 @@ public class Edu_website_imgesController { //图片管理
 		   String qname=request.getParameter("qname");
 		   String type_id=request.getParameter("type_id");
 		   String shows=request.getParameter("shows");
-		   
+		   if (qname!=null) {
+			request.setAttribute("qname", qname);
+		}
 		   if (shows==null) {
 			shows="-1";
 		}
@@ -151,8 +153,8 @@ public class Edu_website_imgesController { //图片管理
 	    	 String path=request.getRealPath("/images/upload/image/20180408/");
 	    	 File newfile=new File(path,filename);
 	    	 if (filename.equals("")|| filename==null) {
-	    		 edu_website_images.setImage_url("/images/upload/image/20180408/"+hiddens);
-				 edu_website_images.setPreview_url("/images/upload/image/20180408/"+hiddens);
+	    		 edu_website_images.setImage_url(hiddens);
+				 edu_website_images.setPreview_url(hiddens);
 			}else {
 				try{
 					//将客户端上传的文件复制到服务器中

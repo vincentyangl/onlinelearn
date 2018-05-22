@@ -29,10 +29,10 @@ public class SysFunctionController {
 		String json = JsonUtils.objectToJson(sysFunctions);
 		request.setAttribute("sysFunctions", json);
 		ModelAndView mv = new ModelAndView();
-		if (state==1) {
+		if (state==0) {
 			mv.setViewName("/back/permissions/permissionsList");
-		}
-		if (state==2) {
+		}else{
+			mv.addObject("roleId", state);
 			mv.setViewName("/back/role/roleList");
 		}
 		return mv;
@@ -41,13 +41,13 @@ public class SysFunctionController {
 	@RequestMapping("/addPermissions")
 	public String addPermissions(SysFunction sysFunction) {
 		sysFunctionService.save(sysFunction);
-		return "redirect:/admin/permissions/ztreeList/1";
+		return "redirect:/admin/permissions/ztreeList/0";
 	}
 	
 	@RequestMapping("/updatePermissions")
 	public String updatePermissions(SysFunction sysFunction) {
 		sysFunctionService.updateName(sysFunction);
-		return "redirect:/admin/permissions/ztreeList/1";
+		return "redirect:/admin/permissions/ztreeList/0";
 	}
 	
 	@RequestMapping("/isDelete")
@@ -61,7 +61,7 @@ public class SysFunctionController {
 	@RequestMapping("/deletePermissions/{id}")
 	public String deletePermissions(@PathVariable("id") int id) {
 		sysFunctionService.delete(id);
-		return "redirect:/admin/permissions/ztreeList/1";
+		return "redirect:/admin/permissions/ztreeList/0";
 	}
 	
 }

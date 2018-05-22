@@ -70,6 +70,9 @@ public class Edu_UserController {
 		String end=request.getParameter("end");
 		String isAvalible=request.getParameter("isAvalible");
 //		System.out.println("isAvalible:"+isAvalible+"id:"+id);
+		if (qname!=null) {
+			request.setAttribute("qnames", qname);
+		}
 		 if (id==null) {
 //			 request.setAttribute("id", id);
 			 id="-1";
@@ -96,7 +99,7 @@ public class Edu_UserController {
 	
 	@RequestMapping("/update")//修改密码
 	public String update(Edu_User edu_User){
-//		System.out.println("update:"+edu_User.getPassword());
+		System.out.println("update:"+edu_User.getPassword());
 //		System.out.println("id:"+edu_User.getUserId());
 		edu_UserService.update(edu_User);
 		return "redirect:Edu_userAll";
@@ -130,6 +133,7 @@ public class Edu_UserController {
 	
 	@RequestMapping("/toBatchOpen")
 	public String toBatchOpen() {
+		System.out.println("批量");
 		return "/back/student/toBatchOpen";
 	}
 	
@@ -312,6 +316,31 @@ public class Edu_UserController {
 		workbook.write(output);
 		output.close();
 	}
+	
+	@RequestMapping("/down") //导入学员 下载模板
+	public String downAction(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		java.io.OutputStream o = response.getOutputStream();
+		byte b[] = new byte[500];
+		java.io.File fileLoad = new java.io.File(request.getRealPath("/Excel/eduuser.xls"));
+		System.out.println(fileLoad.getPath());
+		response.reset();
+		response.setContentType("application/vnd.ms-excel");
+		response.setHeader("content-disposition",
+				"attachment; filename=text.xls");
+		long fileLength = fileLoad.length();
+		String length1 = String.valueOf(fileLength);
+		response.setHeader("Content_Length", length1);
+		java.io.FileInputStream in = new java.io.FileInputStream(fileLoad);
+		int n;
+		while ((n = in.read(b)) != -1) {
+			o.write(b, 0, n);
+		}
+		in.close();
+		o.close();
+
+		return null;
+	}
+
 
 	
 }

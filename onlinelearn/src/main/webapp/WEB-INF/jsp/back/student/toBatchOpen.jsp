@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<script type="text/javascript" src="/js/jquery-3.2.0.min.js"></script>
+<script src="/js/jquery-3.0.0.js" type="text/javascript"></script>
 <script type="text/javascript" src="/common/layui/layui.js"></script>
 <script type="text/javascript" src="/common/layui/lay/modules/mobile.js"></script>
 <!-- <script type="text/javascript" src="/js/jquery.js"></script> -->
@@ -27,7 +27,10 @@
 <link rel="stylesheet" href="/common/layui/css/layui.css" media="all" />
 <link rel="stylesheet" type="text/css"
 	href="/common/layui/css/modules/layer/default/layer.css" />
+	<link rel="stylesheet" type="text/css" href="/common/layui/css/layui.css"/>
+	
 <script src="/common/layui/lay/modules/layer.js"></script>
+<script type="text/javascript" src="/common/larry/layui/layui.js"></script>	
 <style type="text/css">
 img {
 	width: 35px;
@@ -66,6 +69,25 @@ h2 {
 	margin-left: auto 100px;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#btn").click(function(){
+		var f1=$("#f").val();
+		
+		var str="";
+			if(f1==null||f1==''){
+// 				str="上传文件不能为空！";
+				alert("上传文件不能为空！");
+				$("#sp").text(str);
+			}else{
+				document.forms[0].action="/admin/student/parseExcel";
+				document.forms[0].submit();
+			}
+		});
+		
+	});
+
+</script>
 
 </head>
 <body>
@@ -86,23 +108,24 @@ h2 {
 				<td>第三列:密码，如不填写默认111111，不得填入非法字符例如.*#$等</td>
 			</tr>
 			<tr>
-				<td>第四列:赠送课程模板（<a href="#">点击下载模板</a>）
-				</td>
+<!-- 				<td>第四列:赠送课程模板（<a  class="layui-icon" style="font-size: 30px; color: #1E9FFF;" href="/admin/student/down">&#xe60c;</a>） -->
+				
+				</td>                 
 			</tr>
-			<tr>
-				<td>导入中出错选择项</td>
-				<td><select class="layui-input" name="" id="">
-						<option value="-1">--请选择--</option>
-						<option value="1">跳过</option>
-				</select></td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<td>导入中出错选择项</td> -->
+<!-- 				<td><select class="layui-input" name="" id=""> -->
+<!-- 						<option value="-1">--请选择--</option> -->
+<!-- 						<option value="1">跳过</option> -->
+<!-- 				</select></td> -->
+<!-- 			</tr> -->
 			<tr>
 				<td>上传</td>
 				<td>
-				<input type="file" name="file" id="f"/> <span id="sp"></span>
-				<input type="submit" value="提交" />
-<!--                 <button type="button" onclick="btn()">提交</button> -->
-				<input type="button" value="返回" />
+				<input  type="file" name="file" id="f"/> <span id="sp"></span>
+<!-- 				<button class="layui-btn"  type="submit"> 提交</button> -->
+                <input class="layui-btn" type="button" id="btn" value="提交" />
+<!-- 				<input class="layui-btn" type="button" value="返回" /> -->
 				</td>
 			</tr>
 		</table>
@@ -111,20 +134,18 @@ h2 {
 <script type="text/javascript">
 
   
-  function btn() {
-	  alert("123");
-	  var f1=$("#f").val();
-	  var str="";
-	  alert(f1);
-	  if(f1==null||f1==''){
-		  str="上传文件不能为空！";
-		  $("#btn").text(str);
-	  }else {
-		  document.forms[0].action="/admin/student/parseExcel";
-		  document.forms[0].submit();
-	}
-	  
-}
+//   function btn() {
+// 	  var f1=$("#f").val();
+// 	  var str="";
+// 	  alert(f1);
+// 	  if(f1==null||f1==''){
+// 		 alert("上传文件不能为空！");
+//  		  $("#btn").text(str);
+// 	  }else {
+// 		  document.forms[0].action="/admin/student/parseExcel";
+// 		  document.forms[0].submit();
+// 	}
+// }
 //   $(document).ready(function(){
 // 		$("#btn").click(function(){
 // 			var f1=$("#f").val();

@@ -161,7 +161,7 @@
 				<div class="form-group">
 					<label for="pic_path" class="col-sm-2 control-label">讲师头像</label>
 					<div class="col-sm-4">
-						<span><img name="img" id="img" src="" id="blah"
+						<span><img name="imageUrl" src="" id="blah"
 							style="width: 260px; height: 300px;"></span> <input type="file"
 							name="file" id="file" value="" onchange="checkImgType(this)">
 					</div>
@@ -217,9 +217,9 @@
 				document.forms[0].submit();
 			}
 		}
-		layui.use([ 'form', 'upload' ], function() {
-			var form = layui.form();
-		});
+// 		layui.use([ 'form', 'upload' ], function() {
+// 			var form = layui.form();
+// 		});
 
 		//  图片显示
 		function readURL(input) {

@@ -93,20 +93,20 @@ public class SysRoleController {
 	@RequestMapping("/updateRole")
 	public String updateRole(SysRole sysRole) {
 		sysRoleService.update(sysRole);
-		return "redirect:/admin/permissions/ztreeList/2";
+		return "redirect:/admin/permissions/ztreeList/-1";
 	}
 	
 	@RequestMapping("/addRole")
 	public String addRole(SysRole sysRole) {
 		sysRoleService.save(sysRole);
-		return "redirect:/admin/permissions/ztreeList/2";
+		return "redirect:/admin/permissions/ztreeList/-1";
 	}
 	
 	@RequestMapping("/deleteRole/{roleId}")
 	public String deleteRole(@PathVariable("roleId") int roleId) {
 		sysRoleService.deleteAllFunctionIdByRoleId(roleId);
 		sysRoleService.delete(roleId);
-		return "redirect:/admin/permissions/ztreeList/2";
+		return "redirect:/admin/permissions/ztreeList/-1";
 	}
 	
 	@RequestMapping("/roleAuthorize/{roleId}/{functionIds}")
@@ -118,7 +118,7 @@ public class SysRoleController {
 		for (int i : functionIds) {
 			sysRoleService.addFunctionIdByRoleId(roleId, i);
 		}
-		return "redirect:/admin/permissions/ztreeList/2";
+		return "redirect:/admin/permissions/ztreeList/"+roleId;
 	}
 	
 }

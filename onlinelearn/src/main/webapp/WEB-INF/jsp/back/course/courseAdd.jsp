@@ -29,13 +29,16 @@
    #time1{
       display: none
    }
+   .layui-form-item{
+      width:68%
+   }
 </style>
 <script type="text/javascript">
     var tids = new Array();
     var count =0;
 	function renderForm(){
 		 layui.use('form', function(){
-		 var form = layui.form();//高版本建议把括号去掉，有的低版本，需要加()
+		 var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
 		 form.render();
 		 });
 		 }
@@ -51,7 +54,7 @@
 		   });
 		   
 		   layui.use('form', function () {
-			    var form = layui.form();
+			    var form = layui.form;
 			    
 			    form.on('select(subId)', function(data){
 			        if(data.value!=-1){
@@ -127,7 +130,7 @@
 	   
 		$(function(){
 			  layui.use('form', function () {
-				    var form = layui.form();
+				    var form = layui.form;
 				    form.on('select(subjId)', function(data){
 				        if(data.value!=-1){
 				        	$.post("/admin/teacher/getTeacherBySubjectId/"+data.value,function(msg){
@@ -192,7 +195,7 @@
 						<label class="layui-form-label ">课程名称:</label>
 						<div class="layui-input-block">
 							<input type="text"  id="course_name" name="course_name" autocomplete="off"
-								class="layui-input ">
+								class="layui-input "  lay-verify="course_name">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -223,21 +226,21 @@
 						<label class="layui-form-label">总课时:</label>
 						<div class="layui-input-block">
 							<input type="text"  id="lession_num" name="lession_num" autocomplete="off"
-								class="layui-input ">
+								class="layui-input " lay-verify="lession_num">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">课程原价格:</label>
 						<div class="layui-input-block">
 							<input type="text" id="source_price" name="source_price" autocomplete="off"
-								class="layui-input ">
+								class="layui-input " lay-verify="source_price">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">课程销售价格:</label>
 						<div class="layui-input-block">
 							<input type="text" id="current_price" name="current_price" autocomplete="off"
-								class="layui-input ">
+								class="layui-input "  lay-verify="current_price">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -252,13 +255,13 @@
 					<div class="layui-form-item" id="day1">
 						<label class="layui-form-label">按天数:</label>
 						<div class="layui-input-block">
-							<input type="text"  id="lose_time" name="lose_time" autocomplete="off" class="layui-input ">天
+							<input type="text"  id="lose_time" name="lose_time" autocomplete="off" class="layui-input "  lay-verify="lose_time">天
 						</div>
 					</div>
 					<div class="layui-form-item" id="time1">
 						<label class="layui-form-label">有效结束时间:</label>
 						<div class="layui-input-block">
-							<input type="date" id="end_time"  name="endTime" autocomplete="off" class="layui-input ">
+							<input type="date" id="end_time"  name="endTime" autocomplete="off" class="layui-input " lay-verify="endTime">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -276,7 +279,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label ">课程简介:</label>
 						<div class="layui-input-block">
-							<input type="text" id="title" name="title" autocomplete="off" class="layui-input ">
+							<input type="text" id="title" name="title" autocomplete="off" class="layui-input "  lay-verify="title">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -291,7 +294,7 @@
 						    <script type="text/plain" id="myEditor" style="width:650px;height:240px;">
                                 <p>请输入课程详情</p>
                             </script>
-							<textarea rows="5" id="context" name="context" cols="78"  class="layui-textarea"></textarea>
+							<textarea rows="5" id="context" name="context" cols="80"  class="layui-textarea"></textarea>
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -304,19 +307,71 @@
 			</div>
 		</div>
 	</section>
-	<script type="text/javascript" src="/common/layui/layui.js"></script>
+	<script type="text/javascript" src="/common/larry/layui/layui.js"></script>
 	<script type="text/javascript">
-	layui.use(['form','upload'],function(){
-         var form = layui.form();
-         layui.upload({ 
-             url: '' ,//上传接口 
-             success: function(res){
-              //上传成功后的回调 
-              console.log(res) 
-            } 
-         });
-
-	});
+	
+	layui.use(['form', 'layedit', 'laydate'], function(){
+		  var form = layui.form
+		  ,layer = layui.layer
+		  ,layedit = layui.layedit
+		  ,laydate = layui.laydate;
+		  
+		  //创建一个编辑器
+		  var editIndex = layedit.build('LAY_demo_editor');
+		 
+		  //自定义验证规则
+		  form.verify({
+			  loginName: function(value){
+		      if(value.length < 5){
+		        return '登录名至少得5个字符啊';
+		      }
+		      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+		          return '用户名不能有特殊字符';
+		        }
+		        if(/(^\_)|(\__)|(\_+$)/.test(value)){
+		          return '用户名首尾不能出现下划线\'_\'';
+		        }
+		        if(/^\d+\d+\d$/.test(value)){
+		          return '用户名不能全为数字';
+		        }
+		    }
+		  , userName: function(value){
+		      if(value.length < 5){
+			        return '昵称至少得5个字符啊';
+			      }
+		      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+		          return '用户名不能有特殊字符';
+		        }
+		        if(/(^\_)|(\__)|(\_+$)/.test(value)){
+		          return '用户名首尾不能出现下划线\'_\'';
+		        }
+		        if(/^\d+\d+\d$/.test(value)){
+		          return '用户名不能全为数字';
+		        }
+			    }
+		    ,loginPwd: [/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, '密码必须6到16位字母数字组合']
+		    ,loginPwd1:function(value){
+		    	var passwordValue = $('input[name=loginPwd]').val();
+		    	if(value != passwordValue){
+		    	return '两次输入的密码不一致!';
+		    	}
+		    	}
+		    ,tel: [/^1[3|4|5|7|8]\d{9}$/, '手机必须11位数字,且格式正确！']
+		    ,email: [/^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/, '邮箱格式不对']
+		  });
+		  
+		  //监听提交
+		  form.on('submit(demo1)', function(data){
+			  var b = true;
+			  if(data.field.roleId==-1){
+				  layer.alert("请选择角色!");
+				  b = false;
+			  }
+			  return b;
+		  });
+		});
+	
+	
 	//实例化编辑器
     var um = UM.getEditor('myEditor');
 </script>

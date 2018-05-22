@@ -21,11 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bean.EduCourse;
 import com.bean.SysFunction;
 import com.bean.SysRole;
 import com.bean.SysUser;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.SysFunctionService;
 import com.service.SysUserService;
+import com.util.ObjectUtils;
 
 @Controller
 @RequestMapping("/admin/user")
@@ -44,6 +48,14 @@ public class SysUserController {
 	@RequestMapping("/main")
 	public String main() {
 		return "/back/main/main";
+	}
+	
+	@RequestMapping("/index")
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("sysFunctions", getSysFunctionMenu());
+		mv.setViewName("/back/index/index");
+		return mv;
 	}
 	
 	@RequestMapping("/personalInfo")
@@ -104,15 +116,6 @@ public class SysUserController {
 		return sysFunctions;
 	}
 	
-	@RequestMapping("/userList")
-	public ModelAndView userList() {
-		ModelAndView mv = new ModelAndView();
-		List<SysUser> users = sysUserService.listAll(new HashMap<>());
-		mv.addObject("users", users);
-		mv.setViewName("/back/admin/userList");
-		return mv;
-	}
-	
 	@RequestMapping("/userDelete/{userId}")
 	public String userDelete(@PathVariable("userId") Integer userId) {
 		sysUserService.delete(userId);
@@ -161,19 +164,24 @@ public class SysUserController {
 		return "redirect:/admin/user/userList";
 	}
 	
-	@RequestMapping("/getSysUserByNameAndRoleId")
-	public ModelAndView getSysUserByNameAndRoleId(
+	@RequestMapping("/userList")
+	public ModelAndView getSysUserByNameAndRoleId(@RequestParam(required=true,defaultValue="1")Integer currentPage,
 			 String qname, Integer roleId) {
 		ModelAndView mv = new ModelAndView();
+		PageHelper.startPage(currentPage, 8);
 		Map map = new HashMap<>();
-		if (qname!=null||qname.trim().length()!=0) {
+		if (qname!=null&&qname.trim().length()!=0) {
 			map.put("qname", qname);
 		}
-		if (roleId!=-1) {
+		if (ObjectUtils.isNotNull(roleId)) {
 			map.put("rid", roleId);
 		}
 		List<SysUser> users = sysUserService.listAll(map);
+		PageInfo<SysUser> info = new PageInfo<>(users);
+		mv.addObject("info", info);
 		mv.addObject("users", users);
+		mv.addObject("qname", qname);
+		mv.addObject("roleId", roleId);
 		mv.setViewName("/back/admin/userList");
 		return mv;
 	}

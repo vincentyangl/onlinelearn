@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>查看邮件信息</title>
 	<meta name="renderer" content="webkit">	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
@@ -17,6 +17,15 @@
 	<link rel="stylesheet" type="text/css" href="/common/bootstrap/css/bootstrap.css" media="all">
 	<link rel="stylesheet" type="text/css" href="/common/global.css" media="all">
 	<link rel="stylesheet" type="text/css" href="/css/personal.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+	
+	<script src="/js/jquery-3.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+
+<link href="/js/utf8-jsp/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="/js/utf8-jsp/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/utf8-jsp/umeditor.min.js"></script>
+<script type="text/javascript" src="/js/utf8-jsp/lang/zh-cn/zh-cn.js"></script>
 </head>
 <body>
 <section class="layui-larry-box">
@@ -78,12 +87,21 @@
 					</div>
 				</div>
 				
-				<div  class="layui-form-item col-lg-5">
-					<label class="layui-form-label">邮箱正文</label>
-					<div class="layui-input-block"> 
-						<textarea cols="100" rows="10">${list.content}</textarea>
-					</div>
-				</div>
+<!-- 				<div  class="layui-form-item col-lg-5"> -->
+<!-- 					<label class="layui-form-label">邮箱正文</label> -->
+<!-- 					<div class="layui-input-block">  -->
+<%-- 						<textarea cols="100" rows="10" autocomplete="off" >${list.content}</textarea> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+				
+				<div class="layui-form-item">
+			<label class="layui-form-label">内容</label>
+			<div class="layui-input-block">
+				<script type="text/plain" id="myEditor" autocomplete="off"
+					style="width:585px;height:240px;">${list.content}</script>
+				<div class="clear"></div>
+			</div>
+		</div>
 					
 				
 				<div class="layui-form-item">
@@ -98,6 +116,9 @@
 	</div>
 </section>
 <script type="text/javascript" src="/common/layui/layui.js"></script>
+<script type="text/javascript">
+		var ue = UM.getEditor('myEditor');
+	</script>
 <script type="text/javascript">
 	layui.use(['form','upload'],function(){
          var form = layui.form();
