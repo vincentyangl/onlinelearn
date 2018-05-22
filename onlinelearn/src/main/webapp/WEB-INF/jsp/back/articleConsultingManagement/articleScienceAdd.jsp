@@ -48,17 +48,17 @@
 			</div>
 		</div>
 
-		<div class="layui-inline">
+		<div class="layui-form-item">
 			<label class="layui-form-label">作者:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input class="layui-input newsAuthor" lay-verify="required"
 					name="author" type="text">
 			</div>
 		</div>
 
-		<div class="layui-inline">
+		<div class="layui-form-item">
 			<label class="layui-form-label">来源:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input class="layui-input newsAuthor" lay-verify="required"
 					name="source" type="text">
 			</div>
@@ -107,11 +107,6 @@
 			document.forms[0].action = "/admin/earticle/save";
 			document.forms[0].submit();
 		}
-		layui.use([ 'form', 'upload' ], function() {
-			var form = layui.form();
-		});
-
-		//  图片显示
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
@@ -121,7 +116,6 @@
 				reader.readAsDataURL(input.files[0]);
 			}
 		}
-
 		$("#file").change(function() {
 			readURL(this);
 		});

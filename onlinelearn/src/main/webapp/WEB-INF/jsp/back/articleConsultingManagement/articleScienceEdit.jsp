@@ -13,7 +13,7 @@
 	href="/common/bootstrap/css/bootstrap.css" media="all">
 <link rel="stylesheet" type="text/css" href="/common/global.css"
 	media="all">
-<link rel="stylesheet" type="text/css" haref="/css/personal.css"
+<link rel="stylesheet" type="text/css" href="/css/personal.css"
 	media="all">
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 <script src="/js/jquery-3.0.0.js" type="text/javascript" charset="utf-8"></script>
@@ -29,9 +29,6 @@
 
 </head>
 <body>
-
-
-
 	<form class="layui-form" action=""
 		method="post" enctype="multipart/form-data">
 
@@ -58,17 +55,17 @@
 			</div>
 		</div>
 
-		<div class="layui-inline">
+		<div class="layui-form-item">
 			<label class="layui-form-label">作者:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input class="layui-input newsAuthor" lay-verify="required"
 					name="author" value="${edu_Article.author }" type="text">
 			</div>
 		</div>
 
-		<div class="layui-inline">
+		<div class="layui-form-item">
 			<label class="layui-form-label">来源:</label>
-			<div class="layui-input-inline">
+			<div class="layui-input-block">
 				<input class="layui-input newsAuthor" lay-verify="required"
 					name="source" value="${edu_Article.source }" type="text">
 			</div>
@@ -108,7 +105,7 @@
 					value="修改" />
 			</div>
 		</div>
-		<input type="hidden" name="content" id="content" value="${edu_Article_Content.content }">
+		<textarea rows="10" cols="50" name="content" id="content">${edu_Article_Content.content }</textarea>
 	</form>
 
 	<script type="text/javascript">
@@ -118,11 +115,6 @@
 		document.forms[0].action = "/admin/earticle/update";
 		document.forms[0].submit();
 	}
-	
-		layui.use([ 'form', 'upload' ], function() {
-			var form = layui.form();
-		});
-
 		//  图片显示
 		function readURL(input) {
 			if (input.files && input.files[0]) {
@@ -133,9 +125,11 @@
 				reader.readAsDataURL(input.files[0]);
 			}
 		}
-
 		$("#file").change(function() {
 			readURL(this);
+		});
+		$(function(){
+			$("#content").hide();
 		});
 	</script>
 	<script type="text/javascript">
