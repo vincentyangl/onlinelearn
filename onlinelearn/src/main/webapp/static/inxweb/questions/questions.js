@@ -36,7 +36,8 @@ function submitForm(keyWord,type){
 /**
  *热门问答
  */
-function hotQuestions(){
+
+ function hotQuestions(){
 	$.ajax({
 		url:baselocation + "/front/equestions/ajax/hotRecommend",
 		data:{
@@ -60,7 +61,7 @@ function hotQuestions(){
 						+'	</aside>'
 						+'	<h4 class="hLh30 txtOf">'
 						+'		<em class="icon16 q-tw">&nbsp;</em>'
-						+'		<a href="/questions/info/'+resultList[i].id+'" title="" class="fsize14 c-333 ml5">'+resultList[i].title+'</a>'
+						+'		<a href="/front/equestions/webedgetById/'+resultList[i].id+'" title="" class="fsize14 c-333 ml5">'+resultList[i].title+'</a>'
 						+'	</h4>'
 						+'</li>';
 				}
@@ -68,4 +69,5 @@ function hotQuestions(){
 			}
 		}
 	});
+	
 }

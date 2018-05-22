@@ -204,6 +204,7 @@ public class Edu_QuestionsqtController {
 	 * Ìá½»ÎÊ´ð
 	 */
 	@RequestMapping("/ajax/add")
+	@ResponseBody
 	public Result add(HttpSession session,HttpServletRequest request){
 		System.out.println("1234");
 		int type=Integer.parseInt(request.getParameter("type"));
@@ -213,8 +214,6 @@ public class Edu_QuestionsqtController {
 			b[i]=Integer.parseInt(a[i]);	
 		}
 			Result result = new Result();
-			boolean bool = true;
-			result.setSuccess(bool);
 			Edu_User  user=	(Edu_User) session.getAttribute("login_success");
 			Edu_Questions questions = new Edu_Questions();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -210,7 +210,7 @@
 								</ul>
 							</div>
 						</section>
-						<!-- /热门问答排行 -->
+						<!-- /热门问答排行  -->
 					</div>
 				</aside>
 				<div class="clear"></div>
