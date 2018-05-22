@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.Edu_user_login_logDao">
+    <resultMap type="Edu_user_login_log" id="loginMap">
+     <result column="LOG_ID" property="log_id"/>
+     <result column="IP" property="ip"/>
+     <result column="OS_NAME" property="os_name"/>
+      <result column="USER_AGENT" property="user_agent"/>
+     <association property="userId" column="USER_ID" select="com.mapper.Edu_UserDao.getById"></association>
+    </resultMap>
+   
+   <select id="listAll" resultMap="loginMap" parameterType="java.util.Map">
+   select * from edu_user_login_log
+   </select>
+  
+  </mapper>

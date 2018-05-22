@@ -46,11 +46,11 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 
 <script type="text/javascript">
 
-$(function () {
- 	if(${k}==0){
- 		$("#myModal").modal("show");
- 	}
-});
+// $(function () {
+//  	if(${k}==0){
+//  		$("#myModal").modal("show");
+//  	}
+// });
 
 	  
 	  function list() {//查询
@@ -84,6 +84,7 @@ $(function () {
 	  
  
  function save() {
+	 alert("save");
 	  var type_name=$("#type_name2").val();
 //	  document.forms[0].action="/admin/imagetype/save";
 //	  document.forms[0].submit();

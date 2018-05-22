@@ -44,7 +44,7 @@ public class Edu_website_imgesTypeController { //图片类型管理
 	@RequestMapping("/save/{type_name}")
 	public String option(@PathVariable("type_name") String type_name, Edu_website_images_type edu_website_images_type,HttpServletRequest request) {
 
-		//		System.out.println(type_name);
+				System.out.println(type_name);
 		edu_website_images_type.setType_name(type_name);
 		edu_website_images_typeService.save(edu_website_images_type);  
 		return "redirect:/admin/imagetype/getList";

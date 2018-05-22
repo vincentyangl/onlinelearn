@@ -84,7 +84,7 @@ public class LoginController {   //前台登录
 	}
 
      
-	@RequestMapping("/front/uc/createuser")
+	@RequestMapping("/front/uc/createuser")//学员注册
 	@ResponseBody
 	public Result createUser(HttpServletRequest request) {
 		Edu_User user = new Edu_User();

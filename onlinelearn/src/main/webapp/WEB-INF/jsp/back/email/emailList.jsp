@@ -223,8 +223,8 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                   <th>是否发送</th>
                                   <th>邮件标题</th>
                                   <th>收件人</th>
-                                  <th>普通发送时间</th>
-                                  <th>定时发送时间</th>
+                                  <th>点击发送时间</th>
+                                  <th>发送成功时间</th>
                                   <th>操作人</th>
                                   <th>查看</th>
                               </tr>
@@ -273,7 +273,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 					</c:if> <c:if test="${page.hasPreviousPage==false }">
 						<a>上一页</a>
 					</c:if> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					每页${page.pageSize }条
+					每页限制${page.pageSize }条
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${page.pageNum }/${page.pages }
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 						test="${page.hasNextPage==true }">

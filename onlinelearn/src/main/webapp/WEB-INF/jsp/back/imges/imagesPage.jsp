@@ -219,7 +219,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
 					</c:if> <c:if test="${page.hasPreviousPage==false }">
 						<a>上一页</a>
 					</c:if> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					每页${page.pageSize }条
+					每页限制${page.pageSize }条
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${page.pageNum }/${page.pages }
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <c:if
 						test="${page.hasNextPage==true }">
