@@ -156,8 +156,9 @@
 		})  
 		}
 	//修改
-	function beforeRename(treeId,treeNode) { 
-		var data = {id:treeNode.id,name:treeNode.name};
+	function beforeRename(treeId,treeNode,newname) { 
+// 		var data = {id:treeNode.id,name:treeNode.name};
+        var data = "id=" + treeNode.id + "&name=" + newname;
 		$.ajax({  
 		type: "post",  
 		url: "/admin/eqtag/eqtupdate",  

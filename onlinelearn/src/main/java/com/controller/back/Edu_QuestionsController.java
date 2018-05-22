@@ -1,5 +1,7 @@
 package com.controller.back;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class Edu_QuestionsController {
 	public ModelAndView listAll(@RequestParam(required=true,defaultValue="1") Integer page,Model md, HttpServletRequest request){
 		PageHelper.startPage(page,5);
 		ModelAndView mv =new ModelAndView();
+		SimpleDateFormat sf =new SimpleDateFormat("yyyy.MM.dd HH:mm:SS");
 		Map map=new HashMap();
 		map=initMap(request,map);
 		List<Edu_Questions> list=edu_QuestionsService.listAll(map);
@@ -76,9 +79,11 @@ public class Edu_QuestionsController {
 		int ids=Integer.parseInt(request.getParameter("id"));
 		System.out.println(ids);
 		ModelAndView mv =new ModelAndView();
+		SimpleDateFormat sf=new SimpleDateFormat("yyyy.MM.dd HH:mm:SS");
 		Edu_Questions edu_Questions=edu_QuestionsService.getById(id);
-		System.out.println("userid"+edu_Questions.getEdu_User().getUserId());
-		System.out.println("dsaasda"+edu_Questions.getEdu_User());
+		
+//		System.out.println("userid"+edu_Questions.getEdu_User().getUserId());
+//		System.out.println("dsaasda"+edu_Questions.getEdu_User());
 		mv.setViewName("/back/QuestionAnswer/QuestionAnswerLabelupdate");
 		mv.addObject("edu_Questions", edu_Questions);
 		return mv;

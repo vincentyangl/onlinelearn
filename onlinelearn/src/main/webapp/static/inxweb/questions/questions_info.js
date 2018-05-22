@@ -110,6 +110,8 @@ function acceptComment(commentId){
 			if(result.success==true){
 				$(obj).parent().prev().find("textarea").val("");
 				ajaxPage("/front/equestions/ajax/list","&questionsComment.questionId="+questionsId,1,commentCallBack);//ajax获得评论
+				var questionsReplyCount=parseInt($(tempObj).children("span").html());
+				$(tempObj).children("span").html(questionsReplyCount+1);
 			}else{
 				dialog('提示',result.message,1);
 			}

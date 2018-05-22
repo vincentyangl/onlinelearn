@@ -27,7 +27,7 @@
   </delete>
   
   <insert id="save" parameterType="Edu_Questions_Tag">
-  insert into Edu_Questions_Tag (QUESTIONS_TAG_NAME,CREATE_TIME) values (#{questionsTagName},#{createTime})
+  insert into Edu_Questions_Tag (QUESTIONS_TAG_NAME,CREATE_TIME,STATUS,PARENT_ID) values (#{questionsTagName},#{createTime},0,0)
   </insert>
   
   <select id="getById" parameterType="int" resultMap="Edu_Questions_Tags">
@@ -35,6 +35,10 @@
   </select>
   
   <update id="update" parameterType="Edu_Questions_Tag">
+  update Edu_Questions_Tag set QUESTIONS_TAG_NAME=#{questionsTagName} where QUESTIONS_TAG_ID=#{questionsTagId}
+  </update>
+  
+  <update id="updates" parameterType="int">
   update Edu_Questions_Tag set QUESTIONS_TAG_NAME=#{questionsTagName} where QUESTIONS_TAG_ID=#{questionsTagId}
   </update>
   

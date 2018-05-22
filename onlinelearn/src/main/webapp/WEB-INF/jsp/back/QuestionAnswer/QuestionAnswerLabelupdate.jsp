@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,20 +65,23 @@
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">问答分类:</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" 
-					name="type" value="${edu_Questions.type }">
+			<c:if test="${edu_Questions.type==1 }"><input type="text" class="form-control" 
+					name="type" value="课程问答" disabled="disabled"></c:if>
+			<c:if test="${edu_Questions.type==2 }"><input type="text" class="form-control" 
+					name="type" value="学习分享" disabled="disabled"></c:if>
+				
 			</div>
 		</div>
 
 
-		<div class="form-group">
+		<%-- <div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">问答采纳:</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" disabled="disabled"
 					name="status" value="${edu_Questions.status }">
 			</div>
 		</div>
-
+ --%>
 		<div class="form-group">
 			<label for="inputtext" class="col-sm-2 control-label">回复数:</label>
 			<div class="col-sm-4">
@@ -105,7 +110,9 @@
 			<label for="inputtext" class="col-sm-2 control-label">添加时间:</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" disabled="disabled"
-					name="addTime" value="${edu_Questions.addTime }">
+					name="addTime" value="${edu_Questions.addTime }" pattern="YYYY-MM-dd HH:mm:ss">
+					<%-- <fmt:formatDate value="${edu_Questions.addTime }" type="date"
+								pattern="YYYY-MM-dd HH:mm:ss" /> --%>
 			</div>
 		</div>
 

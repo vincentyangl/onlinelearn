@@ -77,4 +77,9 @@ public class Edu_QuestionsServiceImpl implements Edu_QuestionsService{
 		return list;
 	}
 
+	@Override
+	public void updatehfs(int id) {
+		edu_QuestionsDao.updatehfs(id);
+	}
+
 }

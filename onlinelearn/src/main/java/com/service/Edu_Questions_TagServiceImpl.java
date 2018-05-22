@@ -72,6 +72,11 @@ public class Edu_Questions_TagServiceImpl implements Edu_Questions_TagService{
 		return edu_Questions_Tags;
 	}
 
+	@Override
+	public void updates(int questionsTagId) {
+		edu_Questions_TagDao.updates(questionsTagId);
+	}
+
 	
 
 }

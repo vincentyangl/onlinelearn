@@ -11,6 +11,7 @@ public List<Edu_Questions_Tag> listAll();
 public void save(Edu_Questions_Tag edu_Questions_Tag);
 public void delete(int questionsTagId);
 public void update(Edu_Questions_Tag edu_Questions_Tag);
+public void updates(int questionsTagId);
 public Edu_Questions_Tag getById(int questionsTagId);
 public List<Edu_Questions_Tag> getByIdbq(int id);
 public List<Edu_Questions_Tag> listtj();

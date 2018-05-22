@@ -81,4 +81,8 @@
   where  CUS_ID=#{userId}
   order by praise_count,add_time desc
   </select>
+  
+  <update id="updatehf" parameterType="int">
+  update Edu_Questions_Comment set REPLY_COUNT=REPLY_COUNT+1 where ID=#{id}
+  </update>
   </mapper>

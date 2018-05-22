@@ -64,11 +64,15 @@ SELECT * from edu_questions e1,edu_user e2 where e1.CUS_ID=e2.userId and e1.id=#
   </select>
   
   <update id="update" parameterType="Edu_Questions">
-  update Edu_Questions set TITLE=#{title},TYPE=#{type},STATUS=#{status} where ID=#{id}
+  update Edu_Questions set TITLE=#{title},STATUS=#{status} where ID=#{id}
   </update>
   
   <update id="updatedz" parameterType="int">
   update Edu_Questions set PRAISE_COUNT=PRAISE_COUNT+1 where ID=#{id}
+  </update>
+  
+  <update id="updatehfs" parameterType="int">
+  update Edu_Questions set REPLY_COUNT=REPLY_COUNT+1 where ID=#{id}
   </update>
   
   <insert id="saveRelation" parameterType="java.util.Map">

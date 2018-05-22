@@ -88,7 +88,13 @@ public class Edu_Questions_CommentServiceImpl implements Edu_Questions_CommentSe
 	
 	@Override
 	public List<Edu_Questions_Comment> myQuestionsComment(int userId) {
-		return edu_Questions_CommentDao.myQuestionsComment(userId);
+		List<Edu_Questions_Comment> list=edu_Questions_CommentDao.myQuestionsComment(userId);
+ 		return list;
+	}
+
+	@Override
+	public void updatehf(int id) {
+		edu_Questions_CommentDao.updatehf(id);
 	}
 
 }

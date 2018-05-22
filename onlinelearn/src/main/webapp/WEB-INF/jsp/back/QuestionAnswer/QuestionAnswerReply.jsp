@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -85,7 +86,10 @@
 							<c:if test="${t.isBest==0}"><th>否</th></c:if>
 							<th>${t.replyCount }</th>
 							<th>${t.praiseCount }</th>
-							<th>${t.addTime }</th>
+							<th>
+							<fmt:formatDate value="${t.addTime }" type="date"
+								pattern="YYYY-MM-dd HH:mm:ss" />
+							</th>
 							<th>
 							<a href="/admin/eqcomment/eqcdelete?id=${t.id }" class="layui-btn layui-btn-danger layui-btn-mini news_del" >删除</a> <br/>
 <!-- 							<a href="" class="layui-btn layui-btn-mini news_edit">修改</a> -->

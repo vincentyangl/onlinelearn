@@ -2,6 +2,7 @@ package com.controller.web;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,8 @@ import com.bean.Edu_Questions;
 import com.bean.Edu_Questions_Comment;
 import com.bean.Edu_Questions_Tag;
 import com.bean.Edu_User;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.service.Edu_QuestionsService;
 import com.service.Edu_Questions_CommentService;
 import com.service.Edu_Questions_TagService;
@@ -39,21 +42,32 @@ public class Edu_QuestionsqtController {
 	public Edu_Questions_CommentService edu_Questions_CommentService;
 	
 	@RequestMapping("/edlist/{flag}")
-	public ModelAndView listAll(@PathVariable("flag") int flag,HttpServletRequest request){
+	public ModelAndView listAll(@PathVariable("flag") int flag,HttpServletRequest request,@RequestParam(required=true,defaultValue="1")Integer page){
 //		int type=Integer.parseInt(request.getParameter("type"));
 //		System.err.println("type"+type);
 		ModelAndView mv =new ModelAndView();
+		PageHelper.startPage(page, 5);
 		Map map = new HashMap<>();
 		map.put("flag", flag);
 		List<Edu_Questions> list=edu_QuestionsService.listAll(map);
+		PageInfo<Edu_Questions> p=new PageInfo<Edu_Questions>(list);
 		List<Edu_Questions_Tag> questionsTagList=edu_Questions_TagService.listAlls();
 		mv.addObject("questionsTagList",questionsTagList );
 		mv.setViewName("web/questions/questions-list");
 		mv.addObject("list", list);
+		mv.addObject("page", p);//分页数据
+		List<Integer> is = new ArrayList<>();
+		for (int i = 1; i <= p.getPages(); i++) {
+			is.add(i);
+		}
+		mv.addObject("totalPage", page);//当前页
+		mv.addObject("pageNum", is);//总页数
 		return mv;
 	}
 	
-	//热门问答推荐
+	/**
+	 * 热门问答推荐
+	 */
 		@RequestMapping("/ajax/hotRecommend")
 		@ResponseBody
 		public Result hotRecommend() {
@@ -148,7 +162,9 @@ public class Edu_QuestionsqtController {
 //	}
 	
 	
-	
+	/**
+	 *	点赞
+	 */
 	@RequestMapping("/comment/ajax/addPraise")
 	@ResponseBody
 	public Result updatePraise(HttpServletRequest request) {
@@ -159,12 +175,12 @@ public class Edu_QuestionsqtController {
 		System.out.println(type);
 		boolean b;
 		if (type==1) {
-			System.out.println("dszdsaf");
+//			System.out.println("dszdsaf");
 			edu_QuestionsService.updatedz(targetId);
 			b=true;
 			result.setSuccess(b);
 		}else{
-			System.out.println("sadcacca");
+//			System.out.println("sadcacca");
 			edu_Questions_CommentService.updatedzc(targetId);
 			b=true;
 			result.setSuccess(b);
@@ -172,6 +188,9 @@ public class Edu_QuestionsqtController {
 		return result;
 	}
 
+	/**
+	 * 提问前先登录 
+	 */
 	@RequestMapping("/toadd")
 	public ModelAndView toadd(){
 		ModelAndView mv =new ModelAndView();
@@ -181,9 +200,12 @@ public class Edu_QuestionsqtController {
 		return mv;
 	}
 	
-	
-	@RequestMapping("/praise/ajax/add")
+	/**
+	 * 提交问答
+	 */
+	@RequestMapping("/ajax/add")
 	public Result add(HttpSession session,HttpServletRequest request){
+		System.out.println("1234");
 		int type=Integer.parseInt(request.getParameter("type"));
 		String a[]= request.getParameter("questionsTag").split(",");
 		int b[] = new int [a.length];
@@ -225,7 +247,9 @@ public class Edu_QuestionsqtController {
 			return result;
 		}
 	
-	
+	/**
+	 * 添加回答评论
+	 */
 	@RequestMapping("/ajax/addComment")
 	@ResponseBody
 	public Result addComment(HttpSession session,HttpServletRequest request){
@@ -233,7 +257,9 @@ public class Edu_QuestionsqtController {
 		Edu_User  user=	(Edu_User) session.getAttribute("login_success");
 		Edu_Questions_Comment comment = new Edu_Questions_Comment();
 		Edu_Questions questions = new Edu_Questions();
-		questions.setId(Integer.parseInt(request.getParameter("questionsComment.questionId")));
+		int id=Integer.parseInt(request.getParameter("questionsComment.questionId"));
+		String content=request.getParameter("questionsComment.content");
+		questions.setId(id);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date add_time = null;
 		try {
@@ -243,13 +269,16 @@ public class Edu_QuestionsqtController {
 		}
 	    comment.setEdu_User(user);
 	    comment.setEdu_Questions(questions);
-	    comment.setContent(request.getParameter("questionsComment.content"));
+	    comment.setContent(content);
 	    comment.setIsBest(0);
 	    comment.setReplyCount(0);
 	    comment.setPraiseCount(0);
 	    comment.setAddTime(add_time);
 	    comment.setCommentId(0);
 	    edu_Questions_CommentService.save(comment);
+	    System.out.println(id);
+//	    edu_Questions_CommentService.updatehf(id);
+	    edu_QuestionsService.updatehfs(id);
 	    Boolean b=true;
 	    result.setSuccess(b);
 		return result;
@@ -268,7 +297,9 @@ public class Edu_QuestionsqtController {
 	}
 	
 	
-	
+	/**
+	 * 添加回答评论的评论(子评论)
+	 */
 	@RequestMapping("/ajax/addReply")
 	@ResponseBody
 	public Result addReply(HttpServletRequest request,HttpSession session){
@@ -277,6 +308,7 @@ public class Edu_QuestionsqtController {
 		Edu_User  user=	(Edu_User) session.getAttribute("login_success");
 		Edu_Questions_Comment comment = new Edu_Questions_Comment();
 		Edu_Questions questions = new Edu_Questions();
+		int CommentId=Integer.parseInt(request.getParameter("questionsComment.commentId"));
 		questions.setId(0);	
 		comment.setEdu_User(user);
 		comment.setEdu_Questions(questions);
@@ -285,13 +317,17 @@ public class Edu_QuestionsqtController {
 		comment.setReplyCount(0);
 		comment.setPraiseCount(0);
 		comment.setAddTime(new Date());
-		comment.setCommentId(Integer.parseInt(request.getParameter("questionsComment.commentId")));
+		comment.setCommentId(CommentId);
 		edu_Questions_CommentService.save(comment);
+		edu_Questions_CommentService.updatehf(CommentId);
 		Boolean b=true;
 		result.setSuccess(b);
 		return result;
 	}
 	
+	/**
+	*根据问答回复id  获取子评论 
+	*/
 	@RequestMapping("/ajax/getCommentById/{commentId}")
 	@ResponseBody
 	public ModelAndView getCommentById(@PathVariable("commentId")int commentId){

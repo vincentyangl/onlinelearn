@@ -22,7 +22,6 @@
 <script src="bootstrap-table.js" type="text/javascript" charset="utf-8"></script>
 <script src="locale/bootstrap-table-zh-CN.js" type="text/javascript"
 	charset="utf-8"></script>
-
 </head>
 <body>
 <form action="" method="post">
@@ -46,7 +45,7 @@
 							<th>${tt.id }</th>
 							<th>${tt.content }</th>
 							<th>
-							<c:if test="${tt.isBest==0 }"><a href="/admin/eqcomment/eqcupdate?id=${tt.id }&isBest=${tt.isBest}&QUESTION_ID.id=${tt.edu_Questions.id}" class="layui-btn layui-btn-danger layui-btn-mini news_del">设为最佳答案</a></c:if>
+							<c:if test="${tt.isBest==0 }"><a href="/admin/eqcomment/eqcupdate?id=${tt.id }&isBest=${tt.isBest}&QUESTION_ID.id=${tt.edu_Questions.id}" class="layui-btn layui-btn-danger layui-btn-mini news_del" >设为最佳答案</a></c:if>
 							<c:if test="${tt.isBest==1 }"><a href="/admin/eqcomment/eqcupdate?id=${tt.id }&isBest=${tt.isBest}&QUESTION_ID.id=${tt.edu_Questions.id}" class="layui-btn layui-btn-danger layui-btn-mini news_del">取消最佳答案</a></c:if>
 							<a href="" class="layui-btn layui-btn-danger layui-btn-mini news_del">回复</a>
 							</th>

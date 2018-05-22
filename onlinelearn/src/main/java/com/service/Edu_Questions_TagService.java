@@ -16,4 +16,5 @@ public interface Edu_Questions_TagService {
 	public Edu_Questions_Tag getById(int questionsTagId);
 	public List<Edu_Questions_Tag> getByIdbq(int id);
 	public List<Edu_Questions_Tag> listtj();
+	public void updates(int questionsTagId);
 }

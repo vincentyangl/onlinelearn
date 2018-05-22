@@ -16,4 +16,5 @@ public interface Edu_QuestionsDao {
 	public void saveRelation(Map map);
 	public int getMaxId();
 	public List<Edu_Questions> myQuestions(int userid);
+	public void updatehfs(int id);
 }

@@ -19,4 +19,5 @@ public interface Edu_Questions_CommentDao {
 	public List<Edu_Questions_Comment> getById3(int id);
 	public List<Edu_Questions_Comment> getListById(int commentId);
 	public List<Edu_Questions_Comment> myQuestionsComment(int userId);
+	public void updatehf(int id);
 }

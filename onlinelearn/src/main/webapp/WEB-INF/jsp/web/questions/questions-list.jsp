@@ -23,11 +23,11 @@
 								<c:if test="${questions.type==2 }">class="current"</c:if>>学习分享</a>
 						</section>
 						<div class="js-wrap">
-							<section class="fr">
+							<%-- <section class="fr">
 								<span class="c-ccc"> <tt class="c-master f-fM">${page.currentPage}</tt>/<tt
 										class="c-666 f-fM">${page.totalPageSize}</tt>
 								</span>
-							</section>
+							</section> --%>
 							<section class="fl">
 								<ol class="js-tap clearfix">
 									<li><a
@@ -140,19 +140,36 @@
 								</section>
 							</c:if>
 							<!-- 公共分页 开始 -->
-							<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
+							<%-- <jsp:include page="/WEB-INF/jsp/common/front_page.jsp" /> --%>
 							<!-- 公共分页 结束 -->
-							<form action="${ctx}/questions/list" id="searchForm"
+							<form action="${ctx}/front/equestions/edlist/0" id="searchForm"
 								method="post">
 								<input type="hidden" id="pageCurrentPage"
-									name="page.currentPage" value="1" /> <input type="hidden"
-									name="questions.orderFalg" value="${questions.orderFalg}" /> <input
-									type="hidden" name="questions.type" value="${questions.type}" />
-								<input type="hidden" name="questions.status"
-									value="${questions.status}" /> <input type="hidden"
-									name="questions.questionsTagId"
-									value="${questions.questionsTagId}" />
+									name="page.currentPage" value="1" />
+									
 							</form>
+							<div align="center" class="scott"> 
+							<c:if test="${page.hasPreviousPage==true }">
+								<a href="${ctx }/front/questions/edlist/0?page=${page.prePage }"><</a>&nbsp;&nbsp;
+							</c:if>
+							<c:if test="${page.hasPreviousPage==false }">
+								<a><</a>&nbsp;&nbsp;
+							</c:if>
+							<c:forEach items="${pageNum }" var="p">
+								<c:if test="${p==totalPage }">
+					${p }&nbsp;&nbsp;
+				</c:if>
+								<c:if test="${p!=totalPage }">
+									<a href="${ctx }/front/equestions/edlist/0?page=${p }">${p }</a>&nbsp;&nbsp;
+				</c:if>
+							</c:forEach>
+							<c:if test="${page.hasNextPage==true }">
+								<a href="${ctx }/front/equestions/edlist/0?page=${page.nextPage }">></a>
+							</c:if>
+							<c:if test="${page.hasNextPage==false }">
+								<a>></a>
+							</c:if>
+						</div> 
 						</div>
 						<!-- /问题列表 结束 -->
 					</section>
@@ -168,13 +185,14 @@
 								 <a onclick="submitForm('0','questionsTagId')"
 									href="javascript:;"
 									class="list-tag <c:if test='${questions.questionsTagId==0 }' >onactive</c:if>"
-									data-id="0" title="JAVA">全部</a> 
+									data-id="0" title="JAVA">标签</a> 
 								<c:forEach items="${questionsTagList }" var="questionsTag">
 									<a title="${questionsTag.questionsTagName }"
 										data-id="${questionsTag.questionsTagId }"
 										class="list-tag <c:if test='${questionsTag.questionsTagId==questions.questionsTagId }' >onactive</c:if>"
 										href="javascript:;"
-										onclick="submitForm('${questionsTag.questionsTagId }','questionsTagId')">${questionsTag.questionsTagName }</a>
+<%-- 										onclick="submitForm('${questionsTag.questionsTagId }','questionsTagId')" --%>
+										>${questionsTag.questionsTagName }</a>
 								</c:forEach>
 							</div>
 						</section>
@@ -202,5 +220,49 @@
 	</div>
 	<script type="text/javascript"
 		src="${ctx}/static/inxweb/questions/questions.js"></script>
+
+<style>
+div.scott {
+	padding: 3px;
+	margin: 3px;
+	text-align: center;
+}
+
+div.scott a {
+	border: #ddd 1px solid;
+	padding: 2px 5px;
+	color: #88af3f;
+	margin: 0 2px 0 0;
+	text-decoration: none;
+}
+
+div.scott a:hover {
+	border: #85bd1e 1px solid;
+	color: #638425;
+	background-color: #f1ffd6;
+}
+
+div.scott a:active {
+	border: #85bd1e 1px solid;
+	color: #638425;
+	background-color: #f1ffd6;
+}
+
+div.scott span.current {
+	border: #b2e05d 1px solid;
+	padding: 2px 5px;
+	font-weight: bold;
+	color: #fff;
+	margin: 0 2px 0 0;
+	background-color: #b2e05d;
+}
+
+div.scott span.disabled {
+	border: #f3f3f3 1px solid;
+	padding: 2px 5px;
+	color: #ccc;
+	margin: 0 2px 0 0;
+}
+</style>
 </body>
 </html>

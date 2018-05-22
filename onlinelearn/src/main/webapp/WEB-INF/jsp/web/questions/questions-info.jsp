@@ -14,7 +14,7 @@
 						<section class="path-wrap txtOf hLh30">
 							<a href="http://localhost:8080/front/" title="" class="c-999 fsize14">首页</a>
 							\
-							<a href="${ctx }/front/equestions/edlist" title="" class="c-999 fsize14">全部问答</a>
+							<a href="http://localhost:8080/front/equestions/edlist/0" title="" class="c-999 fsize14">全部问答</a>
 							\ <span class="c-333 fsize14">${questions.title }</span>
 						</section>
 						<!-- /问题详情 开始 -->
@@ -99,16 +99,17 @@
 						</section>
 						 <section class="pt20">
 							<div class="taglist clearfix">
-							 	  <%-- <form action="${ctx}/questions/list" id="searchForm" method="post">
+							 	  <form action="${ctx}/questions/list" id="searchForm" method="post">
 									<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
-								<input type="hidden" name="questions.orderFalg" value="${questions.orderFalg}" /> 
+<%-- 								<input type="hidden" name="questions.orderFalg" value="${questions.orderFalg}" />  --%>
 									<input type="hidden" name="questions.type" value="${questions.type}" />
 									<input type="hidden" name="questions.status" value="${questions.status}" />
-									<input type="hidden" name="questions.questionsTagId" value="${questions.questionsTagId}" />
-								</form>    --%>
-								<%-- <c:forEach items="${list }" var="questionsTag">
+<%-- 									<input type="hidden" name="questions.questionsTagId" value="${questions.questionsTagId}" /> --%>
+								</form>    
+								 <c:forEach items="${questionsTagList }" var="questionsTag">
 									<a title="${questionsTag.questionsTagName }" data-id="${questionsTag.questionsTagId }" class="list-tag" href="javascript:;" onclick="submitForm('${questionsTag.questionsTagId }','questionsTagId')">${questionsTag.questionsTagName }</a>
-								</c:forEach> --%>
+								</c:forEach> 
+								
 							</div>
 						</section> 
 						/标签云

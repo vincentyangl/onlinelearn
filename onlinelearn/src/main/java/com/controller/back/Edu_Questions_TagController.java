@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.Edu_Questions_Tag;
@@ -48,27 +50,48 @@ public class Edu_Questions_TagController {
 		return "redirect:eqtlist";
 	}
 	
-	@RequestMapping("/tzsasve")
-	public String tzsave(){
-		System.out.println("nihao");
-		return "redirect:/back/QuestionAnswer/QuestionAnswerListsave";
-	}
-	
-	@RequestMapping("/eqtgetById")
-	public ModelAndView getById(int questionsTagId){
-		ModelAndView mv=new ModelAndView();
-		Edu_Questions_Tag edu_Questions_Tag=edu_Questions_TagService.getById(questionsTagId);
-		mv.setViewName("/back/QuestionAnswer/QuestionAnswerListupdate");
-		mv.addObject("edu_Questions_Tag", edu_Questions_Tag);
-		return mv;
-	}
+//	@RequestMapping("/tzsasve")
+//	public String tzsave(){
+//		System.out.println("nihao");
+//		return "redirect:/back/QuestionAnswer/QuestionAnswerListsave";
+//	}
+//	
+//	@RequestMapping("/eqtgetById")
+//	public ModelAndView getById(int questionsTagId){
+//		ModelAndView mv=new ModelAndView();
+//		Edu_Questions_Tag edu_Questions_Tag=edu_Questions_TagService.getById(questionsTagId);
+//		mv.setViewName("/back/QuestionAnswer/QuestionAnswerListupdate");
+//		mv.addObject("edu_Questions_Tag", edu_Questions_Tag);
+//		return mv;
+//	}
 	
 	@RequestMapping("/eqtupdate")
-	public String update(Edu_Questions_Tag edu_Questions_Tag){
-		System.out.println(edu_Questions_Tag.getQuestionsTagId());
-		System.out.println(edu_Questions_Tag.getQuestionsTagName());
-		edu_Questions_TagService.update(edu_Questions_Tag);
-		System.out.println(edu_Questions_Tag);
+	public String update(@RequestParam(value = "id", defaultValue = "0") int qtid,@RequestParam(value = "name", defaultValue = "null")String tagName,Edu_Questions_Tag edu_Questions_Tag){
+		Edu_Questions_Tag questionsTag=new Edu_Questions_Tag();
+		questionsTag.setQuestionsTagId(qtid);
+		questionsTag.setQuestionsTagName(tagName);
+		questionsTag.setCreateTime(new Date());
+		System.out.println(questionsTag);
+		edu_Questions_TagService.update(questionsTag);
 		return "redirect:eqtlist";
 	}
+	
+//	@RequestMapping("/updates")
+//	public String updates(int qtid){
+//		edu_Questions_TagService.updates(qtid);
+//		return "redirect:eqtlist";
+//	}
+	
+//	@RequestMapping("/updateTag")
+//	@ResponseBody
+//	public String updateTag(@RequestParam(value = "id", defaultValue = "0") int qtid,@RequestParam(value = "name", defaultValue = "null")String tagName) {
+//		QuestionsTag questionsTag=new QuestionsTag();
+//		questionsTag.setQuestions_tag_id(qtid);
+//		questionsTag.setQuestions_tag_name(tagName);
+//		questionsTag.setCreate_time(new Date());
+//		System.out.println(questionsTag);
+//		questionsTagService.update(questionsTag);
+//		return "redirect:/admin/questions/toQuestionsTagList";
+//	}
+
 }
