@@ -106,7 +106,11 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                 <td><fmt:formatDate value="${u.lastLoginTime }" pattern="yyyy-MM-dd"/></td>
                                 <td>${u.lastLoginIp }</td>
                                 <td>${u.status }</td>
-                                <td><a href="/admin/user/userDelete/${u.userId }" class="btn btn-default ">删除</a><a href="/admin/user/toUserUpdate/${u.userId }" class="btn btn-default">修改</a></td>
+                                <td>
+                                <a href="/admin/user/toChangePwd/${u.userId }" class="btn btn-default ">修改密码</a>
+                                <a href="/admin/user/userDelete/${u.userId }" class="btn btn-default ">删除</a>
+                                <a href="/admin/user/toUserUpdate/${u.userId }" class="btn btn-default">修改</a>
+                                </td>
                               </tr>
                               </c:forEach>
                           </tbody>

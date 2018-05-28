@@ -61,10 +61,10 @@
 							</ul>
 						</article>
 						<!-- 公共分页 开始 -->
-						<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" />
+						<jsp:include page="/WEB-INF/jsp/common/front_page.jsp" /> 
 						<!-- 公共分页 结束 -->
 						<form method="post" id="searchForm" action="${ctx}/uc/freeCourseList">
-							<input type="hidden" id="pageCurrentPage" name="page.currentPage" value="1" />
+							<input type="hidden" id="pageCurrentPage" name="currentPage" value="1" />
 						</form>
 					</div>
 				</c:if>

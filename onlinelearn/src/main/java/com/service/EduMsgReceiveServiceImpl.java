@@ -28,7 +28,4 @@ public class EduMsgReceiveServiceImpl implements EduMsgReceiveService{
 	public void deleteSystemMsg(int id) {
 		mapper.deleteSystemMsg(id);
 	}
-
-
-
 }

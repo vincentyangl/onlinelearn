@@ -47,7 +47,8 @@
 		 });
 		 }
 	   $(document).ready(function(){
-		  
+		   //给状态赋值
+		   $("#is_avaliable").val("${course.is_avaliable}");
 		   var qpid = "${course.sysSubject.parent_id}";  
 		   $("#context").css("display","none");
 		   //初始化父id选项
@@ -235,7 +236,7 @@
 			$("#context").val("");
 		}
 		
-		function toEditCourse(){
+	/* 	function toEditCourse(){
 			var teaids = "";
 			for(var i=0;i<tids.length;i++){
 				teaids+=tids[i]+"-";
@@ -245,7 +246,7 @@
 			$("#context").val(context);
 			document.forms[0].action="/admin/course/courseEdit";
 			document.forms[0].submit();
-		}
+		} */
 		
 		function setTeacherIdToArray(){
 			$("input[name='tid']").each(function(){
@@ -264,12 +265,12 @@
 			</header>
 			<!-- /header -->
 			<div class="larry-personal-body clearfix">
-				<form class="layui-form col-lg-6" action="#" method="post" enctype="multipart/form-data">
+				<form class="layui-form col-lg-6" action="/admin/course/courseEdit" method="post" enctype="multipart/form-data">
 					<div class="layui-form-item">
 						<label class="layui-form-label ">课程名称:</label>
 						<div class="layui-input-block">
 						    <input type="hidden"  id="course_id" value="${course.course_id }" name="course_id" autocomplete="off"  class="layui-input ">
-							<input type="text"  id="course_name" value="${course.course_name }" name="course_name" autocomplete="off"  class="layui-input ">
+							<input type="text"  id="course_name" value="${course.course_name }" name="course_name" autocomplete="off"  class="layui-input "  lay-verify="course_name">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -300,21 +301,21 @@
 						<label class="layui-form-label">总课时:</label>
 						<div class="layui-input-block">
 							<input type="text"  id="lession_num" value="${course.lession_num }" name="lession_num" autocomplete="off"
-								class="layui-input ">
+								class="layui-input " lay-verify="lession_num">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">课程原价格:</label>
 						<div class="layui-input-block">
 							<input type="text" id="source_price"  value="${course.source_price }"  name="source_price1" autocomplete="off"
-								class="layui-input ">
+								class="layui-input "  lay-verify="source_price">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">课程销售价格:</label>
 						<div class="layui-input-block">
 							<input type="text" id="current_price"  value="${course.current_price }"  name="current_price1" autocomplete="off"
-								class="layui-input ">
+								class="layui-input " lay-verify="current_price">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -329,13 +330,13 @@
 					<div class="layui-form-item" id="day1">
 						<label class="layui-form-label">按天数:</label>
 						<div class="layui-input-block">
-							<input type="text"  id="lose_time"  value="${course.lose_time }"  name="lose_time" autocomplete="off" class="layui-input ">天
+							<input type="text"  id="lose_time"  value="${course.lose_time }"  name="lose_time" autocomplete="off" class="layui-input " lay-verify="lose_time">天
 						</div>
 					</div>
 					<div class="layui-form-item" id="time1">
 						<label class="layui-form-label">有效结束时间:</label>
 						<div class="layui-input-block">
-							<input type="date" id="end_time"  value="<fmt:formatDate value='${course.end_time }' pattern='yyyy-MM-dd' />"  name="endTime" autocomplete="off" class="layui-input "  >
+							<input type="date" id="end_time"  value="<fmt:formatDate value='${course.end_time }' pattern='yyyy-MM-dd' />"  name="endTime" autocomplete="off" class="layui-input "  lay-verify="endTime">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -364,8 +365,8 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label ">课程图片:</label>
 						<div class="layui-input-block">
-						    <input type="hidden"  value="${course.logo }" name="logo"/>
-						    <img alt=""   src="/upload/${course.logo }"  width="300" height="200">
+						    <input type="hidden"  value="${course.logo }" name="logo"/>    
+						    <img alt=""  id="blah" name="image_urls"  src="${course.logo }"  width="300" height="200">
 							<input type="file" id="logo1" name="logo1"  autocomplete="off" class="layui-input " >(请上传640*357(长*宽)像素的图片)
 						</div>
 					</div>
@@ -380,7 +381,7 @@
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn" onclick="toEditCourse()" type="button">立即提交</button>
+							<button class="layui-btn" lay-submit="" lay-filter="demo1" >立即提交</button>
 							<button type="reset"  onclick="cleanText()" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
@@ -392,6 +393,101 @@
 	<script type="text/javascript">
 	//实例化编辑器
     var um = UM.getEditor('myEditor');
+	
+  //表单验证
+	layui.use(['form', 'layedit', 'laydate'], function(){
+		  var form = layui.form
+		  ,layer = layui.layer
+		  ,layedit = layui.layedit
+		  ,laydate = layui.laydate;
+		  
+		  //创建一个编辑器
+		  var editIndex = layedit.build('LAY_demo_editor');
+		 
+		  //自定义验证规则
+		  form.verify({
+			  course_name: function(value){
+		      if(value.length < 3){
+		        return '课程名至少得3个字符啊';
+		      }
+		      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+		          return '课程名不能有特殊字符';
+		        }
+		        if(/^\d+\d+\d$/.test(value)){
+		          return '课程名不能全为数字';
+		        }
+		    }
+		    ,loginPwd: [/^(?:[1-9]\d?|[1234]\d{2}|500)$/, '课时为1~500之间的数字']
+		    ,source_price: [/^[0-9]+\.{0,1}[0-9]{0,2}$/, '请输入正确的价格']
+		    ,current_price:function(value){
+		    	var sprice = $('input[name=source_price]').val();
+		    	if(value > sprice){
+		    	return '售价不能大于原价!';
+		    	}
+		    	 if(!/^[0-9]+\.{0,1}[0-9]{0,2}$/.test(value)){
+			          return '请输入正确的价格';
+			        }
+		    	}
+		    ,lose_time:function(value){
+		    	if(/^[0-9]*[1-9][0-9]*$/.test(value)||value==''){
+		    		
+		        }else{
+		        	 return '请输入正确的天数';
+		        }
+		    	}
+		    ,title:function(value){
+		    	 if(value.trim().length<10||value.trim().length>30){
+			          return '课程简介在10~30个字符';
+			        }
+		    	}
+		  });
+		  
+		  //监听提交
+		  form.on('submit(demo1)', function(data){
+			  var b = true;
+			  var teaids = "";
+				for(var i=0;i<tids.length;i++){
+					teaids+=tids[i]+"-";
+				}
+				$("#teaids").val(teaids);
+				var context= UM.getEditor('myEditor').getContentTxt();
+				$("#context").val(context);
+				if(context.trim().length<20){
+					layer.alert("课程详情要在20字以上!");
+					return false;
+				}
+			  if(data.field.parent_id==-1){
+				  layer.alert("请选择专业!");
+				  return false;
+			  }
+			  if(teaids==''){
+				  layer.alert("请选择老师!");
+				  return false;
+			  }
+			  /* layer.alert(JSON.stringify(data.field), {
+			      title: '最终的提交信息'
+			    }); */
+			  return true;
+		  });
+		});
+	
+	
+//  图片显示
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#blah').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#logo1").change(function() {
+		readURL(this);
+	});
+	
+	
 </script>
 </body>
 </html>

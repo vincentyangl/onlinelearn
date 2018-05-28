@@ -40,7 +40,7 @@
 			<div  class="layui-form-item col-lg-5">
 					<label class="layui-form-label">操作人</label>
 					<div class="layui-input-block">
-						<input type="text" name="userId"  class="layui-input " value="${list.userId.loginName}" style="width:585px;" autocomplete="off" disabled="disabled">
+						<input type="text" name="userId"  class="layui-input " value="admin" style="width:585px;" autocomplete="off" disabled="disabled">
 					</div>
 				</div>
 				<div  class="layui-form-item col-lg-5">

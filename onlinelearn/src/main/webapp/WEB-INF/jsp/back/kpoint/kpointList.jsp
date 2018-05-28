@@ -111,10 +111,11 @@
             for(var i = 0; i < childNodes.length; i++){  
                 paramsArray.push(childNodes[i].id);  
             }  
-            alert("删除父节点的id为："+treeNode.id+"\r\n他的孩子节点有："+paramsArray.join(","));  
+         /*    alert("删除父节点的id为："+treeNode.id+"\r\n他的孩子节点有："+paramsArray.join(","));   */
+         alert("有子节点不能删除");
             return;  
         }  
-        alert("你点击要删除的节点的名称为："+treeNode.name+"\r\n"+"节点id为："+treeNode.id);  
+        alert("你点击要删除的节点的名称为："+treeNode.name+"\r\n"+"节点id为："+treeNode.id);
     }  
 	
 	 function returnPage(event, treeId, treeNode) {
@@ -128,15 +129,27 @@
 		};
 
 	function toAdd() {
-		if (id == -1) {
-			alert("请选择哪个节点下添加");
-		}
-		if (id != -1) {
-			$("#otherpage").attr("src","/admin/kpoint/toKpointAdd/"+id);
+		var course_id = "${course_id}";
+		$("#otherpage").attr("src","/admin/kpoint/toKpointAdd/"+id+"/"+course_id);
+	}
+	
+	function toDelete() {
+		if(id==-1){
+			alert("请选择要删除的节点");
+			$("#otherpage").attr("src","/admin/kpoint/toBlank");
+		}else{
+			var course_id = "${course_id}";
+			$("#otherpage").attr("src","/admin/kpoint/kpointDelete/"+id+"/"+course_id);
 		}
 	}
 	
-	
+	function cancelSelected(){
+		// 清空全部选中的节点  
+		var treeObj = $.fn.zTree.getZTreeObj("myTree");  
+		treeObj.cancelSelectedNode();
+		id = -1;
+		 $("#otherpage").attr("src","/admin/kpoint/toBlank");
+	}
 	
 	
 	
@@ -153,6 +166,8 @@
            <div align="left" style="font-weight:bold">菜单栏</div><br>
            <ul id="myTree" class="ztree"  height="500"></ul>
            <a href="#" class="btn btn-default " onclick="toAdd()">添加</a>
+           <a href="#" class="btn btn-default " onclick="toDelete()">删除</a>
+           <a href="#" class="btn btn-default " onclick="cancelSelected()">取消选中</a>
         </td>
         <td width="80%" bgcolor="white" valign="top">
             <iframe src="/admin/kpoint/toBlank"  id="otherpage" width="100%" height="900" scrolling="auto" frameborder="0"></iframe>

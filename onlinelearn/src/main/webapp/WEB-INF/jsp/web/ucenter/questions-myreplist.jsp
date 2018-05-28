@@ -10,7 +10,7 @@
 		<div class="u-r-cont">
 			<section>
 				<div>
-					<span class="fr"><a href="${ctx }/questions/toadd" title="" class="comm-btn c-btn-6" style="font-size: 16px; height: 22px; line-height: 22px; padding: 0 20px;">去提问</a></span>
+					<span class="fr"><a href="${ctx }/front/equestions/toadd" title="" class="comm-btn c-btn-6" style="font-size: 16px; height: 22px; line-height: 22px; padding: 0 20px;">去提问</a></span>
 					<section class="c-infor-tabTitle c-tab-title cnew-tab-title">
 						<a href="${ctx }javascript: void(0)" title="Wo的问答" style="cursor: default;">Wo的问答</a>
 						<a href="${ctx }/uc/myquestions/list" title="Wo的提问">Wo的提问</a>

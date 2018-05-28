@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mapper.WebEduMsgRereivingDao">
+  <select id="queryUnReadLetter" parameterType="java.util.Map" resultType="int">
+      select count(*) from edu_msg_receive where 0=0 
+      <if test="type!=null">
+          and type=#{type}
+      </if>
+      <if test="status!=null">
+          and status=#{status}
+      </if>
+      <if test="receivingCusid!=null">
+          and receiving_cusid=#{receivingCusid}
+      </if>
+  </select>
+  </mapper>

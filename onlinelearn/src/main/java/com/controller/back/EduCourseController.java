@@ -117,6 +117,7 @@ public class EduCourseController {
 		String [] teacherIds = teaids.split("-");
 		String endTime = request.getParameter("endTime");
 		System.out.println(endTime+"==================");
+		System.out.println(teacherIds+"==================");
 		if (endTime==null||endTime.trim().length()==0) {
 			eduCourse.setEnd_time(null);
 		}else {
@@ -132,7 +133,7 @@ public class EduCourseController {
 		String parent_id = request.getParameter("parent_id");
 		String subject_id = request.getParameter("subject_id");
 		SysSubject subject =null;
-		if (subject_id==null||subject_id.trim().length()==0) {
+		if (subject_id.equals("-1")) {
 			subject = sysSubjectService.getById(Integer.valueOf(parent_id));
 			eduCourse.setSubject_link(","+parent_id+",");
 		}else {
@@ -142,12 +143,12 @@ public class EduCourseController {
 		eduCourse.setSysSubject(subject);
 		String logoName = logo1.getOriginalFilename();
 		//upload文件夹的路径
-		String path = request.getRealPath("/upload/");
+		String path = request.getRealPath("/images/upload/course/");
 		File newLogo = new File(path, logoName);
 		try {
 			//将客户端上传的文件复制到服务器中
 			logo1.transferTo(newLogo);
-			eduCourse.setLogo(logoName);
+			eduCourse.setLogo("/images/upload/course/"+logoName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

@@ -245,7 +245,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":" +request.g
                                <td><fmt:formatDate
 										value="${p.send_time }" type="date"
 										pattern="yyyy-MM-dd hh:mm:ss" /></td>
-                                <td>${p.userId.loginName}</td>
+                                <td>admin</td>
                                 <td>
                                 <a href="/admin/email/content/${p.id}" class="btn btn-default">查看</a>
                                   </td>

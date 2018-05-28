@@ -51,9 +51,11 @@ public class SysUserController {
 	}
 	
 	@RequestMapping("/index")
-	public ModelAndView index() {
+	public ModelAndView index(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("sysFunctions", getSysFunctionMenu());
+		SysUser sysUser = (SysUser) session.getAttribute("sysUser");
+		mv.addObject("sysUser", sysUser);
 		mv.setViewName("/back/index/index");
 		return mv;
 	}
@@ -98,6 +100,7 @@ public class SysUserController {
 		 SysUser sysUser = sysUserService.listAll(map).get(0);
 		 session.setAttribute("sysUser", sysUser);
 		 mv.addObject("sysFunctions", getSysFunctionMenu());
+		 mv.addObject("sysUser", sysUser);
 		 mv.setViewName("/back/index/index");
 		return mv;
 	}
@@ -184,6 +187,21 @@ public class SysUserController {
 		mv.addObject("roleId", roleId);
 		mv.setViewName("/back/admin/userList");
 		return mv;
+	}
+	
+	@RequestMapping("/toChangePwd/{userId}")
+	public String toChangePwd(@PathVariable("userId") Integer userId,Model model) {
+		SysUser u = sysUserService.getById(userId);
+		model.addAttribute("u", u);
+		return "/back/admin/changepwd";
+	}
+	
+	@RequestMapping("/changePwd")
+	public String changePwd(SysUser sysUser) {
+		String result = getEncryptionPwd(sysUser);
+		sysUser.setLoginPwd(result);
+		sysUserService.updatePwd(sysUser);
+		return "redirect:/admin/user/userList";
 	}
 	
 }

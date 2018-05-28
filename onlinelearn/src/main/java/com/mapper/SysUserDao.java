@@ -13,4 +13,5 @@ public interface SysUserDao {
 	public void update(SysUser sysUser);
 	
 	public SysUser getById(int userId);
+	public void updatePwd(SysUser sysUser);
 }

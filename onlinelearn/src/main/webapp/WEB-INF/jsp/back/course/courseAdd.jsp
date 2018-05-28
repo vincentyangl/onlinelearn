@@ -168,7 +168,7 @@
 			$("#context").val("");
 		}
 		
-		function toAddCourse(){
+		/* function toAddCourse(){
 			var teaids = "";
 			for(var i=0;i<tids.length;i++){
 				teaids+=tids[i]+"-";
@@ -178,7 +178,7 @@
 			$("#context").val(context);
 			document.forms[0].action="/admin/course/courseAdd";
 			document.forms[0].submit();
-		}
+		} */
 		
 	</script>
 </head>
@@ -190,7 +190,7 @@
 			</header>
 			<!-- /header -->
 			<div class="larry-personal-body clearfix">
-				<form class="layui-form col-lg-6" action="#" method="post" enctype="multipart/form-data">
+				<form class="layui-form col-lg-6" action="/admin/course/courseAdd" method="post" enctype="multipart/form-data">
 					<div class="layui-form-item">
 						<label class="layui-form-label ">课程名称:</label>
 						<div class="layui-input-block">
@@ -270,7 +270,7 @@
 							<ul id="tea1"></ul>
 						</div>
 						<div class="layui-input-block">
-						<input type="hidden" id="teaids"  name="teaids" autocomplete="off" class="layui-input ">
+						<input type="hidden" id="teaids"  name="teaids" autocomplete="off" class="layui-input " lay-verify="teaids">
 							<select class="layui-input" width="150"  lay-filter="teaId" name="id" id="id">
 								<option value="-1" selected="selected">请选择</option>
 							</select>
@@ -285,6 +285,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label ">课程图片:</label>
 						<div class="layui-input-block">
+						    <img alt="" src="" id="blah" name="image_urls" style="height: 200px; width: 300px" />
 							<input type="file" id="logo1" name="logo1" autocomplete="off" class="layui-input " >(请上传640*357(长*宽)像素的图片)
 						</div>
 					</div>
@@ -299,7 +300,7 @@
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn" onclick="toAddCourse()" type="button">立即提交</button>
+							<button class="layui-btn"  lay-submit="" lay-filter="demo1" >立即提交</button>
 							<button type="reset"  onclick="cleanText()" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
@@ -310,6 +311,9 @@
 	<script type="text/javascript" src="/common/larry/layui/layui.js"></script>
 	<script type="text/javascript">
 	
+	//实例化编辑器
+    var um = UM.getEditor('myEditor');
+	//表单验证
 	layui.use(['form', 'layedit', 'laydate'], function(){
 		  var form = layui.form
 		  ,layer = layui.layer
@@ -321,59 +325,87 @@
 		 
 		  //自定义验证规则
 		  form.verify({
-			  loginName: function(value){
-		      if(value.length < 5){
-		        return '登录名至少得5个字符啊';
+			  course_name: function(value){
+		      if(value.length < 3){
+		        return '课程名至少得3个字符啊';
 		      }
 		      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-		          return '用户名不能有特殊字符';
-		        }
-		        if(/(^\_)|(\__)|(\_+$)/.test(value)){
-		          return '用户名首尾不能出现下划线\'_\'';
+		          return '课程名不能有特殊字符';
 		        }
 		        if(/^\d+\d+\d$/.test(value)){
-		          return '用户名不能全为数字';
+		          return '课程名不能全为数字';
 		        }
 		    }
-		  , userName: function(value){
-		      if(value.length < 5){
-			        return '昵称至少得5个字符啊';
-			      }
-		      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-		          return '用户名不能有特殊字符';
-		        }
-		        if(/(^\_)|(\__)|(\_+$)/.test(value)){
-		          return '用户名首尾不能出现下划线\'_\'';
-		        }
-		        if(/^\d+\d+\d$/.test(value)){
-		          return '用户名不能全为数字';
-		        }
-			    }
-		    ,loginPwd: [/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/, '密码必须6到16位字母数字组合']
-		    ,loginPwd1:function(value){
-		    	var passwordValue = $('input[name=loginPwd]').val();
-		    	if(value != passwordValue){
-		    	return '两次输入的密码不一致!';
+		    ,loginPwd: [/^(?:[1-9]\d?|[1234]\d{2}|500)$/, '课时为1~500之间的数字']
+		    ,source_price: [/^[0-9]+\.{0,1}[0-9]{0,2}$/, '请输入正确的价格']
+		    ,current_price:function(value){
+		    	var sprice = $('input[name=source_price]').val();
+		    	if(value > sprice){
+		    	return '售价不能大于原价!';
 		    	}
+		    	 if(!/^[0-9]+\.{0,1}[0-9]{0,2}$/.test(value)){
+			          return '请输入正确的价格';
+			        }
 		    	}
-		    ,tel: [/^1[3|4|5|7|8]\d{9}$/, '手机必须11位数字,且格式正确！']
-		    ,email: [/^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/, '邮箱格式不对']
+		    ,lose_time:function(value){
+		    	 if(/^[0-9]*[1-9][0-9]*$/.test(value)||value==''){
+		    		
+			        }else{
+			        	 return '请输入正确的天数';
+			        }
+		    	}
+		    ,title:function(value){
+		    	 if(value.trim().length<10||value.trim().length>30){
+			          return '课程简介在10~30个字符';
+			        }
+		    	}
 		  });
 		  
 		  //监听提交
 		  form.on('submit(demo1)', function(data){
 			  var b = true;
-			  if(data.field.roleId==-1){
-				  layer.alert("请选择角色!");
-				  b = false;
+			  var teaids = "";
+				for(var i=0;i<tids.length;i++){
+					teaids+=tids[i]+"-";
+				}
+				$("#teaids").val(teaids);
+				var context= UM.getEditor('myEditor').getContentTxt();
+				$("#context").val(context);
+				if(context.trim().length<20){
+					layer.alert("课程详情要在20字以上!");
+					return false;
+				}
+			  if(data.field.parent_id==-1){
+				  layer.alert("请选择专业!");
+				  return false;
 			  }
-			  return b;
+			  if(teaids==''){
+				  layer.alert("请选择老师!");
+				  return false;
+			  }
+			  /* layer.alert(JSON.stringify(data.field), {
+			      title: '最终的提交信息'
+			    }); */
+			  return true;
 		  });
 		});
 	
 	
-	//实例化编辑器
-    var um = UM.getEditor('myEditor');
+//  图片显示
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#blah').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#logo1").change(function() {
+		readURL(this);
+	});
+	
 </script>
 </body>
 </html>

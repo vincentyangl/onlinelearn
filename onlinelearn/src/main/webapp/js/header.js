@@ -1,7 +1,7 @@
 $(function() {
 	cssNavigation();
 	showUserInfo();
-	queryUnReadNum();// 查询未读消息
+//	queryUnReadNum();// 查询未读消息
 });
 
 /**

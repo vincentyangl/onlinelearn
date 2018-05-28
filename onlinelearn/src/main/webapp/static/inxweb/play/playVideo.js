@@ -13,7 +13,7 @@ $(function() {
 	// 加载 笔记编辑器
 	initKindEditornote();
 	if (isok == false) {
-		dialog('播放提示', message, 1);
+		//dialog('播放提示', message, 1);
 		return false;
 	} else {
 		// 播放第一个视频节点

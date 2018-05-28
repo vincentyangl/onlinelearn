@@ -23,9 +23,9 @@
     </resultMap>
     <insert id="save" parameterType="EduKpoint">
         insert into edu_course_kpoint (course_id,name,parent_id,add_time,sort,play_count,is_free,
-        video_url,teacher_id,play_time,kpoint_type,video_type,file_type,content) values (#{courseId},
-        #{name},#{pId},NOW(),#{sort},#{playCount},#{isFree},#{videoUrl},#{eduTeacher.id},#{playTime}
-        ,#{kpointType},#{videoType},#{fileType},#{content})
+        teacher_id,kpoint_type,video_type,file_type) values (#{courseId},
+        #{name},#{pId},NOW(),#{sort},0,#{isFree},#{eduTeacher.id}
+        ,#{kpointType},'INXEDUVIDEO',#{fileType})
     </insert>
     <delete id="delete" parameterType="int">
         delete from edu_course_kpoint where kpoint_id=#{value}

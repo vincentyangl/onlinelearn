@@ -84,12 +84,12 @@ public class LPersonalCenterController {
 		Edu_User byId = userService.getById(loginUser.getUserId());
 		session.setAttribute("login_success", byId);
 		System.out.println(JsonUtils.objectToJson(result));
-		try{
+		/*try{
 			result.setSuccess(false);
 			return JsonUtils.objectToJson(result);
 		}catch(Exception e){
 			e.printStackTrace();
-		}
+		}*/
 		return JsonUtils.objectToJson(result);
 	}
 	@RequestMapping("/updatePwd")

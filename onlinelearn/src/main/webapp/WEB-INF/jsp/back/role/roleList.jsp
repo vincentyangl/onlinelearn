@@ -145,12 +145,12 @@ function toUpdateRoleName(){
 }
 	
 function updateRoleName(){
-	var rname = $("rname").val();
-	if(rname!=null&&rname.trim().length!=0){
+	var rname = $("#rname").val();
+	if(rname==null||rname.trim().length==0){
+		alert("角色名不能为空！");
+	}else{
 		document.forms[0].action="/admin/role/updateRole";
 		document.forms[0].submit();
-	}else{
-		alert("角色名不能为空！");
 	}
 } 
 

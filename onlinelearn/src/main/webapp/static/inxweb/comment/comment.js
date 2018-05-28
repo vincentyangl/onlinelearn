@@ -1,10 +1,10 @@
 //查询评论
 function queryComment() {
-	ajaxPage("/front/web/comment/ajax/query", "&otherId=" + otherId + "&type=" + type+ "&order=commentId", 1, commentCallBack);
+	ajaxPage("/web/comment/ajax/query", "&otherId=" + otherId + "&type=" + type+ "&order=commentId", 1, commentCallBack);
 }
 //查询评论
 function queryWonderfulComment() {
-	ajaxPage("/front/web/comment/ajax/query", "&otherId=" + otherId + "&type=" + type+ "&order=praiseCount", 1, commentCallBack);
+	ajaxPage("/web/comment/ajax/query", "&otherId=" + otherId + "&type=" + type+ "&order=praiseCount", 1, commentCallBack);
 }
 function commentCallBack(result) {
 	$(".commentHtml").html(result);
@@ -12,7 +12,7 @@ function commentCallBack(result) {
 //查询文章评论回复
 function queryCommentReply(pCommentId) {
 	$.ajax({
-		url : baselocation + '/front/web/comment/ajax/commentreply',
+		url : baselocation + '/web/comment/ajax/commentreply',
 		data : {
 			"otherId" : otherId,
 			"pCommentId" : pCommentId
@@ -100,7 +100,6 @@ function addComment() {
 		dataType : 'text',
 		success : function(result) {
 			var content = $("#commentContent").val("");
-			alert(otherId+"---")
 			queryComment();
 			dialog('提示信息', "成功", 0);
 		}
@@ -136,7 +135,6 @@ function addPraise(commentId,otherId,userId,type){
 	$.post("/web/comment/ajax/addPraise",
 			{"commentId":commentId,"otherId":otherId,"userId":userId,"type":type},
 			function(msg){
-				alert(msg)
 				if(msg==0){
 					alert("你已经点过了");
 				}
@@ -148,3 +146,5 @@ function addPraise(commentId,otherId,userId,type){
 				}
 			},"json");
 }
+
+

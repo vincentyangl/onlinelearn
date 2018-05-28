@@ -40,11 +40,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    body{
       background-color: white;
    }
+   .layui-form{
+      width:100%;
+      height:100%
+   }
+    .layui-input-block{
+   width:73%
+   }
 </style>
 <script type="text/javascript">
 function renderForm(){
 	 layui.use('form', function(){
-	 var form = layui.form();//高版本建议把括号去掉，有的低版本，需要加()
+	 var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
 	 form.render();
 	 });
 	 }
@@ -74,44 +81,25 @@ function renderForm(){
 		   
 	   });
 		
-		//清空输入框
-		function cleanText(){
-			$("#course_name").val("");
-			$("#parent_id").val("-1");
-			$(".op").remove();
-			$(".op1").remove();
-			$(".op2").remove();
-			$(".tli").remove();
-			tids.splice(0,tids.length);
-			count = 0 ;
-			$("#is_avaliable").val("-1");
-			$("#lession_num").val("");
-			$("#source_price").val("");
-			$("#current_price").val("");
-			$("#loseType").val("1");
-			$("#id").val("-1");
-			$("#tea1").remove("li");
-			$("#lose_time").val("");
-			$("#end_time").val("");
-			$("#title").val("");
-			$("#logo").val("");
-			$("#context").val("");
-		}
 		
 		function toEditKpoint(){
 			var kpointType = $("#kpointType").val();
+			var fileType = $("#fileType").val();
 			if(kpointType==0){
 				document.forms[0].action="/admin/kpoint/kpointCatalogEdit";
 				document.forms[0].submit();
 			}
-			if(kpointType!=0){
+			if(kpointType==1&&fileType==('TXT')){
 				var fileType = $("#fileType").val();
 				if(fileType==("TXT") ){
 				    var context= UM.getEditor('myEditor').getContentTxt();
 					$("#content").val(context);
-					alert($("#content").val());
 				}
 				document.forms[0].action="/admin/kpoint/kpointEdit";
+				document.forms[0].submit();
+			}
+			if(kpointType==1&&fileType==('VIDEO')){
+				document.forms[0].action="/admin/kpoint/kpointVideoEdit";
 				document.forms[0].submit();
 			}
 		}
@@ -131,10 +119,10 @@ function renderForm(){
 						<label class="layui-form-label ">节点名称:</label>
 						<div class="layui-input-block">
 						<input type="hidden"  name="id"  value="${p.id }" />
-						    <input type="hidden"  value="${p.kpointType }" id="kpointType"/>
-						    <input type="hidden"  value="${p.fileType }" id="fileType"/>
+						    <input type="hidden"  value="${p.kpointType }"  name="kpointType" id="kpointType" lay-verify="kpointType"/>
+						    <input type="hidden"  value="${p.fileType }" name="fileType" id="fileType" lay-verify="fileType"/>
 							<input type="text"  id="name" name="name"  value="${p.name }" autocomplete="off"
-								class="layui-input ">
+								class="layui-input "  lay-verify="name" />
 						</div>
 					</div>
 					
@@ -142,7 +130,7 @@ function renderForm(){
 						<div class="layui-form-item">
 							<label class="layui-form-label">排序:</label>
 							<div class="layui-input-block">
-								<input type="text"  name="sort" value="${p.sort }" autocomplete="off" class="layui-input ">
+								<input type="text"  name="sort" value="${p.sort }" autocomplete="off" class="layui-input " >
 							</div>
 						</div>
 					</c:if>
@@ -151,7 +139,7 @@ function renderForm(){
 							<div class="layui-form-item">
 								<label class="layui-form-label ">文件上传:</label>
 								<div class="layui-input-block">
-								    <input type="hidden" value="${p.videoUrl }" name="videoUrl" />
+								    <input type="hidden" value="${p.videoUrl }" name="videoUrl3" />
 									<input type="file" id="videoUrl1" name="videoUrl1"
 										autocomplete="off" class="layui-input ">
 								</div>
@@ -159,7 +147,7 @@ function renderForm(){
 							<div class="layui-form-item">
 								<label class="layui-form-label ">文本内容:</label>
 								<div class="layui-input-block">
-									<script type="text/plain" id="myEditor" style="width: 650px; height: 240px;">
+									<script type="text/plain" id="myEditor" style="width: 650px; ">
                                            <p>${p.content}</p>
                                     </script>
 									<textarea rows="5" id="content" name="content" cols="78" class="layui-textarea"></textarea>
@@ -172,7 +160,7 @@ function renderForm(){
 								<div class="layui-input-block">
 									<input type="file" id="fileupload" class="vam" id="filename" name="mp4" style="display: block !important;" />
 									<div id="fileQueue" class="mt10"></div>
-									<input type="hidden" name="videoUrl2" id="videourl2" value="" style="width: 360px;" />
+									<input type="hidden" name="videourl2" id="videourl2" value="" />
 								</div>
 							</div>
 							<div class="layui-form-item">
@@ -209,16 +197,86 @@ function renderForm(){
 					
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn" onclick="toEditKpoint()" type="button">确定</button>
-							<button type="reset"  onclick="cleanText()" class="layui-btn layui-btn-primary">取消</button>
+							<button class="layui-btn"  lay-submit="" lay-filter="demo1" >确定</button>
+							<a  href="/admin/kpoint/toBlank"   class="layui-btn layui-btn-primary">取消</a>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 	</section>
-	<script type="text/javascript" src="/common/layui/layui.js"></script>
+	<script type="text/javascript" src="/common/larry/layui/layui.js"></script>
 	<script type="text/javascript">
+	
+	
+	//表单验证
+	layui.use(['form', 'layedit', 'laydate'], function(){
+		  var form = layui.form
+		  ,layer = layui.layer
+		  ,layedit = layui.layedit
+		  ,laydate = layui.laydate;
+		  
+		  //创建一个编辑器
+		  var editIndex = layedit.build('LAY_demo_editor');
+		 
+		  //自定义验证规则
+		  form.verify({
+			  name: function(value){
+		      if(value.length < 3){
+		        return '课程章节名至少得3个字符啊';
+		      }
+		      if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+		          return '课程章节名不能有特殊字符';
+		        }
+		    }
+		  });
+		  
+		  //监听提交
+		  form.on('submit(demo1)', function(data){
+			  var b = true;
+		      if(data.field.kpointType==0){
+		    	  if(!/^([1-9]\d*|[0]{1,1})$/.test(data.field.sort)){
+		    		  layer.alert('排序只能是自然数!');
+		    		  return false;
+		    	  }
+		    	  document.forms[0].action="/admin/kpoint/kpointCatalogEdit";
+				  document.forms[0].submit();
+		      }
+		      if(data.field.kpointType==1){
+		    	  if(data.field.fileType==('TXT') ){
+					    var context= UM.getEditor('myEditor').getContentTxt();
+						$("#content").val(context);
+						if(context.trim().length<10){
+							layer.alert('章节信息不能少于10个字');
+							return false;
+						}
+						document.forms[0].action="/admin/kpoint/kpointEdit";
+						document.forms[0].submit();
+					}
+		    	  if(data.field.fileType==('VIDEO')){
+		    		  if(!/^([1-9]\d*|[0]{1,1})$/.test(data.field.sort)){
+			    		  layer.alert('排序只能是自然数!');
+			    		  return false;
+			    	  }
+		    		  if(!/^([1-9]\d*|[0]{1,1})$/.test(data.field.playTime)){
+			    		  layer.alert('播放时间只能是自然数!');
+			    		  return false;
+			    	  }
+		    		  if(data.field.tid==-1){
+		    			  layer.alert('请选择老师!');
+		    			  return false;
+		    		  }
+						document.forms[0].action="/admin/kpoint/kpointVideoEdit";
+						document.forms[0].submit();
+					}
+		      }
+			  /*  layer.alert(JSON.stringify(data.field), {
+			      title: '最终的提交信息'
+			    }); 
+			  return false; */
+		  });
+		});
+	
 	//实例化编辑器
     var um = UM.getEditor('myEditor');
 	//视屏上传
@@ -252,6 +310,8 @@ function uploadPicLoad(fileupload,showId,fileQueue){
 			}
 		},
 		onComplete : function(event,queueID, fileObj, response,data) {
+			alert("上传成功!");
+			$("#videourl2").val(response);
 			$("#"+showId).val(response);
 		},
 		onError : function(event, queueID, fileObj,errorObj) {
@@ -261,7 +321,7 @@ function uploadPicLoad(fileupload,showId,fileQueue){
 	}
 
 function initUpdateKpoint(){
-	uploadPicLoad('fileupload','videoUrl2','fileQueue');
+	uploadPicLoad('fileupload','videourl2','fileQueue');
 }
 $(function(){
 	initUpdateKpoint();

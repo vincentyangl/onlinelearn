@@ -26,7 +26,7 @@
     <update id="update" parameterType="EduCourse">
        update edu_course set course_name=#{course_name}, 
        is_avaliable=#{is_avaliable},subject_id=#{sysSubject.subjectId},subject_link=#{subject_link},
-       add_time=#{add_time},source_price=#{source_price},current_price=#{current_price},
+       source_price=#{source_price},current_price=#{current_price},
        title=#{title},context=#{context},lession_num=#{lession_num},logo=#{logo},update_time=NOW(),
        end_time=#{end_time},loseType=#{loseType},lose_time=#{lose_time}
        where course_id=#{course_id}

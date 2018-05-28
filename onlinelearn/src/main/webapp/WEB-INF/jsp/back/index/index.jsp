@@ -98,7 +98,7 @@
 				</a>
 			</li>
 			
-			<c:forEach items="${sysFunctions }" var="sfs">
+			<%-- <c:forEach items="${sysFunctions }" var="sfs">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
 					<i class="iconfont icon-jiaoseguanli" ></i>
@@ -118,236 +118,33 @@
                     </c:forEach>
                 </dl>
 			</li>
+			</c:forEach> --%>
+			
+	
+			<c:forEach items="${sysUser.sysRole.sysFunctions }" var="sfs">
+			<c:if test="${sfs.pId==0 && sfs.functionType==1}"> 
+			<li class="layui-nav-item">
+				<a href="javascript:;">
+					<i class="iconfont icon-jiaoseguanli" ></i>
+					<span>${sfs.name }</span>
+					<em class="layui-nav-more"></em>
+				</a>
+				<dl class="layui-nav-child">
+                   <c:forEach items="${sfs.sysFunctions }" var="s">
+                    <c:if test="${s.functionType ==1 }">
+                    <dd>
+                        <a href="javascript:;" data-url="${s.functionUrl }">
+                            <i class="iconfont icon-geren1" data-icon='icon-geren1'></i>
+                            <span>${s.name }</span>
+                        </a>
+                    </dd>
+                    </c:if>
+                    </c:forEach>
+                </dl>
+			</li>
+			</c:if>
 			</c:forEach>
-			
-<!-- 			<!-- 教师管理 --> -->
-<!-- 			<li class="layui-nav-item"> -->
-<!-- 					<a href="javascript:;"> -->
-<!-- 					   <i class="iconfont icon-jiaoseguanli2" ></i> -->
-<!-- 					   <span>教师管理</span> -->
-<!-- 					   <em class="layui-nav-more"></em> -->
-<!-- 					</a> -->
-<!-- 					    <dl class="layui-nav-child"> -->
-<!-- 					    	<dd> -->
-<!-- 					    		<a href="javascript:;" data-url="/admin/teacher/teacherList"> -->
-<!-- 					    		   <i class="iconfont icon-yonghu1" data-icon='icon-yonghu1'></i> -->
-<!-- 					    		   <span>教师列表</span> -->
-<!-- 					    		</a> -->
-<!-- 					    	</dd> -->
-<!-- 					    	<dd> -->
-<!-- 					    		<a href="javascript:;"  data-url="/admin/SysSubject/SysSubjectList/1"> -->
-<!-- 					    		   <i class="iconfont icon-jiaoseguanli4" data-icon='icon-jiaoseguanli4'></i> -->
-<!-- 					    		   <span>添加讲师</span> -->
-<!-- 					    		</a> -->
-<!-- 					    	</dd> -->
-<!-- 					    </dl> -->
-<!-- 			    </li> -->
-			<!-- 内容管理 -->
-			<li class="layui-nav-item">
-					<a href="javascript:;">
-					   <i class="iconfont icon-wenzhang1" ></i>
-					   <span>内容管理</span>
-					   <em class="layui-nav-more"></em>
-					</a>
-					   <dl class="layui-nav-child">
-					   	   <dd>
-					    		<a href="javascript:;" data-url="404.jsp">
-					    		   <i class="iconfont icon-lanmuguanli" data-icon='icon-lanmuguanli'></i>
-					    		   <span>404页面</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-wenzhang2" data-icon='icon-wenzhang2'></i>
-					    		   <span>所有档案列表</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-icon1" data-icon='icon-icon1'></i>
-					    		   <span>待审核的档案</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-word" data-icon='icon-word'></i>
-					    		   <span>我发布的文档</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-pinglun1" data-icon='icon-pinglun1'></i>
-					    		   <span>评论管理</span>
-					    		</a>
-					    	</dd>
-					    	
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-tags1" data-icon='icon-tags1'></i>
-					    		   <span>TAGS管理</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-huishouzhan1" data-icon='icon-huishouzhan1'></i>
-					    		   <span>内容回收站</span>
-					    		</a>
-					    	</dd>
-					   </dl>
-			   </li>
-			
-                 <!-- 会员管理 -->
-				<li class="layui-nav-item">
-					<a href="javascript:;">
-					   <i class="iconfont icon-m-members" ></i>
-					   <span>问答</span>
-					   <em class="layui-nav-more"></em>
-					</a>
-					<dl class="layui-nav-child">
-                           <dd>
-                           	   <a href="javascript:;" data-url="/admin/equestions/edlist">
-					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>问答标签</span>
-					           </a>
-                           </dd>
-                           <dd>
-                           	   <a href="javascript:;" data-url="tab.jsp">
-					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>问答列表</span>
-					           </a>
-                           </dd>
-                           <dd>
-                           	   <a href="javascript:;" data-url="tab.jsp">
-					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>问答回复列表</span>
-					           </a>
-                           </dd>
-                    </dl>
-				</li>
-				
-				 <!-- 后台管理 -->
-				<li class="layui-nav-item">
-					<a href="javascript:;">
-					   <i class="iconfont icon-m-members" ></i>
-					   <span>后台管理</span>
-					   <em class="layui-nav-more"></em>
-					</a>
-					<dl class="layui-nav-child">
-                           <dd>
-                           	   <a href="javascript:;" data-url="UserServlet?state=list">
-					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>用户管理</span>
-					           </a>
-                           </dd>
-                           <dd>
-                           	   <a href="javascript:;" data-url="RoleServlet?state=list">
-					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>角色管理</span>
-					           </a>
-                           </dd>
-                           <dd>
-                           	   <a href="javascript:;" data-url="PowerServlet?state=list">
-					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>权限管理</span>
-					           </a>
-                           </dd>
-                    </dl>
-				</li>
-				
-				<li class="layui-nav-item">
-					<a href="javascript:;">
-					   <i class="iconfont icon-shengchengbaogao" ></i>
-					   <span>网站维护</span>
-					   <em class="layui-nav-more"></em>
-					</a>
-					   <dl class="layui-nav-child">
-                           <dd>
-                           	   <a href="javascript:;">
-					              <i class="iconfont icon-zhuti"  data-icon='icon-zhuti'></i>
-					              <span>网站主题</span>
-					           </a>
-                           </dd>
-                           <dd>
-					    		<a href="">
-					    		   <i class="iconfont icon-database" data-icon='icon-database'></i>
-					    		   <span>数据库管理</span>
-					    		</a>
-					    	</dd>
-					   	    <dd>
-					    		<a href="">
-					    		   <i class="iconfont icon-shengchengbaogao" data-icon='icon-shengchengbaogao'></i>
-					    		   <span>生成页面</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="">
-					    		   <i class="iconfont icon-qingchuhuancun" data-icon='icon-qingchuhuancun'></i>
-					    		   <span>更新缓存</span>
-					    		</a>
-					    	</dd>
-					    	
-					   </dl>
-				</li>
-				
-			<!-- 系统设置 -->
-			<li class="layui-nav-item">
-					<a href="javascript:;">
-					   <i class="iconfont icon-xitong" ></i>
-					   <span>系统设置</span>
-					   <em class="layui-nav-more"></em>
-					</a>
-					    <dl class="layui-nav-child">
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-zhandianpeizhi" data-icon='icon-zhandianpeizhi'></i>
-					    		   <span>基本参数设置</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-zhandianguanli1" data-icon='icon-zhandianguanli1'></i>
-					    		   <span>多站点管理</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-anquanshezhi" data-icon='icon-anquanshezhi'></i>
-					    		   <span>安全设置</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-sms" data-icon='icon-sms'></i>
-					    		   <span>短信接口设置</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    		   <i class="iconfont icon-iconfuzhi01" data-icon='icon-iconfuzhi01'></i>
-					    		   <span>系统日志管理</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    			<i class='iconfont icon-SQLServershujuku' data-icon='icon-SQLServershujuku'></i>
-					    			<span>SQL命令行工具</span>
-					    		</a>
-					    	</dd>
-					    	<dd>
-					    		<a href="javascript:;">
-					    			<i class='iconfont icon-xinxicaiji' data-icon='icon-xinxicaiji'></i>
-					    			<span>防采集管理</span>
-					    		</a>
-					    	</dd>
-					    </dl>
-				</li>
-				<!-- 友链设置 -->
-				<li class="layui-nav-item">
-					<a href="javascript:;">
-					   <i class="iconfont icon-youqinglianjie"  data-icon='icon-youqinglianjie'></i>
-					   <span>友情链接</span>
-					</a>
-				</li>
+            
 		</ul>
 	    </div>
 	</div>

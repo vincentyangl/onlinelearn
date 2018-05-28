@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>商品添加</title>
+	<title>用户添加</title>
 	<meta name="renderer" content="webkit">	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
@@ -17,7 +17,9 @@
 	<link rel="stylesheet" type="text/css" href="/css/personal.css" media="all">
 	<script src="/js/jquery.js" type="text/javascript" charset="utf-8"></script>
 	<style type="text/css">
-	   
+	     .layui-input-block{
+	        width:50%
+	    }
 	</style>
 	<script type="text/javascript">
 	function renderForm(){

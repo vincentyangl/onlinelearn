@@ -51,4 +51,7 @@
              and (loginName like '%${qname}%' or userName like '%${qname}%')
           </if>
     </select>
+    <update id="updatePwd" parameterType="SysUser">
+        update sys_user set loginPwd=#{loginPwd} where userId=#{userId}
+    </update>
   </mapper>
